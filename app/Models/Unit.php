@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Unit extends Model
+{
+    use HasFactory;
+
+    protected $appends = ['activities'];
+
+    protected $fillable = [
+        'name',
+        'construction_id',
+        'level_id',
+        'site_id',
+        'statu_id',
+        'trader_id',
+        'finance_id',
+        'space',
+        'price_m',
+        'unit_value',
+        'deposit',
+        'rent_value',
+        'rents_count',
+        'discount',
+        'description',
+    ];
+
+    public function construction()
+    {
+        return $this->belongsTo(Construction::class);
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function trader()
+    {
+        return $this->belongsTo(Trader::class);
+    }
+
+    public function statu()
+    {
+        return $this->belongsTo(Statu::class)->withDefault(
+            [
+                'id' => 0,
+                'name'=> 'خالية'
+            ]);
+    }
+
+    public function site()
+    {
+        return $this->belongsTo(Site::class);
+    }
+
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class, 'activity_trader');
+    }
+
+    public function getActivitiesAttribute()
+    {
+        return $this->activities;
+    }
+}

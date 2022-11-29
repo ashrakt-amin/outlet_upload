@@ -1,0 +1,10 @@
+.one-product-div {
+
+    .wichlist-product {
+        background-color: rgb(240, 248, 255,.8);
+        
+        &:hover {
+            background-color: white;
+        }
+    }
+}

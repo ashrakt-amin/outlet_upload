@@ -1,0 +1,87 @@
+1- to fix 419 error of inserting form from reactjs to laravel stor function
+   ----> in verifyCsrfToken.php->protected $except = [
+        we will add -> 'api/*'
+    ];
+
+2- multi images
+
+        if ($request->hasFile('img')) {
+            foreach ($request->file('img') as $image) {
+                $name            = $image->getClientOriginalName();
+                $ext             = $image->getClientOriginalExtension();
+                $filename        = rand(10,100000).time().'.'.$ext;
+                $image->move('assets/images/uploads/items/',$filename);
+
+                $images[] = $filename;
+                $implode  = implode(',',$images);
+            }
+        }
+
+3- integer shape
+    $integer  =   (float)$this->discount;
+
+4-
+ getter & setter
+
+    public function getImageAttribute()
+    {
+    	$ad=AdImage::where('ad_id',$this->id)->first();
+    	if (is_null($ad)) {
+            return url('storage/ad/default.png');
+        }
+        $image = $ad->thumb;
+        return $image;
+    }
+    public function getFullAttribute()
+    {
+    	$ad=AdImage::where('ad_id',$this->id)->first();
+    	if (is_null($ad)) {
+            return url('storage/ad/default.png');
+        }
+        $image = $ad->image;
+        return $image;
+    }
+
+    public function getFavoriedAttribute()
+    {
+        if(Auth::user()){
+            $fav = Favourite::where('user_id',auth()->user()->id)->where('ad_id',$this->id)->first();
+            if(is_null($fav)){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    public function getActiveAtAttribute(){
+        if($this->attributes['active_at'] != null){
+            return Carbon::parse($this->attributes['active_at'])->diffForHumans();
+        }else{
+           return null;
+        }
+    }
+    public function getCreatedAtAttribute(){
+        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
+    }
+
+5 -
+
+$flight = App\Flight::updateOrCreate(
+   [
+       'departure' => 'Oakland',
+       'destination' => 'San Diego'
+   ],
+   [
+      'price' => 99,
+      'created_by' => $user_id,
+      'updated_by' => $user_id,
+   ]
+);
+
+6-
+
+   [
+     'img'=> explode(',', $this->img),
+   ]

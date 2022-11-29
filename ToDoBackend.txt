@@ -1,0 +1,37 @@
+- product views -------------------------------------------------------------------------> done -> 75%
+- wishlist page -------------------------------------------------------------------------> done -> 75%
+- multiple prodcut image ----------------------------------------------------------------> done;
+- in the item: availble input from null to true or false --------------------------------> done;
+- send trader name and logo with every item. --------------------------------------------> done;
+- if code send it is already exist. -----------------------------------------------------> done;
+- convert date to age function ----------------------------------------------------------> done;
+- middleware('auth_optional:api')
+
+- arabic pages
+- created_by & updated_by
+- compare page
+- refresh token
+- current device name
+- auto message to trader if one client visit his item more than 3 times
+- make ModelRequest
+- sanctum guard driver in auth.php
+- guard user without web
+- SEO
+- PAYPAL
+To Fix:[
+    -> api/traders/trader : i get the first user even if i did not send the token.(auth not working)(Will check if done)
+    -> views increased when trader view his product.
+    -> views increased when user view the product.
+    -> get empty string not null
+    ]
+
+To Change:
+
+
+--------------------------------------- ( To Finish First) -----------------------------------------------------
+-> trader image when post(register) his info. ----------------------------------------------------------> done;
+--> item is approved or not. done.            ----------------------------------------------------------> done;
+----> assign trader to his level. done.       ----------------------------------------------------------> done;
+---> send trader name and logo with every item. done.
+
+-> check update advertisement img input --> is it array ?

@@ -1,0 +1,311 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+use App\Models\Unit;
+
+use App\Models\Level;
+use App\Models\Activity;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\UnitResource;
+use App\Http\Resources\UnitCollection;
+
+class UnitController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $units = Unit::all();
+        // return new Collection($projects);
+        return response()->json([
+            "data" => UnitResource::collection($units)
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $unit = Unit::create($request->all());
+            if ($unit) {
+                return response()->json([
+                    "success" => true,
+                    "message" => "تم تسجيل وحدة جديدة",
+                    "data" => $unit
+                ], 200);
+            } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تسجيل الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Unit $unit)
+    {
+        $activities = DB::table('activity_trader')->where(['unit_id'=>$unit->id, 'trader_id'=>$unit->trader_id])->get();
+        $unit = Unit::where(['id'=>$unit->id])->with(['construction', 'level', 'trader', 'statu', 'activities'])->get();
+        foreach ($activities as $activity) {
+            $activity = Activity::find($activity->id);
+            $activitiesArry[] = new ActivityResource($activity);
+        }
+        return response()->json([
+            "data"       => UnitResource::collection($unit),
+            "activities" => count($activities) > 0 ? $activitiesArry : false,
+        ], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Unit $unit)
+    {
+        if ($unit->update($request->all())) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم تعديل الوحدة",
+                "data" => UnitResource::collection($unit)
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تعديل الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request, Unit $unit)
+    {
+        if ($unit->update($request->all())) {
+            // $pivot = DB::table('level_trader')->where(['level_id'=>$unit->level_id, 'trader_id'=>$unit->trader_id, 'unit_id'=>$unit->id])->get();
+            // if (!$pivot) {
+            //     $level = Level::find($unit->level_id);
+            //     $level->traders()->attach([$unit->trader_id], ['unit_id'=> $unit->id]);
+            // }
+            return response()->json([
+                "success" => true,
+                "message" => "حالة الوحدة".''.$unit->statu->name,
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تغيير حالة الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function activities(Request $request)
+    {
+        $activities = $request->activity_id;
+        foreach ($activities as $key => $value) {
+            $pivot = DB::table('activity_trader')->where(['activity_id'=>$value['id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
+            if ($pivot) {
+                return response()->json([
+                    "success" => true,
+                    "message" => "نشاطا مضافا من قبل",
+                ], 200);
+            }
+            $activity = Activity::find($value['id']);
+            $activity->traders()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
+        }
+        $unit = DB::table('activity_trader')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
+        if ( $unit > 0 ) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم اضافة انشطة الوحدة",
+                "data" => $unit
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل اضافة انشطة الوحدة",
+            ], 422);
+        }
+        // update pivot table
+        Activity::find($value['activity_id'])->traders()->updateExistingPivot($request->trader_id, ['unit_id'=>$value['unit_id']]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function updateActivity(Request $request, Unit $unit)
+    {
+            $pivot = DB::table('activity_trader')->where(['activity_id'=>$request->activity_id, 'trader_id'=>$request->trader_id, 'unit_id'=>$unit->id])->first();
+            if ($pivot) {
+                return response()->json([
+                    "success" => true,
+                    "message" => "نشاطا مضافا من قبل",
+                ], 200);
+            }
+            // update pivot table
+            $updateActivity = Activity::find($request->activity_id)->traders()->updateExistingPivot([$unit->trader_id], ['unit_id'=>$unit->id]);
+        if ($updateActivity) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم تعديل انشطة الوحدة",
+                "data" => $unit->statu->name
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تعديل انشطة الوحدة",
+            ], 422);
+        }
+        // delete pivot row
+        $activity = Activity::find($request->activity_id);
+        $activity->roles()->detach([$unit->trader_id], ['unit_id'=>$unit->id]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function finance(Request $request, Unit $unit)
+    {
+        if ($unit->update($request->all())) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم اختيار نظام دفع الوحدة",
+                "data" => $unit->finance_id
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل اختيار نظام دفع الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function deposit(Request $request, Unit $unit)
+    {
+        if ($unit->update($request->all())) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم تعديل أشهر التأمين الوحدة",
+                "data" => $unit->deposit
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تعديل أشهر التأمين الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function rents(Request $request, Unit $unit)
+    {
+        if ($unit->update($request->all())) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم تعديل عدد أشهر ايجار الوحدة",
+                "data" => $unit->rents_count
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تعديل عدد أشهر ايجار الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function discount(Request $request, Unit $unit)
+    {
+        if ($unit->update($request->all())) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم اضافة خصم الوحدة",
+                "data" => $unit->discount
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل اضافة خصم الوحدة",
+            ], 422);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Unit $unit)
+    {
+        if ($unit->trader_id == 0) {
+            $unit->delete();
+            return response()->json([
+                "success" => true,
+                "message" => "تم حذف الوحدة",
+                "data" => $unit
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل حذف الوحدة",
+            ], 422);
+        }
+    }
+}

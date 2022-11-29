@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f4f5fa;
+  font-family: "Noto Kufi Arabic", sans-serif;
+}
+
+select {
+  background-image: none !important;
+}
+
+.active {
+  background-color: #fff;
+  color: #000 !important;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
