@@ -1,0 +1,16 @@
+.slider-one {
+
+    .swiper-parent .swiper-slide img {
+        width: 100%;
+        /* height: 100%; */
+    }
+    
+    
+    .swiper-button-next, .swiper-button-prev { 
+        color: dodgerblue !important;
+        background-color: rgba(230, 230, 230, 0.9);
+        padding: 20px!important;
+        border-radius: 5px;
+    };
+    
+}

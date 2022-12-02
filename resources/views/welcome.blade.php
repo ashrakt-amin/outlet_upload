@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel 9 vite with react</title>
-
-        @viteReactRefresh
-        @vite('resources/js/app.jsx')
+        <title>App</title>
     </head>
+
     <body>
         <div id="app"></div>
+
+        <script src="{{ mix('js/app.js') }}"></script>
+        <!-- <script src="resources/js/app.js"></script> -->
     </body>
-    <script>
-      const global = globalThis;
-</script>
 </html>
