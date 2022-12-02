@@ -18,7 +18,7 @@
       "resources/js/pages/TraderDashboard/TraderDashboard.jsx"
     ],
     "css": [
-      "assets/app.2ec1eba6.css"
+      "assets/app.c1cea9db.css"
     ],
     "assets": [
       "assets/heart.1acf0142.gif",
@@ -60,16 +60,16 @@
       "assets/TraderDashboard.e7b47b7e.css"
     ]
   },
-  "resources/js/pages/TraderDashboard/TraderDashboard.css": {
-    "file": "assets/TraderDashboard.e7b47b7e.css",
-    "src": "resources/js/pages/TraderDashboard/TraderDashboard.css"
-  },
   "resources/js/pages/Dashboard.css": {
     "file": "assets/Dashboard.83242875.css",
     "src": "resources/js/pages/Dashboard.css"
   },
+  "resources/js/pages/TraderDashboard/TraderDashboard.css": {
+    "file": "assets/TraderDashboard.e7b47b7e.css",
+    "src": "resources/js/pages/TraderDashboard/TraderDashboard.css"
+  },
   "resources/js/app.css": {
-    "file": "assets/app.2ec1eba6.css",
+    "file": "assets/app.c1cea9db.css",
     "src": "resources/js/app.css"
   }
 }
