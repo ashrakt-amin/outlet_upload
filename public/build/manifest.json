@@ -8,7 +8,7 @@
     "src": "resources/js/pages/LevelTrader/heart.gif"
   },
   "resources/js/app.jsx": {
-    "file": "assets/app.e19af88a.js",
+    "file": "assets/app.473e1b2f.js",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "dynamicImports": [
@@ -18,7 +18,7 @@
       "resources/js/pages/TraderDashboard/TraderDashboard.jsx"
     ],
     "css": [
-      "assets/app.702c1cbd.css"
+      "assets/app.2ec1eba6.css"
     ],
     "assets": [
       "assets/heart.1acf0142.gif",
@@ -31,7 +31,7 @@
     "isDynamicEntry": true
   },
   "resources/js/pages/Dashboard.jsx": {
-    "file": "assets/Dashboard.22da8917.js",
+    "file": "assets/Dashboard.f86f36c0.js",
     "src": "resources/js/pages/Dashboard.jsx",
     "isDynamicEntry": true,
     "imports": [
@@ -42,7 +42,7 @@
     ]
   },
   "resources/js/pages/AdminPages/AdminLogin/AdminLogin.jsx": {
-    "file": "assets/AdminLogin.e497fa70.js",
+    "file": "assets/AdminLogin.2b65b0f5.js",
     "src": "resources/js/pages/AdminPages/AdminLogin/AdminLogin.jsx",
     "isDynamicEntry": true,
     "imports": [
@@ -50,7 +50,7 @@
     ]
   },
   "resources/js/pages/TraderDashboard/TraderDashboard.jsx": {
-    "file": "assets/TraderDashboard.f6bcb9a9.js",
+    "file": "assets/TraderDashboard.d413cc22.js",
     "src": "resources/js/pages/TraderDashboard/TraderDashboard.jsx",
     "isDynamicEntry": true,
     "imports": [
@@ -60,16 +60,16 @@
       "assets/TraderDashboard.e7b47b7e.css"
     ]
   },
-  "resources/js/pages/Dashboard.css": {
-    "file": "assets/Dashboard.83242875.css",
-    "src": "resources/js/pages/Dashboard.css"
-  },
   "resources/js/pages/TraderDashboard/TraderDashboard.css": {
     "file": "assets/TraderDashboard.e7b47b7e.css",
     "src": "resources/js/pages/TraderDashboard/TraderDashboard.css"
   },
+  "resources/js/pages/Dashboard.css": {
+    "file": "assets/Dashboard.83242875.css",
+    "src": "resources/js/pages/Dashboard.css"
+  },
   "resources/js/app.css": {
-    "file": "assets/app.702c1cbd.css",
+    "file": "assets/app.2ec1eba6.css",
     "src": "resources/js/app.css"
   }
 }
