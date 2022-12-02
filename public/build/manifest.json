@@ -1,0 +1,75 @@
+{
+  "resources/js/pages/Products/ProductDetails/cartanimation.gif": {
+    "file": "assets/cartanimation.b7d456d5.gif",
+    "src": "resources/js/pages/Products/ProductDetails/cartanimation.gif"
+  },
+  "resources/js/pages/LevelTrader/heart.gif": {
+    "file": "assets/heart.1acf0142.gif",
+    "src": "resources/js/pages/LevelTrader/heart.gif"
+  },
+  "resources/js/app.jsx": {
+    "file": "assets/app.e19af88a.js",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/web-vitals/dist/web-vitals.js",
+      "resources/js/pages/Dashboard.jsx",
+      "resources/js/pages/AdminPages/AdminLogin/AdminLogin.jsx",
+      "resources/js/pages/TraderDashboard/TraderDashboard.jsx"
+    ],
+    "css": [
+      "assets/app.702c1cbd.css"
+    ],
+    "assets": [
+      "assets/heart.1acf0142.gif",
+      "assets/cartanimation.b7d456d5.gif"
+    ]
+  },
+  "node_modules/web-vitals/dist/web-vitals.js": {
+    "file": "assets/web-vitals.67dce932.js",
+    "src": "node_modules/web-vitals/dist/web-vitals.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/pages/Dashboard.jsx": {
+    "file": "assets/Dashboard.22da8917.js",
+    "src": "resources/js/pages/Dashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/Dashboard.83242875.css"
+    ]
+  },
+  "resources/js/pages/AdminPages/AdminLogin/AdminLogin.jsx": {
+    "file": "assets/AdminLogin.e497fa70.js",
+    "src": "resources/js/pages/AdminPages/AdminLogin/AdminLogin.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/pages/TraderDashboard/TraderDashboard.jsx": {
+    "file": "assets/TraderDashboard.f6bcb9a9.js",
+    "src": "resources/js/pages/TraderDashboard/TraderDashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/TraderDashboard.e7b47b7e.css"
+    ]
+  },
+  "resources/js/pages/Dashboard.css": {
+    "file": "assets/Dashboard.83242875.css",
+    "src": "resources/js/pages/Dashboard.css"
+  },
+  "resources/js/pages/TraderDashboard/TraderDashboard.css": {
+    "file": "assets/TraderDashboard.e7b47b7e.css",
+    "src": "resources/js/pages/TraderDashboard/TraderDashboard.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app.702c1cbd.css",
+    "src": "resources/js/app.css"
+  }
+}
