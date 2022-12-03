@@ -9,16 +9,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <!-- Scripts -->
     @viteReactRefresh
-    @vite(['resources/sass/app.szcss', 'resources/js/app.js'])
+    @vite('resources/js/app.jsx')
 </head>
 <body>
-    <div id="root">
+    <div id="app">
     </div>
 </body>
 </html>
