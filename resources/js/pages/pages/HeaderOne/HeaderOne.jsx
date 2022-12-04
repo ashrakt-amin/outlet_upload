@@ -73,7 +73,7 @@ const Header = () => {
             const getCartProductsCount = async () => {
                 try {
                     const res = await axios.get(
-                        `${process.env.MIX_APP_URL}/api/carts/`,
+                        `${process.env.MIX_APP_URL}api/carts/`,
                         {
                             cancelRequest: cancelRequest.token,
                             headers: { Authorization: `Bearer ${getToken}` },
@@ -90,7 +90,7 @@ const Header = () => {
             const getWishlistProductsCount = async () => {
                 try {
                     const res = await axios.get(
-                        `${process.env.MIX_APP_URL}/api/wishlists/`,
+                        `${process.env.MIX_APP_URL}api/wishlists/`,
                         {
                             cancelRequest: cancelRequest.token,
                             headers: { Authorization: `Bearer ${getToken}` },
@@ -107,7 +107,7 @@ const Header = () => {
         const getCategories = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/categories`,
+                    `${process.env.MIX_APP_URL}api/categories`,
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,
@@ -123,7 +123,7 @@ const Header = () => {
         const getConstructions = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/levels`,
+                    `${process.env.MIX_APP_URL}api/levels`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -159,23 +159,25 @@ const Header = () => {
     const logoutFunc = async () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         axios.defaults.withCredentials = true;
-        await axios.get(`/` + "sanctum/csrf-cookie").then(async (r) => {
-            try {
-                let res = await axios.post(
-                    `${process.env.MIX_APP_URL}/api/logout`,
-                    {},
-                    {
-                        headers: { Authorization: `Bearer ${getToken}` },
-                    }
-                );
-                dispatch(productsInWishlistNumber(0));
-                console.log(res);
-                localStorage.removeItem("clTk");
-                navigate("/");
-            } catch (er) {
-                console.log(er);
-            }
-        });
+        await axios
+            .get(`${process.env.MIX_APP_URL}` + "sanctum/csrf-cookie")
+            .then(async (r) => {
+                try {
+                    let res = await axios.post(
+                        `${process.env.MIX_APP_URL}api/logout`,
+                        {},
+                        {
+                            headers: { Authorization: `Bearer ${getToken}` },
+                        }
+                    );
+                    dispatch(productsInWishlistNumber(0));
+                    console.log(res);
+                    localStorage.removeItem("clTk");
+                    navigate("/");
+                } catch (er) {
+                    console.log(er);
+                }
+            });
     };
 
     const wishlistProductsCount = async () => {

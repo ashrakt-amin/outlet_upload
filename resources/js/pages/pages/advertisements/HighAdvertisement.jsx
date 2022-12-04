@@ -8,9 +8,9 @@ const HighAdvertisement = () => {
         const getAdvertisements = async () => {
             try {
                 axios
-                    .get("${process.env.MIX_APP_URL}/api/advertisements")
+                    .get(`${process.env.MIX_APP_URL}api/advertisements`)
                     .then((res) => {
-                        setAdvertise(res.data.data[0]);
+                        // setAdvertise(res.data.data[0]);
                         console.log(res.data);
                     });
             } catch (er) {
@@ -29,7 +29,7 @@ const HighAdvertisement = () => {
                         style={{ maxWidth: "400px" }}
                     >
                         <img
-                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise?.img}`}
+                            src={`${process.env.MIX_APP_URL}    assets/images/uploads/advertisements/${advertise?.img}`}
                             alt=""
                         />
                     </div>

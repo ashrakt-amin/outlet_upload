@@ -7,10 +7,10 @@ const TowAddvertisments = () => {
         const getAdvertisements = async () => {
             try {
                 axios
-                    .get("${process.env.MIX_APP_URL}/api/advertisements")
+                    .get(`${process.env.MIX_APP_URL}/api/advertisements`)
                     .then((res) => {
-                        setAdvertise(res.data.data);
-                        console.log(res.data.data);
+                        // setAdvertise(res.data.data);
+                        console.log(res);
                     });
             } catch (er) {
                 console.log(er);
@@ -18,8 +18,6 @@ const TowAddvertisments = () => {
         };
         getAdvertisements();
     }, []);
-
-    console.log(advertise[1]?.img);
 
     return (
         <div className="my-5">

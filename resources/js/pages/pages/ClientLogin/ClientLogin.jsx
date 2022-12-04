@@ -54,7 +54,7 @@ const ClinetLogin = () => {
             setRealoadBnt(true);
             try {
                 await axios
-                    .post(`${process.env.MIX_APP_URL}/api/login/clients`, {
+                    .post(`${process.env.MIX_APP_URL}api/login/clients`, {
                         phone: clientInfo.phone,
                         password: clientInfo.password,
                     })
