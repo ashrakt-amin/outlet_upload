@@ -37,12 +37,12 @@ const OneCartItem = ({ cartItem, refetchFunc }) => {
         axios.defaults.withCredentials = true;
         let itemid = itemId.id;
         await axios
-            .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             .then(async (res) => {
                 setdeleteOneReload(true);
                 try {
                     const res = await axios.delete(
-                        `http://127.0.0.1:8000/api/carts/${itemid}`,
+                        `${process.env.MIX_APP_URL}/api/carts/${itemid}`,
                         {
                             headers: {
                                 Authorization: `Bearer ${getToken}`,
@@ -69,11 +69,11 @@ const OneCartItem = ({ cartItem, refetchFunc }) => {
         const getCartProducts = async () => {
             let getToken = JSON.parse(localStorage.getItem("clTk"));
             await axios
-                .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                 .then(async (res) => {
                     try {
                         const res = await axios.get(
-                            `http://127.0.0.1:8000/api/carts`,
+                            `${process.env.MIX_APP_URL}/api/carts`,
                             {
                                 headers: {
                                     Authorization: `Bearer ${getToken}`,
@@ -105,7 +105,7 @@ const OneCartItem = ({ cartItem, refetchFunc }) => {
             if (e.target.value !== product.quantity) {
                 try {
                     const res = await axios.post(
-                        `http://127.0.0.1:8000/api/carts`,
+                        `${process.env.MIX_APP_URL}/api/carts`,
                         {
                             quantity: e.target.value,
                             item_id: item.id,
@@ -160,7 +160,7 @@ const OneCartItem = ({ cartItem, refetchFunc }) => {
                 <div className="product-img" style={{ width: "150px" }}>
                     <img
                         // src={`https://www.pngall.com/wp-content/uploads/2016/04/Watch-PNG-Clipart.png`}
-                        src={`http://127.0.0.1:8000/assets/images/uploads/items/${cartItem.item.itemImages[0].img}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${cartItem.item.itemImages[0].img}`}
                         alt=""
                     />
                 </div>

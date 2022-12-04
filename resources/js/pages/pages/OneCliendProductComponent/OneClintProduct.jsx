@@ -26,7 +26,7 @@ const OneClintProduct = ({ product, refetch }) => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         try {
             const res = await axios.get(
-                `http://127.0.0.1:8000/api/wishlists/`,
+                `${process.env.MIX_APP_URL}/api/wishlists/`,
                 {
                     headers: { Authorization: `Bearer ${getToken}` },
                 }
@@ -47,7 +47,7 @@ const OneClintProduct = ({ product, refetch }) => {
             try {
                 await axios
                     .post(
-                        `http://127.0.0.1:8000/api/wishlists`,
+                        `${process.env.MIX_APP_URL}/api/wishlists`,
                         {
                             item_id: product,
                         },
@@ -67,12 +67,12 @@ const OneClintProduct = ({ product, refetch }) => {
                 console.log(er);
             }
             // axios
-            //     .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+            //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             //     .then(async (res) => {
             //         try {
             //             await axios
             //                 .post(
-            //                     `http://127.0.0.1:8000/api/wishlists`,
+            //                     `${process.env.MIX_APP_URL}/api/wishlists`,
             //                     {
             //                         item_id: product,
             //                     },
@@ -107,7 +107,7 @@ const OneClintProduct = ({ product, refetch }) => {
                 <div className="product-img ">
                     <img
                         className="mx-auto w-full"
-                        src={`http://127.0.0.1:8000/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
                         alt="لا يوجد صورة"
                     />
                 </div>

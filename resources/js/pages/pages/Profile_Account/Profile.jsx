@@ -18,26 +18,31 @@ const Profile = () => {
         const getOneClient = async () => {
             axios.defaults.withCredentials = true;
             let getToken = JSON.parse(localStorage.getItem("clTk"));
-                try {
-                    await axios
-                        .get(`https://abc-mansoura.com/api/items`,
-                        // {
-                        //     headers: {
-                        //         Authorization: `Bearer ${getToken}`,
-                        //     },
-                        // }
-                        )
-                        .then(async (resp) => {
-                            setClientInfo(resp.data.data);
-                            console.log(resp);
-                            if (resp.status == "200") {
-                                setIsClient(true);
-                            }
-                            // if client login or has token get it and call api to get data
-                        });
-                } catch (er) {
-                    console.log(er);
-                }
+            axios
+                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+                .then(async (res) => {
+                    try {
+                        await axios
+                            .get(
+                                `${process.env.MIX_APP_URL}/api/clients/client`,
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${getToken}`,
+                                    },
+                                }
+                            )
+                            .then(async (resp) => {
+                                setClientInfo(resp.data.data);
+                                console.log(resp);
+                                if (resp.status == "200") {
+                                    setIsClient(true);
+                                }
+                                // if client login or has token get it and call api to get data
+                            });
+                    } catch (er) {
+                        console.log(er);
+                    }
+                });
         };
         getOneClient();
         return () => {

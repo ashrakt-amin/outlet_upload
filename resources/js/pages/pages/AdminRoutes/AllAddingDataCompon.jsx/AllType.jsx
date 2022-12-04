@@ -21,7 +21,7 @@ const AllType = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/types`
+                    `${process.env.MIX_APP_URL}/api/types`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -49,7 +49,7 @@ const AllType = () => {
     const adjustNow = async () => {
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/types/${activityId}`,
+                `${process.env.MIX_APP_URL}/api/types/${activityId}`,
                 { name: acivityName }
             );
             setFechAgain(!fetchAgain);
@@ -74,7 +74,7 @@ const AllType = () => {
     const deleteNowFunc = async () => {
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/types/${activityId}`
+                `${process.env.MIX_APP_URL}/api/types/${activityId}`
             );
             setFechAgain(!fetchAgain);
             setIsActivity(false);

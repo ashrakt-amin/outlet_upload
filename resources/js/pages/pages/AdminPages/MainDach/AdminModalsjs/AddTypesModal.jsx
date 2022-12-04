@@ -21,7 +21,7 @@ function AddTypesModal({ togleTypes }) {
         const getSubCategories = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/groups`,
+                    `${process.env.MIX_APP_URL}/api/groups`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -38,7 +38,7 @@ function AddTypesModal({ togleTypes }) {
         if (typesName.length > 0 && groupId != "") {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/types`, {
+                    .post(`${process.env.MIX_APP_URL}/api/types`, {
                         name: typesName,
                         group_id: groupId,
                     })

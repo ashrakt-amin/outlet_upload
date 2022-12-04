@@ -14,7 +14,7 @@ const AddColors = () => {
         if (colorName.length > 0) {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/colors`, {
+                    .post(`${process.env.MIX_APP_URL}/api/colors`, {
                         name: colorName,
                     })
                     .then((res) => {

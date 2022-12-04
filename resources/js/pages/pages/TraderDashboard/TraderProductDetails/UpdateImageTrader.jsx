@@ -8,7 +8,7 @@ const UpdateImageTrader = ({ oneImage }) => {
         >
             <img
                 className="w-full"
-                src={`http://127.0.0.1:8000/assets/images/uploads/items/${oneImage.img}`}
+                src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${oneImage.img}`}
                 alt="لا يوجد صورة"
             />
         </div>

@@ -153,7 +153,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
 
         try {
             let res = await axios.post(
-                "http://127.0.0.1:8000/api/traders",
+                `${process.env.MIX_APP_URL}/api/traders`,
                 {
                     f_name: fName,
                     m_name: mName,

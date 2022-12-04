@@ -43,7 +43,7 @@ function OneUnit() {
         const getUnits = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/units/${id}`,
+                    `${process.env.MIX_APP_URL}/api/units/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -60,7 +60,7 @@ function OneUnit() {
         const getTraders = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/traders`
+                    `${process.env.MIX_APP_URL}/api/traders`
                 );
                 setTraders(res.data.data);
             } catch (er) {
@@ -73,7 +73,7 @@ function OneUnit() {
         const getActivities = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/activities`,
+                    `${process.env.MIX_APP_URL}/api/activities`,
                     {
                         headers: {
                             Authorization: `Bearer ${tokenUser}`,
@@ -97,7 +97,7 @@ function OneUnit() {
     const bookUnit = async (statusId) => {
         try {
             axios
-                .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+                .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
                     statu_id: statusId, // حجز الوحدة
                     trader_id: oneUnit.trader.id,
                 })
@@ -132,7 +132,7 @@ function OneUnit() {
     const confrimBookUnit = async () => {
         try {
             axios
-                .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+                .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
                     statu_id: 2,
                     trader_id: oneUnit.trader.id,
                 })
@@ -156,7 +156,7 @@ function OneUnit() {
     //     console.log(oneUnit);
     //     try {
     //         axios
-    //             .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+    //             .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
     //                 statu_id: 3,
     //                 trader_id: oneUnit.trader.id,
     //             })
@@ -179,7 +179,7 @@ function OneUnit() {
     const cancelbookUnit = () => {
         try {
             axios
-                .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+                .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
                     statu_id: 0,
                     trader_id: oneUnit.trader.id,
                 })
@@ -213,7 +213,7 @@ function OneUnit() {
             console.log("id");
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/units/activities`, {
+                    .post(`${process.env.MIX_APP_URL}/api/units/activities`, {
                         unit_id: oneUnit.id,
                         trader_id: oneUnit.trader.id,
                         activity_id: selectedActivites,
@@ -237,7 +237,7 @@ function OneUnit() {
     //     if (traderId != "") {
     //         try {
     //             axios
-    //                 .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+    //                 .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
     //                     statu_id: statuId.id, // حجز الوحدة
     //                     trader_id: traderId,
     //                 })
@@ -487,7 +487,7 @@ function OneUnit() {
                             <h1>صورة التاجر</h1>
                             <img
                                 className="w-full h-full"
-                                src={`http://127.0.0.1:8000/assets/images/uploads/traders/${oneUnit?.trader?.logo}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${oneUnit?.trader?.logo}`}
                                 alt=""
                             />
                         </div>

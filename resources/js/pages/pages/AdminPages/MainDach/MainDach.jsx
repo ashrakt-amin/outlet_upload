@@ -52,7 +52,7 @@ const MainDach = () => {
             setIsAddCategory(!isAddCategory);
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/categories`, {
+                    .post(`${process.env.MIX_APP_URL}/api/categories`, {
                         name: categorryVal,
                     })
                     .then((res) => {

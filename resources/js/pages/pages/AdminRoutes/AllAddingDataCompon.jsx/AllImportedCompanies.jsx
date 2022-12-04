@@ -21,7 +21,7 @@ const AllImportedCompanies = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/importers`
+                    `${process.env.MIX_APP_URL}/api/importers`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -49,7 +49,7 @@ const AllImportedCompanies = () => {
     const adjustNow = async () => {
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/importers/${activityId}`,
+                `${process.env.MIX_APP_URL}/api/importers/${activityId}`,
                 { name: acivityName }
             );
             setFechAgain(!fetchAgain);
@@ -74,7 +74,7 @@ const AllImportedCompanies = () => {
     const deleteNowFunc = async () => {
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/importers/${activityId}`
+                `${process.env.MIX_APP_URL}/api/importers/${activityId}`
             );
             setFechAgain(!fetchAgain);
             setIsActivity(false);

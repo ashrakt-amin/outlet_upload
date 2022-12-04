@@ -32,10 +32,13 @@ const TraderOwnInfo = () => {
                 try {
                     axios.defaults.withCredentials = true;
                     axios
-                        .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                        .get(
+                            `${process.env.MIX_APP_URL}/` +
+                                "sanctum/csrf-cookie"
+                        )
                         .then(async (res1) => {
                             let res = await axios.get(
-                                "http://127.0.0.1:8000/api/traders/trader",
+                                `${process.env.MIX_APP_URL}/api/traders/trader`,
                                 {
                                     headers: {
                                         Authorization: `Bearer ${traderTk}`,
@@ -62,7 +65,7 @@ const TraderOwnInfo = () => {
     const updateFirstName = async (info) => {
         if (fName.length > 3) {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/traders/${info.id}`,
+                `${process.env.MIX_APP_URL}/api/traders/${info.id}`,
                 { f_name: fName }
             );
             setGetData(!getData);
@@ -73,7 +76,7 @@ const TraderOwnInfo = () => {
     const updateMiddleName = async (info) => {
         if (mName.length > 3) {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/traders/${info.id}`,
+                `${process.env.MIX_APP_URL}/api/traders/${info.id}`,
                 { m_name: mName }
             );
             setMName("");
@@ -84,7 +87,7 @@ const TraderOwnInfo = () => {
     const updateLastName = async (info) => {
         if (lName.length > 3) {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/traders/${info.id}`,
+                `${process.env.MIX_APP_URL}/api/traders/${info.id}`,
                 { l_name: lName }
             );
             setLName("");
@@ -97,7 +100,7 @@ const TraderOwnInfo = () => {
         if (regEmail.test(emailName)) {
             console.log("valid");
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/traders/${info.id}`,
+                `${process.env.MIX_APP_URL}/api/traders/${info.id}`,
                 { email: emailName }
             );
             console.log(res);
@@ -127,7 +130,7 @@ const TraderOwnInfo = () => {
         const fromData = new FormData();
         fromData.append("logo", imgVal);
         let res = await axios.put(
-            `http://127.0.0.1:8000/api/traders/${info.id}`,
+            `${process.env.MIX_APP_URL}/api/traders/${info.id}`,
             { logo: imgVal.name, f_name: "تعديل التاجر والصورة" }
         );
         console.log(res);
@@ -141,7 +144,7 @@ const TraderOwnInfo = () => {
                 style={{ maxWidth: "300px" }}
             >
                 <img
-                    src={`http://127.0.0.1:8000/assets/images/uploads/traders/${traderInfo.logo}`}
+                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${traderInfo.logo}`}
                     alt=""
                 />
                 <h1>تعديل الصورة</h1>

@@ -31,7 +31,7 @@ function Dashboard() {
         console.log(adminTrue);
         const checkUserFirst = async () => {
             try {
-                const res = await axios.get("http://127.0.0.1:8000/", {
+                const res = await axios.get(`${process.env.MIX_APP_URL}/`, {
                     headers: { Authorization: `Bearer ${adminTrue}` },
                 });
             } catch (error) {}

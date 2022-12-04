@@ -12,7 +12,7 @@ const TraderOrders = () => {
         axios.defaults.withCredentials = true;
         const getTraderOrders = async () => {
             let resp = await axios.get(
-                "http://127.0.0.1:8000/api/orderDetails/trader",
+                "${process.env.MIX_APP_URL}/api/orderDetails/trader",
                 {
                     headers: {
                         Authorization: `Bearer ${traderTk}`,
@@ -30,7 +30,7 @@ const TraderOrders = () => {
 
         try {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/orderDetails/cancelAll/${onebigOrder.orderDetails[0].id}`,
+                `${process.env.MIX_APP_URL}/api/orderDetails/cancelAll/${onebigOrder.orderDetails[0].id}`,
                 {
                     order_statu_id: 0,
                 },

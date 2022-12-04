@@ -21,7 +21,7 @@ const AllColors = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/colors`
+                    `${process.env.MIX_APP_URL}/api/colors`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -49,7 +49,7 @@ const AllColors = () => {
     const adjustNow = async () => {
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/colors/${activityId}`,
+                `${process.env.MIX_APP_URL}/api/colors/${activityId}`,
                 { name: acivityName }
             );
             setFechAgain(!fetchAgain);
@@ -74,7 +74,7 @@ const AllColors = () => {
     const deleteNowFunc = async () => {
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/colors/${activityId}`
+                `${process.env.MIX_APP_URL}/api/colors/${activityId}`
             );
             setFechAgain(!fetchAgain);
             setIsActivity(false);

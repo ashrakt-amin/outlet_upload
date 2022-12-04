@@ -24,7 +24,7 @@ const ClientWichList = () => {
         if (getToken) {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/wishlists/`,
+                    `${process.env.MIX_APP_URL}/api/wishlists/`,
                     {
                         headers: { Authorization: `Bearer ${getToken}` },
                     }
@@ -44,15 +44,18 @@ const ClientWichList = () => {
             const getOneClient = async () => {
                 axios.defaults.withCredentials = true;
                 axios
-                    .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                    .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                     .then(async (res) => {
                         try {
                             await axios
-                                .get(`http://127.0.0.1:8000/api/wishlists`, {
-                                    headers: {
-                                        Authorization: `Bearer ${getToken}`,
-                                    },
-                                })
+                                .get(
+                                    `${process.env.MIX_APP_URL}/api/wishlists`,
+                                    {
+                                        headers: {
+                                            Authorization: `Bearer ${getToken}`,
+                                        },
+                                    }
+                                )
                                 .then(async (resp) => {
                                     setWishlistArray(resp.data.data);
                                     setAuth(true);
@@ -74,7 +77,7 @@ const ClientWichList = () => {
         try {
             setDelAllBtn(false);
             let res = await axios.delete(
-                `http://127.0.0.1:8000/api/wishlists/destroy`,
+                `${process.env.MIX_APP_URL}/api/wishlists/destroy`,
                 { headers: { Authorization: `Bearer ${getToken}` } }
             );
             setDelAllBtn(true);
@@ -84,7 +87,7 @@ const ClientWichList = () => {
             console.log(er);
         }
         // axios
-        //     .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+        //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
         //     .then(async (res) => {
         //     });
     };

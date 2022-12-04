@@ -13,7 +13,7 @@ const TraderOrders = () => {
         const getItems = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/traders/trader/`,
+                    `${process.env.MIX_APP_URL}/api/traders/trader/`,
                     {
                         headers: {
                             Authorization: `Bearer ${traderTk}`,
@@ -52,7 +52,7 @@ const TraderOrders = () => {
                         <div className="img-div w-52">
                             <img
                                 className="w-full"
-                                src={`http://127.0.0.1:8000/assets/images/uploads/items/${item?.itemImages[0]?.img}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${item?.itemImages[0]?.img}`}
                                 alt="بره المنتج الصورة ليست موجودة"
                             />
                         </div>

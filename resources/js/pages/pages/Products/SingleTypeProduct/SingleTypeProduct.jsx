@@ -20,7 +20,7 @@ const SingleTypeProduct = () => {
         const getGroups = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/groups/${id}`,
+                    `${process.env.MIX_APP_URL}/api/groups/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }

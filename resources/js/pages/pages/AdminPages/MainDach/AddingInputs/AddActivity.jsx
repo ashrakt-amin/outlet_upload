@@ -14,7 +14,7 @@ const AddActivity = () => {
         if (activityName.length > 0) {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/activities`, {
+                    .post(`${process.env.MIX_APP_URL}/api/activities`, {
                         name: activityName,
                     })
                     .then((res) => {

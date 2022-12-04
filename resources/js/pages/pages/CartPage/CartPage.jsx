@@ -48,11 +48,11 @@ const CartPage = () => {
         if (getToken) {
             const getCartProductsFunc = async () => {
                 await axios
-                    .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                    .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                     .then(async (res) => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/carts`,
+                                `${process.env.MIX_APP_URL}/api/carts`,
                                 {
                                     headers: {
                                         Authorization: `Bearer ${getToken}`,
@@ -114,12 +114,12 @@ const CartPage = () => {
         axios.defaults.withCredentials = true;
         if (getToken) {
             await axios
-                .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                 .then(async (res) => {
                     setdeleteAllReload(true);
                     try {
                         const res = await axios.get(
-                            `http://127.0.0.1:8000/api/carts/destroyAll`,
+                            `${process.env.MIX_APP_URL}/api/carts/destroyAll`,
                             {
                                 headers: {
                                     Authorization: `Bearer ${getToken}`,
@@ -175,11 +175,11 @@ const CartPage = () => {
 
             axios.defaults.withCredentials = true;
             await axios
-                .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                 .then(async (res) => {
                     try {
                         const res = await axios.post(
-                            `http://127.0.0.1:8000/api/orders`,
+                            `${process.env.MIX_APP_URL}/api/orders`,
                             {
                                 finance_id: 1,
                                 address: addressValue,

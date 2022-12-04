@@ -72,13 +72,13 @@ export default function TraderRegister() {
 
         axios.defaults.withCredentials = true;
         axios
-            .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             .then(async (res) => {
                 try {
                     setReloadBtn(true);
                     await axios
                         .post(
-                            `http://127.0.0.1:8000/api/register/traders`,
+                            `${process.env.MIX_APP_URL}/api/register/traders`,
                             fData
                         )
                         .then(async (resp) => {

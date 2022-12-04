@@ -16,7 +16,7 @@ const AddColors = () => {
             try {
                 axios
                     .post(
-                        `http://127.0.0.1:8000/api/itemUnits`,
+                        `${process.env.MIX_APP_URL}/api/itemUnits`,
                         {
                             name: itemUnitName,
                         },

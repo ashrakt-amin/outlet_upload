@@ -15,7 +15,7 @@ const Projects = () => {
         const getProjects = async () => {
             try {
                 const response = await axios.get(
-                    `http://127.0.0.1:8000/api/projects`,
+                    `${process.env.MIX_APP_URL}/api/projects`,
                     { cancelRequest: cancelRequest.token }
                 );
                 setProjects(response.data.data);
@@ -37,7 +37,7 @@ const Projects = () => {
         if (projectName != "") {
             try {
                 axios
-                    .post("http://127.0.0.1:8000/api/projects", {
+                    .post("${process.env.MIX_APP_URL}/api/projects", {
                         name: projectName,
                     })
                     .then((res) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import AddTrader from "../../../Modals/AddTrader";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button } from "@mui/material";
 import pagination from "../../../Pagination/Pagintion";
 
 import { BiEdit } from "react-icons/bi";
@@ -14,6 +14,8 @@ const VendrosPage = () => {
     const [tradersArr, setTradersArr] = useState([]);
 
     const [traderInf, setTraderInf] = useState({});
+
+    const [deleteTraderMsg,setDeleteTraderMsg] = useState('')
 
     //----------------- Pagination state -----------------
     const [currentPage, setCurrentPage] = useState(1);
@@ -42,13 +44,9 @@ const VendrosPage = () => {
                 axios
                     .get(
                         "http://127.0.0.1:8000/api/traders"
-                        // , {
-                        //     headers: { Authorization: `Bearer ${getToken}` },
-                        // }
                     )
                     .then((res) => {
                         setTradersArr(res.data.data);
-                        // console.log(res.data.data);
                     });
             } catch (er) {
                 console.log(er);
@@ -76,7 +74,10 @@ const VendrosPage = () => {
             axios
                 .delete(`http://127.0.0.1:8000/api/traders/${traderid}`)
                 .then((res) => {
-                    console.log(res);
+                    setDeleteTraderMsg(res.data.message)
+                    setTimeout(() => {
+                        setDeleteTraderMsg('')
+                    }, 4000);
                 });
         } catch (error) {}
     };

@@ -1,11 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "dev": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "production": "mix --production"
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "npm run build && vite preview --port 8080"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.16.5",
@@ -13,28 +11,29 @@
         "@testing-library/user-event": "^13.5.0",
         "@vitejs/plugin-react": "^2.2.0",
         "laravel-vite-plugin": "^0.6.0",
-        "laravel-mix": "^6.0.49",
         "vite": "^3.0.0"
     },
     "dependencies": {
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@fvilers/disable-react-devtools": "^1.3.0",
+        "@inertiajs/inertia-react": "^0.8.1",
         "@mui/icons-material": "^5.10.3",
         "@mui/material": "^5.10.3",
         "@popperjs/core": "^2.10.2",
-        "autoprefixer": "^10.4.13",
-        "bootstrap": "^5.2.1",
-        "postcss": "^8.4.18",
-        "tailwindcss": "^3.2.1",
         "@reduxjs/toolkit": "^1.8.5",
+        "autoprefixer": "^10.4.13",
         "axios": "^0.27.2",
+        "bootstrap": "^5.2.1",
+        "dotenv": "^16.0.3",
         "draft-js": "^0.11.7",
         "draftjs-to-html": "^0.9.1",
         "flowbite": "^1.5.3",
         "formik": "^2.2.9",
         "html-react-parser": "^3.0.4",
         "json-server": "^0.17.0",
+        "lodash": "^4.17.19",
+        "postcss": "^8.4.18",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-draft-wysiwyg": "^1.15.0",
@@ -45,8 +44,8 @@
         "redux": "^4.2.0",
         "sass": "^1.55.0",
         "swiper": "^8.4.4",
+        "tailwindcss": "^3.2.1",
         "web-vitals": "^2.1.4",
-        "yup": "^0.32.11",
-        "lodash": "^4.17.19"
+        "yup": "^0.32.11"
     }
 }

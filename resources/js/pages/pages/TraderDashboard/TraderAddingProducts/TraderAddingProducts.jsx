@@ -95,7 +95,7 @@ const TraderAddingProducts = () => {
             const getTraders = async () => {
                 try {
                     let res = await axios.get(
-                        "http://127.0.0.1:8000/api/traders/trader",
+                        `${process.env.MIX_APP_URL}/api/traders/trader`,
                         {
                             headers: {
                                 Authorization: `Bearer ${traderTk}`,
@@ -107,7 +107,7 @@ const TraderAddingProducts = () => {
                     const getCategories = async () => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/types`,
+                                `${process.env.MIX_APP_URL}/api/types`,
                                 {
                                     cancelRequest: cancelRequest.token,
 
@@ -127,7 +127,7 @@ const TraderAddingProducts = () => {
                     const getImportedCompany = async () => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/importers`,
+                                `${process.env.MIX_APP_URL}/api/importers`,
                                 {
                                     cancelRequest: cancelRequest.token,
 
@@ -146,7 +146,7 @@ const TraderAddingProducts = () => {
                     const getItemUnits = async () => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/itemUnits`,
+                                `${process.env.MIX_APP_URL}/api/itemUnits`,
                                 {
                                     cancelRequest: cancelRequest.token,
 
@@ -167,7 +167,7 @@ const TraderAddingProducts = () => {
                     const getManufactorCompanies = async () => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/manufactories`,
+                                `${process.env.MIX_APP_URL}/api/manufactories`,
                                 {
                                     cancelRequest: cancelRequest.token,
 
@@ -188,7 +188,7 @@ const TraderAddingProducts = () => {
                     const getDistributeCompanies = async () => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/companies`,
+                                `${process.env.MIX_APP_URL}/api/companies`,
                                 {
                                     cancelRequest: cancelRequest.token,
 
@@ -208,7 +208,7 @@ const TraderAddingProducts = () => {
                     const getVolumes = async () => {
                         try {
                             const res = await axios.get(
-                                `http://127.0.0.1:8000/api/volumes`,
+                                `${process.env.MIX_APP_URL}/api/volumes`,
                                 {
                                     cancelRequest: cancelRequest.token,
 
@@ -226,7 +226,7 @@ const TraderAddingProducts = () => {
                     getVolumes();
                     // axios.defaults.withCredentials = true;
                     // axios
-                    //     .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                    //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                     //     .then(async (res1) => {
                     //     });
                 } catch (er) {
@@ -306,7 +306,7 @@ const TraderAddingProducts = () => {
         fData.append("import", importBoolean); // هل المنتج مستورد
         try {
             const res = await axios.post(
-                `http://127.0.0.1:8000/api/items`,
+                `${process.env.MIX_APP_URL}/api/items`,
                 fData,
                 {
                     headers: {

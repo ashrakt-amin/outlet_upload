@@ -31,11 +31,11 @@ const ClientOrders = () => {
             axios.defaults.withCredentials = true;
             let getToken = JSON.parse(localStorage.getItem("clTk"));
             axios
-                .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                 .then(async (res) => {
                     try {
                         await axios
-                            .get(`http://127.0.0.1:8000/api/orders`, {
+                            .get(`${process.env.MIX_APP_URL}/api/orders`, {
                                 headers: {
                                     Authorization: `Bearer ${getToken}`,
                                 },
@@ -64,7 +64,7 @@ const ClientOrders = () => {
         try {
             await axios
                 .post(
-                    `http://127.0.0.1:8000/api/rates`,
+                    `${process.env.MIX_APP_URL}/api/rates`,
                     {
                         item_id: product.item.id,
                         rate_degree: starNum,
@@ -91,7 +91,7 @@ const ClientOrders = () => {
         try {
             await axios
                 .put(
-                    `http://127.0.0.1:8000/api/orders/cancel/${order.id}`,
+                    `${process.env.MIX_APP_URL}/api/orders/cancel/${order.id}`,
                     {
                         order_statu_id: 0,
                     },
@@ -161,7 +161,7 @@ const ClientOrders = () => {
                                                 >
                                                     <img
                                                         // src={`https://www.pngall.com/wp-content/uploads/2016/04/Watch-PNG-Clipart.png`}
-                                                        src={`http://127.0.0.1:8000/assets/images/uploads/items/${item2.item.itemImages[0].img}`}
+                                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${item2.item.itemImages[0].img}`}
                                                         alt=""
                                                     />
                                                 </div>

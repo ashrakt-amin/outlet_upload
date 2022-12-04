@@ -21,7 +21,7 @@ const OneProject = () => {
         const getLevels = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/projects/${id}`,
+                    `${process.env.MIX_APP_URL}/api/projects/${id}`,
                     { cancelRequest: cancelRequest.token }
                 );
                 setOneProject(res.data.data);
@@ -44,7 +44,7 @@ const OneProject = () => {
         if (levelName != "") {
             try {
                 axios
-                    .post("http://127.0.0.1:8000/api/levels", {
+                    .post(`${process.env.MIX_APP_URL}/api/levels`, {
                         name: levelName,
                         project_id: oneProject.id,
                     })

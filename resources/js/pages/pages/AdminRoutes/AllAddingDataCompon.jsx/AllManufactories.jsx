@@ -21,7 +21,7 @@ const AllManufactories = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/manufactories`
+                    `${process.env.MIX_APP_URL}/api/manufactories`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -49,7 +49,7 @@ const AllManufactories = () => {
     const adjustNow = async () => {
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/manufactories/${activityId}`,
+                `${process.env.MIX_APP_URL}/api/manufactories/${activityId}`,
                 { name: acivityName }
             );
             setFechAgain(!fetchAgain);
@@ -74,7 +74,7 @@ const AllManufactories = () => {
     const deleteNowFunc = async () => {
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/manufactories/${activityId}`
+                `${process.env.MIX_APP_URL}/api/manufactories/${activityId}`
             );
             setFechAgain(!fetchAgain);
             setIsActivity(false);

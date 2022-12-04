@@ -15,7 +15,7 @@ const TraderByConstruction = () => {
         const getSubCategories = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/levels/client/${id}`,
+                    `${process.env.MIX_APP_URL}/api/levels/client/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -58,7 +58,7 @@ const TraderByConstruction = () => {
                                 >
                                     <img
                                         className="w-1/2 mx-auto"
-                                        src={`http://127.0.0.1:8000/assets/images/uploads/traders/${trader.logo}`}
+                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${trader.logo}`}
                                         alt=""
                                     />
                                 </div>

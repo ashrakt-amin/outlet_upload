@@ -47,20 +47,23 @@ function UpdateTrader({ closeModal, traderInfo }) {
     const updateTraderFunc = async () => {
         try {
             axios
-                .put(`http://127.0.0.1:8000/api/traders/${traderInfo.id}`, {
-                    f_name: fName,
-                    m_name: mName,
-                    l_name: lName,
-                    age: age,
-                    phone: phone,
-                    phone2: phone2,
-                    phone3: phone3,
-                    phone4: phone4,
-                    phone5: phone5,
-                    activity: 1,
-                    email: email,
-                    code: traderCode,
-                })
+                .put(
+                    `${process.env.MIX_APP_URL}/api/traders/${traderInfo.id}`,
+                    {
+                        f_name: fName,
+                        m_name: mName,
+                        l_name: lName,
+                        age: age,
+                        phone: phone,
+                        phone2: phone2,
+                        phone3: phone3,
+                        phone4: phone4,
+                        phone5: phone5,
+                        activity: 1,
+                        email: email,
+                        code: traderCode,
+                    }
+                )
                 .then((res) => {
                     console.log(res);
                 });

@@ -51,7 +51,7 @@ const ClientProductDetails = () => {
         const getSubCategoriesWihoutOuth = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/items/${id}`,
+                    `${process.env.MIX_APP_URL}/api/items/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,
@@ -82,7 +82,7 @@ const ClientProductDetails = () => {
         if (getToken) {
             try {
                 const res = await axios.post(
-                    `http://127.0.0.1:8000/api/carts`,
+                    `${process.env.MIX_APP_URL}/api/carts`,
                     {
                         quantity: productAmount,
                         item_id: id,
@@ -133,7 +133,7 @@ const ClientProductDetails = () => {
             const getCartProducts = async () => {
                 try {
                     const res = await axios.get(
-                        `http://127.0.0.1:8000/api/carts`,
+                        `${process.env.MIX_APP_URL}/api/carts`,
                         {
                             headers: {
                                 Authorization: `Bearer ${getToken}`,
@@ -160,7 +160,7 @@ const ClientProductDetails = () => {
     const getMatchingProducts = async (typeId) => {
         try {
             const res = await axios.get(
-                `http://127.0.0.1:8000/api/types/${typeId}`
+                `${process.env.MIX_APP_URL}/api/types/${typeId}`
             );
             setMatchingProducts(res.data.data.items);
             console.log(res.data.data);
@@ -202,7 +202,7 @@ const ClientProductDetails = () => {
                             loading="lazy"
                             style={{ width: "500px" }}
                             className="w-full"
-                            src={`http://127.0.0.1:8000/assets/images/uploads/items/${productImgs[imgNum]?.img}`}
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${productImgs[imgNum]?.img}`}
                         />
                         {/* </div> */}
 
@@ -220,7 +220,7 @@ const ClientProductDetails = () => {
                                         <img
                                             // className="w-full"
                                             loading="lazy"
-                                            src={`http://127.0.0.1:8000/assets/images/uploads/items/${img.img}`}
+                                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${img.img}`}
                                             alt="لا يوجد صورة"
                                         />
                                     </div>
@@ -374,7 +374,7 @@ const ClientProductDetails = () => {
                     >
                         <img
                             // className="w-full"
-                            src={`http://127.0.0.1:8000/assets/images/uploads/traders/${singleProduct?.trader?.logo}`}
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${singleProduct?.trader?.logo}`}
                             alt="لا يوجد صورة"
                         />
                     </div>

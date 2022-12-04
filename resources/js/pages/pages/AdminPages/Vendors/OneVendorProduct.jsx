@@ -99,7 +99,7 @@ const OneVendorProduct = () => {
         const getLevels = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/items/${id}`
+                    `${process.env.MIX_APP_URL}/api/items/${id}`
                 );
                 console.log(res.data.data);
                 setItemInfo(res.data.data);
@@ -112,7 +112,7 @@ const OneVendorProduct = () => {
         const getColors = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/colors`,
+                    `${process.env.MIX_APP_URL}/api/colors`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -125,9 +125,12 @@ const OneVendorProduct = () => {
         getColors();
         const getSizes = async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/sizes`, {
-                    cancelRequest: cancelRequest.token,
-                });
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/sizes`,
+                    {
+                        cancelRequest: cancelRequest.token,
+                    }
+                );
                 setSizesArray(res.data.data);
             } catch (error) {
                 console.warn(error.message);
@@ -138,7 +141,7 @@ const OneVendorProduct = () => {
         const getVolumes = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/volumes`,
+                    `${process.env.MIX_APP_URL}/api/volumes`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -177,7 +180,7 @@ const OneVendorProduct = () => {
 
         try {
             const res = await axios.post(
-                `http://127.0.0.1:8000/api/itemImages`,
+                `${process.env.MIX_APP_URL}/api/itemImages`,
                 fData
             );
             setFetchAgain(!fetchAgain);
@@ -234,7 +237,7 @@ const OneVendorProduct = () => {
         } else {
             try {
                 const res = await axios.post(
-                    `http://127.0.0.1:8000/api/stocks`,
+                    `${process.env.MIX_APP_URL}/api/stocks`,
                     {
                         item_id: id,
                         stock: stockCount,

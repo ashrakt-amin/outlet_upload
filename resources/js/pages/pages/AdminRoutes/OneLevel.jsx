@@ -20,7 +20,7 @@ const OneLevel = () => {
         const getUnits = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/levels/${id}`,
+                    `${process.env.MIX_APP_URL}/api/levels/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }

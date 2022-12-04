@@ -23,7 +23,7 @@ function AddSubCatgModal({ togleSubCatg }) {
         const cancelRequest = axios.CancelToken.source();
         const getMainCateg = async () =>
             await axios
-                .get("http://127.0.0.1:8000/api/categories", {
+                .get(`${process.env.MIX_APP_URL}/api/categories`, {
                     cancelRequest: cancelRequest.token,
                 })
                 .then((res) => {
@@ -39,7 +39,7 @@ function AddSubCatgModal({ togleSubCatg }) {
         if (subCategName.length > 0 && mainCategId != "") {
             try {
                 axios
-                    .post("http://127.0.0.1:8000/api/subCategories", {
+                    .post(`${process.env.MIX_APP_URL}/api/subCategories`, {
                         name: subCategName,
                         category_id: mainCategId,
                     })

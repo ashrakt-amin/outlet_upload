@@ -14,7 +14,7 @@ const AddSize = () => {
         if (sizeName.length > 0) {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/sizes`, {
+                    .post(`${process.env.MIX_APP_URL}/api/sizes`, {
                         name: sizeName,
                     })
                     .then((res) => {

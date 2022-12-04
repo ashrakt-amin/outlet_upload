@@ -11,7 +11,7 @@ const UpdateProductsImgsInDash = ({ oneImage, refetch }) => {
         console.log(image);
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/itemImages/${image.id}`
+                `${process.env.MIX_APP_URL}/api/itemImages/${image.id}`
                 // {
                 //     headers: {
                 //         Authorization: `Bearer ${traderTk}`,
@@ -31,7 +31,7 @@ const UpdateProductsImgsInDash = ({ oneImage, refetch }) => {
         console.log(image);
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/itemImages/${image.id}`,
+                `${process.env.MIX_APP_URL}/api/itemImages/${image.id}`,
                 { img: imgVal }
                 // {
                 //     headers: {
@@ -57,7 +57,7 @@ const UpdateProductsImgsInDash = ({ oneImage, refetch }) => {
         >
             <img
                 className="w-full"
-                src={`http://127.0.0.1:8000/assets/images/uploads/items/${oneImage.img}`}
+                src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${oneImage.img}`}
                 alt="لا يوجد صورة"
             />
 

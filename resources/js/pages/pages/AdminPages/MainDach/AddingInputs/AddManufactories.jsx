@@ -15,7 +15,7 @@ const AddManufactories = () => {
         if (manufactorCompaneyName.length > 0) {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/manufactories`, {
+                    .post(`${process.env.MIX_APP_URL}/api/manufactories`, {
                         name: manufactorCompaneyName,
                     })
                     .then((res) => {

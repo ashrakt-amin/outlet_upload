@@ -21,7 +21,7 @@ const AllSizes = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/sizes`
+                    `${process.env.MIX_APP_URL}/api/sizes`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -49,7 +49,7 @@ const AllSizes = () => {
     const adjustNow = async () => {
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/sizes/${activityId}`,
+                `${process.env.MIX_APP_URL}/api/sizes/${activityId}`,
                 { name: acivityName }
             );
             setFechAgain(!fetchAgain);
@@ -74,7 +74,7 @@ const AllSizes = () => {
     const deleteNowFunc = async () => {
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/sizes/${activityId}`
+                `${process.env.MIX_APP_URL}/api/sizes/${activityId}`
             );
             setFechAgain(!fetchAgain);
             setIsActivity(false);

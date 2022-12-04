@@ -12,7 +12,7 @@ const UsersPage = () => {
     //     const cancelRequest = axios.CancelToken.source();
     //     const getAllUsers = async () => {
     //         try {
-    //             const res = await axios.get(`http://127.0.0.1:8000/api/users`, {
+    //             const res = await axios.get(`${process.env.MIX_APP_URL}/api/users`, {
     //                 cancelRequest: cancelRequest.token,
     //             });
     //             console.log(res);
@@ -48,7 +48,7 @@ const UsersPage = () => {
         e.preventDefault();
         await axios
             .post(
-                "http://127.0.0.1:8000/api/register/users",
+                `${process.env.MIX_APP_URL}/api/register/users`,
                 {
                     f_name: userInfo.fName,
                     l_name: userInfo.lName,

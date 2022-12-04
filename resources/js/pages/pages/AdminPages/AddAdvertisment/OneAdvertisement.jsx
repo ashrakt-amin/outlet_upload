@@ -30,7 +30,7 @@ const OneAdvertisement = ({ advertise, refetch }) => {
         let getToken = JSON.parse(localStorage.getItem("uTk"));
         try {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/advertisements/${adv.id}`,
+                `${process.env.MIX_APP_URL}/api/advertisements/${adv.id}`,
                 {
                     link: linkName,
                 },
@@ -56,7 +56,7 @@ const OneAdvertisement = ({ advertise, refetch }) => {
         fData.append("img", imgVal);
         try {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/advertisements/${imgvalue.id}`,
+                `${process.env.MIX_APP_URL}/api/advertisements/${imgvalue.id}`,
                 { img: imgVal }
                 // {
                 //     headers: { Authorization: `Bearer ${getToken}` },
@@ -73,11 +73,11 @@ const OneAdvertisement = ({ advertise, refetch }) => {
     const updateRemainginTime = async (remainingVal) => {
         try {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/advertisements/${remainingVal.id}`,
+                `${process.env.MIX_APP_URL}/api/advertisements/${remainingVal.id}`,
                 { renew: renewNum }
             );
             setsuccessMsg(res.data.message);
-            setIsRemaining(!isRemaining)
+            setIsRemaining(!isRemaining);
             setTimeout(() => {
                 setsuccessMsg("");
             }, 3000);
@@ -98,7 +98,7 @@ const OneAdvertisement = ({ advertise, refetch }) => {
                 style={{ maxWidth: "100%" }}
             >
                 <img
-                    src={`http://127.0.0.1:8000/assets/images/uploads/advertisements/${advertise.img}`}
+                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise.img}`}
                     alt=""
                 />
             </div>

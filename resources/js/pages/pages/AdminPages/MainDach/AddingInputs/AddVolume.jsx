@@ -14,7 +14,7 @@ const AddVolume = () => {
         if (volumeName.length > 0) {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/volumes`, {
+                    .post(`${process.env.MIX_APP_URL}/api/volumes`, {
                         name: volumeName,
                     })
                     .then((res) => {

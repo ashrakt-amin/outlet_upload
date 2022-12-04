@@ -39,7 +39,7 @@ const AdminLogin = () => {
 
         try {
             let res = await axios.post(
-                "http://127.0.0.1:8000/api/login/users",
+                `${process.env.MIX_APP_URL}/api/login/users`,
                 {
                     phone: adminInfo.phone,
                     password: adminInfo.password,

@@ -7,7 +7,7 @@ export const getCartProducts = createAsyncThunk('cart/getCartProducts',async (ar
 try {
     let getToken = JSON.parse(localStorage.getItem("clTk"));
     const res = await axios.get(
-        `http://127.0.0.1:8000/api/carts`,
+        `${process.env.MIX_APP_URL}/api/carts`,
         {
             headers: {
                 Authorization: `Bearer ${getToken}`,

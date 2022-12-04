@@ -115,21 +115,24 @@ export default function Register() {
         //     return;
         // }
         axios
-            .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             .then(async (res) => {
                 try {
                     await axios
-                        .post(`http://127.0.0.1:8000/api/register/clients`, {
-                            f_name: userInfo.fName,
-                            m_name: userInfo.mName,
-                            l_name: userInfo.lName,
-                            age: userInfo.age,
-                            phone: userInfo.phone,
-                            phone2: userInfo.phone2,
-                            email: userInfo.email,
-                            password: userInfo.password,
-                            confirm_password: userInfo.confirm_password,
-                        })
+                        .post(
+                            `${process.env.MIX_APP_URL}/api/register/clients`,
+                            {
+                                f_name: userInfo.fName,
+                                m_name: userInfo.mName,
+                                l_name: userInfo.lName,
+                                age: userInfo.age,
+                                phone: userInfo.phone,
+                                phone2: userInfo.phone2,
+                                email: userInfo.email,
+                                password: userInfo.password,
+                                confirm_password: userInfo.confirm_password,
+                            }
+                        )
                         .then(async (resp) => {
                             localStorage.setItem(
                                 "clTk",

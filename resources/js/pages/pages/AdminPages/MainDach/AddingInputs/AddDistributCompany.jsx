@@ -15,7 +15,7 @@ const AddDistributCompany = () => {
         if (distributCompanyName.length > 0) {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/companies`, {
+                    .post(`${process.env.MIX_APP_URL}/api/companies`, {
                         name: distributCompanyName,
                     })
                     .then((res) => {

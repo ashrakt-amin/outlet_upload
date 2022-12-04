@@ -27,7 +27,7 @@ const AddAdvertisement = () => {
         const getVendors = async () => {
             try {
                 axios
-                    .get("http://127.0.0.1:8000/api/traders", {
+                    .get(`${process.env.MIX_APP_URL}/api/traders`, {
                         headers: { Authorization: `Bearer ${getToken}` },
                     })
                     .then((res) => {
@@ -44,7 +44,7 @@ const AddAdvertisement = () => {
             try {
                 axios
                     .get(
-                        "http://127.0.0.1:8000/api/advertisements"
+                        `${process.env.MIX_APP_URL}/api/advertisements`
                         // {
                         //     headers: { Authorization: `Bearer ${getToken}` },
                         // }
@@ -73,13 +73,13 @@ const AddAdvertisement = () => {
         formData.append("updated_by", 1);
         try {
             const res = await axios.post(
-                `http://127.0.0.1:8000/api/advertisements`,
+                `${process.env.MIX_APP_URL}/api/advertisements`,
                 formData,
                 {
                     headers: { Authorization: `Bearer ${getToken}` },
                 }
             );
-            
+
             setIsAddAdvertise(!isAddAdvertise);
             setImgVal(null);
             setRenewNum("");
@@ -106,7 +106,7 @@ const AddAdvertisement = () => {
     return (
         <div dir="rtl" className="advertisement-div p-3">
             {/* <img
-                src={`http://127.0.0.1:8000/assets/images/uploads/advertisements/${adv.img}`}
+                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${adv.img}`}
                 alt="no image"
             /> */}
             <div className="img-div my-3">

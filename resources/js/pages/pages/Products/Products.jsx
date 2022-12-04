@@ -23,15 +23,15 @@ const Products = () => {
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
-        let getToken     = JSON.parse(localStorage.getItem("clTk"));
-        
-        if(getToken == null){
-            getToken = ''
-        } 
+        let getToken = JSON.parse(localStorage.getItem("clTk"));
+
+        if (getToken == null) {
+            getToken = "";
+        }
         const getSubCategories = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/subCategories/${id}`,
+                    `${process.env.MIX_APP_URL}/api/subCategories/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,

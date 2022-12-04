@@ -41,7 +41,7 @@ const VendrosPage = () => {
             try {
                 axios
                     .get(
-                        "http://127.0.0.1:8000/api/traders"
+                        `${process.env.MIX_APP_URL}/api/traders`
                         // , {
                         //     headers: { Authorization: `Bearer ${getToken}` },
                         // }
@@ -74,7 +74,7 @@ const VendrosPage = () => {
     const deleteNowFunc = async (traderid) => {
         try {
             axios
-                .delete(`http://127.0.0.1:8000/api/traders/${traderid}`)
+                .delete(`${process.env.MIX_APP_URL}/api/traders/${traderid}`)
                 .then((res) => {
                     console.log(res);
                 });

@@ -9,7 +9,7 @@ const TraderOneOrderProduct = ({ oneProduct }) => {
         let traderTk = JSON.parse(localStorage.getItem("trTk"));
         console.log(traderTk);
         let resp = await axios.put(
-            `http://127.0.0.1:8000/api/orderDetails/${product.id}`,
+            `${process.env.MIX_APP_URL}/api/orderDetails/${product.id}`,
             {
                 headers: {
                     Authorization: `Bearer ${traderTk}`,

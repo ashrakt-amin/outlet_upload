@@ -21,7 +21,7 @@ const AllSubCategories = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/subCategories`
+                    `${process.env.MIX_APP_URL}/api/subCategories`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -49,7 +49,7 @@ const AllSubCategories = () => {
     const adjustNow = async () => {
         try {
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/subCategories/${activityId}`,
+                `${process.env.MIX_APP_URL}/api/subCategories/${activityId}`,
                 { name: acivityName }
             );
             setFechAgain(!fetchAgain);
@@ -74,7 +74,7 @@ const AllSubCategories = () => {
     const deleteNowFunc = async () => {
         try {
             const res = await axios.delete(
-                `http://127.0.0.1:8000/api/subCategories/${activityId}`
+                `${process.env.MIX_APP_URL}/api/subCategories/${activityId}`
             );
             setFechAgain(!fetchAgain);
             setIsActivity(false);

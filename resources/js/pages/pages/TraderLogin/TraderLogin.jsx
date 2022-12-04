@@ -32,7 +32,7 @@ const TraderLogin = () => {
     //         onSubmit: async (values, actions) => {
     //             try {
     //                 await axios
-    //                     .post("http://127.0.0.1:8000/api/login/traders", {
+    //                     .post("${process.env.MIX_APP_URL}/api/login/traders", {
     //                         email: values.email,
     //                         password: values.password,
     //                     })
@@ -73,7 +73,7 @@ const TraderLogin = () => {
         setReloadBtn(true);
         try {
             await axios
-                .post("http://127.0.0.1:8000/api/login/traders", {
+                .post(`${process.env.MIX_APP_URL}/api/login/traders`, {
                     phone: userInfo.phone,
                     password: userInfo.password,
                 })

@@ -18,7 +18,7 @@ const OneVendor = () => {
         const getOneVendor = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/traders/${id}`
+                    `${process.env.MIX_APP_URL}/api/traders/${id}`
                     // {
                     //     headers: { Authorization: `Bearer ${getToken}` },
                     // }
@@ -74,7 +74,6 @@ const OneVendor = () => {
                         ))}
                     {traderInfo.activities && "لا يوجد"}
                 </h3>
-                
             </div>
             <VendorProducts vendorProductArray={traderInfo} />
 

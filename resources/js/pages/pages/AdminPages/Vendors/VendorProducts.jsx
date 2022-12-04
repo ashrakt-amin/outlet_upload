@@ -27,7 +27,7 @@ const VendorProducts = ({ vendorProductArray }) => {
                                 >
                                     <img
                                         className="w-1/2 mx-auto"
-                                        src={`http://127.0.0.1:8000/assets/images/uploads/items/${product.itemImages[0]?.img}`}
+                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product.itemImages[0]?.img}`}
                                         alt="image"
                                     />
                                 </div>

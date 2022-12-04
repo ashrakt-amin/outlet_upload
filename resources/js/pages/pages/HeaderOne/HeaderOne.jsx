@@ -65,15 +65,15 @@ const Header = () => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
 
-        if(getToken == null){
-            getToken = ''
-        } 
+        if (getToken == null) {
+            getToken = "";
+        }
 
         if (getToken) {
             const getCartProductsCount = async () => {
                 try {
                     const res = await axios.get(
-                        `http://127.0.0.1:8000/api/carts/`,
+                        `${process.env.MIX_APP_URL}/api/carts/`,
                         {
                             cancelRequest: cancelRequest.token,
                             headers: { Authorization: `Bearer ${getToken}` },
@@ -90,7 +90,7 @@ const Header = () => {
             const getWishlistProductsCount = async () => {
                 try {
                     const res = await axios.get(
-                        `http://127.0.0.1:8000/api/wishlists/`,
+                        `${process.env.MIX_APP_URL}/api/wishlists/`,
                         {
                             cancelRequest: cancelRequest.token,
                             headers: { Authorization: `Bearer ${getToken}` },
@@ -107,7 +107,7 @@ const Header = () => {
         const getCategories = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/categories`,
+                    `${process.env.MIX_APP_URL}/api/categories`,
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,
@@ -123,7 +123,7 @@ const Header = () => {
         const getConstructions = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/levels`,
+                    `${process.env.MIX_APP_URL}/api/levels`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -159,32 +159,30 @@ const Header = () => {
     const logoutFunc = async () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         axios.defaults.withCredentials = true;
-        await axios
-            .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
-            .then(async (r) => {
-                try {
-                    let res = await axios.post(
-                        "http://127.0.0.1:8000/api/logout",
-                        {},
-                        {
-                            headers: { Authorization: `Bearer ${getToken}` },
-                        }
-                    );
-                    dispatch(productsInWishlistNumber(0));
-                    console.log(res);
-                    localStorage.removeItem("clTk");
-                    navigate("/");
-                } catch (er) {
-                    console.log(er);
-                }
-            });
+        await axios.get(`/` + "sanctum/csrf-cookie").then(async (r) => {
+            try {
+                let res = await axios.post(
+                    `${process.env.MIX_APP_URL}/api/logout`,
+                    {},
+                    {
+                        headers: { Authorization: `Bearer ${getToken}` },
+                    }
+                );
+                dispatch(productsInWishlistNumber(0));
+                console.log(res);
+                localStorage.removeItem("clTk");
+                navigate("/");
+            } catch (er) {
+                console.log(er);
+            }
+        });
     };
 
     const wishlistProductsCount = async () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         try {
             const res = await axios.get(
-                `http://127.0.0.1:8000/api/wishlists/`,
+                `${process.env.MIX_APP_URL}/api/wishlists/`,
                 {
                     headers: { Authorization: `Bearer ${getToken}` },
                 }
@@ -309,7 +307,7 @@ const Header = () => {
                                     <span className=" text-white">دخول</span>
                                 </button>
                                 <div className="dropdown-content-categories">
-                                    <Link to={"/clientLogin"}>دخول</Link>
+                                    <Link to={"/clientLogin"}>دخول كعميل</Link>
                                     <Link to={"/traderLogin"}>دخول كتاجر</Link>
                                 </div>
                             </div>

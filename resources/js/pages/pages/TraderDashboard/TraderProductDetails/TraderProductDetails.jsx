@@ -48,11 +48,14 @@ const TraderProductDetails = () => {
         const cancelRequest = axios.CancelToken.source();
         let traderTk = JSON.parse(localStorage.getItem("trTk"));
         const getOneTraderProduct = async () => {
-            let res = await axios.get(`http://127.0.0.1:8000/api/items/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${traderTk}`,
-                },
-            });
+            let res = await axios.get(
+                `${process.env.MIX_APP_URL}/api/items/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${traderTk}`,
+                    },
+                }
+            );
             setColorsArray(res.data.data.colors);
             setSizesArray(res.data.data.sizes);
             setProductInfo(res.data.data);
@@ -61,7 +64,7 @@ const TraderProductDetails = () => {
         const getColors = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/colors`,
+                    `${process.env.MIX_APP_URL}/api/colors`,
                     {
                         cancelRequest: cancelRequest.token,
 
@@ -78,13 +81,16 @@ const TraderProductDetails = () => {
         getColors();
         const getSizes = async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/sizes`, {
-                    cancelRequest: cancelRequest.token,
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/sizes`,
+                    {
+                        cancelRequest: cancelRequest.token,
 
-                    headers: {
-                        Authorization: `Bearer ${traderTk}`,
-                    },
-                });
+                        headers: {
+                            Authorization: `Bearer ${traderTk}`,
+                        },
+                    }
+                );
                 setSizes(res.data.data);
             } catch (error) {
                 console.warn(error.message);
@@ -95,7 +101,7 @@ const TraderProductDetails = () => {
         const getVolumes = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/volumes`,
+                    `${process.env.MIX_APP_URL}/api/volumes`,
                     {
                         cancelRequest: cancelRequest.token,
 
@@ -126,7 +132,7 @@ const TraderProductDetails = () => {
         } else {
             try {
                 const res = await axios.post(
-                    `http://127.0.0.1:8000/api/colorSizeStocks`,
+                    `${process.env.MIX_APP_URL}/api/colorSizeStocks`,
                     {
                         item_id: id,
                         color_id: colorIdSelect,
@@ -172,7 +178,7 @@ const TraderProductDetails = () => {
 
         try {
             const res = await axios.post(
-                `http://127.0.0.1:8000/api/itemImages`,
+                `${process.env.MIX_APP_URL}/api/itemImages`,
                 fData
             );
             setFetchAgain(!fetchAgain);

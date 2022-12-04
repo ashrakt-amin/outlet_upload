@@ -38,7 +38,7 @@ const HeaderTow = () => {
         const getCategories = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/categories`,
+                    `${process.env.MIX_APP_URL}/api/categories`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -53,7 +53,7 @@ const HeaderTow = () => {
         const getConstructions = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/levels`,
+                    `${process.env.MIX_APP_URL}/api/levels`,
                     {
                         cancelRequest: cancelRequest.token,
                     }

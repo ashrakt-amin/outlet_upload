@@ -54,7 +54,7 @@ const ClinetLogin = () => {
             setRealoadBnt(true);
             try {
                 await axios
-                    .post(`http://127.0.0.1:8000/api/login/clients`, {
+                    .post(`${process.env.MIX_APP_URL}/api/login/clients`, {
                         phone: clientInfo.phone,
                         password: clientInfo.password,
                     })
@@ -76,11 +76,11 @@ const ClinetLogin = () => {
                 }, 5000);
             }
             // axios
-            //     .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+            //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             //     .then(async (res) => {
             //         try {
             //             await axios
-            //                 .post(`http://127.0.0.1:8000/api/login/clients`, {
+            //                 .post(`${process.env.MIX_APP_URL}/api/login/clients`, {
             //                     phone: clientInfo.phone,
             //                     password: clientInfo.password,
             //                 })

@@ -9,7 +9,7 @@ const TraderOneOrder = ({ oneOrder, fetchOrders }) => {
         console.log(oneOrdr.id);
         try {
             let res = await axios.put(
-                `http://127.0.0.1:8000/api/orderDetails/cancel/${oneOrdr.id}`,
+                `${process.env.MIX_APP_URL}/api/orderDetails/cancel/${oneOrdr.id}`,
                 {
                     order_statu_id: 0,
                 },
@@ -40,7 +40,7 @@ const TraderOneOrder = ({ oneOrder, fetchOrders }) => {
 
             <img
                 className="mx-auto "
-                src={`http://127.0.0.1:8000/assets/images/uploads/items/${oneOrder.item?.itemImages[0]?.img}`}
+                src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${oneOrder.item?.itemImages[0]?.img}`}
                 alt="لا يوجد صورة"
             />
             <div className="product-img "></div>

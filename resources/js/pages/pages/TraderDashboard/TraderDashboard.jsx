@@ -16,7 +16,7 @@ const VendorDashboard = () => {
             const getItems = async () => {
                 try {
                     const res = await axios.get(
-                        `http://127.0.0.1:8000/api/traders/trader`,
+                        `${process.env.MIX_APP_URL}/api/traders/trader`,
                         {
                             headers: {
                                 Authorization: `Bearer ${getTokenTrader}`,
@@ -39,11 +39,11 @@ const VendorDashboard = () => {
         let getTokenTrader = JSON.parse(localStorage.getItem("trTk"));
         axios.defaults.withCredentials = true;
         await axios
-            .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             .then(async (r) => {
                 try {
                     let res = await axios.post(
-                        "http://127.0.0.1:8000/api/logout",
+                        `${process.env.MIX_APP_URL}/api/logout`,
                         {},
                         {
                             headers: {

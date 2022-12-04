@@ -30,13 +30,13 @@ const LatestUpdatedProducts = () => {
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        if(getToken == null){
-            getToken = ''
+        if (getToken == null) {
+            getToken = "";
         }
         const getAuthItems = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/items/latest`,
+                    `${process.env.MIX_APP_URL}/api/items/latest`,
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,

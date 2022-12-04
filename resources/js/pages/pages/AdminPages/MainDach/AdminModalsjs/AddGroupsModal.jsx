@@ -21,7 +21,7 @@ function AddGenderMod({ togleGender }) {
         if (groupName.length > 0 && subCategoryId != "") {
             try {
                 axios
-                    .post(`http://127.0.0.1:8000/api/groups`, {
+                    .post(`${process.env.MIX_APP_URL}/api/groups`, {
                         name: groupName,
                         sub_category_id: subCategoryId,
                     })
@@ -50,7 +50,7 @@ function AddGenderMod({ togleGender }) {
         const cancelRequest = axios.CancelToken.source();
         const getMainCateg = async () =>
             await axios
-                .get("http://127.0.0.1:8000/api/subCategories", {
+                .get(`${process.env.MIX_APP_URL}/api/subCategories`, {
                     cancelRequest: cancelRequest.token,
                 })
                 .then((res) => {

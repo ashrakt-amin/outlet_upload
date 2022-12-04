@@ -7,7 +7,7 @@ const TowAddvertisments = () => {
         const getAdvertisements = async () => {
             try {
                 axios
-                    .get("http://127.0.0.1:8000/api/advertisements")
+                    .get(`${process.env.MIX_APP_URL}/api/advertisements`)
                     .then((res) => {
                         setAdvertise(res.data.data);
                         console.log(res.data.data);
@@ -34,7 +34,7 @@ const TowAddvertisments = () => {
                             style={{ maxWidth: "400px" }}
                         >
                             <img
-                                src={`http://127.0.0.1:8000/assets/images/uploads/advertisements/${advertise[1]?.img}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise[1]?.img}`}
                                 alt=""
                             />
                         </div>
@@ -46,7 +46,7 @@ const TowAddvertisments = () => {
                             style={{ maxWidth: "400px" }}
                         >
                             <img
-                                src={`http://127.0.0.1:8000/assets/images/uploads/advertisements/${advertise[2]?.img}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise[2]?.img}`}
                                 alt=""
                             />
                         </div>

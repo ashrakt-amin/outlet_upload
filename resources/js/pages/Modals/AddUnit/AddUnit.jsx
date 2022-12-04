@@ -68,7 +68,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
         ) {
             try {
                 await axios
-                    .post(`http://127.0.0.1:8000/api/units`, {
+                    .post(`${process.env.MIX_APP_URL}/api/units`, {
                         name: unitName,
                         level_id: levelInfo.id, // select الطوابق (الادوار) hidden
                         site_id: siteID, // select --> المواقع قبلى او بحرى

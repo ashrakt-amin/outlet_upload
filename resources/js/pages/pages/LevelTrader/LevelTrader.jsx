@@ -21,7 +21,7 @@ const LevelTrader = () => {
         const getOneLevelTrader = async () => {
             try {
                 const res = await axios.get(
-                    `http://127.0.0.1:8000/api/traders/${id}`,
+                    `${process.env.MIX_APP_URL}/api/traders/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
@@ -49,7 +49,7 @@ const LevelTrader = () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         try {
             const res = await axios.get(
-                `http://127.0.0.1:8000/api/wishlists/`,
+                `${process.env.MIX_APP_URL}/api/wishlists/`,
                 {
                     headers: { Authorization: `Bearer ${getToken}` },
                 }
@@ -67,12 +67,12 @@ const LevelTrader = () => {
         if (getToken) {
             setWishlistBtn(true);
             axios
-                .get(`http://127.0.0.1:8000/` + "sanctum/csrf-cookie")
+                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
                 .then(async (res) => {
                     try {
                         await axios
                             .post(
-                                `http://127.0.0.1:8000/api/wishlists`,
+                                `${process.env.MIX_APP_URL}/api/wishlists`,
                                 {
                                     item_id: id,
                                 },
@@ -107,7 +107,7 @@ const LevelTrader = () => {
                 <div className="logo-div" style={{ width: "290px" }}>
                     <img
                         className="w-1/2 mx-auto"
-                        src={`http://127.0.0.1:8000/assets/images/uploads/traders/${traderInfo.logo}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${traderInfo.logo}`}
                         alt=""
                     />
                 </div>
@@ -143,7 +143,7 @@ const LevelTrader = () => {
                         //     >
                         //         <img
                         //             className="w-full h-full "
-                        //             src={`http://127.0.0.1:8000/assets/images/uploads/items/${item?.itemImages[0]?.img}`}
+                        //             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${item?.itemImages[0]?.img}`}
                         //             alt=""
                         //         />
                         //     </div>
