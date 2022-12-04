@@ -37,7 +37,7 @@ const Projects = () => {
         if (projectName != "") {
             try {
                 axios
-                    .post("${process.env.MIX_APP_URL}/api/projects", {
+                    .post(`${process.env.MIX_APP_URL}/api/projects`, {
                         name: projectName,
                     })
                     .then((res) => {
