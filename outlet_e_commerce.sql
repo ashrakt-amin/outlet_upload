@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 03:17 PM
+-- Generation Time: Dec 03, 2022 at 10:47 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -54,7 +54,8 @@ CREATE TABLE `activities` (
 
 INSERT INTO `activities` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'ملابس', '2022-11-29 11:23:23', '2022-11-29 11:23:23'),
-(2, 'احذية', '2022-11-29 11:23:32', '2022-11-29 11:23:32');
+(2, 'احذية', '2022-11-29 11:23:32', '2022-11-29 11:23:32'),
+(3, 'ملابس', '2022-11-30 10:04:25', '2022-11-30 10:04:25');
 
 -- --------------------------------------------------------
 
@@ -162,6 +163,13 @@ CREATE TABLE `categories` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `img`, `created_at`, `updated_at`) VALUES
+(2, 'موضة', NULL, '2022-11-30 10:02:52', '2022-11-30 10:02:52');
+
 -- --------------------------------------------------------
 
 --
@@ -177,7 +185,7 @@ CREATE TABLE `clients` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `guard` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'client',
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'client',
   `phone2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `phone_verified_at` timestamp NULL DEFAULT NULL,
@@ -185,6 +193,13 @@ CREATE TABLE `clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `f_name`, `m_name`, `l_name`, `age`, `password`, `phone`, `email`, `guard_name`, `phone2`, `email_verified_at`, `phone_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Ahmad', 'Mohammad', 'Sheta', 34, '$2y$10$BeJFRCtu3.CLZtA3/ZouwOQ4XfjVLz1/n28AW5U5pECTjuLUJxdD.', '01119657171', 'ahmadmohammadsheta@gmail.com', 'client', NULL, NULL, NULL, NULL, '2022-11-30 10:17:29', '2022-11-30 10:17:29');
 
 -- --------------------------------------------------------
 
@@ -198,6 +213,14 @@ CREATE TABLE `colors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `colors`
+--
+
+INSERT INTO `colors` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'احمر', '2022-11-30 10:04:55', '2022-11-30 10:04:55'),
+(2, 'اصفر', '2022-11-30 10:04:59', '2022-11-30 10:04:59');
 
 -- --------------------------------------------------------
 
@@ -224,6 +247,13 @@ CREATE TABLE `color_size_stocks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `color_size_stocks`
+--
+
+INSERT INTO `color_size_stocks` (`id`, `item_id`, `stock`, `sale_price`, `buy_price`, `buy_discount`, `trader_id`, `color_id`, `size_id`, `weight_id`, `volume_id`, `season_id`, `stock_discount`, `discount_start_date`, `discount_end_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 5, '100', NULL, NULL, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, '2022-11-29 19:41:09', '2022-11-29 19:41:09');
 
 -- --------------------------------------------------------
 
@@ -314,6 +344,13 @@ CREATE TABLE `groups` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `sub_category_id`, `created_at`, `updated_at`) VALUES
+(1, 'رجالي', 1, '2022-11-30 10:03:57', '2022-11-30 10:03:57');
+
 -- --------------------------------------------------------
 
 --
@@ -340,13 +377,7 @@ CREATE TABLE `items` (
   `item_unit_id` bigint(20) UNSIGNED NOT NULL,
   `unit_parts_count` int(11) NOT NULL,
   `trader_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `code` bigint(20) NOT NULL,
-  `available` tinyint(1) DEFAULT NULL,
-  `approved` tinyint(1) NOT NULL DEFAULT 0,
-  `starting_stock` bigint(20) DEFAULT NULL,
-  `min_quantity` bigint(20) DEFAULT NULL,
-  `barcode` bigint(20) DEFAULT NULL,
-  `spare_barcode` bigint(20) DEFAULT NULL,
+  `item_code` bigint(20) NOT NULL,
   `discount` decimal(16,2) NOT NULL DEFAULT 0.00,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `manufactory_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -488,7 +519,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2022_10_21_213641_create_level_trader_table', 1),
 (19, '2022_10_22_110000_create_categories_table', 1),
 (20, '2022_10_22_110154_create_sub_categories_table', 1),
-(21, '2022_10_22_113713_create_items_table', 1),
 (22, '2022_10_22_214142_create_genders_table', 1),
 (23, '2022_10_23_105548_create_types_table', 1),
 (24, '2022_10_23_135013_create_sizes_table', 1),
@@ -507,7 +537,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2022_10_25_102943_create_payments_table', 1),
 (38, '2022_10_25_105252_create_finances_table', 1),
 (39, '2022_10_25_111320_create_recoveries_table', 1),
-(40, '2022_10_26_121237_create_stocks_table', 1),
 (41, '2022_10_30_094728_create_clients_table', 1),
 (42, '2022_11_08_120625_create_wishlists_table', 1),
 (43, '2022_11_08_132730_create_views_table', 1),
@@ -522,7 +551,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (52, '2022_11_27_110411_create_zones_table', 1),
 (53, '2022_11_28_111303_create_item_offer_table', 1),
 (54, '2022_10_16_113100_create_projects_table', 2),
-(55, '2022_10_16_113537_create_units_table', 3);
+(55, '2022_10_16_113537_create_units_table', 3),
+(58, '2022_10_22_113713_create_items_table', 6),
+(59, '2022_10_26_121237_create_stocks_table', 7);
 
 -- --------------------------------------------------------
 
@@ -638,7 +669,18 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'user', '6eda7efcf1e65aa929974559244f6b8d17c4c54b8308e30d9be3ebce16221075', '[\"*\"]', NULL, NULL, '2022-11-29 08:57:52', '2022-11-29 08:57:52');
+(1, 'App\\Models\\User', 1, 'user', '06a7e23d1e5cbfbd7af278d338374905e285384d9e05e8299aedd90fae0cc848', '[\"*\"]', NULL, NULL, '2022-11-30 09:29:43', '2022-11-30 09:29:43'),
+(2, 'App\\Models\\Trader', 1, 'trader', '0ed14ec1738e0efdd7a1e4b1048c305d595a069672ec2b1df43cd57d4fa21f4b', '[\"*\"]', NULL, NULL, '2022-11-30 09:30:00', '2022-11-30 09:30:00'),
+(3, 'App\\Models\\User', 1, 'user', 'f1892ded2945d71bc58f563dfea4c82af707207aef15dbcdaa47e2480efc8dd9', '[\"*\"]', NULL, NULL, '2022-11-30 09:31:43', '2022-11-30 09:31:43'),
+(4, 'App\\Models\\Trader', 1, 'trader', '64d83def1c1a0fca239cf46f3fe55d0c54a726ccc92480a36d07263c276c7e2a', '[\"*\"]', NULL, NULL, '2022-11-30 09:32:25', '2022-11-30 09:32:25'),
+(5, 'App\\Models\\Trader', 1, 'trader', 'ecf4c5befeec337dc4047ba7b67895f039863b8a4deda23323ab7727dbb35ad8', '[\"*\"]', NULL, NULL, '2022-11-30 09:32:59', '2022-11-30 09:32:59'),
+(6, 'App\\Models\\Trader', 1, 'trader', '0c506b4932b24d521c80eaa662b4cdb0e2fde77c6119d583c97a51fbf56984cf', '[\"*\"]', NULL, NULL, '2022-11-30 09:36:02', '2022-11-30 09:36:02'),
+(7, 'App\\Models\\Trader', 1, 'trader', 'f1b01ddf0be9f4fcd75b6cf0f0b45977d507de2b446480c59b3ea4c9046a54a1', '[\"*\"]', NULL, NULL, '2022-11-30 09:36:30', '2022-11-30 09:36:30'),
+(8, 'App\\Models\\Trader', 1, 'trader', '29ca5f1f52c6ad1e56114b453e34394b9e2b2a748c41413fa2ac98aef993d26d', '[\"*\"]', NULL, NULL, '2022-11-30 09:37:32', '2022-11-30 09:37:32'),
+(11, 'App\\Models\\User', 1, 'user', '40e27bcdde099675c74693f421e1d2b0c489d16137164b7f9920b3934a7765b8', '[\"*\"]', NULL, NULL, '2022-11-30 10:30:47', '2022-11-30 10:30:47'),
+(12, 'App\\Models\\User', 1, 'user', '1340599bc0ff440d4dca951ff91e573a78116b77fea1eb3afd258fb2ba8c0a50', '[\"*\"]', '2022-11-30 18:49:18', NULL, '2022-11-30 10:36:38', '2022-11-30 18:49:18'),
+(13, 'App\\Models\\User', 2, 'user', 'f32d1bc2a0bde7ae66dbbe1efd39a21caf2b711e00f0f4db050759a28191ec71', '[\"*\"]', NULL, NULL, '2022-11-30 10:38:48', '2022-11-30 10:38:48'),
+(14, 'App\\Models\\User', 2, 'user', '7f7ded99671ada66f2d5ba97d67f2e4664aba8d816de24628ce507f4cf568184', '[\"*\"]', '2022-12-01 12:46:17', NULL, '2022-11-30 18:49:30', '2022-12-01 12:46:17');
 
 -- --------------------------------------------------------
 
@@ -743,6 +785,14 @@ CREATE TABLE `sizes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sizes`
+--
+
+INSERT INTO `sizes` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'L', '2022-11-30 10:05:09', '2022-11-30 10:05:09'),
+(2, 'M', '2022-11-30 10:05:13', '2022-11-30 10:05:13');
+
 -- --------------------------------------------------------
 
 --
@@ -775,14 +825,23 @@ CREATE TABLE `stocks` (
   `item_id` bigint(20) UNSIGNED NOT NULL,
   `stock` bigint(20) NOT NULL,
   `sale_price` decimal(16,0) NOT NULL,
+  `trader_id` bigint(20) UNSIGNED NOT NULL,
   `buy_price` decimal(16,0) DEFAULT NULL,
   `buy_discount` tinyint(4) DEFAULT NULL,
-  `trader_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `available` tinyint(1) DEFAULT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
+  `stock_code` bigint(20) NOT NULL,
+  `starting_stock` bigint(20) DEFAULT NULL,
+  `min_quantity` bigint(20) DEFAULT NULL,
+  `barcode` bigint(20) DEFAULT NULL,
+  `spare_barcode` bigint(20) DEFAULT NULL,
   `color_id` bigint(20) UNSIGNED DEFAULT NULL,
   `size_id` bigint(20) UNSIGNED DEFAULT NULL,
   `weight_id` bigint(20) UNSIGNED DEFAULT NULL,
   `volume_id` bigint(20) UNSIGNED DEFAULT NULL,
   `season_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `manufacture_date` date DEFAULT NULL,
+  `expire_date` date DEFAULT NULL,
   `stock_discount` tinyint(4) DEFAULT NULL,
   `discount_start_date` date DEFAULT NULL,
   `discount_end_date` date DEFAULT NULL,
@@ -803,6 +862,13 @@ CREATE TABLE `sub_categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sub_categories`
+--
+
+INSERT INTO `sub_categories` (`id`, `name`, `category_id`, `created_at`, `updated_at`) VALUES
+(1, 'ملابس', 2, '2022-11-30 10:03:00', '2022-11-30 10:03:00');
 
 -- --------------------------------------------------------
 
@@ -836,7 +902,7 @@ CREATE TABLE `traders` (
   `national_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` bigint(20) NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `guard` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'trader',
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'trader',
   `phone2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone4` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -852,8 +918,8 @@ CREATE TABLE `traders` (
 -- Dumping data for table `traders`
 --
 
-INSERT INTO `traders` (`id`, `f_name`, `m_name`, `l_name`, `logo`, `age`, `password`, `phone`, `national_id`, `code`, `email`, `guard`, `phone2`, `phone3`, `phone4`, `phone5`, `email_verified_at`, `phone_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'احمد', 'محمد', 'السعيد شتا', NULL, 34, '12345678', '01119657171', '28803241601251', 7171, NULL, 'trader', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-29 10:36:04', '2022-11-29 10:36:04');
+INSERT INTO `traders` (`id`, `f_name`, `m_name`, `l_name`, `logo`, `age`, `password`, `phone`, `national_id`, `code`, `email`, `guard_name`, `phone2`, `phone3`, `phone4`, `phone5`, `email_verified_at`, `phone_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'احمد', 'محمد', 'السعيد شتا', NULL, 34, '$2y$10$SOys4njKDvyrX3wD2SxeSOsu1p1d8cAtDXX9QtRydAZvpZmD68qF6', '01119657171', '28803241601251', 7171, NULL, 'trader', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-29 10:36:04', '2022-11-30 09:30:00');
 
 -- --------------------------------------------------------
 
@@ -882,6 +948,13 @@ CREATE TABLE `types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `types`
+--
+
+INSERT INTO `types` (`id`, `name`, `group_id`, `created_at`, `updated_at`) VALUES
+(1, 'بنطلون', 1, '2022-11-30 10:04:07', '2022-11-30 10:04:07');
 
 -- --------------------------------------------------------
 
@@ -916,7 +989,8 @@ CREATE TABLE `units` (
 --
 
 INSERT INTO `units` (`id`, `name`, `level_id`, `site_id`, `statu_id`, `trader_id`, `finance_id`, `space`, `price_m`, `unit_value`, `deposit`, `rent_value`, `rents_count`, `discount`, `description`, `created_date`, `canceled_date`, `created_at`, `updated_at`) VALUES
-(1, 'وحدة رقم 1', 2, NULL, 1, 1, NULL, '10', '1350', '13500', 6, NULL, 36, NULL, NULL, NULL, NULL, '2022-11-29 10:33:02', '2022-11-29 11:45:55');
+(1, 'وحدة رقم 1', 1, NULL, 2, 1, NULL, '10', '1350', '13500', 6, NULL, 36, NULL, NULL, NULL, NULL, '2022-11-29 10:33:02', '2022-11-29 12:32:51'),
+(2, '1', 2, NULL, 1, 1, NULL, '22', '22', '222', 6, NULL, 36, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -944,7 +1018,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `f_name`, `m_name`, `l_name`, `email`, `phone`, `email_verified_at`, `phone_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Ahmad', 'Ahmad', 'Ahmad', NULL, '01119657171', NULL, NULL, '$2y$10$SXtlRDAxi2jFn.RKGjT0N.lnQaQD8bFdEJTn1mrph87SkScC6GqJC', NULL, '2022-11-29 08:57:52', '2022-11-29 08:57:52');
+(1, 'Ahmad', 'Ahmad', 'Ahmad', NULL, '01119657171', NULL, NULL, '$2y$10$SXtlRDAxi2jFn.RKGjT0N.lnQaQD8bFdEJTn1mrph87SkScC6GqJC', NULL, '2022-11-29 08:57:52', '2022-11-29 08:57:52'),
+(2, 'يوسف', 'محمود', 'محمود', NULL, '01018650605', NULL, NULL, '$2y$10$/I2G26kKvgUHPnKIuiUkKObwrcr3tkptopVA3OK0LUD36ujWt3NbK', NULL, '2022-11-30 10:38:48', '2022-11-30 10:38:48');
 
 -- --------------------------------------------------------
 
@@ -1134,7 +1209,7 @@ ALTER TABLE `importers`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `items_code_unique` (`code`);
+  ADD UNIQUE KEY `items_item_code_unique` (`item_code`);
 
 --
 -- Indexes for table `item_images`
@@ -1274,7 +1349,8 @@ ALTER TABLE `status`
 -- Indexes for table `stocks`
 --
 ALTER TABLE `stocks`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `stocks_stock_code_unique` (`stock_code`);
 
 --
 -- Indexes for table `sub_categories`
@@ -1370,7 +1446,7 @@ ALTER TABLE `abouts`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `activity_trader`
@@ -1406,25 +1482,25 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `color_size_stocks`
 --
 ALTER TABLE `color_size_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -1460,7 +1536,7 @@ ALTER TABLE `genders`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `importers`
@@ -1514,7 +1590,7 @@ ALTER TABLE `manufactories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `offers`
@@ -1550,7 +1626,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `projects`
@@ -1592,7 +1668,7 @@ ALTER TABLE `sites`
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -1610,7 +1686,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sub_properties`
@@ -1634,19 +1710,19 @@ ALTER TABLE `trader_images`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `views`
