@@ -307,7 +307,7 @@ const Header = () => {
                                     <span className=" text-white">دخول</span>
                                 </button>
                                 <div className="dropdown-content-categories">
-                                    <Link to={"/clientLogin"}>دخول كعميل</Link>
+                                    <Link to={"/clientLogin"}>دخول</Link>
                                     <Link to={"/traderLogin"}>دخول كتاجر</Link>
                                 </div>
                             </div>
