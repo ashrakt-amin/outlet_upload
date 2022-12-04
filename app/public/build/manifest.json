@@ -1,0 +1,69 @@
+{
+  "resources/js/Pages/pages/Products/ProductDetails/cartanimation.gif": {
+    "file": "assets/cartanimation.b7d456d5.gif",
+    "src": "resources/js/Pages/pages/Products/ProductDetails/cartanimation.gif"
+  },
+  "resources/js/Pages/pages/LevelTrader/heart.gif": {
+    "file": "assets/heart.1acf0142.gif",
+    "src": "resources/js/Pages/pages/LevelTrader/heart.gif"
+  },
+  "resources/js/app.jsx": {
+    "file": "assets/app.dba1658f.js",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/pages/Dashboard.jsx",
+      "resources/js/Pages/pages/AdminPages/AdminLogin/AdminLogin.jsx",
+      "resources/js/Pages/pages/TraderDashboard/TraderDashboard.jsx"
+    ],
+    "css": [
+      "assets/app.2d8c1630.css"
+    ],
+    "assets": [
+      "assets/heart.1acf0142.gif",
+      "assets/cartanimation.b7d456d5.gif"
+    ]
+  },
+  "resources/js/Pages/pages/Dashboard.jsx": {
+    "file": "assets/Dashboard.e1a5f435.js",
+    "src": "resources/js/Pages/pages/Dashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/Dashboard.83242875.css"
+    ]
+  },
+  "resources/js/Pages/pages/AdminPages/AdminLogin/AdminLogin.jsx": {
+    "file": "assets/AdminLogin.fd534100.js",
+    "src": "resources/js/Pages/pages/AdminPages/AdminLogin/AdminLogin.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/pages/TraderDashboard/TraderDashboard.jsx": {
+    "file": "assets/TraderDashboard.73c41395.js",
+    "src": "resources/js/Pages/pages/TraderDashboard/TraderDashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/TraderDashboard.e7b47b7e.css"
+    ]
+  },
+  "resources/js/Pages/pages/Dashboard.css": {
+    "file": "assets/Dashboard.83242875.css",
+    "src": "resources/js/Pages/pages/Dashboard.css"
+  },
+  "resources/js/Pages/pages/TraderDashboard/TraderDashboard.css": {
+    "file": "assets/TraderDashboard.e7b47b7e.css",
+    "src": "resources/js/Pages/pages/TraderDashboard/TraderDashboard.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app.2d8c1630.css",
+    "src": "resources/js/app.css"
+  }
+}
