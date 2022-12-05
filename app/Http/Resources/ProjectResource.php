@@ -22,7 +22,7 @@ class ProjectResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'eskanCompany'  => new EskanCompanyResource($eskanCompany),
-            'levels'        => LevelResource::collection($levels),
+            'levels'        => LevelResource::collection($this->project_levels),
             'units'         => UnitResource::collection($units),
         ];
     }
