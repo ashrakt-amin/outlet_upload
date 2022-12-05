@@ -277,12 +277,6 @@ const Header = () => {
                                     >
                                         بياناتى
                                     </Link>
-                                    <Link
-                                        className=" bg-red-500 hover:border-slate-900 border-b-2 p-2 rounded-md"
-                                        to={`/clientOrders`}
-                                    >
-                                        اوردراتى
-                                    </Link>
                                     <button
                                         onClick={logoutFunc}
                                         className="relative hover:bg-red-700 wichlist bg-red-500 border-b-2 p-2 rounded-md flex items-center"

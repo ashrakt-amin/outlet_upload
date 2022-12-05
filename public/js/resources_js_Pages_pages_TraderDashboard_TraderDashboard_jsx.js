@@ -54,7 +54,7 @@ var VendorDashboard = function VendorDashboard() {
                 case 0:
                   _context.prev = 0;
                   _context.next = 3;
-                  return axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat("http://127.0.0.1:8000", "/api/traders/trader"), {
+                  return axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat("https://abc-mansoura.com", "/api/traders/trader"), {
                     headers: {
                       Authorization: "Bearer ".concat(getTokenTrader)
                     }
@@ -95,7 +95,7 @@ var VendorDashboard = function VendorDashboard() {
               getTokenTrader = JSON.parse(localStorage.getItem("trTk"));
               (axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.withCredentials) = true;
               _context3.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat("http://127.0.0.1:8000", "/") + "sanctum/csrf-cookie").then( /*#__PURE__*/function () {
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat("https://abc-mansoura.com", "/") + "sanctum/csrf-cookie").then( /*#__PURE__*/function () {
                 var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(r) {
                   var res;
                   return _regeneratorRuntime().wrap(function _callee2$(_context2) {
