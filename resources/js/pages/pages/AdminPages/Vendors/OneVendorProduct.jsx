@@ -11,6 +11,8 @@ const OneVendorProduct = () => {
     // item_id: id,
     // stock: stockCount,
     const [stockCount, setStockCount] = useState("1");
+    
+    const [stockCode, setStockCode] = useState("1");
 
     // sale_price: sale_price,
     const [salePrice, setSalePrice] = useState("1");
@@ -73,7 +75,8 @@ const OneVendorProduct = () => {
     // discount_end_date: discountEndDate,
     const [discountEndDate, setdiscountEndDate] = useState("");
 
-    const [itemCode, setItemCode] = useState("0");
+    const [barCode, setBareCode] = useState("");
+
 
     // const [barCode, setBarCode] = useState("");
 
@@ -241,15 +244,14 @@ const OneVendorProduct = () => {
                     {
                         item_id: id,
                         stock: stockCount,
-                        sale_price: sale_price,
+                        stock_code: stockCode,
+                        sale_price: salePrice,
                         trader_id: trader.id,
                         buy_price: buyPrice,
                         buy_discount: discount,
-                        sale_price: sale_price,
                         weight_id: "",
                         volume_id: volumeIdSelect,
                         season_id: "",
-                        item_id: id,
                         color_id: colorIdSelect,
                         size_id: sizeIdSelect,
                         weight_id: weightId,
@@ -338,62 +340,30 @@ const OneVendorProduct = () => {
                     </summary>
 
                     <div className="all-product-info-container">
+
                         <h1 className="my-2 shadow-md rounded-md p-2">
-                            اسم المنتج {itemInfo.name}
-                        </h1>
-                        <h1 className="my-2 shadow-md rounded-md p-2">
-                            سعر المنتج {itemInfo.sale_price}
-                        </h1>
-                        <h1 className="my-2 shadow-md rounded-md p-2">
-                            كود المنتج{itemInfo.code}
-                        </h1>
-                        <h1 className="my-2 shadow-md rounded-md p-2">
-                            عدد المنتج{itemInfo.stock}
+                            اسم المنتج : {itemInfo.name}
                         </h1>
 
-                        <div className="product-colors mt-4 my-2 shadow-md rounded-md p-2">
-                            <h1>الوان المنتج</h1>
-                            <div className="flex gap-2">
-                                {itemInfo.colors &&
-                                    itemInfo.colors.map((color) => (
-                                        <div
-                                            className="shadow-md p-1 rounded-md"
-                                            key={color.id}
-                                        >
-                                            {color.name}
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
+                        <h1 className="my-2 shadow-md rounded-md p-2">
+                            كود المنتج : {itemInfo.code}
+                        </h1>
 
-                        <div className="product-colors mt-4 my-2 shadow-md rounded-md p-2">
-                            <h1>مقاسات المنتج</h1>
-                            <div className="flex gap-2">
-                                {itemInfo.sizes &&
-                                    itemInfo.sizes.map((size) => (
-                                        <div
-                                            className="shadow-md p-1 rounded-md"
-                                            key={size.id}
-                                        >
-                                            {size.name}
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
+                        <div className="stock-item-div">
+                            {
+                                itemInfo.stocks &&
+                                itemInfo.stocks.map(oneitem=>(
+                                    <div className="m-1 p-1 bg-green-300" key={oneitem.id}>
+                                        <h1 >  الكمية : {oneitem.stock}</h1>
+                                        <h1 > سعر البيع : {oneitem.sale_price}</h1>
+                                        <h1 > سعر الشراء : {oneitem.buy_price}</h1>
+                                        {/* <h1 >  اللون : {oneitem.color.name}</h1>
+                                        <h1 >  المقاس : {oneitem.size.name}</h1>
+                                        <h1 >  الحجم : {oneitem.volume.name}</h1> */}
+                                    </div>
 
-                        <div className="product-colors mt-4 my-2 shadow-md rounded-md p-2">
-                            <h1>مقاسات المنتج</h1>
-                            <div className="flex gap-2">
-                                {itemInfo.sizes &&
-                                    itemInfo.sizes.map((size) => (
-                                        <div
-                                            className="shadow-md p-1 rounded-md"
-                                            key={size.id}
-                                        >
-                                            {size.name}
-                                        </div>
-                                    ))}
-                            </div>
+                                ))
+                            }
                         </div>
 
                         <h1 className="my-2 shadow-md rounded-md p-2">
@@ -487,9 +457,23 @@ const OneVendorProduct = () => {
                             value={stockCount}
                             placeholder="رصيد القطعة"
                             onChange={(e) => setStockCount(e.target.value)}
-                        />
+                        /> 
                     </div>
                     {/* (------------------ Stock div ------------------) */}
+
+                        <div className="stock-code-div">
+                            <div className="mt-3 mb-2">كود الصنف</div>
+                            <input
+                                className="border-none shadow-md rounded-md"
+                                type="text"
+                                value={stockCode}
+                                placeholder="رصيد القطعة"
+                                onChange={(e) => setStockCode(e.target.value)}
+                            />
+                        </div>
+
+                    
+
                     {/*--------------------------------  Color Select -------------------------------- */}
 
                     <div dir="rtl" className="color-select-div mt-2">
@@ -580,39 +564,15 @@ const OneVendorProduct = () => {
                             onChange={(e) => setBuyPrice(e.target.value)}
                         />
                     </div>
-                    <div className="product-code-div">
-                        <div className="mt-3 mb-2">كود المنتج</div>
-                        <input
-                            className="border-none shadow-md rounded-md"
-                            type="number"
-                            min={0}
-                            value={itemCode}
-                            placeholder="كود المنتج"
-                            onChange={(e) => setItemCode(e.target.value)}
-                        />
-                    </div>
 
-                    {/* <div className="product-barcode-div">
+                    <div className="product-barcode-div">
                         <div className="mt-3 mb-2">بار كود</div>
                         <input
                             className="border-none shadow-md rounded-md"
                             type="number"
-                            value={bar}
-                            min={0}
+                            value={barCode}
                             placeholder="بار كود"
-                            onChange={(e) => setBarCode(e.target.value)}
-                        />
-                    </div> */}
-
-                    <div className="product-spare-barcode-div">
-                        <div className="mt-3 mb-2">بار كود إضافى</div>
-                        <input
-                            className="border-none shadow-md rounded-md"
-                            type="number"
-                            min={0}
-                            value={spareBarCode}
-                            placeholder="بار كود"
-                            onChange={(e) => setSpareBarCode(e.target.value)}
+                            onChange={(e) => setBareCode(e.target.value)}
                         />
                     </div>
 

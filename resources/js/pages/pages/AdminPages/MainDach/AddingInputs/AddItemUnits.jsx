@@ -20,11 +20,11 @@ const AddColors = () => {
                         {
                             name: itemUnitName,
                         },
-                        {
-                            headers: {
-                                Authorization: `Bearer ${getToken}`,
-                            },
-                        }
+                        // {
+                        //     headers: {
+                        //         Authorization: `Bearer ${getToken}`,
+                        //     },
+                        // }
                     )
                     .then((res) => {
                         setSuccessMsg(res.data.message);

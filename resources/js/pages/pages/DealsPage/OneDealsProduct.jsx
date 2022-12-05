@@ -100,10 +100,6 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 </div>
                 <h5>إسم المنتج: {product.name}</h5>
                 <h5>
-                    {product.sale_price}
-                    جنية
-                </h5>
-                <h5>
                     العدد المتوفر:
                     {product.stock}
                 </h5>

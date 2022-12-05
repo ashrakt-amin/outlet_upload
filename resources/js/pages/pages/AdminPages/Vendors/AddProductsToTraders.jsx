@@ -22,6 +22,8 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
     // (----------------------------- (Product Info) -----------------------------)
     const [productName, setProdcutName] = useState("");
+    
+    const [itemCode, setItemCode] = useState("");
 
     const [imgVal, setImgVal] = useState(null);
 
@@ -87,7 +89,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getCategories = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}api/types`,
+                            `${process.env.MIX_APP_URL}/api/types`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
@@ -104,7 +106,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getImportedCompany = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}api/importers`,
+                            `${process.env.MIX_APP_URL}/api/importers`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
@@ -119,7 +121,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getItemUnits = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}api/itemUnits`,
+                            `${process.env.MIX_APP_URL}/api/itemUnits`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
@@ -136,7 +138,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getManufactorCompanies = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}api/manufactories`,
+                            `${process.env.MIX_APP_URL}/api/manufactories`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
@@ -153,7 +155,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getDistributeCompanies = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}api/companies`,
+                            `${process.env.MIX_APP_URL}/api/companies`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
@@ -168,7 +170,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getVolumes = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}api/volumes`,
+                            `${process.env.MIX_APP_URL}/api/volumes`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
@@ -208,21 +210,13 @@ const AddProductsToTraders = ({ traderInfo }) => {
             }, 3000);
             return;
         }
-        // if (
-        //     salePrice.match(regNum) &&
-        //     buyPrice.match(regNum) &&
-        //     productName != "" &&
-        //     unitPartsCount.match(regNum)
-        // ) {
-        //     console.log("valid");
-        // } else {
-        //     console.log("not valid");
-        // }
         addProductFunc();
     };
 
     const addProductFunc = async () => {
         let traderTk = JSON.parse(localStorage.getItem("uTk"));
+
+        console.log(traderTk);
 
         const fData = new FormData();
 
@@ -231,11 +225,14 @@ const AddProductsToTraders = ({ traderInfo }) => {
         imgVal.map((el) => {
             fData.append("img[]", el);
         });
+
         fData.append("type_id", typeId); // اسم التصنيف
+
+        fData.append("item_code", itemCode); // كود المنتج 
 
         fData.append("item_unit_id", itemUnitId); // وحدة المنتج _ قطعة+-وحدة-علبة
 
-        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة او القطعة او العلبة
+        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة
 
         fData.append("discount", discountValue); // الخصم
 
@@ -245,7 +242,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
         fData.append("manufactory_id", manufactoryID); //  الشركة المنتجة او المصنعة
 
-        fData.append("agent_id", agentId); //  الشركة المنتجة او المصنعة
+        fData.append("agent_id", agentId); //  الوكيل 
 
         fData.append("company_id", distributeCompanyId); // الشركة الموزعة
 
@@ -253,7 +250,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
         try {
             const res = await axios.post(
-                `${process.env.MIX_APP_URL}api/items`,
+                `${process.env.MIX_APP_URL}/api/items`,
                 fData,
                 {
                     headers: {
@@ -268,6 +265,8 @@ const AddProductsToTraders = ({ traderInfo }) => {
             console.log(res.data.message);
         } catch (er) {
             console.log(er.response);
+            console.log(er);
+            
         }
     };
     // (------------------------ (End adding product Function) -----------------------------)
@@ -353,6 +352,18 @@ const AddProductsToTraders = ({ traderInfo }) => {
                             onChange={(e) => setProdcutName(e.target.value)}
                         />
                     </div>
+
+                    <div className="product-name-div">
+                        <div className="mt-3 mb-2">كودالمنتج</div>
+                        <input
+                            className="border-none shadow-md rounded-md"
+                            type="text"
+                            value={itemCode}
+                            placeholder="كودالمنتج"
+                            onChange={(e) => setItemCode(e.target.value)}
+                        />
+                    </div>
+
                     {/*------------------------ Photo Table --------------------------------*/}
                     <div className="img-div bg-slate-300 p-2 rounded-md">
                         <h1 className="my-2">اختر صور المنتج</h1>
@@ -420,7 +431,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                         />
                     </div>
 
-                    <div className="discount-div">
+                    {/* <div className="discount-div">
                         <div className="">إختر طريقة الخصم</div>
                         <button
                             onClick={opnDiscByPound}
@@ -481,7 +492,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                                 />
                             </div>
                         )}
-                    </div>
+                    </div> */}
 
                     <div className="import-checkbox-div mt-4 p-1 rounded-md shadow-md w-fit h-fit">
                         <div>هل هذا المنتج مستورد ؟</div>
@@ -527,6 +538,32 @@ const AddProductsToTraders = ({ traderInfo }) => {
                     {/* ----------------------- Distribute Company Select ------------------- */}
                     <div className="distribute-companies mt-3">
                         <h1> إختر الشركة الموزعة</h1>
+                        <select
+                            className="rounded-md cursor-pointer"
+                            onChange={whatDistribute}
+                            name=""
+                            id=""
+                        >
+                            <option value={"0"}>لم تختر بعد</option>
+
+                            {distributeCompaniesArray &&
+                                distributeCompaniesArray.map(
+                                    (oneDistributeComp) => (
+                                        <option
+                                            value={oneDistributeComp.id}
+                                            key={oneDistributeComp.id}
+                                        >
+                                            {oneDistributeComp.name}
+                                        </option>
+                                    )
+                                )}
+                        </select>
+                    </div>
+                    {/* ----------------------- Distribute Company Select ------------------- */}
+
+                    {/* ----------------------- Distribute Company Select ------------------- */}
+                    <div className="distribute-companies mt-3">
+                        <h1> إختر الوكيل</h1>
                         <select
                             className="rounded-md cursor-pointer"
                             onChange={whatDistribute}

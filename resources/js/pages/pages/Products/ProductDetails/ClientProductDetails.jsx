@@ -41,12 +41,17 @@ const ClientProductDetails = () => {
 
     const [singleProduct, setSingleProduct] = useState({});
 
+    const [traderLogo,setTraderLogo] = useState('')
+
     const [colorId, setColorId] = useState("");
     const [sizeId, setSizeId] = useState("");
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
+        if(getToken == null){
+            getToken = ''
+        }
 
         const getSubCategoriesWihoutOuth = async () => {
             try {
@@ -59,7 +64,14 @@ const ClientProductDetails = () => {
                     }
                 );
                 setSingleProduct(res.data.data);
-                console.log(res.data.data);
+                console.log(res.data.data.trader.logo);
+                if(res.data.data.trader.logo == null){
+                    setTraderLogo('https://th.bing.com/th/id/R.77bd7241f229f2d97c9d194400bcf239?rik=iXHy8LKwkGKMPQ&pid=ImgRaw&r=0')
+                }else {
+                    setTraderLogo(
+                        `${process.env.MIX_APP_URL}/assets/images/uploads/traders/${res.data.data.trader.logo}`
+                        )
+                }
                 window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 setProductImgs(res.data.data.itemImages);
                 getMatchingProducts(res.data.data.type.id);
@@ -75,83 +87,6 @@ const ClientProductDetails = () => {
         };
     }, [id]);
 
-    // (------------------------------- add to cart -----------------------------)
-    const addToCart = async (product) => {
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
-        setReloadBtn(true);
-        if (getToken) {
-            try {
-                const res = await axios.post(
-                    `${process.env.MIX_APP_URL}/api/carts`,
-                    {
-                        quantity: productAmount,
-                        item_id: id,
-                        color_id: colorId,
-                        size_id: sizeId,
-                    },
-                    {
-                        headers: { Authorization: `Bearer ${getToken}` },
-                    }
-                );
-                setProductMsg(res.data.message);
-                setReloadBtn(false);
-                setRefetchAgain(!refetchAgain);
-                setTimeout(() => {
-                    setProductMsg("");
-                }, 5000);
-                setUpdateCartCount(!updateCartCount);
-            } catch (er) {
-                console.log(er);
-                setReloadBtn(false);
-                setProductMsg(er.response.data.message);
-                setTimeout(() => {
-                    setProductMsg("");
-                }, 5000);
-            }
-        } else {
-            redirect("/clientLogin");
-        }
-    };
-    // (------------------------------- add to cart -----------------------------)
-
-    const increase = () => {
-        if (productAmount < 5) {
-            setProductAmount((prev) => prev + 1);
-        }
-    };
-
-    const decrease = () => {
-        if (productAmount > 1) {
-            setProductAmount((prev) => prev - 1);
-        }
-    };
-
-    useEffect(() => {
-        const cancelRequest = axios.CancelToken.source();
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
-        if (getToken) {
-            const getCartProducts = async () => {
-                try {
-                    const res = await axios.get(
-                        `${process.env.MIX_APP_URL}/api/carts`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${getToken}`,
-                            },
-                        }
-                    );
-                    let cartCount = res.data.data.length;
-                    dispatch(productsInCartNumber(cartCount));
-                } catch (error) {
-                    console.warn(error.message);
-                }
-            };
-            getCartProducts();
-        }
-        return () => {
-            cancelRequest.cancel();
-        };
-    }, [updateCartCount]);
 
     const nextImg = (indx) => {
         setImgNum(indx);
@@ -169,18 +104,11 @@ const ClientProductDetails = () => {
         }
     };
 
+    // `}
+
     const refetch = () => {
         getMatchingProducts(typeIdValue);
     };
-
-    const whatColor = (colorid) => {
-        setColorId(colorid.target.value);
-    };
-
-    const whatSize = (sizeid) => {
-        setSizeId(sizeid.target.value);
-    };
-
     return (
         <div>
             {/* <div className="prodcut-details-container flex gap-3 p-1 flex-wrap pb-24"> */}
@@ -267,7 +195,7 @@ const ClientProductDetails = () => {
                         )}
                     </div>
 
-                    <div className="select-color-size-div">
+                    {/* <div className="select-color-size-div">
                         <div className="color-select-client mt-3">
                             <h1>اختر اللون</h1>
                             <select
@@ -308,7 +236,7 @@ const ClientProductDetails = () => {
                                     ))}
                             </select>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="product-decsription-container mt-3">
                         <div>وصف المنتج</div>
                         <div className="description-container">
@@ -325,7 +253,7 @@ const ClientProductDetails = () => {
                         </div>
                     </div>
 
-                    <div className="add-to-cart relative flex gap-4 py-5 px-2">
+                    {/* <div className="add-to-cart relative flex gap-4 py-5 px-2">
                         {!reloadBtn ? (
                             <div
                                 onClick={() => addToCart(singleProduct)}
@@ -360,7 +288,7 @@ const ClientProductDetails = () => {
                                 -
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* معلومات التاجر */}
@@ -374,7 +302,7 @@ const ClientProductDetails = () => {
                     >
                         <img
                             // className="w-full"
-                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${singleProduct?.trader?.logo}`}
+                            src={`${traderLogo}`}
                             alt="لا يوجد صورة"
                         />
                     </div>

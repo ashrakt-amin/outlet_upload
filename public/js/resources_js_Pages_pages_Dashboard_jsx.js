@@ -1629,7 +1629,7 @@ function AddTrader(_ref) {
             case 4:
               _context.prev = 4;
               _context.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat("http://127.0.0.1:8000", "/api/traders"), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat("127.0.0.1:8000", "/api/traders"), {
                 f_name: fName,
                 m_name: mName,
                 l_name: lName,
@@ -2028,7 +2028,7 @@ var AddUnit = function AddUnit(_ref) {
               }
               _context.prev = 2;
               _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/units"), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/units"), {
                 name: unitName,
                 level_id: levelInfo.id,
                 // select الطوابق (الادوار) hidden
@@ -2329,7 +2329,7 @@ function UpdateTrader(_ref) {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                axios__WEBPACK_IMPORTED_MODULE_1___default().put("".concat("http://127.0.0.1:8000", "/api/traders/").concat(traderInfo.id), {
+                axios__WEBPACK_IMPORTED_MODULE_1___default().put("".concat("127.0.0.1:8000", "/api/traders/").concat(traderInfo.id), {
                   f_name: fName,
                   m_name: mName,
                   l_name: lName,
@@ -2898,7 +2898,7 @@ var AddAdvertisement = function AddAdvertisement() {
             switch (_context.prev = _context.next) {
               case 0:
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/traders")).then(function (res) {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/traders")).then(function (res) {
                     setTradersArr(res.data.data);
                     console.log(res.data.data);
                   });
@@ -2924,7 +2924,7 @@ var AddAdvertisement = function AddAdvertisement() {
             switch (_context2.prev = _context2.next) {
               case 0:
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/advertisements") // {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/advertisements") // {
                   //     headers: { Authorization: `Bearer ${getToken}` },
                   // }
                   ).then(function (res) {
@@ -2966,7 +2966,7 @@ var AddAdvertisement = function AddAdvertisement() {
               formData.append("updated_by", 1);
               _context3.prev = 8;
               _context3.next = 11;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/advertisements"), formData, {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/advertisements"), formData, {
                 headers: {
                   Authorization: "Bearer ".concat(getToken)
                 }
@@ -3168,7 +3168,7 @@ var OneAdvertisement = function OneAdvertisement(_ref) {
               getToken = JSON.parse(localStorage.getItem("uTk"));
               _context.prev = 1;
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/advertisements/").concat(adv.id), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/advertisements/").concat(adv.id), {
                 link: linkName
               }, {
                 headers: {
@@ -3213,7 +3213,7 @@ var OneAdvertisement = function OneAdvertisement(_ref) {
               fData.append("img", imgVal);
               _context2.prev = 3;
               _context2.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/advertisements/").concat(imgvalue.id), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/advertisements/").concat(imgvalue.id), {
                 img: imgVal
               }
               // {
@@ -3251,7 +3251,7 @@ var OneAdvertisement = function OneAdvertisement(_ref) {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/advertisements/").concat(remainingVal.id), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/advertisements/").concat(remainingVal.id), {
                 renew: renewNum
               });
             case 3:
@@ -3293,7 +3293,7 @@ var OneAdvertisement = function OneAdvertisement(_ref) {
         maxWidth: "100%"
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-        src: "".concat("http://127.0.0.1:8000", "/assets/images/uploads/advertisements/").concat(advertise.img),
+        src: "".concat("127.0.0.1:8000", "/assets/images/uploads/advertisements/").concat(advertise.img),
         alt: ""
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -3480,7 +3480,7 @@ var AddActivity = function AddActivity() {
             case 0:
               if (activityName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/activities"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/activities"), {
                     name: activityName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -3604,7 +3604,7 @@ var AddColors = function AddColors() {
             case 0:
               if (colorName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/colors"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/colors"), {
                     name: colorName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -3729,7 +3729,7 @@ var AddDistributCompany = function AddDistributCompany() {
             case 0:
               if (distributCompanyName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/companies"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/companies"), {
                     name: distributCompanyName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -3853,7 +3853,7 @@ var AddImportedCompany = function AddImportedCompany() {
             case 0:
               if (importersName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/importers"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/importers"), {
                     name: importersName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -3979,7 +3979,7 @@ var AddColors = function AddColors() {
               getToken = JSON.parse(localStorage.getItem("uTk"));
               if (itemUnitName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/itemUnits"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/itemUnits"), {
                     name: itemUnitName
                   }, {
                     headers: {
@@ -4106,7 +4106,7 @@ var AddManufactories = function AddManufactories() {
             case 0:
               if (manufactorCompaneyName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/manufactories"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/manufactories"), {
                     name: manufactorCompaneyName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -4229,7 +4229,7 @@ var AddSize = function AddSize() {
             case 0:
               if (sizeName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/sizes"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/sizes"), {
                     name: sizeName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -4354,7 +4354,7 @@ var AddVolume = function AddVolume() {
             case 0:
               if (volumeName.length > 0) {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/volumes"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/volumes"), {
                     name: volumeName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -4495,7 +4495,7 @@ function AddGenderMod(_ref) {
             case 0:
               if (groupName.length > 0 && subCategoryId != "") {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/groups"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/groups"), {
                     name: groupName,
                     sub_category_id: subCategoryId
                   }).then(function (res) {
@@ -4536,7 +4536,7 @@ function AddGenderMod(_ref) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/subCategories"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/subCategories"), {
                   cancelRequest: cancelRequest.token
                 }).then(function (res) {
                   setSubCategoryArr(res.data.data);
@@ -4743,7 +4743,7 @@ function AddSubCatgModal(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/categories"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/categories"), {
                   cancelRequest: cancelRequest.token
                 }).then(function (res) {
                   setMainCateg(res.data.data);
@@ -4774,7 +4774,7 @@ function AddSubCatgModal(_ref) {
             case 0:
               if (subCategName.length > 0 && mainCategId != "") {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/subCategories"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/subCategories"), {
                     name: subCategName,
                     category_id: mainCategId
                   }).then(function (res) {
@@ -4987,7 +4987,7 @@ function AddTypesModal(_ref) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/groups"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/groups"), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -5020,7 +5020,7 @@ function AddTypesModal(_ref) {
             case 0:
               if (typesName.length > 0 && groupId != "") {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/types"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/types"), {
                     name: typesName,
                     group_id: groupId
                   }).then(function (res) {
@@ -5276,7 +5276,7 @@ var MainDach = function MainDach() {
               if (categorryVal.length > 0) {
                 setIsAddCategory(!isAddCategory);
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/categories"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/categories"), {
                     name: categorryVal
                   }).then(function (res) {
                     setCategorryMsg("".concat(res.data.data.name));
@@ -5504,7 +5504,7 @@ var UsersPage = function UsersPage() {
               uToken = JSON.parse(localStorage.getItem("uTk"));
               e.preventDefault();
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/register/users"), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/register/users"), {
                 f_name: userInfo.fName,
                 l_name: userInfo.lName,
                 m_name: userInfo.mName,
@@ -5829,7 +5829,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context.prev = 0;
                               _context.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/types"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("127.0.0.1:8000", "api/types"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5865,7 +5865,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context2.prev = 0;
                               _context2.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/importers"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("127.0.0.1:8000", "api/importers"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5899,7 +5899,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context3.prev = 0;
                               _context3.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/itemUnits"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("127.0.0.1:8000", "api/itemUnits"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5935,7 +5935,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context4.prev = 0;
                               _context4.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/manufactories"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("127.0.0.1:8000", "api/manufactories"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5971,7 +5971,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context5.prev = 0;
                               _context5.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/companies"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("127.0.0.1:8000", "api/companies"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -6004,7 +6004,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context6.prev = 0;
                               _context6.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/volumes"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("127.0.0.1:8000", "api/volumes"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -6109,7 +6109,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
               fData.append("importer_id", importedCompId); // الشركة المستوردة
               _context8.prev = 14;
               _context8.next = 17;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat("http://127.0.0.1:8000", "api/items"), fData, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat("127.0.0.1:8000", "api/items"), fData, {
                 headers: {
                   Authorization: "Bearer ".concat(traderTk)
                 }
@@ -6629,7 +6629,7 @@ var OneVendorProduct = function OneVendorProduct() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/items/").concat(id));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/items/").concat(id));
               case 3:
                 res = _context.sent;
                 console.log(res.data.data);
@@ -6661,7 +6661,7 @@ var OneVendorProduct = function OneVendorProduct() {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/colors"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/colors"), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -6694,7 +6694,7 @@ var OneVendorProduct = function OneVendorProduct() {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/sizes"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/sizes"), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -6727,7 +6727,7 @@ var OneVendorProduct = function OneVendorProduct() {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/volumes"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/volumes"), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -6779,7 +6779,7 @@ var OneVendorProduct = function OneVendorProduct() {
               });
               _context5.prev = 5;
               _context5.next = 8;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/itemImages"), fData);
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/itemImages"), fData);
             case 8:
               res = _context5.sent;
               setFetchAgain(!fetchAgain);
@@ -6855,7 +6855,7 @@ var OneVendorProduct = function OneVendorProduct() {
             case 8:
               _context6.prev = 8;
               _context6.next = 11;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/stocks"), (_axios$post = {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/stocks"), (_axios$post = {
                 item_id: id,
                 stock: stockCount,
                 sale_price: sale_price,
@@ -7278,7 +7278,7 @@ var UpdateProductsImgsInDash = function UpdateProductsImgsInDash(_ref) {
               console.log(image);
               _context.prev = 2;
               _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/itemImages/").concat(image.id) // {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/itemImages/").concat(image.id) // {
               //     headers: {
               //         Authorization: `Bearer ${traderTk}`,
               //     },
@@ -7317,7 +7317,7 @@ var UpdateProductsImgsInDash = function UpdateProductsImgsInDash(_ref) {
               console.log(image);
               _context2.prev = 3;
               _context2.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/itemImages/").concat(image.id), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/itemImages/").concat(image.id), {
                 img: imgVal
               }
               // {
@@ -7358,7 +7358,7 @@ var UpdateProductsImgsInDash = function UpdateProductsImgsInDash(_ref) {
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
       className: "w-full",
-      src: "".concat("http://127.0.0.1:8000", "/assets/images/uploads/items/").concat(oneImage.img),
+      src: "".concat("127.0.0.1:8000", "/assets/images/uploads/items/").concat(oneImage.img),
       alt: "\u0644\u0627 \u064A\u0648\u062C\u062F \u0635\u0648\u0631\u0629"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
       onClick: function onClick() {
@@ -7419,7 +7419,7 @@ var VendorProducts = function VendorProducts(_ref) {
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
                 className: "w-1/2 mx-auto",
-                src: "".concat("http://127.0.0.1:8000", "/assets/images/uploads/items/").concat((_product$itemImages$ = product.itemImages[0]) === null || _product$itemImages$ === void 0 ? void 0 : _product$itemImages$.img),
+                src: "".concat("127.0.0.1:8000", "/assets/images/uploads/items/").concat((_product$itemImages$ = product.itemImages[0]) === null || _product$itemImages$ === void 0 ? void 0 : _product$itemImages$.img),
                 alt: "image"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("h5", {
@@ -7542,7 +7542,7 @@ var VendrosPage = function VendrosPage() {
             switch (_context.prev = _context.next) {
               case 0:
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/traders") // , {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/traders") // , {
                   //     headers: { Authorization: `Bearer ${getToken}` },
                   // }
                   ).then(function (res) {
@@ -7584,7 +7584,7 @@ var VendrosPage = function VendrosPage() {
           switch (_context2.prev = _context2.next) {
             case 0:
               try {
-                axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/traders/").concat(traderid)).then(function (res) {
+                axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/traders/").concat(traderid)).then(function (res) {
                   console.log(res);
                 });
               } catch (error) {}
@@ -7790,7 +7790,7 @@ var AllActivites = function AllActivites() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/activities") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/activities") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -7836,7 +7836,7 @@ var AllActivites = function AllActivites() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/activities/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/activities/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -7880,7 +7880,7 @@ var AllActivites = function AllActivites() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/activities/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/activities/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -8060,7 +8060,7 @@ var AllCategories = function AllCategories() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/categories") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/categories") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -8106,7 +8106,7 @@ var AllCategories = function AllCategories() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/categories/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/categories/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -8150,7 +8150,7 @@ var AllCategories = function AllCategories() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/categories/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/categories/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -8330,7 +8330,7 @@ var AllColors = function AllColors() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/colors") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/colors") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -8376,7 +8376,7 @@ var AllColors = function AllColors() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/colors/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/colors/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -8420,7 +8420,7 @@ var AllColors = function AllColors() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/colors/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/colors/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -8600,7 +8600,7 @@ var AllDistributeCompanies = function AllDistributeCompanies() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/companies") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/companies") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -8646,7 +8646,7 @@ var AllDistributeCompanies = function AllDistributeCompanies() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/companies/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/companies/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -8690,7 +8690,7 @@ var AllDistributeCompanies = function AllDistributeCompanies() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/companies/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/companies/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -8870,7 +8870,7 @@ var AllGroups = function AllGroups() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/groups") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/groups") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -8916,7 +8916,7 @@ var AllGroups = function AllGroups() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/groups/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/groups/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -8960,7 +8960,7 @@ var AllGroups = function AllGroups() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/groups/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/groups/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -9140,7 +9140,7 @@ var AllImportedCompanies = function AllImportedCompanies() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/importers") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/importers") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -9186,7 +9186,7 @@ var AllImportedCompanies = function AllImportedCompanies() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/importers/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/importers/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -9230,7 +9230,7 @@ var AllImportedCompanies = function AllImportedCompanies() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/importers/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/importers/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -9410,7 +9410,7 @@ var AllManufactories = function AllManufactories() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/manufactories") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/manufactories") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -9456,7 +9456,7 @@ var AllManufactories = function AllManufactories() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/manufactories/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/manufactories/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -9500,7 +9500,7 @@ var AllManufactories = function AllManufactories() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/manufactories/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/manufactories/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -9680,7 +9680,7 @@ var AllSizes = function AllSizes() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/sizes") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/sizes") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -9726,7 +9726,7 @@ var AllSizes = function AllSizes() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/sizes/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/sizes/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -9770,7 +9770,7 @@ var AllSizes = function AllSizes() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/sizes/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/sizes/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -9950,7 +9950,7 @@ var AllSubCategories = function AllSubCategories() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/subCategories") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/subCategories") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -9996,7 +9996,7 @@ var AllSubCategories = function AllSubCategories() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/subCategories/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/subCategories/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -10040,7 +10040,7 @@ var AllSubCategories = function AllSubCategories() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/subCategories/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/subCategories/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -10220,7 +10220,7 @@ var AllType = function AllType() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/types") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/types") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -10266,7 +10266,7 @@ var AllType = function AllType() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/types/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/types/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -10310,7 +10310,7 @@ var AllType = function AllType() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/types/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/types/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -10490,7 +10490,7 @@ var AllUnitsItemId = function AllUnitsItemId() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/itemUnits"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/itemUnits"), {
                   headers: {
                     Authorization: "Bearer ".concat(adminTrue)
                   }
@@ -10536,7 +10536,7 @@ var AllUnitsItemId = function AllUnitsItemId() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/itemUnits/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/itemUnits/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -10580,7 +10580,7 @@ var AllUnitsItemId = function AllUnitsItemId() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/itemUnits/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/itemUnits/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -10760,7 +10760,7 @@ var AllVolumes = function AllVolumes() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/volumes") // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/volumes") // {
                 //     headers: {
                 //         Authorization: `Bearer ${adminTrue}`,
                 //     },
@@ -10806,7 +10806,7 @@ var AllVolumes = function AllVolumes() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("http://127.0.0.1:8000", "/api/volumes/").concat(activityId), {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("".concat("127.0.0.1:8000", "/api/volumes/").concat(activityId), {
                 name: acivityName
               });
             case 3:
@@ -10850,7 +10850,7 @@ var AllVolumes = function AllVolumes() {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("http://127.0.0.1:8000", "/api/volumes/").concat(activityId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("".concat("127.0.0.1:8000", "/api/volumes/").concat(activityId));
             case 3:
               res = _context3.sent;
               setFechAgain(!fetchAgain);
@@ -11070,7 +11070,7 @@ var OneLevel = function OneLevel() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/levels/").concat(id), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/levels/").concat(id), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -11196,7 +11196,7 @@ var OneProject = function OneProject() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/projects/").concat(id), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/projects/").concat(id), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -11232,7 +11232,7 @@ var OneProject = function OneProject() {
   var addLevelFunc = function addLevelFunc() {
     if (levelName != "") {
       try {
-        axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/levels"), {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/levels"), {
           name: levelName,
           project_id: oneProject.id
         }).then(function (res) {
@@ -11954,7 +11954,7 @@ var OneVendor = function OneVendor() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/traders/").concat(id) // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/traders/").concat(id) // {
                 //     headers: { Authorization: `Bearer ${getToken}` },
                 // }
                 );
@@ -12108,7 +12108,7 @@ var Projects = function Projects() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/projects"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/api/projects"), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -12147,7 +12147,7 @@ var Projects = function Projects() {
             case 0:
               if (projectName != "") {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/projects"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("127.0.0.1:8000", "/api/projects"), {
                     name: projectName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);
@@ -12300,7 +12300,7 @@ function Dashboard() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("127.0.0.1:8000", "/"), {
                   headers: {
                     Authorization: "Bearer ".concat(adminTrue)
                   }
