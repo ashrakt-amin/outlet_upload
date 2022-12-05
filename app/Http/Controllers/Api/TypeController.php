@@ -15,9 +15,9 @@ class TypeController extends Controller
     public function __construct ()
     {
         $authorizationHeader = \request()->header('Authorization');
-        if(isset($authorizationHeader)) {
+        if(request()->bearerToken() != null) {
             $this->middleware('auth:sanctum');
-        };
+        }
     }
     /**
      * Display a listing of the resource.
@@ -107,7 +107,6 @@ class TypeController extends Controller
                 return response()->json([
                     "success" => true,
                     "message" => "تم حذف النوع",
-                    "data" => $type
                 ], 200);
             } else {
                 return response()->json([

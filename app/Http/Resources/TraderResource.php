@@ -16,6 +16,7 @@ class TraderResource extends JsonResource
     public function toArray($request)
     {
         $units         = $this->whenLoaded('units');
+        $levels        = $this->whenLoaded('levels');
         $items         = $this->whenLoaded('items');
         $orderDetails  = $this->whenLoaded('orderDetails');
         return [
@@ -32,11 +33,11 @@ class TraderResource extends JsonResource
             'phone5'       => $this->phone5,
             'email'        => $this->email,
             'code'         => $this->code,
-            'levels'       => $this->trader_levels,
+            'levels'       => LevelResource::collection($levels),
             'units'        => UnitResource::collection($units),
             'items'        => ItemResource::collection($items),
-            'orderDetails' => OrderDetailResource::collection($orderDetails),
-            'activities'   => $this->trader_activities,
+            // 'orderDetails' => OrderDetailResource::collection($orderDetails),
+            // 'activities'   => $this->trader_activities,
         ];
     }
 }

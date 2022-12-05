@@ -15,7 +15,10 @@ mix.browserSync({
       'public/js/**/*',
       'public/css/**/*',
       'public/**/*.+(html|php)',
-      'resources/views/**/*.php'
+      'resources/views/**/*.php',
+      'app/**/**/**/*/.php',
+      'database/**/*/.php',
+      'route/*/.php',
     ],
     open: "http://127.0.0.1:8000/",
     browser: "google chrome",

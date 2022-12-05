@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('color_size_stocks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id');
+            $table->bigInteger('stock');
             $table->decimal('sale_price', 16, 0);
             $table->decimal('buy_price', 16, 0)          ->nullable();
             $table->tinyInteger('buy_discount')          ->nullable();
@@ -25,7 +26,9 @@ return new class extends Migration
             $table->unsignedBigInteger('weight_id')      ->nullable();
             $table->unsignedBigInteger('volume_id')      ->nullable();
             $table->unsignedBigInteger('season_id')      ->nullable();
-            $table->bigInteger('stock');
+            $table->tinyInteger('stock_discount')        ->nullable();
+            $table->date('discount_start_date')          ->nullable();
+            $table->date('discount_end_date')            ->nullable();
             $table->timestamps();
         });
     }

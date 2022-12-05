@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
-use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -16,9 +15,12 @@ class ItemController extends Controller
     public function __construct ()
     {
         $authorizationHeader = \request()->header('Authorization');
-        if(isset($authorizationHeader)) {
+        if(request()->bearerToken() != null) {
             $this->middleware('auth:sanctum');
         };
+        // if(isset($authorizationHeader)) {
+        //     $this->middleware('auth:sanctum');
+        // };
     }
 
     /**
@@ -68,7 +70,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $itemExist = Item::where(['code'=>$request->code])->first();
+        $itemExist = Item::where(['item_code'=>$request->item_code])->first();
         if ($itemExist) {
             return response()->json([
                 "success" => true,
@@ -108,7 +110,6 @@ class ItemController extends Controller
             $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $user_token))->first();
             $guard = $token_data->name;
         }
-        $item = Item::where(['id'=>$item->id])->first();
         if (request()->bearerToken() != null && $guard != 'trader' && $guard != 'user') {
             $view = View::where(['item_id'=>$item->id, 'client_id'=>auth()->guard()->id()])->first();
             if (!$view) {

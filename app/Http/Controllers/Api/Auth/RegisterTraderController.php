@@ -23,7 +23,6 @@ class RegisterTraderController extends BaseController
         if ($request->input('code')) {
             $user = Trader::where(['code'=>$request->input('code')])->first();
             if ($user) {
-                // dd($user->phone, $request);
                 if ($user->phone == $request->input('phone')) {
                     if ($request->input('password') !== $request->input('confirm_password')) {
                         return response()->json([

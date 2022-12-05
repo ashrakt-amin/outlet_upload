@@ -5,6 +5,7 @@ use Carbon\Carbon;
 
 use App\Models\Trader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -19,6 +20,19 @@ class TraderController extends Controller
         if(isset($authorizationHeader)) {
             $this->middleware('auth:sanctum');
         };
+
+        // if (request()->bearerToken() != null) {
+        //     [$id, $user_token] = explode('|', request()->bearerToken(), 2);
+        //     $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $user_token))->first();
+        //     $guard        = $token_data->name;
+        //     $tokenable_id = $token_data->tokenable_id;
+        //     if ($guard == 'trader') {
+        //         $trader = Trader::find($tokenable_id);
+        //         if ($trader != null) {
+        //             $this->middleware('auth:sanctum');
+        //         }
+        //     }
+        // }
     }
 
     /**
@@ -44,12 +58,16 @@ class TraderController extends Controller
     {
         if (auth()->guard()->id()) {
             $request->validate([
+            'f_name'      => 'required',
             'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-            'phone1'      => 'regex:/^(01)[0-9]{9}$/',
-            'phone2'      => 'regex:/^(01)[0-9]{9}$/',
+            'code'        => 'unique:traders,code',
+            'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
             'national_id' => 'unique:traders,national_id',
             ], [
+                'f_name.required'    => 'الاسم ضروري',
                 'phone.unique'       => 'الهاتف مسجل من قبل',
+                'code.unique'        => 'الكود مسجل من قبل',
                 'phone.regex'        => 'صيغة الهاتف غير صحيحة',
                 'national_id.unique' => 'الرقم القومي مسجل من قبل',
                 'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
@@ -72,8 +90,9 @@ class TraderController extends Controller
                 $file->move('assets/images/uploads/traders/', $filename);
                 $trader->logo = $filename;
             }
-            $trader->age = Carbon::parse($request->age)->age;
-
+            // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
+            $age = Carbon::parse($request->age)->format('Y-m-d');
+            $trader->age = Carbon::parse($age)->age;
             if ($trader->save()) {
                 return response()->json([
                     "success" => true,
@@ -97,7 +116,7 @@ class TraderController extends Controller
      */
     public function show(Trader $trader)
     {
-        $trader = Trader::where(['id'=>$trader->id])->with(['levels', 'units' ,'items'])->first();
+        $trader = Trader::where(['id'=>$trader->id])->with(['units' ,'items'])->first();
         return response()->json([
             "data"=> new TraderResource($trader),
         ], 200);
@@ -142,6 +161,9 @@ class TraderController extends Controller
                 $file->move('assets/images/uploads/traders/', $filename);
                 $trader->logo = $filename;
             }
+            // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
+            $age = Carbon::parse($request->age)->format('Y-m-d');
+            $trader->age = Carbon::parse($age)->age;
             if ($trader->update()) {
                 return response()->json([
                     "success" => true,

@@ -14,16 +14,15 @@ class LevelResource extends JsonResource
      */
     public function toArray($request)
     {
-        $units        = $this->whenLoaded('units');
-        $traders      = $this->whenLoaded('traders');
-        $construction = $this->whenLoaded('construction');
+        $units   = $this->whenLoaded('units');
+        $traders = $this->whenLoaded('traders');
+        $project = $this->whenLoaded('project');
         return [
-            'id'              => $this->id,
-            'name'            => $this->name,
-            'construction_id' => $this->construction_id,
-            'construction'    => new ConstructionResource($construction),
-            'units'           => UnitResource::collection($units),
-            'traders'         => TraderResource::collection($traders),
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'project'    => new projectResource($project),
+            'units'      => UnitResource::collection($units),
+            'traders'    => TraderResource::collection($traders),
         ];
     }
 }

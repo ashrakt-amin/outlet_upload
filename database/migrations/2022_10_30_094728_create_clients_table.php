@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')                 ->unique();
             $table->string('email')               ->nullable();
-            $table->string('guard')        ->default('client');
+            $table->string('guard_name')   ->default('client');
             $table->string('phone2')    ->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();

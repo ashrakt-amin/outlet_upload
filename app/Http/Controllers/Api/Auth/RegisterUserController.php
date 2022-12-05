@@ -39,12 +39,16 @@ class RegisterUserController extends BaseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        if (Auth::user()) {
+        if (Auth::check()) {
             $user = User::create($input);
             $success['token'] =  $user->createToken('user')->plainTextToken;
             $success['tokenName'] =  DB::table('personal_access_tokens')->orderBy('id', 'DESC')->select('name')->where(['tokenable_id'=>$user->id])->first();
             $success['name'] =  $user;
             return $this->sendResponse($success, $user->f_name.' '.'register successfully.');
+        } else {
+            return response()->json([
+                'message' => "unauthenticated",
+            ], 422);
         }
     }
 
