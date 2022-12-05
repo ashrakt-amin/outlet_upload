@@ -43,7 +43,7 @@ class UnitController extends Controller
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل وحدة جديدة",
-                    "data" => $unit
+                    "data" => new UnitResource($unit)
                 ], 200);
             } else {
             return response()->json([
