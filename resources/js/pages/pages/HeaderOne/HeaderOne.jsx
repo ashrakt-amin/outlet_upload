@@ -265,16 +265,7 @@ const Header = () => {
                             <span className="hide-text-mob">التمنيات</span>
                             <FiHeart className="text-lg mx-2 text-white" />
                         </button>
-                        <button
-                            onClick={goToCart}
-                            className="relative cart border-b-2 p-2 rounded-md flex items-center"
-                        >
-                            <span className="absolute crt-wich-num  text-sm font-bold -top-2 left-3 bg-gray-100 rounded-xl w-7 ">
-                                {count}
-                            </span>
-                            <span className="hide-text-mob"> السلة</span>
-                            <FiShoppingCart className="text-lg mx-2 text-white" />
-                        </button>
+
                         {localStorage.getItem("clTk") && (
                             <div className="account-btn cursor-pointer relative text-white flex items-center  border-b-2 p-2 rounded-md">
                                 <MdOutlineManageAccounts className=" text-white" />
