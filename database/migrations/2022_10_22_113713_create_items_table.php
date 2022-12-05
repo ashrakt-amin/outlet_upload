@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('unit_parts_count');
             $table->unsignedBigInteger('trader_id')      ->nullable();
             $table->string('item_code')                    ->unique();
+            $table->boolean('available')                 ->nullable();
+            $table->boolean('approved')                  ->default(0);
             $table->decimal('discount', 16)              ->default(0);
             $table->text('description')                  ->nullable();
             $table->unsignedBigInteger('manufactory_id') ->nullable();
