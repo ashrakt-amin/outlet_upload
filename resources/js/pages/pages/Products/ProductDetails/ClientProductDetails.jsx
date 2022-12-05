@@ -325,7 +325,7 @@ const ClientProductDetails = () => {
                         </div>
                     </div>
 
-                    <div className="add-to-cart relative flex gap-4 py-5 px-2">
+                    {/* <div className="add-to-cart relative flex gap-4 py-5 px-2">
                         {!reloadBtn ? (
                             <div
                                 onClick={() => addToCart(singleProduct)}
@@ -360,7 +360,7 @@ const ClientProductDetails = () => {
                                 -
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* معلومات التاجر */}
