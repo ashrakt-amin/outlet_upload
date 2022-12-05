@@ -88,7 +88,7 @@ var AdminLogin = function AdminLogin() {
             case 4:
               _context.prev = 4;
               _context.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post("".concat("127.0.0.1:8000", "/api/login/users"), {
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post("".concat("http://127.0.0.1:8000", "/api/login/users"), {
                 phone: adminInfo.phone,
                 password: adminInfo.password
               });

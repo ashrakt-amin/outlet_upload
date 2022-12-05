@@ -27,9 +27,8 @@ const AddAdvertisement = () => {
         const getVendors = async () => {
             try {
                 axios
-                    .get(`${process.env.MIX_APP_URL}/api/traders`, {
-                        headers: { Authorization: `Bearer ${getToken}` },
-                    })
+                    .get(`${process.env.MIX_APP_URL}/api/traders`, 
+                    )
                     .then((res) => {
                         setTradersArr(res.data.data);
                         console.log(res.data.data);

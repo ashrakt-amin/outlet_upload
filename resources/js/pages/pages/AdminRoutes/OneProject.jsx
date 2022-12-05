@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { Button, Menu, MenuItem } from "@mui/material";
 
 const OneProject = () => {
     const { id } = useParams();
+
     const [levelName, setLevelName] = useState("");
 
     const [fetchAgain, setFechAgain] = useState(false);
@@ -13,7 +13,6 @@ const OneProject = () => {
     const [isAddLevel, setIsAddLevel] = useState(false);
 
     const [oneProject, setOneProject] = useState({});
-
     // const [levels, setLevels] = useState([]);
 
     useEffect(() => {

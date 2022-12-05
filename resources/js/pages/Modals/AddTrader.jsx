@@ -11,7 +11,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [fName, setfName] = useState("");
     const [mName, setmName] = useState("");
     const [lName, setlName] = useState("");
-    const [age, setAge] = useState(0);
+    const [age, setAge] = useState('');
     const [phone, setPhone] = useState("");
     const [nationalId, setNationalId] = useState("");
     const [phone2, setPhone2] = useState("");
@@ -167,11 +167,11 @@ function AddTrader({ closeModal, getTradersAgain }) {
                     password: password,
                     // level_id:11
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${getUserToken}`,
-                    },
-                }
+                // {
+                //     headers: {
+                //         Authorization: `Bear99er ${getUserToken}`,
+                //     },
+                // }
             );
             console.log(res);
             setSuccessMsg(res.data.message);
