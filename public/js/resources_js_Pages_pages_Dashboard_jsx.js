@@ -11206,14 +11206,15 @@ var OneProject = function OneProject() {
               case 3:
                 res = _context.sent;
                 setOneProject(res.data.data);
-                console.log(res);
-                _context.next = 11;
+                console.log(res, 'projoect 28');
+                _context.next = 12;
                 break;
               case 8:
                 _context.prev = 8;
                 _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
-              case 11:
+                console.log(_context.t0, 'project');
+                console.log('error');
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -12104,7 +12105,7 @@ var Projects = function Projects() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "api/projects"), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/projects"), {
                   cancelRequest: cancelRequest.token
                 });
               case 3:
@@ -12143,7 +12144,7 @@ var Projects = function Projects() {
             case 0:
               if (projectName != "") {
                 try {
-                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "api/projects"), {
+                  axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/projects"), {
                     name: projectName
                   }).then(function (res) {
                     setSuccessMsg(res.data.message);

@@ -48,8 +48,8 @@ const Deals = () => {
 
     return (
         <div className="deals-parent">
-            <h1 className="p-3 text-lg text-center text-white bg-slate-800 mt-6 mb-2">
-                <span className="bg-red-500 font-bold px-1 rounded-md">
+            <h1 className="p-3 text-lg text-center text-white  mt-6 mb-2">
+                <span className="font-bold px-1 rounded-md">
                     الصفقات
                 </span>
             </h1>

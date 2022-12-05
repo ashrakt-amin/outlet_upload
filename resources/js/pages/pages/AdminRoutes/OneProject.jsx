@@ -25,9 +25,10 @@ const OneProject = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setOneProject(res.data.data);
-                console.log(res);
+                console.log(res,'projoect 28');
             } catch (error) {
-                console.log(error);
+                console.log(error,'project');
+                console.log('error');
             }
         };
         getLevels();
