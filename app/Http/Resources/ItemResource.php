@@ -21,6 +21,7 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        $stocks   = $this->whenLoaded('stocks');
         return [
             'id'               => $this->id,
             'approved'         => $this->approved == 1 ? true : false,
@@ -49,7 +50,7 @@ class ItemResource extends JsonResource
             'sizes'            => $this->item_sizes,
             'wieght'           => new WeightResource($this->wieght),
             'volume'           => new VolumeResource($this->wieght),
-            'stocks'           => StockResource::collection($this->item_stocks),
+            'stocks'           => StockResource::collection($stocks),
             'company'          => $this->company ? new CompanyResource($this->company) : false,
             'import'           => $this->import ? true : false,
             'importer'         => $this->importer ? new ImporterResource($this->importer) : false,

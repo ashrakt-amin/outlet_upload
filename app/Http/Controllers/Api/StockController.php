@@ -74,8 +74,9 @@ class StockController extends Controller
      */
     public function show(Stock $stock)
     {
+        $stock = Stock::where(['id' => $stock->id])->with(['item'])->first();
         return response()->json([
-            'data' => StockResource::collection($stock)
+            'data' => new StockResource($stock)
         ], 200);
     }
 

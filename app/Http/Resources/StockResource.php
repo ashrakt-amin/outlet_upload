@@ -14,16 +14,31 @@ class StockResource extends JsonResource
      */
     public function toArray($request)
     {
+        $item   = $this->whenLoaded('item');
         return [
-            'id'     => $this->id,
-            'item'   => new ItemResource($this->stock_item),
-            'trader' => new TraderResource($this->stock_trader),
-            'color'  => new ColorResource($this->stock_color),
-            'size'   => new SizeResource($this->stock_size),
-            'volume' => new VolumeResource($this->stock_volume),
-            'weight' => new WeightResource($this->stock_weight),
-            'season' => $this->stock_season,
-            'stock'  => $this->stock,
+            'id'                  => $this->id,
+            'item'                => new ItemResource($item),
+            'starting_stock'      => $this->starting_stock,
+            'min_quantity'        => $this->min_quantity,
+            'stock'               => $this->stock,
+            'stock_code'          => $this->stock_code,
+            'buy_price'           => $this->buy_price,
+            'buy_discount'        => $this->buy_discount,
+            'sale_price'          => $this->sale_price,
+            'available'           => $this->available,
+            'manufacture_date'    => $this->manufacture_date,
+            'expire_date'         => $this->expire_date,
+            'trader'              => new TraderResource($this->trader),
+            'color'               => new ColorResource($this->color),
+            'size'                => new SizeResource($this->size),
+            'volume'              => new VolumeResource($this->volume),
+            'weight'              => new WeightResource($this->weight),
+            'season'              => $this->stock_season,
+            'barcode'             => $this->barcode,
+            'spare_barcode'       => $this->spare_barcode,
+            'discount'            => $this->discount,
+            'discount_start_date' => $this->discount_start_date,
+            'discount_end_date'   => $this->discount_end_date,
         ];
     }
 }

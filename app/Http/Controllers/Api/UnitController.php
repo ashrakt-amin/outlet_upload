@@ -151,7 +151,7 @@ class UnitController extends Controller
             return response()->json([
                 "success" => true,
                 "message" => "تم اضافة انشطة الوحدة",
-                "data" => $unit
+                "data" => new UnitResource($unit)
             ], 200);
         } else {
             return response()->json([
@@ -303,7 +303,6 @@ class UnitController extends Controller
             return response()->json([
                 "success" => true,
                 "message" => "تم حذف الوحدة",
-                "data" => $unit
             ], 200);
         } else {
             return response()->json([

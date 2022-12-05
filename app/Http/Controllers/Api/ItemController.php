@@ -105,6 +105,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
+        $item = Item::where(['id'=>$item->id])->with('stocks')->first();
         if (request()->bearerToken() != null) {
             [$id, $user_token] = explode('|', request()->bearerToken(), 2);
             $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $user_token))->first();

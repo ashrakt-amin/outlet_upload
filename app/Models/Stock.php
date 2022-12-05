@@ -42,7 +42,7 @@ class Stock extends Model
         'season_id',
         'manufacture_date',
         'expire_date',
-        'code',
+        'stock_code',
         'starting_stock',
         'min_quantity',
         'barcode',
@@ -56,6 +56,11 @@ class Stock extends Model
     public function item()
     {
         return $this->belongsTo(Item::class);
+    }
+
+    public function trader()
+    {
+        return $this->belongsTo(Trader::class);
     }
 
     public function color()
@@ -92,7 +97,7 @@ class Stock extends Model
 
     public function getStockTrader()
     {
-        return $this->trader ? $this->trader  : false;
+        return $this->item ? $this->trader  : false;
     }
 
     public function getStockColor()
