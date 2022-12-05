@@ -73,7 +73,7 @@ const TraderLogin = () => {
         setReloadBtn(true);
         try {
             await axios
-                .post("${process.env.MIX_APP_URL}/api/login/traders", {
+                .post(`${process.env.MIX_APP_URL}/api/login/traders`, {
                     phone: userInfo.phone,
                     password: userInfo.password,
                 })
