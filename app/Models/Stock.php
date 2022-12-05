@@ -90,39 +90,39 @@ class Stock extends Model
 /**
  * Getter && Setter
  */
-    public function getStockItem()
-    {
-        return $this->item;
-    }
+    // public function getStockItemAttribute()
+    // {
+    //     return $this->item;
+    // }
 
-    public function getStockTrader()
-    {
-        return $this->item ? $this->trader  : false;
-    }
+    // public function getStockTraderAttribute()
+    // {
+    //     return $this->trader ? $this->trader  : false;
+    // }
 
-    public function getStockColor()
-    {
-        return $this->color ? $this->color : false;
-    }
+    // public function getStockColorAttribute()
+    // {
+    //     return $this->color ? $this->color : false;
+    // }
 
-    public function getStockSize()
-    {
-        return $this->size ? $this->size : false;
-    }
+    // public function getStockSizeAttribute()
+    // {
+    //     return $this->size ? $this->size : false;
+    // }
 
-    public function getStockWeight()
-    {
-        return $this->weight ? $this->weight : false;
-    }
+    // public function getStockWeight()
+    // {
+    //     return $this->weight ? $this->weight : false;
+    // }
 
-    public function getStockVolume()
-    {
-        return $this->volume ? $this->volume : false;
-    }
+    // public function getStockVolumeAttribute()
+    // {
+    //     return $this->volume ? $this->volume : false;
+    // }
 
-    public function getStockSeason()
-    {
-        return $this->season ? $this->season : false;
-    }
+    // public function getStockSeasonAttribute()
+    // {
+    //     return $this->season ? $this->season : false;
+    // }
 
 }
