@@ -5,10 +5,9 @@ use App\Models\Project;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
-use App\Http\Resources\ProjectCollection;
+use App\Models\EskanCompany;
 
 class ProjectController extends Controller
 {
@@ -34,6 +33,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $eskanCompanies = EskanCompany::all();
+        if (count($eskanCompanies) < 1 ) {
+            $eskanCompany = new EskanCompany();
+            $eskanCompany->name = "شركة اسكان المنصورة";
+            $eskanCompany->save();
+        }
         $validate = $request->validate([
                         'name' => [
                             'required',
@@ -47,7 +52,7 @@ class ProjectController extends Controller
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل مشروعا جديدا",
-                    "data" => $project
+                    "data" => new ProjectResource($project),
                 ], 200);
             }
         } else {
@@ -66,21 +71,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project = Project::where('id', $project->id)->with(['constructions','units', 'levels'])->get();
+        $project = Project::where(['id'=>$project->id])->with('levels')->first();
         return response()->json([
-            "data"=> ProjectResource::collection($project),
+            "data"=> new ProjectResource($project),
         ], 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Project $project)
-    {
-        //
     }
 
     /**
@@ -93,13 +87,14 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'name'        => 'required',
+            'name'             => 'required',
+            'eskan_company_id' => 'required',
         ]);
         if ($project->update($request->all())) {
             return response()->json([
                 "success" => true,
                 "message" => "تم تعديل المشروع",
-                "data" => $project
+                "data" => new ProjectResource($project),
             ], 200);
         } else {
             return response()->json([
@@ -118,12 +113,11 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
 
-        if ($project->units->count() == 0) {
+        if ($project->levels()->count() == 0) {
             $project->delete();
             return response()->json([
                 "success" => true,
                 "message" => "تم حذف المشروع",
-                "data" => $project
             ], 200);
         } else {
             return response()->json([

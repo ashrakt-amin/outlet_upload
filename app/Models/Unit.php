@@ -9,11 +9,15 @@ class Unit extends Model
 {
     use HasFactory;
 
-    protected $appends = ['activities'];
+    protected $appends = [
+        'unit_activities',
+        'unit_level',
+        'unit_statu',
+        'unit_trader',
+    ];
 
     protected $fillable = [
         'name',
-        'construction_id',
         'level_id',
         'site_id',
         'statu_id',
@@ -28,11 +32,6 @@ class Unit extends Model
         'discount',
         'description',
     ];
-
-    public function construction()
-    {
-        return $this->belongsTo(Construction::class);
-    }
 
     public function level()
     {
@@ -63,8 +62,27 @@ class Unit extends Model
         return $this->belongsToMany(Activity::class, 'activity_trader');
     }
 
-    public function getActivitiesAttribute()
+    /**
+     * @GETTER & SETTER
+     */
+
+    public function getUnitActivitiesAttribute()
     {
-        return $this->activities;
+        return $this->activities ? $this->activities : false;
+    }
+
+    public function getUnitLevelAttribute()
+    {
+        return $this->level;
+    }
+
+    public function getUnitStatuAttribute()
+    {
+        return $this->statu;
+    }
+
+    public function getUnitTraderAttribute()
+    {
+        return $this->trader ? $this->trader  : false;
     }
 }

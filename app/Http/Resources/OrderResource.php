@@ -25,7 +25,7 @@ class OrderResource extends JsonResource
             'total'           => $this->total,
             'discount'        => $this->discount,
             'orderDetails'    => OrderDetailResource::collection($orderDetails),
-            'orderStatu'      => new OrderStatuResource($this->orderStatu),
+            'orderStatu'      => new OrderStatuResource($orderStatu),
             'client'          => new ClientResource($client),
             'finance'         => new FinanceResource($finance),
             'orderStatu'      => new OrderStatuResource($orderStatu),

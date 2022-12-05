@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\StatuResource;
 use App\Http\Resources\UnitResource;
 use App\Http\Resources\UnitCollection;
+use App\Models\Statu;
 
 class UnitController extends Controller
 {
@@ -59,15 +61,11 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        $activities = DB::table('activity_trader')->where(['unit_id'=>$unit->id, 'trader_id'=>$unit->trader_id])->get();
-        $unit = Unit::where(['id'=>$unit->id])->with(['construction', 'level', 'trader', 'statu', 'activities'])->get();
-        foreach ($activities as $activity) {
-            $activity = Activity::find($activity->id);
-            $activitiesArry[] = new ActivityResource($activity);
-        }
+        $unit = Unit::where(['id'=>$unit->id])->with('trader')->first();
+        $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
         return response()->json([
-            "data"       => UnitResource::collection($unit),
-            "activities" => count($activities) > 0 ? $activitiesArry : false,
+            "data"       => new UnitResource($unit),
+            "next_Statu" => $next_Statu ? new StatuResource($next_Statu) : false,
         ], 200);
     }
 
@@ -103,11 +101,21 @@ class UnitController extends Controller
      */
     public function status(Request $request, Unit $unit)
     {
+        $status = Statu::all();
+        if (count($status) == 0) {
+            $statu = new Statu();
+            $statu->name = "حجز";
+            $statu->save();
+            $statu = new Statu();
+            $statu->name = "اتمام تعاقد";
+            $statu->save();
+        }
         if ($unit->update($request->all())) {
-            // $pivot = DB::table('level_trader')->where(['level_id'=>$unit->level_id, 'trader_id'=>$unit->trader_id, 'unit_id'=>$unit->id])->get();
-            // if (!$pivot) {
+            // $pivots = DB::table('level_trader')->where(['level_id'=>$unit->level_id, 'trader_id'=>$unit->trader_id, 'unit_id'=>$unit->id])->get();
+            // if (count($pivots) == 0) {
             //     $level = Level::find($unit->level_id);
             //     $level->traders()->attach([$unit->trader_id], ['unit_id'=> $unit->id]);
+            //     dd($level);
             // }
             return response()->json([
                 "success" => true,
@@ -133,14 +141,10 @@ class UnitController extends Controller
         $activities = $request->activity_id;
         foreach ($activities as $key => $value) {
             $pivot = DB::table('activity_trader')->where(['activity_id'=>$value['id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
-            if ($pivot) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "نشاطا مضافا من قبل",
-                ], 200);
+            if ($pivot == null) {
+                $activity = Activity::find($value['id']);
+                $activity->traders()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
             }
-            $activity = Activity::find($value['id']);
-            $activity->traders()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
         }
         $unit = DB::table('activity_trader')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
         if ( $unit > 0 ) {

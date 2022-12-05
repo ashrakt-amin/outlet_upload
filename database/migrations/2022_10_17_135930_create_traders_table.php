@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('national_id')           ->unique();
             $table->bigInteger('code')              ->unique();
             $table->string('email')               ->nullable();
-            $table->string('guard')        ->default('trader');
+            $table->string('guard_name')   ->default('trader');
             $table->string('phone2')    ->unique()->nullable();
             $table->string('phone3')    ->unique()->nullable();
             $table->string('phone4')    ->unique()->nullable();

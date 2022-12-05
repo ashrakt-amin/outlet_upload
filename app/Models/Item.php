@@ -22,7 +22,8 @@ class Item extends Model
         'item_images',
         'item_type',
         'item_unit',
-        'item_color_size_stocks'
+        'item_color_size_stocks',
+        'item_stocks'
         ];
 
         protected $hidden = [
@@ -50,26 +51,9 @@ class Item extends Model
         'name',
         'type_id',
         'trader_id',
-        'buy_price',
-        'sale_price',
         'item_unit_id',
         'unit_parts_count',
-        'code',
-        'season_id',
         'available',
-        'starting_stock',
-        'min_quantity',
-        'barcode',
-        'spare_barcode',
-        'weight',
-        'weight_id',
-        'volume_id',
-        'manufacture_date',
-        'expire_date',
-        'offer_id',
-        'discount',
-        'discount_start_date',
-        'discount_end_date',
         'description',
         'manufactory_id', // 'الشركة المنتجة'
         'agent_id', // 'الشركة الوكيلة'
@@ -133,6 +117,11 @@ class Item extends Model
         return $this->hasMany(ColorSizeStock::class);
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+
 
     // GETTER/SETTER
 
@@ -174,6 +163,11 @@ class Item extends Model
     public function getItemColorSizeStocksAttribute()
     {
         return $this->colorSizeStocks ? $this->colorSizeStocks  : false;
+    }
+
+    public function getItemStocksAttribute()
+    {
+        return $this->stocks ? $this->stocks  : false;
     }
 
     public function getItemColorsAttribute()

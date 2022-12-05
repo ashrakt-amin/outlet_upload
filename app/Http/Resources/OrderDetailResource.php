@@ -15,6 +15,7 @@ class OrderDetailResource extends JsonResource
     public function toArray($request)
     {
         $trader         = $this->whenLoaded('trader');
+        $item         = $this->whenLoaded('item');
         $colorSizeStock = $this->whenLoaded('colorSizeStock');
         return [
             'id'             => $this->id,
@@ -26,7 +27,7 @@ class OrderDetailResource extends JsonResource
             'orderStatu'     => new OrderStatuResource($this->orderStatu),
             'nextOrderStatu' => new OrderStatuResource($this->next_order_statu),
             'colorSizeStock' => new ColorSizeStockResource($colorSizeStock),
-            'item'           => new ItemResource($this->item),
+            'item'           => new ItemResource($item),
             'trader'         => new traderResource($trader),
         ];
     }

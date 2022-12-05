@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Activity;
+use App\Models\Trader;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,17 +17,8 @@ class UnitResource extends JsonResource
      */
     public function toArray($request)
     {
-        $activities       = $this->whenPivotLoaded('activity_trader', function () {
-            return $this->pivot->activity;
-        });
-        // $acti = $this->activities->pluck('pivot.activity_id')->unique()->all();
-        // $acti = $this->activities->pluck('pivot.activity_id')->unique()->join(' ');
-        $construction = $this->whenLoaded('construction');
-        $level        = $this->whenLoaded('level');
-        $statu        = $this->whenLoaded('statu');
-        $site         = $this->whenLoaded('site');
-        $trader       = $this->whenLoaded('trader');
-        $finance      = $this->whenLoaded('finance');
+        $level   = $this->whenLoaded('level');
+        $trader = $this->whenLoaded('trader');
         return [
             'id'           => $this->id,
             'name'         => $this->name,
@@ -37,13 +29,12 @@ class UnitResource extends JsonResource
             'discount'     => $this->discount,
             'rents_count'  => $this->rents_count,
             'description'  => $this->description,
-            'construction' => new ConstructionResource($construction),
+            // 'project'      => new ProjectResource($this->level->project),
             'level'        => new LevelResource($level),
-            'statu'        => new StatuResource($statu),
-            'site'         => new SiteResource($site),
+            'statu'        => new StatuResource($this->unit_statu),
+            'site'         => new SiteResource($this->site),
             'trader'       => new TraderResource($trader),
-            'activities'   => ActivityResource::collection($activities),
-            // 'activities'   => $this->relationLoaded('activities') ? $acti : null
+            'activities'   => ActivityResource::collection($this->unit_activities),
         ];
     }
 }

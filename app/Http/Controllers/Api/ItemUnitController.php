@@ -9,6 +9,17 @@ use App\Http\Resources\ItemUnitCollection;
 
 class ItemUnitController extends Controller
 {
+    public function __construct ()
+    {
+        $authorizationHeader = \request()->header('Authorization');
+        if(request()->bearerToken() != null) {
+            $this->middleware('auth:sanctum');
+        };
+        // if(isset($authorizationHeader)) {
+        //     $this->middleware('auth:sanctum');
+        // };
+    }
+    
     /**
      * Display a listing of the resource.
      *

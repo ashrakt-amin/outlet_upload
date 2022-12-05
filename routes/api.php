@@ -34,7 +34,7 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\ManufactoryController;
 use App\Http\Controllers\Api\OrderDetailController;
 use App\Http\Controllers\Api\SubCategoryController;
-use App\Http\Controllers\Api\ConstructionController;
+use App\Http\Controllers\Api\EskanCompanyController;
 use App\Http\Controllers\Api\AdvertisementController;
 use App\Http\Controllers\Api\AdminDashboardController;
 use App\Http\Controllers\Api\Auth\LoginUserController;
@@ -76,7 +76,9 @@ use App\Http\Controllers\Api\Auth\RegisterTraderController;
 
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("register")->group(function(){
-    Route::post("users",    [RegisterUserController::class, "register"])->name("users.register");
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post("users",    [RegisterUserController::class, "register"])->name("users.register");
+    });
     Route::post("traders",[RegisterTraderController::class, "register"])->name("traders.register");
     Route::post("clients",[RegisterClientController::class, "register"])->name("clients.register");
 });
@@ -175,10 +177,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit');
-    //______________________________________________________________________________________________________________________
-
-    //-----------------------------------------------------------------------------------------------------------
     Route::resource('rates', RateController::class)->except('create', 'edit');
     //______________________________________________________________________________________________________________________
 
@@ -200,6 +198,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 //-----------------------------------------------------------------------------------------------------------
+Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit');
+//______________________________________________________________________________________________________________________
+
+//-----------------------------------------------------------------------------------------------------------
 Route::get("/",[MainPageController::class, "index"])->name("index");
 //______________________________________________________________________________________________________________________
 
@@ -208,11 +210,11 @@ Route::get("/admin",[AdminDashboardController::class, "index"])->name("index");
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('projects', ProjectController::class)->except('create', 'edit');
+Route::resource('eskanCompanies', EskanCompanyController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('constructions', ConstructionController::class)->except('create', 'edit');
+Route::resource('projects', ProjectController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------

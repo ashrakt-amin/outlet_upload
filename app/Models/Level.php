@@ -10,12 +10,13 @@ class Level extends Model
     use HasFactory;
 
     protected $appends = [
+        'level_units'
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
-        'construction_id',
+        'project_id',
         'laravel_through_key',
         'pivot',
     ];
@@ -25,12 +26,12 @@ class Level extends Model
 
     protected $fillable = [
         'name',
-        'construction_id',
+        'project_id',
     ];
 
-    public function construction()
+    public function project()
     {
-        return $this->belongsTo(Construction::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function zone()
@@ -48,11 +49,17 @@ class Level extends Model
         return $this->hasManyThrough(
             trader::class,
             Unit::class,
-            'trader_id', // Foreign key on the environments table...
-            'id', // Foreign key on the deployments table...
-            'id', // Local key on the projects table...
-            'trader_id' // Local key on the environments table..
+            'trader_id', // Foreign key on the incoming table...
+            'id', // Foreign key on the throwing table...
+            'id', // Local key on the this table...
+            'trader_id' // Local key on the incoming table..
         );
+    }
+
+    public function getLevelUnitsAttribute()
+    {
+        return Unit::where(['level_id'=>$this->id])->get();
+        return $this->units ? $this->units  : false;
     }
 }
 

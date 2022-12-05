@@ -62,7 +62,7 @@ class OrderDetailController extends Controller
     public function trader()
     {
         $orderDetails = OrderDetail::groupBy('order_id')->WhereTraderAuth('trader_id')->pluck('order_id');
-        if ($orderDetails) {
+        if (count($orderDetails) > 0) {
             foreach ($orderDetails as $orderDetail) {
                 $order[] = OrderResource::collection(Order::where(['id'=>$orderDetail])->with(['orderDetails'])->get());
             }

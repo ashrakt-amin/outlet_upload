@@ -37,7 +37,7 @@ class LevelController extends Controller
                         'name' => [
                             'required'
                         ],
-                        'construction_id' => [
+                        'project_id' => [
                             'required'
                         ]
                     ]);
@@ -66,9 +66,9 @@ class LevelController extends Controller
      */
     public function show(Level $level)
     {
-        $level = Level::where('id', $level->id)->with(['units', 'traders'])->get();
+        $level = Level::where('id', $level->id)->with('units')->first();
         return response()->json([
-            "data"=> LevelResource::collection($level),
+            "data"=> new LevelResource($level),
         ], 200);
     }
 
@@ -97,7 +97,7 @@ class LevelController extends Controller
     {
         $request->validate([
             'name'        => 'required',
-            'construction_id' => [
+            'project_id' => [
                 'required'
             ]
         ]);

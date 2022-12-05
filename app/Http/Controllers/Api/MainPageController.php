@@ -5,7 +5,6 @@ use App\Models\Unit;
 
 use App\Models\Level;
 use App\Models\Project;
-use App\Models\Construction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -21,7 +20,7 @@ class MainPageController extends Controller
      */
     public function index()
     {
-        $project = Project::where('id', 1)->with(['constructions','units', 'levels'])->get();
+        $project = Project::where('id', 1)->with(['units', 'levels'])->get();
 
         return response()->json([
             "data" => ProjectResource::collection($project)

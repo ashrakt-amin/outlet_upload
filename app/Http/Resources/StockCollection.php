@@ -14,6 +14,6 @@ class StockCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return StockResource::collection($this->collection);
     }
 }

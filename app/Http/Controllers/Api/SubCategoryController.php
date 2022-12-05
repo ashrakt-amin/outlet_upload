@@ -13,9 +13,12 @@ class SubCategoryController extends Controller
     public function __construct ()
     {
         $authorizationHeader = \request()->header('Authorization');
-        if(isset($authorizationHeader)) {
+        if(request()->bearerToken() != null) {
             $this->middleware('auth:sanctum');
         };
+        // if(isset($authorizationHeader)) {
+        //     $this->middleware('auth:sanctum');
+        // };
     }
 
     /**
