@@ -7,8 +7,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+
+
 function OneUnit() {
     const { id } = useParams();
+
 
     const [traders, setTraders] = useState([]);
 
@@ -22,19 +25,18 @@ function OneUnit() {
     const [isActivity, setIsActivity] = useState(false);
 
     const [successMsg, setSuccessMsg] = useState("");
+    
+    const [selectTraderMstg, setSelectTraderMstg] = useState("");
 
     const [traderId, setTraderId] = useState("");
 
     const [oneUnit, setOneUnit] = useState({});
-    console.log(oneUnit);
-
-    const [nextstatuId, setNextStatuId] = useState({});
 
     const [selectedActivites, setSelectedActivites] = useState([]);
 
     const [currentActive, setCurrentActive] = useState([]);
 
-    const [nextStatus, setNextStatus] = useState({});
+    const [nextStatus,setNextStatus] = useState({})
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -43,14 +45,14 @@ function OneUnit() {
         const getUnits = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/units/${id}`,
+                    `http://127.0.0.1:8000/api/units/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
                 );
                 setOneUnit(res.data.data);
-                console.log(res.data);
-                setNextStatus(res.data.next_Statu);
+                console.log(res);
+                setNextStatus(res.data.next_Statu)
             } catch (er) {
                 console.log(er);
             }
@@ -60,7 +62,7 @@ function OneUnit() {
         const getTraders = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/traders`
+                    `http://127.0.0.1:8000/api/traders`
                 );
                 setTraders(res.data.data);
             } catch (er) {
@@ -73,7 +75,7 @@ function OneUnit() {
         const getActivities = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/activities`,
+                    `http://127.0.0.1:8000/api/activities`,
                     {
                         headers: {
                             Authorization: `Bearer ${tokenUser}`,
@@ -84,7 +86,6 @@ function OneUnit() {
                 console.log(res.data);
             } catch (er) {
                 console.log(er);
-                console.warn(er.message);
             }
         };
         getActivities();
@@ -95,26 +96,29 @@ function OneUnit() {
     }, [fetchAgain]);
 
     const bookUnit = async (statusId) => {
-        try {
-            axios
-                .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
-                    statu_id: statusId, // حجز الوحدة
-                    trader_id: oneUnit.trader.id,
-                })
-                .then((res) => {
-                    setSuccessMsg(res.data.message);
-                    setTimeout(() => {
-                        setSuccessMsg("");
-                    }, 3000);
-                    setFetchAgain(!fetchAgain);
-                });
-        } catch (er) {
-            console.log(er);
+        if(traderId != ''){
+            try {
+                axios
+                    .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+                        statu_id: statusId, // حجز الوحدة
+                        trader_id: traderId,
+                    })
+                    .then((res) => {
+                        setSuccessMsg(res.data.message);
+                        setTimeout(() => {
+                            setSuccessMsg("");
+                        }, 3000);
+                        setFetchAgain(!fetchAgain)
+                    });
+            } catch (er) {
+                console.log(er);
+            }
+        }else {
+            setSelectTraderMstg('اختر التاجر اولا')
+            setTimeout(() => {
+                setSelectTraderMstg("");
+            }, 3000);
         }
-        // if (traderId != "") {
-        // } else {
-        //     console.log("no trader selected");
-        // }
     };
     const showBookBtn = () => {
         setConfrimBook(!confirmBook);
@@ -129,11 +133,11 @@ function OneUnit() {
     };
 
     // ----------------------------- (تأكيد التعاقد) ------------------------------------\\
-    const confrimBookUnit = async () => {
+    const confirmbookUnit = async (nexst) => {
         try {
             axios
-                .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
-                    statu_id: 2,
+                .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
+                    statu_id: nexst,
                     trader_id: oneUnit.trader.id,
                 })
                 .then((res) => {
@@ -156,7 +160,7 @@ function OneUnit() {
     //     console.log(oneUnit);
     //     try {
     //         axios
-    //             .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
+    //             .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
     //                 statu_id: 3,
     //                 trader_id: oneUnit.trader.id,
     //             })
@@ -179,12 +183,12 @@ function OneUnit() {
     const cancelbookUnit = () => {
         try {
             axios
-                .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
+                .put(`http://127.0.0.1:8000/api/units/status/${id}`, {
                     statu_id: 0,
                     trader_id: oneUnit.trader.id,
                 })
                 .then((res) => {
-                    console.log(res);
+                    setConfrimBook(false)
                     setSuccessMsg(res.data.message);
                     setTimeout(() => {
                         setSuccessMsg("");
@@ -201,25 +205,38 @@ function OneUnit() {
     const handleActivity = (oneActivity) => {
         setActivityName(oneActivity.name);
         setActivityId(oneActivity.id);
-        setSelectedActivites([...selectedActivites, oneActivity]);
+
+        if(currentActivityArray.length == 0){
+            setSelectedActivites([...selectedActivites, oneActivity]);
+        }else {
+            let trueOrFalse = selectedActivites.some(activity=>{
+                if(activity.id == oneActivity.id){
+                    return true;
+                }else {
+                    return false;
+                }
+            })
+            if(trueOrFalse == false){
+                setSelectedActivites([...selectedActivites, oneActivity])
+            }
+        }
+
     };
 
     const sendActivities = async () => {
         if (activityId == "") {
-            console.log("id empty");
             setSuccessMsg("اختر");
             return;
         } else {
-            console.log("id");
             try {
                 axios
-                    .post(`${process.env.MIX_APP_URL}/api/units/activities`, {
+                    .post(`http://127.0.0.1:8000/api/units/activities`, {
                         unit_id: oneUnit.id,
                         trader_id: oneUnit.trader.id,
                         activity_id: selectedActivites,
                     })
                     .then((res) => {
-                        console.log(res);
+                        setIsActivity(!isActivity)
                         setSuccessMsg(res.data.message);
                         setTimeout(() => {
                             setSuccessMsg("");
@@ -232,29 +249,14 @@ function OneUnit() {
         }
     };
 
-    // const bookUnit = async (statuId) => {
-    //     console.log(statuId);
-    //     if (traderId != "") {
-    //         try {
-    //             axios
-    //                 .put(`${process.env.MIX_APP_URL}/api/units/status/${id}`, {
-    //                     statu_id: statuId.id, // حجز الوحدة
-    //                     trader_id: traderId,
-    //                 })
-    //                 .then((res) => {
-    //                     setSuccessMsg(res.data.message);
-    //                     setTimeout(() => {
-    //                         setSuccessMsg("");
-    //                     }, 3000);
-    //                     setFetchAgain(!fetchAgain);
-    //                 });
-    //         } catch (er) {
-    //             console.log(er.response.data.message);
-    //         }
-    //     } else {
-    //         console.log("no trader selected");
-    //     }
-    // };
+
+    const deleteCurrentAcitity = (deletCurrentActiv)=> {
+        let currentActivityArray = selectedActivites;
+        let newCrruntActivityArray = currentActivityArray.filter(oneactive=>{
+            return oneactive.id !== deletCurrentActiv.id
+        })
+        setSelectedActivites(newCrruntActivityArray)
+    } 
 
     return (
         <div className="p-2" dir="rtl">
@@ -264,82 +266,113 @@ function OneUnit() {
                         {successMsg}
                     </div>
                 )}
+                {selectTraderMstg.length > 0 && (
+                    <div className="fixed top-10 z-50 text-center w-full p-1 text-lg left-0 bg-red-500">
+                        {selectTraderMstg}
+                    </div>
+                )}
 
-                <div className="book-btns">
-                    {confirmBook ? (
-                        <>
-                            {nextStatus.id == 1 && (
-                                <button
-                                    onClick={() => bookUnit(nextStatus.id)}
-                                    className="bg-green-500 text-white rounded-md p-2 my-3"
-                                >
-                                    تأكيد {nextStatus.name}
-                                </button>
-                            )}
-                            {nextStatus.id == 1 && (
-                                <FormControl
-                                    sx={{ m: 1, minWidth: 120 }}
-                                    size="small"
-                                >
-                                    <InputLabel id="demo-select-small">
-                                        التجار
-                                    </InputLabel>
-                                    <Select
-                                        labelId="demo-select-small"
-                                        id="demo-select-small"
-                                        value={traderName}
-                                        label="التجار"
-                                        onChange={categoryHandle}
+                
+                        
+                            <div className="book-btns">
+                                {confirmBook ? (
+                                    <>
+                                    {
+                                        nextStatus.id == 1 &&
+
+                                        <button
+                                            onClick={() => bookUnit(nextStatus.id)}
+                                            className="bg-green-500 text-white rounded-md p-2 my-3"
+                                        >
+                                            تأكيد {nextStatus.name}
+                                        </button>
+
+                                    }
+                                        {
+                                            nextStatus.id == 1 &&
+
+                                        <FormControl
+                                            sx={{ m: 1, minWidth: 120 }}
+                                            size="small"
+                                        >
+                                            <InputLabel id="demo-select-small">
+                                                التجار
+                                            </InputLabel>
+                                            <Select
+                                                labelId="demo-select-small"
+                                                id="demo-select-small"
+                                                value={traderName}
+                                                label="التجار"
+                                                onChange={categoryHandle}
+                                            >
+                                                {traders &&
+                                                    traders.map((trader) => (
+                                                        <MenuItem
+                                                            key={trader.id}
+                                                            onClick={() =>
+                                                                handleCategg(
+                                                                    trader
+                                                                )
+                                                            }
+                                                            value={
+                                                                trader.f_name
+                                                            }
+                                                        >
+                                                            {trader.f_name}
+                                                        </MenuItem>
+                                                    ))}
+                                            </Select>
+                                        </FormControl>
+                                        }
+                                    </>
+                                ) : (
+                                    <>
+                                    {nextStatus.id == 1 &&
+
+                                    <button
+                                        onClick={showBookBtn}
+                                        className="bg-green-500 text-white rounded-md p-2 my-3"
                                     >
-                                        {traders &&
-                                            traders.map((trader) => (
-                                                <MenuItem
-                                                    key={trader.id}
-                                                    onClick={() =>
-                                                        handleCategg(trader)
-                                                    }
-                                                    value={trader.f_name}
-                                                >
-                                                    {trader.f_name}
-                                                </MenuItem>
-                                            ))}
-                                    </Select>
-                                </FormControl>
-                            )}
-                        </>
-                    ) : (
-                        <>
-                            {nextStatus.id == 1 && (
-                                <button
-                                    onClick={showBookBtn}
-                                    className="bg-green-500 text-white rounded-md p-2 my-3"
+                                        حجز
+                                    </button>
+                                    }
+                                    </>
+                                )}
+                            </div>
+
+                            {nextStatus.id == 2 &&
+                            <button
+                                onClick={() => confirmbookUnit(nextStatus.id)}
+                                className="bg-green-500 text-white rounded-md p-2 my-3"
                                 >
-                                    حجز
-                                </button>
-                            )}
-                        </>
-                    )}
-                </div>
+                                تأكيد {nextStatus.name}
+                            </button>
+                            }
 
-                {nextStatus.id == 2 && (
-                    <button
-                        onClick={() => bookUnit(nextStatus.id)}
-                        className="bg-green-500 text-white rounded-md p-2 my-3"
-                    >
-                        تأكيد {nextStatus.name}
-                    </button>
-                )}
+                            {nextStatus.id == 2  &&
+                            <button
+                                onClick={cancelbookUnit}
+                                className="bg-red-500 text-white rounded-md p-2 mx-2"
+                                >
+                                الغاء الحجز
+                            </button>
+                            }
+                        
 
-                {nextStatus == false && (
-                    <button
-                        onClick={cancelbookUnit}
-                        className="bg-red-500 text-white rounded-md p-2 mx-2"
-                    >
-                        الغاء التعاقد
-                    </button>
-                )}
+                            {nextStatus == false  &&
+                            <button
+                                onClick={cancelbookUnit}
+                                className="bg-red-500 text-white rounded-md p-2 mx-2"
+                                >
+                                الغاء التعاقد
+                            </button>
+                            }
+                        
+                   
 
-                {/* <>
+
+
+                    {/* <>
                         {nextStatus.id == 1 && (
                             <>
                                 <button
@@ -356,7 +389,6 @@ function OneUnit() {
                                 </button>
                             </>
                         )}
-
                         {nextStatus.id == 2 && (
                             <button
                                 onClick={cancelbookUnit}
@@ -365,7 +397,6 @@ function OneUnit() {
                                 إلغاء التعاقد
                             </button>
                         )}
-
                         {nextStatus.id == 3 && (
                             <div className="book-btns">
                                 {confirmBook ? (
@@ -420,6 +451,7 @@ function OneUnit() {
                             </div>
                         )}
                     </> */}
+
             </div>
 
             <h1 className="text-center bg-teal-500 p-2 my-3 text-yellow-50">
@@ -430,17 +462,17 @@ function OneUnit() {
                 حالة الوحدة : {oneUnit.statu != undefined && oneUnit.statu.name}
             </div>
             <h1>نشاطات الوحدة</h1>
-            <div className="activites-unit flex gap-4 mb-5">
-                {oneUnit.activities &&
-                    oneUnit.activities.map((active) => (
-                        <div
-                            className="shadow-md p-1 rounded-md"
-                            key={active.id}
-                        >
-                            {active.name}
-                        </div>
-                    ))}
-            </div>
+                <div className="activites-unit flex gap-4 mb-5">
+                    {oneUnit.activities &&
+                        oneUnit.activities.map((active) => (
+                            <div
+                                className="shadow-md p-1 rounded-md"
+                                key={active.id}
+                            >
+                                {active.name}
+                            </div>
+                        ))}
+                </div>
             <div className="one-unit-info-div grid grid-cols-3 gap-4 mb-4">
                 <div className="unitname bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                     إسم الوحدة : {oneUnit.name}
@@ -462,7 +494,10 @@ function OneUnit() {
                     {oneUnit.unit_value != null && oneUnit.unit_value} جنية
                 </div>
 
-                {oneUnit?.trader != null && (
+
+
+                {oneUnit?.trader != null &&
+
                     <div className="">
                         <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                             اسم التاجر :{" "}
@@ -471,29 +506,28 @@ function OneUnit() {
                         </div>
                         <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                             هاتف التاجر الاول:{" "}
-                            {oneUnit?.trader != null &&
-                                `${oneUnit.trader.phone}`}
+                            {oneUnit?.trader != null && `${oneUnit.trader.phone}`}
                         </div>
                         <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
-                            هاتف التاجر الثانى: {oneUnit.trader.phone2}
+                            هاتف التاجر الثانى:{" "}
+                            {oneUnit.trader.phone2}
                         </div>
                         <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
-                            هاتف التاجر الثالث: {oneUnit.trader.phone3}
+                            هاتف التاجر الثالث:{" "}
+                            {oneUnit.trader.phone3}
                         </div>
-                        <div
-                            className="trader-img-logo m-3"
-                            style={{ width: "200px", height: "200px" }}
-                        >
-                            <h1>صورة التاجر</h1>
-                            <img
-                                className="w-full h-full"
-                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${oneUnit?.trader?.logo}`}
-                                alt=""
-                            />
+                        <div className="trader-img-logo m-3" style={{width: '200px',height: '200px'}}>
+                        <h1>صورة التاجر</h1>
+                            <img className="w-full h-full" src={`http://127.0.0.1:8000/assets/images/uploads/traders/${oneUnit?.trader?.logo}`} alt="" />
                         </div>
                     </div>
-                )}
+                }
+
             </div>
+
+
+
+
 
             {oneUnit?.statu?.id == 2 && (
                 <>
@@ -530,6 +564,7 @@ function OneUnit() {
                                       key={active.id}
                                   >
                                       {active.name}
+                                      <button onClick={()=> deleteCurrentAcitity(active)} className="bg-red-400 rounded-sm text-xs p-1">مسح</button>
                                   </div>
                               ))
                             : "لم يتم الاختيار بعد"}
@@ -554,5 +589,6 @@ function OneUnit() {
         </div>
     );
 }
+
 
 export default OneUnit;
