@@ -65,26 +65,26 @@ const OneCartItem = ({ cartItem, refetchFunc }) => {
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
+        let getToken = JSON.parse(localStorage.getItem("clTk"));
         axios.defaults.withCredentials = true;
         const getCartProducts = async () => {
-            let getToken = JSON.parse(localStorage.getItem("clTk"));
-            await axios
-                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-                .then(async (res) => {
-                    try {
-                        const res = await axios.get(
-                            `${process.env.MIX_APP_URL}/api/carts`,
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${getToken}`,
-                                },
-                            }
-                        );
-                        dispatch(productsInCartNumber(res.data.data.length));
-                    } catch (er) {
-                        console.log(er);
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/carts`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken}`,
+                        },
                     }
-                });
+                );
+                dispatch(productsInCartNumber(res.data.data.length));
+            } catch (er) {
+                console.log(er);
+            }
+            // await axios
+            // .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+            //     .then(async (res) => {
+            //     });
         };
         getCartProducts();
 

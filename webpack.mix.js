@@ -20,11 +20,11 @@ mix.browserSync({
       'database/**/*/.php',
       'route/*/.php',
     ],
-    open: "http://127.0.0.1:3000/",
+    open: "http://127.0.0.1:8000/",
     browser: "google chrome",
     reloadDelay: 1000,
     proxy: {
-      target: "http://127.0.0.1:3000/",
+      target: "http://127.0.0.1:8000/",
       ws: true,
     },
   });
