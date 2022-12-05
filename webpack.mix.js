@@ -16,7 +16,7 @@ mix.browserSync({
       'public/css/**/*',
       'public/**/*.+(html|php)',
       'resources/views/**/*.php',
-      'app/**/**/**/*/.php',
+      'app/Http/**/*/.php',
       'database/**/*/.php',
       'route/*/.php',
     ],
