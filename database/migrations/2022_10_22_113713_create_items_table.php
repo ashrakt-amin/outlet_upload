@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('item_unit_id');
             $table->integer('unit_parts_count');
             $table->unsignedBigInteger('trader_id')      ->nullable();
-            $table->bigInteger('item_code')               ->unique();
+            $table->string('item_code')                    ->unique();
             $table->decimal('discount', 16)              ->default(0);
             $table->text('description')                  ->nullable();
             $table->unsignedBigInteger('manufactory_id') ->nullable();

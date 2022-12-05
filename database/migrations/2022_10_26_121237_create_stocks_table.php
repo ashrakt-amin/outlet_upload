@@ -23,7 +23,7 @@ return new class extends Migration
             $table->tinyInteger('buy_discount')     ->nullable();
             $table->boolean('available')            ->nullable();
             $table->boolean('approved')             ->default(0);
-            $table->bigInteger('stock_code')          ->unique();
+            $table->string('stock_code')              ->unique();
             $table->bigInteger('starting_stock')    ->nullable();
             $table->bigInteger('min_quantity')      ->nullable();
             $table->bigInteger('barcode')           ->nullable();
