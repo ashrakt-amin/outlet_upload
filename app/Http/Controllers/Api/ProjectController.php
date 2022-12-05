@@ -71,6 +71,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        
         $project = Project::where(['id'=>$project->id])->with('levels')->first();
         return response()->json([
             "data"=> new ProjectResource($project),
