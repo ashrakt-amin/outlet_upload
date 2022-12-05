@@ -108,12 +108,6 @@ const TraderLogin = () => {
                 </div>
             )}
 
-            {/* <Link
-                to={`/`}
-                className="absolute bg-red-500 p-1 rounded-md text-white top-1 left-1 "
-            >
-                إذهب إلى الرئيسية
-            </Link> */}
             <div className="flex flex-col items-center bg-white/90 shadow-xl w-full md:w-1/2 p-5 rounded-lg">
                 <div className="flex items-center justify-center text-xl md:text-3xl gap-1">
                     <h2 className="font-semibold">مرحبا بك</h2>
@@ -123,8 +117,6 @@ const TraderLogin = () => {
                 </div>
                 <form
                     className="flex flex-col items-center gap-3 mt-6 w-full"
-                    // onSubmit={handleSubmit}
-                    // method="post"
                 >
                     <span>رقم الهاتف</span>
                     <input

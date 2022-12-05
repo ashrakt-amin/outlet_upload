@@ -254,7 +254,7 @@ const Header = () => {
                         />
                     </h2>
 
-                    <div className="flex gap-5 lg:relative md:relative sm:fixed max-sm:fixed max-sm:justify-around max-sm:w-full max-sm:bg-red-500 bottom-0 left-0 sm:w-full z-50 p-2">
+                    <div className="flex gap-5 nav-mobile">
                         <button
                             onClick={goToWishList}
                             className="relative wichlist border-b-2 p-2 rounded-md flex items-center"
