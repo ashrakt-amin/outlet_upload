@@ -31,7 +31,7 @@ class ItemResource extends JsonResource
             'itemUnit'         => $this->item_unit,
             'itemImages'       => $this->item_images,
             'unit_parts_count' => $this->unit_parts_count,
-            'code'             => $this->code,
+            'code'             => $this->item_code,
             'barcode'          => $this->barcode ? $this->barcode : false,
             'spare_barcode'    => $this->spare_barcode ? $this->spare_barcode : false,
             'available'        => $this->available ? true : false,

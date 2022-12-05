@@ -29,7 +29,6 @@ class Item extends Model
         protected $hidden = [
             'type_id',
             'item_unit_id',
-            'item_code',
             'season_id',
             'weight_id',
             'volume_id',
@@ -53,6 +52,7 @@ class Item extends Model
         'type_id',
         'trader_id',
         'item_unit_id',
+        'item_code',
         'unit_parts_count',
         'available',
         'description',
