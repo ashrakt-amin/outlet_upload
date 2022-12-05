@@ -267,7 +267,7 @@ const ClientProductDetails = () => {
                         )}
                     </div>
 
-                    <div className="select-color-size-div">
+                    {/* <div className="select-color-size-div">
                         <div className="color-select-client mt-3">
                             <h1>اختر اللون</h1>
                             <select
@@ -308,7 +308,7 @@ const ClientProductDetails = () => {
                                     ))}
                             </select>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="product-decsription-container mt-3">
                         <div>وصف المنتج</div>
                         <div className="description-container">

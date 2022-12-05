@@ -3981,11 +3981,13 @@ var AddColors = function AddColors() {
                 try {
                   axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/itemUnits"), {
                     name: itemUnitName
-                  }, {
-                    headers: {
-                      Authorization: "Bearer ".concat(getToken)
-                    }
-                  }).then(function (res) {
+                  }
+                  // {
+                  //     headers: {
+                  //         Authorization: `Bearer ${getToken}`,
+                  //     },
+                  // }
+                  ).then(function (res) {
                     setSuccessMsg(res.data.message);
                     setIsAddItemUnits(!isAddItemUnits);
                     setItemUnitName("");
@@ -5701,99 +5703,103 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     productName = _useState6[0],
     setProdcutName = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState8 = _slicedToArray(_useState7, 2),
-    imgVal = _useState8[0],
-    setImgVal = _useState8[1];
-
-  // (----------------------------- (types التصنيفات select) -----------------------------)
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    itemCode = _useState8[0],
+    setItemCode = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState10 = _slicedToArray(_useState9, 2),
-    typesArray = _useState10[0],
-    setTypesArray = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("1"),
+    imgVal = _useState10[0],
+    setImgVal = _useState10[1];
+
+  // (----------------------------- (types التصنيفات select) -----------------------------)
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState12 = _slicedToArray(_useState11, 2),
-    typeId = _useState12[0],
-    setTypeId = _useState12[1];
+    typesArray = _useState12[0],
+    setTypesArray = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("1"),
+    _useState14 = _slicedToArray(_useState13, 2),
+    typeId = _useState14[0],
+    setTypeId = _useState14[1];
   // (----------------------------- (types التصنيفات select) -----------------------------)
 
   // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState14 = _slicedToArray(_useState13, 2),
-    itemsUnitsArr = _useState14[0],
-    setItemsUnitsArr = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("1"),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState16 = _slicedToArray(_useState15, 2),
-    itemUnitId = _useState16[0],
-    setItemUnitId = _useState16[1]; // send as (id):Number from select
-  // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
-
-  // (----------------------------- (العدد داخل الوحدة) -----------------------------)
+    itemsUnitsArr = _useState16[0],
+    setItemsUnitsArr = _useState16[1];
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("1"),
     _useState18 = _slicedToArray(_useState17, 2),
-    unitPartsCount = _useState18[0],
-    setUnitPartsCount = _useState18[1];
+    itemUnitId = _useState18[0],
+    setItemUnitId = _useState18[1]; // send as (id):Number from select
+  // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
+
+  // (----------------------------- (العدد داخل الوحدة) -----------------------------)
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("1"),
+    _useState20 = _slicedToArray(_useState19, 2),
+    unitPartsCount = _useState20[0],
+    setUnitPartsCount = _useState20[1];
   // (----------------------------- (العدد داخل الوحدة) -----------------------------)
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState20 = _slicedToArray(_useState19, 2),
-    productDescription = _useState20[0],
-    setProductDescription = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState22 = _slicedToArray(_useState21, 2),
+    productDescription = _useState22[0],
+    setProductDescription = _useState22[1];
 
   // (----------------------------- (manufactory الشركة المصنعة او المنتجة select) -----------------------------)
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState22 = _slicedToArray(_useState21, 2),
-    manufactoryArray = _useState22[0],
-    setManufactoryArray = _useState22[1];
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState24 = _slicedToArray(_useState23, 2),
-    manufactoryID = _useState24[0],
-    setManufactoryID = _useState24[1];
+    manufactoryArray = _useState24[0],
+    setManufactoryArray = _useState24[1];
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState26 = _slicedToArray(_useState25, 2),
+    manufactoryID = _useState26[0],
+    setManufactoryID = _useState26[1];
 
   // (----------------------------- (manufactory الشركة المصنعة او المنتجة select) -----------------------------)
 
   // (----------------------------- ( Agent Id) -----------------------------)
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState26 = _slicedToArray(_useState25, 2),
-    agentId = _useState26[0],
-    setAgentId = _useState26[1];
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState28 = _slicedToArray(_useState27, 2),
+    agentId = _useState28[0],
+    setAgentId = _useState28[1];
   // (----------------------------- ( Agent Id) -----------------------------)
 
   // (----------------------------- (manufactory الشركة المستوردة   select) -----------------------------)
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState28 = _slicedToArray(_useState27, 2),
-    importedCompArray = _useState28[0],
-    setImportedCompArray = _useState28[1];
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState30 = _slicedToArray(_useState29, 2),
-    importedCompId = _useState30[0],
-    setImportedCompId = _useState30[1];
+    importedCompArray = _useState30[0],
+    setImportedCompArray = _useState30[1];
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState32 = _slicedToArray(_useState31, 2),
+    importedCompId = _useState32[0],
+    setImportedCompId = _useState32[1];
   // (----------------------------- (manufactory الشركة المستوردة  select) -----------------------------)
 
   // (----------------------------- (Distribute companies الشركة الموزعة select) ------------------------)
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState32 = _slicedToArray(_useState31, 2),
-    distributeCompaniesArray = _useState32[0],
-    setDistributeCompaniesArray = _useState32[1];
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState34 = _slicedToArray(_useState33, 2),
-    distributeCompanyId = _useState34[0],
-    setDistributeCompanyId = _useState34[1];
+    distributeCompaniesArray = _useState34[0],
+    setDistributeCompaniesArray = _useState34[1];
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState36 = _slicedToArray(_useState35, 2),
+    distributeCompanyId = _useState36[0],
+    setDistributeCompanyId = _useState36[1];
   // (----------------------------- (Distribute companies الشركة الموزعة select) ------------------------)
 
   //  (---------------------- discount ------------------- )
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState36 = _slicedToArray(_useState35, 2),
-    discountValue = _useState36[0],
-    setDiscountValue = _useState36[1];
   var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState38 = _slicedToArray(_useState37, 2),
-    precentDiscount = _useState38[0],
-    setPrecentDiscount = _useState38[1];
+    discountValue = _useState38[0],
+    setDiscountValue = _useState38[1];
   var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState40 = _slicedToArray(_useState39, 2),
-    discountByPercentage = _useState40[0],
-    setDiscountByPercentage = _useState40[1];
+    precentDiscount = _useState40[0],
+    setPrecentDiscount = _useState40[1];
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState42 = _slicedToArray(_useState41, 2),
+    discountByPercentage = _useState42[0],
+    setDiscountByPercentage = _useState42[1];
   // useEffect(() => {
   //     let discountAmount = (discountByPercentage * salePrice) / 100;
   //     setPrecentDiscount(discountAmount);
@@ -5802,10 +5808,10 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
 
   //  (---------------------- discount ------------------- )
 
-  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState42 = _slicedToArray(_useState41, 2),
-    successMsg = _useState42[0],
-    setSuccessMsg = _useState42[1];
+  var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState44 = _slicedToArray(_useState43, 2),
+    successMsg = _useState44[0],
+    setSuccessMsg = _useState44[1];
 
   //1- if token in local storage then make request
   // if response true get all data regarde to this trader
@@ -5829,7 +5835,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context.prev = 0;
                               _context.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/types"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "/api/types"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5865,7 +5871,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context2.prev = 0;
                               _context2.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/importers"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "/api/importers"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5899,7 +5905,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context3.prev = 0;
                               _context3.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/itemUnits"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "/api/itemUnits"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5935,7 +5941,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context4.prev = 0;
                               _context4.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/manufactories"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "/api/manufactories"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -5971,7 +5977,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context5.prev = 0;
                               _context5.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/companies"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "/api/companies"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -6004,7 +6010,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
                             case 0:
                               _context6.prev = 0;
                               _context6.next = 3;
-                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "api/volumes"), {
+                              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat("http://127.0.0.1:8000", "/api/volumes"), {
                                 cancelRequest: cancelRequest.token
                               });
                             case 3:
@@ -6065,16 +6071,6 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
       }, 3000);
       return;
     }
-    // if (
-    //     salePrice.match(regNum) &&
-    //     buyPrice.match(regNum) &&
-    //     productName != "" &&
-    //     unitPartsCount.match(regNum)
-    // ) {
-    //     console.log("valid");
-    // } else {
-    //     console.log("not valid");
-    // }
     addProductFunc();
   };
   var addProductFunc = /*#__PURE__*/function () {
@@ -6085,6 +6081,7 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
           switch (_context8.prev = _context8.next) {
             case 0:
               traderTk = JSON.parse(localStorage.getItem("uTk"));
+              console.log(traderTk);
               fData = new FormData();
               fData.append("name", productName);
               imgVal.map(function (el) {
@@ -6092,9 +6089,11 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
               });
               fData.append("type_id", typeId); // اسم التصنيف
 
+              fData.append("item_code", itemCode); // كود المنتج 
+
               fData.append("item_unit_id", itemUnitId); // وحدة المنتج _ قطعة+-وحدة-علبة
 
-              fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة او القطعة او العلبة
+              fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة
 
               fData.append("discount", discountValue); // الخصم
 
@@ -6102,37 +6101,38 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
               fData.append("description", productDescription);
               fData.append("manufactory_id", manufactoryID); //  الشركة المنتجة او المصنعة
 
-              fData.append("agent_id", agentId); //  الشركة المنتجة او المصنعة
+              fData.append("agent_id", agentId); //  الوكيل 
 
               fData.append("company_id", distributeCompanyId); // الشركة الموزعة
 
               fData.append("importer_id", importedCompId); // الشركة المستوردة
-              _context8.prev = 14;
-              _context8.next = 17;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat("http://127.0.0.1:8000", "api/items"), fData, {
+              _context8.prev = 16;
+              _context8.next = 19;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat("http://127.0.0.1:8000", "/api/items"), fData, {
                 headers: {
                   Authorization: "Bearer ".concat(traderTk)
                 }
               });
-            case 17:
+            case 19:
               res = _context8.sent;
               setApiMessage(res.data.message);
               setTimeout(function () {
                 setApiMessage("");
               }, 4000);
               console.log(res.data.message);
-              _context8.next = 26;
+              _context8.next = 29;
               break;
-            case 23:
-              _context8.prev = 23;
-              _context8.t0 = _context8["catch"](14);
+            case 25:
+              _context8.prev = 25;
+              _context8.t0 = _context8["catch"](16);
               console.log(_context8.t0.response);
-            case 26:
+              console.log(_context8.t0);
+            case 29:
             case "end":
               return _context8.stop();
           }
         }
-      }, _callee8, null, [[14, 23]]);
+      }, _callee8, null, [[16, 25]]);
     }));
     return function addProductFunc() {
       return _ref9.apply(this, arguments);
@@ -6220,6 +6220,20 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
             }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "product-name-div",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "mt-3 mb-2",
+            children: "\u0643\u0648\u062F\u0627\u0644\u0645\u0646\u062A\u062C"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            className: "border-none shadow-md rounded-md",
+            type: "text",
+            value: itemCode,
+            placeholder: "\u0643\u0648\u062F\u0627\u0644\u0645\u0646\u062A\u062C",
+            onChange: function onChange(e) {
+              return setItemCode(e.target.value);
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "img-div bg-slate-300 p-2 rounded-md",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
             className: "my-2",
@@ -6280,50 +6294,6 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
             title: "Title"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "discount-div",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "",
-            children: "\u0625\u062E\u062A\u0631 \u0637\u0631\u064A\u0642\u0629 \u0627\u0644\u062E\u0635\u0645"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            onClick: opnDiscByPound,
-            className: "".concat(isDiscountPrice ? "bg-green-400" : "", " mx-2 p-1 mb-2 shadow-md rounded-md"),
-            children: "\u0627\u0644\u062E\u0635\u0645 \u0628\u0627\u0644\u062C\u0646\u064A\u0629"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            onClick: opnDiscByPercentage,
-            className: "".concat(isDiscountPerc ? "bg-green-400" : "", " mx-2 p-1 mb-2 shadow-md rounded-md"),
-            children: "\u0627\u0644\u062E\u0635\u0645 \u0628\u0627\u0644\u0646\u0633\u0628\u0629"
-          }), isDiscountPerc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            onClick: cancelDiscount,
-            className: "mt-3 mx-2 p-1 bg-red-400 mb-2 shadow-md rounded-md",
-            children: "\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u062E\u0635\u0645"
-          }), isDiscountPrice && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            onClick: cancelDiscount,
-            className: "mt-3 mx-2 p-1 bg-red-400 mb-2 shadow-md rounded-md",
-            children: "\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u062E\u0635\u0645"
-          }), isDiscountPrice && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            className: "border-none shadow-md rounded-md",
-            type: "number",
-            min: 0,
-            value: discountValue,
-            placeholder: "10",
-            onChange: function onChange(e) {
-              return setDiscountValue(e.target.value);
-            }
-          }), isDiscountPerc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-              children: [precentDiscount, " \u062C\u0646\u064A\u0629"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-              className: "border-none shadow-md rounded-md",
-              type: "text",
-              min: 0,
-              value: discountByPercentage,
-              placeholder: " \u0627\u0643\u062A\u0628 \u0627\u0644\u0642\u064A\u0645\u0629 \u0641\u0642\u0637 \u0645\u062B\u0627\u0644: 10",
-              onChange: function onChange(e) {
-                return setDiscountByPercentage(e.target.value);
-              }
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "import-checkbox-div mt-4 p-1 rounded-md shadow-md w-fit h-fit",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             children: "\u0647\u0644 \u0647\u0630\u0627 \u0627\u0644\u0645\u0646\u062A\u062C \u0645\u0633\u062A\u0648\u0631\u062F \u061F"
@@ -6367,6 +6337,25 @@ var AddProductsToTraders = function AddProductsToTraders(_ref) {
           className: "distribute-companies mt-3",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
             children: " \u0625\u062E\u062A\u0631 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0645\u0648\u0632\u0639\u0629"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+            className: "rounded-md cursor-pointer",
+            onChange: whatDistribute,
+            name: "",
+            id: "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: "0",
+              children: "\u0644\u0645 \u062A\u062E\u062A\u0631 \u0628\u0639\u062F"
+            }), distributeCompaniesArray && distributeCompaniesArray.map(function (oneDistributeComp) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                value: oneDistributeComp.id,
+                children: oneDistributeComp.name
+              }, oneDistributeComp.id);
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "distribute-companies mt-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+            children: " \u0625\u062E\u062A\u0631 \u0627\u0644\u0648\u0643\u064A\u0644"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
             className: "rounded-md cursor-pointer",
             onChange: whatDistribute,
@@ -6454,169 +6443,173 @@ var OneVendorProduct = function OneVendorProduct() {
     _useState4 = _slicedToArray(_useState3, 2),
     stockCount = _useState4[0],
     setStockCount = _useState4[1];
-
-  // sale_price: sale_price,
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
     _useState6 = _slicedToArray(_useState5, 2),
-    salePrice = _useState6[0],
-    setSalePrice = _useState6[1];
+    stockCode = _useState6[0],
+    setStockCode = _useState6[1];
 
-  // buy_price: buy_price,
+  // sale_price: sale_price,
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
     _useState8 = _slicedToArray(_useState7, 2),
-    buyPrice = _useState8[0],
-    setBuyPrice = _useState8[1];
+    salePrice = _useState8[0],
+    setSalePrice = _useState8[1];
 
-  // trader_id: trader.id,
+  // buy_price: buy_price,
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
     _useState10 = _slicedToArray(_useState9, 2),
-    traderId = _useState10[0],
-    setTraderId = _useState10[1];
+    buyPrice = _useState10[0],
+    setBuyPrice = _useState10[1];
 
-  // buy_discount: discount,
+  // trader_id: trader.id,
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
     _useState12 = _slicedToArray(_useState11, 2),
-    buyDiscount = _useState12[0],
-    setBuyDiscount = _useState12[1];
+    traderId = _useState12[0],
+    setTraderId = _useState12[1];
+
+  // buy_discount: discount,
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("1"),
+    _useState14 = _slicedToArray(_useState13, 2),
+    buyDiscount = _useState14[0],
+    setBuyDiscount = _useState14[1];
 
   // availalbe: isAvialabel,
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState14 = _slicedToArray(_useState13, 2),
-    isAvialabel = _useState14[0],
-    setisAvialabel = _useState14[1];
-
-  // approved: isApproved,
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState16 = _slicedToArray(_useState15, 2),
-    isApproved = _useState16[0],
-    setisApproved = _useState16[1];
+    isAvialabel = _useState16[0],
+    setisAvialabel = _useState16[1];
 
-  // code: productCode,
+  // approved: isApproved,
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState18 = _slicedToArray(_useState17, 2),
-    productCode = _useState18[0],
-    setproductCode = _useState18[1];
+    isApproved = _useState18[0],
+    setisApproved = _useState18[1];
 
-  // min_quantity: minQuantity,
+  // code: productCode,
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState20 = _slicedToArray(_useState19, 2),
-    minQuantity = _useState20[0],
-    setminQuantity = _useState20[1];
+    productCode = _useState20[0],
+    setproductCode = _useState20[1];
 
-  // barCode: productBarCode,
+  // min_quantity: minQuantity,
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState22 = _slicedToArray(_useState21, 2),
-    productBarCode = _useState22[0],
-    setproductBarCode = _useState22[1];
+    minQuantity = _useState22[0],
+    setminQuantity = _useState22[1];
 
-  // spare_barcode:spareBarCode,
+  // barCode: productBarCode,
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState24 = _slicedToArray(_useState23, 2),
-    spareBarCode = _useState24[0],
-    setSpareBarCode = _useState24[1];
+    productBarCode = _useState24[0],
+    setproductBarCode = _useState24[1];
+
+  // spare_barcode:spareBarCode,
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState26 = _slicedToArray(_useState25, 2),
+    spareBarCode = _useState26[0],
+    setSpareBarCode = _useState26[1];
 
   // (----------------------------- ( Select States ) -----------------------------)
   // color_id: colorIdSelect,
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState26 = _slicedToArray(_useState25, 2),
-    colorIdSelect = _useState26[0],
-    setColorIdSelect = _useState26[1];
-
-  // size_id: sizeIdSelect,
   var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState28 = _slicedToArray(_useState27, 2),
-    sizeIdSelect = _useState28[0],
-    setSizeIdSelect = _useState28[1];
+    colorIdSelect = _useState28[0],
+    setColorIdSelect = _useState28[1];
 
-  // volume_id: volumeIdSelect,
+  // size_id: sizeIdSelect,
   var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState30 = _slicedToArray(_useState29, 2),
-    volumeIdSelect = _useState30[0],
-    setVolumeIdSelect = _useState30[1];
-  // (----------------------------- ( Select States ) -----------------------------)
-  // weight_id: "",
+    sizeIdSelect = _useState30[0],
+    setSizeIdSelect = _useState30[1];
+
+  // volume_id: volumeIdSelect,
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState32 = _slicedToArray(_useState31, 2),
-    weightId = _useState32[0],
-    setweightId = _useState32[1];
-
-  // season_id: "",
+    volumeIdSelect = _useState32[0],
+    setVolumeIdSelect = _useState32[1];
+  // (----------------------------- ( Select States ) -----------------------------)
+  // weight_id: "",
   var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState34 = _slicedToArray(_useState33, 2),
-    seasonId = _useState34[0],
-    setseasonId = _useState34[1];
+    weightId = _useState34[0],
+    setweightId = _useState34[1];
+
+  // season_id: "",
   var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState36 = _slicedToArray(_useState35, 2),
-    manufactureDate = _useState36[0],
-    setmanufactureDate = _useState36[1];
+    seasonId = _useState36[0],
+    setseasonId = _useState36[1];
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState38 = _slicedToArray(_useState37, 2),
+    manufactureDate = _useState38[0],
+    setmanufactureDate = _useState38[1];
   // manufacture_data: manufactureData,
 
   // expire_date:expireDate,
-  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
-    _useState38 = _slicedToArray(_useState37, 2),
-    expireDate = _useState38[0],
-    setexpireDate = _useState38[1];
-
-  // stock_discount: stockDiscount,
   var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState40 = _slicedToArray(_useState39, 2),
-    stockDiscount = _useState40[0],
-    setstockDiscount = _useState40[1];
+    expireDate = _useState40[0],
+    setexpireDate = _useState40[1];
 
-  // discount_start_date: discountStartDate,
+  // stock_discount: stockDiscount,
   var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState42 = _slicedToArray(_useState41, 2),
-    discountStartDate = _useState42[0],
-    setdiscountStartDate = _useState42[1];
+    stockDiscount = _useState42[0],
+    setstockDiscount = _useState42[1];
 
-  // discount_end_date: discountEndDate,
+  // discount_start_date: discountStartDate,
   var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState44 = _slicedToArray(_useState43, 2),
-    discountEndDate = _useState44[0],
-    setdiscountEndDate = _useState44[1];
-  var _useState45 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("0"),
+    discountStartDate = _useState44[0],
+    setdiscountStartDate = _useState44[1];
+
+  // discount_end_date: discountEndDate,
+  var _useState45 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState46 = _slicedToArray(_useState45, 2),
-    itemCode = _useState46[0],
-    setItemCode = _useState46[1];
+    discountEndDate = _useState46[0],
+    setdiscountEndDate = _useState46[1];
+  var _useState47 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    _useState48 = _slicedToArray(_useState47, 2),
+    barCode = _useState48[0],
+    setBareCode = _useState48[1];
 
   // const [barCode, setBarCode] = useState("");
 
-  var _useState47 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-    _useState48 = _slicedToArray(_useState47, 2),
-    isUpdateProduct = _useState48[0],
-    setisUpdateProduct = _useState48[1];
   var _useState49 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState50 = _slicedToArray(_useState49, 2),
-    isAddImages = _useState50[0],
-    setIsAddImages = _useState50[1];
-  var _useState51 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    isUpdateProduct = _useState50[0],
+    setisUpdateProduct = _useState50[1];
+  var _useState51 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState52 = _slicedToArray(_useState51, 2),
-    images = _useState52[0],
-    setImages = _useState52[1];
-  var _useState53 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+    isAddImages = _useState52[0],
+    setIsAddImages = _useState52[1];
+  var _useState53 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState54 = _slicedToArray(_useState53, 2),
-    addToProductMsg = _useState54[0],
-    setAddToProductMsg = _useState54[1];
+    images = _useState54[0],
+    setImages = _useState54[1];
   var _useState55 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState56 = _slicedToArray(_useState55, 2),
-    successMsg = _useState56[0],
-    setSuccessMsg = _useState56[1];
-  var _useState57 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+    addToProductMsg = _useState56[0],
+    setAddToProductMsg = _useState56[1];
+  var _useState57 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState58 = _slicedToArray(_useState57, 2),
-    fetchAgain = _useState58[0],
-    setFetchAgain = _useState58[1];
-  var _useState59 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    successMsg = _useState58[0],
+    setSuccessMsg = _useState58[1];
+  var _useState59 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState60 = _slicedToArray(_useState59, 2),
-    colorsArray = _useState60[0],
-    setColorsArray = _useState60[1];
+    fetchAgain = _useState60[0],
+    setFetchAgain = _useState60[1];
   var _useState61 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState62 = _slicedToArray(_useState61, 2),
-    sizesArray = _useState62[0],
-    setSizesArray = _useState62[1];
+    colorsArray = _useState62[0],
+    setColorsArray = _useState62[1];
   var _useState63 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState64 = _slicedToArray(_useState63, 2),
-    VolumesArray = _useState64[0],
-    setVolumesArray = _useState64[1];
+    sizesArray = _useState64[0],
+    setSizesArray = _useState64[1];
+  var _useState65 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+    _useState66 = _slicedToArray(_useState65, 2),
+    VolumesArray = _useState66[0],
+    setVolumesArray = _useState66[1];
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     var cancelRequest = axios__WEBPACK_IMPORTED_MODULE_0___default().CancelToken.source();
     var getToken = JSON.parse(localStorage.getItem("uTk"));
@@ -6858,11 +6851,17 @@ var OneVendorProduct = function OneVendorProduct() {
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat("http://127.0.0.1:8000", "/api/stocks"), (_axios$post = {
                 item_id: id,
                 stock: stockCount,
-                sale_price: sale_price,
+                stock_code: stockCode,
+                sale_price: salePrice,
                 trader_id: trader.id,
                 buy_price: buyPrice,
-                buy_discount: discount
-              }, _defineProperty(_axios$post, "sale_price", sale_price), _defineProperty(_axios$post, "weight_id", ""), _defineProperty(_axios$post, "volume_id", volumeIdSelect), _defineProperty(_axios$post, "season_id", ""), _defineProperty(_axios$post, "item_id", id), _defineProperty(_axios$post, "color_id", colorIdSelect), _defineProperty(_axios$post, "size_id", sizeIdSelect), _defineProperty(_axios$post, "weight_id", weightId), _defineProperty(_axios$post, "volume_id", volumeIdSelect), _defineProperty(_axios$post, "season_id", seasonId), _defineProperty(_axios$post, "manufacture_data", manufactureDate), _defineProperty(_axios$post, "expire_date", expireDate), _defineProperty(_axios$post, "stock_discount", stockDiscount), _defineProperty(_axios$post, "discount_start_date", discountStartDate), _defineProperty(_axios$post, "discount_end_date", discountEndDate), _axios$post));
+                buy_discount: discount,
+                weight_id: "",
+                volume_id: volumeIdSelect,
+                season_id: "",
+                color_id: colorIdSelect,
+                size_id: sizeIdSelect
+              }, _defineProperty(_axios$post, "weight_id", weightId), _defineProperty(_axios$post, "volume_id", volumeIdSelect), _defineProperty(_axios$post, "season_id", seasonId), _defineProperty(_axios$post, "manufacture_data", manufactureDate), _defineProperty(_axios$post, "expire_date", expireDate), _defineProperty(_axios$post, "stock_discount", stockDiscount), _defineProperty(_axios$post, "discount_start_date", discountStartDate), _defineProperty(_axios$post, "discount_end_date", discountEndDate), _axios$post));
             case 11:
               res = _context6.sent;
               console.log(res);
@@ -6902,14 +6901,14 @@ var OneVendorProduct = function OneVendorProduct() {
 
   //  (---------------------- discount ------------------- )
 
-  var _useState65 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-    _useState66 = _slicedToArray(_useState65, 2),
-    isDiscountPerc = _useState66[0],
-    setIsDicountPerc = _useState66[1];
   var _useState67 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState68 = _slicedToArray(_useState67, 2),
-    isDiscountPrice = _useState68[0],
-    setIsDicountPrice = _useState68[1];
+    isDiscountPerc = _useState68[0],
+    setIsDicountPerc = _useState68[1];
+  var _useState69 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+    _useState70 = _slicedToArray(_useState69, 2),
+    isDiscountPrice = _useState70[0],
+    setIsDicountPrice = _useState70[1];
   // (------------------------ open discount handle ----------------------)
   var opnDiscByPound = function opnDiscByPound() {
     setIsDicountPrice(true);
@@ -6962,55 +6961,24 @@ var OneVendorProduct = function OneVendorProduct() {
           className: "all-product-info-container",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
             className: "my-2 shadow-md rounded-md p-2",
-            children: ["\u0627\u0633\u0645 \u0627\u0644\u0645\u0646\u062A\u062C ", itemInfo.name]
+            children: ["\u0627\u0633\u0645 \u0627\u0644\u0645\u0646\u062A\u062C : ", itemInfo.name]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
             className: "my-2 shadow-md rounded-md p-2",
-            children: ["\u0633\u0639\u0631 \u0627\u0644\u0645\u0646\u062A\u062C ", itemInfo.sale_price]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
-            className: "my-2 shadow-md rounded-md p-2",
-            children: ["\u0643\u0648\u062F \u0627\u0644\u0645\u0646\u062A\u062C", itemInfo.code]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
-            className: "my-2 shadow-md rounded-md p-2",
-            children: ["\u0639\u062F\u062F \u0627\u0644\u0645\u0646\u062A\u062C", itemInfo.stock]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "product-colors mt-4 my-2 shadow-md rounded-md p-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-              children: "\u0627\u0644\u0648\u0627\u0646 \u0627\u0644\u0645\u0646\u062A\u062C"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "flex gap-2",
-              children: itemInfo.colors && itemInfo.colors.map(function (color) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                  className: "shadow-md p-1 rounded-md",
-                  children: color.name
-                }, color.id);
-              })
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "product-colors mt-4 my-2 shadow-md rounded-md p-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-              children: "\u0645\u0642\u0627\u0633\u0627\u062A \u0627\u0644\u0645\u0646\u062A\u062C"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "flex gap-2",
-              children: itemInfo.sizes && itemInfo.sizes.map(function (size) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                  className: "shadow-md p-1 rounded-md",
-                  children: size.name
-                }, size.id);
-              })
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "product-colors mt-4 my-2 shadow-md rounded-md p-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-              children: "\u0645\u0642\u0627\u0633\u0627\u062A \u0627\u0644\u0645\u0646\u062A\u062C"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "flex gap-2",
-              children: itemInfo.sizes && itemInfo.sizes.map(function (size) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                  className: "shadow-md p-1 rounded-md",
-                  children: size.name
-                }, size.id);
-              })
-            })]
+            children: ["\u0643\u0648\u062F \u0627\u0644\u0645\u0646\u062A\u062C : ", itemInfo.code]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "stock-item-div",
+            children: itemInfo.stocks && itemInfo.stocks.map(function (oneitem) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "m-1 p-1 bg-green-300",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+                  children: ["  \u0627\u0644\u0643\u0645\u064A\u0629 : ", oneitem.stock]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+                  children: [" \u0633\u0639\u0631 \u0627\u0644\u0628\u064A\u0639 : ", oneitem.sale_price]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+                  children: [" \u0633\u0639\u0631 \u0627\u0644\u0634\u0631\u0627\u0621 : ", oneitem.buy_price]
+                })]
+              }, oneitem.id);
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
             className: "my-2 shadow-md rounded-md p-2",
             children: ["\u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0645\u0635\u0646\u0639\u0629: ", (_itemInfo$manufactory = itemInfo.manufactory) === null || _itemInfo$manufactory === void 0 ? void 0 : _itemInfo$manufactory.name]
@@ -7089,6 +7057,20 @@ var OneVendorProduct = function OneVendorProduct() {
             placeholder: "\u0631\u0635\u064A\u062F \u0627\u0644\u0642\u0637\u0639\u0629",
             onChange: function onChange(e) {
               return setStockCount(e.target.value);
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "stock-code-div",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "mt-3 mb-2",
+            children: "\u0643\u0648\u062F \u0627\u0644\u0635\u0646\u0641"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            className: "border-none shadow-md rounded-md",
+            type: "text",
+            value: stockCode,
+            placeholder: "\u0631\u0635\u064A\u062F \u0627\u0644\u0642\u0637\u0639\u0629",
+            onChange: function onChange(e) {
+              return setStockCode(e.target.value);
             }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -7182,33 +7164,17 @@ var OneVendorProduct = function OneVendorProduct() {
             }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "product-code-div",
+          className: "product-barcode-div",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "mt-3 mb-2",
-            children: "\u0643\u0648\u062F \u0627\u0644\u0645\u0646\u062A\u062C"
+            children: "\u0628\u0627\u0631 \u0643\u0648\u062F"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
             className: "border-none shadow-md rounded-md",
             type: "number",
-            min: 0,
-            value: itemCode,
-            placeholder: "\u0643\u0648\u062F \u0627\u0644\u0645\u0646\u062A\u062C",
-            onChange: function onChange(e) {
-              return setItemCode(e.target.value);
-            }
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "product-spare-barcode-div",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "mt-3 mb-2",
-            children: "\u0628\u0627\u0631 \u0643\u0648\u062F \u0625\u0636\u0627\u0641\u0649"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-            className: "border-none shadow-md rounded-md",
-            type: "number",
-            min: 0,
-            value: spareBarCode,
+            value: barCode,
             placeholder: "\u0628\u0627\u0631 \u0643\u0648\u062F",
             onChange: function onChange(e) {
-              return setSpareBarCode(e.target.value);
+              return setBareCode(e.target.value);
             }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
@@ -10448,8 +10414,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var AllUnitsItemId = function AllUnitsItemId() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    activites = _useState2[0],
-    setActivites = _useState2[1];
+    itemUnits = _useState2[0],
+    setitemUnits = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
     _useState4 = _slicedToArray(_useState3, 2),
     acivityName = _useState4[0],
@@ -10490,18 +10456,13 @@ var AllUnitsItemId = function AllUnitsItemId() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/itemUnits"), {
-                  headers: {
-                    Authorization: "Bearer ".concat(adminTrue)
-                  }
-                }
-                // {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat("http://127.0.0.1:8000", "/api/itemUnits") // {
                 //     cancelRequest: cancelRequest.token,
                 // }
                 );
               case 3:
                 res = _context.sent;
-                setActivites(res.data.data);
+                setitemUnits(res.data.data);
                 _context.next = 10;
                 break;
               case 7:
@@ -10657,7 +10618,7 @@ var AllUnitsItemId = function AllUnitsItemId() {
             className: "bg-red-700 mx-1 text-sm rounded-md p-1 text-white",
             children: "\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u062D\u0630\u0641"
           })]
-        }), activites && activites.map(function (active) {
+        }), itemUnits && itemUnits.map(function (active) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "flex gap-3 my-3 mt-5 p-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {

@@ -10,7 +10,7 @@ const HighAdvertisement = () => {
                 axios
                     .get(`${process.env.MIX_APP_URL}api/advertisements`)
                     .then((res) => {
-                        // setAdvertise(res.data.data[0]);
+                        setAdvertise(res.data.data[0]);
                         console.log(res.data);
                     });
             } catch (er) {

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const AllUnitsItemId = () => {
-    const [activites, setActivites] = useState([]);
+    const [itemUnits, setitemUnits] = useState([]);
 
     const [acivityName, setAcivityName] = useState("");
     const [activityId, setActivityId] = useState("");
@@ -22,16 +22,11 @@ const AllUnitsItemId = () => {
             try {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/itemUnits`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${adminTrue}`,
-                        },
-                    }
                     // {
                     //     cancelRequest: cancelRequest.token,
                     // }
                 );
-                setActivites(res.data.data);
+                setitemUnits(res.data.data);
             } catch (er) {
                 console.log(er);
             }
@@ -139,8 +134,8 @@ const AllUnitsItemId = () => {
                             </button>
                         </div>
                     )}
-                    {activites &&
-                        activites.map((active) => (
+                    {itemUnits &&
+                        itemUnits.map((active) => (
                             <div
                                 key={active.id}
                                 className="flex gap-3 my-3 mt-5 p-2"
