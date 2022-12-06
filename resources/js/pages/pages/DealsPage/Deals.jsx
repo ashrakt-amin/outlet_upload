@@ -49,7 +49,7 @@ const Deals = () => {
     return (
         <div className="deals-parent">
             <h1 className="p-3 text-lg text-center text-black  mt-6 mb-2">
-                <span className="font-bold px-1 rounded-md">
+                <span className="font-bold text-end px-1 rounded-md">
                     العروض
                 </span>
             </h1>

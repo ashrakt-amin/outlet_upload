@@ -9,7 +9,7 @@ const TowAddvertisments = () => {
                 axios
                     .get(`${process.env.MIX_APP_URL}/api/advertisements`)
                     .then((res) => {
-                        // setAdvertise(res.data.data);
+                        setAdvertise(res.data.data);
                         console.log(res);
                     });
             } catch (er) {

@@ -75,7 +75,7 @@ const LatestUpdatedProducts = () => {
     return (
         <div className="deals-parent">
             <h1 className="p-3 text-lg text-center text-white bg-slate-800 mt-6 mb-2">
-                <span className="bg-red-500 font-bold px-1 rounded-md">
+                <span className="text-dark text-end font-bold px-1 rounded-md">
                     المضافة حديثاً
                 </span>
             </h1>
