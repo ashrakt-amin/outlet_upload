@@ -17,7 +17,7 @@ class UnitResource extends JsonResource
      */
     public function toArray($request)
     {
-        $level   = $this->whenLoaded('level');
+        $level  = $this->whenLoaded('level');
         $trader = $this->whenLoaded('trader');
         return [
             'id'           => $this->id,

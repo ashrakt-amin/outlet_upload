@@ -6,9 +6,10 @@ use App\Models\Item;
 use App\Models\Client;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ClientResource;
 use App\Http\Resources\ItemResource;
+use App\Http\Resources\ClientResource;
 use App\Http\Resources\WishlistResource;
 
 class WishlistController extends Controller
@@ -20,11 +21,14 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::where(['client_id'=>auth()->guard()->id()])->with(['item'])->get();
-
-        return response()->json([
-            "data" => WishlistResource::collection($wishlists),
-        ]);
+        if (request()->bearerToken() != null) {
+            [$id, $user_token] = explode('|', request()->bearerToken(), 2);
+            $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
+            $wishlists = Wishlist::where(['client_id'=>$token_data->tokenable_id])->with(['item'])->first();
+            return response()->json([
+                "data" => WishlistResource::collection($wishlists),
+            ]);
+        }
     }
 
     /**
