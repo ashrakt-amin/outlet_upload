@@ -20,24 +20,27 @@ const Deals = () => {
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        // const getAuthItems = async () => {
-        //     try {
-        //         const res = await axios.get(
-        //             `${process.env.MIX_APP_URL}/api/items/latest`,
-        //             {
-        //                 headers: {
-        //                     Authorization: `Bearer ${getToken}`,
-        //                 },
-        //             }
-        //         );
-        //         setProducts(res.data.data);
-        //         console.log(res.data);
-        //     } catch (error) {
-        //         console.warn(error.message);
-        //     }
-        // };
+        if(getToken == null) {
+            getToken = '';
+        }
+        const getAuthItems = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/items/latest`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken}`,
+                        },
+                    }
+                );
+                setProducts(res.data.data);
+                console.log(res.data);
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
 
-        // getAuthItems();
+        getAuthItems();
 
         return () => {
             cancelRequest.cancel();
@@ -79,7 +82,7 @@ const Deals = () => {
                         slidesPerView: 3,
                     },
                 }}
-            >
+            > 
                 {products &&
                     products.map((product) => (
                         <div key={product.id} className="">
