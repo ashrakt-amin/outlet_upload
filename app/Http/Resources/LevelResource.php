@@ -20,7 +20,7 @@ class LevelResource extends JsonResource
         return [
             'id'         => $this->id,
             'name'       => $this->name,
-            'project'    => new projectResource($project),
+            'project'    => new ProjectResource($project),
             'units'      => UnitResource::collection($units),
             'traders'    => TraderResource::collection($traders),
         ];
