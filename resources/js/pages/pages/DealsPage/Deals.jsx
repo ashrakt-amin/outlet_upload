@@ -20,24 +20,27 @@ const Deals = () => {
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        // const getAuthItems = async () => {
-        //     try {
-        //         const res = await axios.get(
-        //             `${process.env.MIX_APP_URL}/api/items/latest`,
-        //             {
-        //                 headers: {
-        //                     Authorization: `Bearer ${getToken}`,
-        //                 },
-        //             }
-        //         );
-        //         setProducts(res.data.data);
-        //         console.log(res.data);
-        //     } catch (error) {
-        //         console.warn(error.message);
-        //     }
-        // };
+        if(getToken == null) {
+            getToken = '';
+        }
+        const getAuthItems = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/items/latest`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken}`,
+                        },
+                    }
+                );
+                setProducts(res.data.data);
+                console.log(res.data);
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
 
-        // getAuthItems();
+        getAuthItems();
 
         return () => {
             cancelRequest.cancel();
@@ -47,9 +50,9 @@ const Deals = () => {
     const refetchFn = () => setRefetch(!refetch);
 
     return (
-        <div className="deals-parent">
-            <h1 className="p-3 text-lg text-center text-black  mt-6 mb-2">
-                <span className="font-bold px-1 rounded-md">
+        <div className="deals-parent bg-red-600 pb-2">
+            <h1 className="p-3 text-lg text-black bg-white text-end mt-6 mb-2">
+                <span className="font-bold text-end text-black px-1 rounded-md">
                     العروض
                 </span>
             </h1>
@@ -79,7 +82,7 @@ const Deals = () => {
                         slidesPerView: 3,
                     },
                 }}
-            >
+            > 
                 {products &&
                     products.map((product) => (
                         <div key={product.id} className="">

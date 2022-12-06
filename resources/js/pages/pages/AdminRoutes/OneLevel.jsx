@@ -14,19 +14,16 @@ const OneLevel = () => {
     const opnAddUnit = () => setIsAddUnit(!isAddUnit);
 
     console.log(levelInfo);
-
+ 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getUnits = async () => {
             try {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/levels/${id}`,
-                    {
-                        cancelRequest: cancelRequest.token,
-                    }
                 );
                 setLevelInfo(res.data.data);
-                console.log(res.data.data);
+                console.log(res);
             } catch (error) {
                 console.warn(error.message);
             }

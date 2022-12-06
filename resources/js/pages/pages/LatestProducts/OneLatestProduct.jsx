@@ -84,9 +84,9 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                 }}
             >
                 <div
-                    className="product-img "
+                    className="product-img max-sm:w-10/12"
                     style={{
-                        width: "100%",
+                        width: "200",
                         height: "200px",
                     }}
                 >

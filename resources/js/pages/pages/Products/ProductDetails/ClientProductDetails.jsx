@@ -64,9 +64,8 @@ const ClientProductDetails = () => {
                     }
                 );
                 setSingleProduct(res.data.data);
-                console.log(res.data.data.trader.logo);
                 if(res.data.data.trader.logo == null){
-                    setTraderLogo('https://th.bing.com/th/id/R.77bd7241f229f2d97c9d194400bcf239?rik=iXHy8LKwkGKMPQ&pid=ImgRaw&r=0')
+                    setTraderLogo('https://th.bing.com/th/id/OIP.OCfe-0Jyvn5SS8on4BacEAHaEc?pid=ImgDet&rs=1')
                 }else {
                     setTraderLogo(
                         `${process.env.MIX_APP_URL}/assets/images/uploads/traders/${res.data.data.trader.logo}`
@@ -178,11 +177,11 @@ const ClientProductDetails = () => {
                     </div>
                     <div className="product-price mt-3">
                         {"السعر: "}
-                        {singleProduct?.sale_price}{" "}
+                        {singleProduct?.sale_price}{" 1000 "}
                     </div>
 
                     <div className="units-count-div mt-3">
-                        <div>عدد القطع المتوفرة: {singleProduct?.stock}</div>
+                        <div>عدد القطع المتوفرة: {singleProduct?.stock} 30</div>
                     </div>
                     <div className="rate-div flex gap-2 my-3">
                         {Array.from(Array(singleProduct?.allRates).keys()).map(
@@ -322,9 +321,6 @@ const ClientProductDetails = () => {
             <div className="matched-products-div flex flex-wrap justify-center pb-16 gap-4 my-4">
                 {matchingProducts &&
                     matchingProducts.map((oneMatchProduct) => (
-                        // <div key={oneMatchProduct.id}>
-                        //     {oneMatchProduct.name}
-                        // </div>
                         <OneClintProduct
                             key={oneMatchProduct.id}
                             product={oneMatchProduct}

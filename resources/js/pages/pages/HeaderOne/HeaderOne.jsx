@@ -159,25 +159,25 @@ const Header = () => {
     const logoutFunc = async () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         axios.defaults.withCredentials = true;
-        await axios
-            .get(`${process.env.MIX_APP_URL}` + "sanctum/csrf-cookie")
-            .then(async (r) => {
-                try {
-                    let res = await axios.post(
-                        `${process.env.MIX_APP_URL}/api/logout`,
-                        {},
-                        {
-                            headers: { Authorization: `Bearer ${getToken}` },
-                        }
-                    );
-                    dispatch(productsInWishlistNumber(0));
-                    console.log(res);
-                    localStorage.removeItem("clTk");
-                    navigate("/");
-                } catch (er) {
-                    console.log(er);
+        try {
+            let res = await axios.post(
+                `${process.env.MIX_APP_URL}/api/logout`,
+                {},
+                {
+                    headers: { Authorization: `Bearer ${getToken}` },
                 }
-            });
+            );
+            dispatch(productsInWishlistNumber(0));
+            console.log(res);
+            localStorage.removeItem("clTk");
+            navigate("/");
+        } catch (er) {
+            console.log(er);
+        }
+        // await axios
+        //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+        //     .then(async (r) => {
+        //     });
     };
 
     const wishlistProductsCount = async () => {

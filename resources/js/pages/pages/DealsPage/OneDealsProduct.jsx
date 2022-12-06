@@ -86,10 +86,10 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 }}
             >
                 <div
-                    className="product-img "
+                    className="product-img"
                     style={{
-                        width: "100%",
-                        height: "200px",
+                        width: "200px",
+                        height: "250px",
                     }}
                 >
                     <img
@@ -101,8 +101,9 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 <h5>إسم المنتج: {product.name}</h5>
                 <h5>
                     العدد المتوفر:
-                    {product.stock}
+                    30 {product.stock}
                 </h5>
+                <h5>  السعر: {1000}  </h5>
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
