@@ -73,15 +73,15 @@ const LatestUpdatedProducts = () => {
     const refetchFn = () => setRefetch(!refetch);
 
     return (
-        <div className="deals-parent">
-            <h1 className="p-3 text-lg text-white text-end mt-6 mb-2">
-                <span className="text-dark text-end font-bold px-1 rounded-md">
+        <div className="deals-parent bg-red-600 pb-2">
+            <h1 className="p-3 text-lg text-black bg-white text-end mt-6 mb-2">
+                <span className="text-dark text-end text-black font-bold px-1 rounded-md">
                     المضافة حديثاً
                 </span>
             </h1>
             <Swiper
                 style={{ width: "80%" }}
-                className="swiper-parent bg-red-600"
+                className="swiper-parent"
                 modules={[Navigation, EffectFade]}
                 navigation
                 loop

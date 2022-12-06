@@ -321,9 +321,6 @@ const ClientProductDetails = () => {
             <div className="matched-products-div flex flex-wrap justify-center pb-16 gap-4 my-4">
                 {matchingProducts &&
                     matchingProducts.map((oneMatchProduct) => (
-                        // <div key={oneMatchProduct.id}>
-                        //     {oneMatchProduct.name}
-                        // </div>
                         <OneClintProduct
                             key={oneMatchProduct.id}
                             product={oneMatchProduct}

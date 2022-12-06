@@ -50,15 +50,15 @@ const Deals = () => {
     const refetchFn = () => setRefetch(!refetch);
 
     return (
-        <div className="deals-parent">
-            <h1 className="p-3 text-lg text-black text-end mt-6 mb-2">
-                <span className="font-bold text-end px-1 rounded-md">
+        <div className="deals-parent bg-red-600 pb-2">
+            <h1 className="p-3 text-lg text-black bg-white text-end mt-6 mb-2">
+                <span className="font-bold text-end text-black px-1 rounded-md">
                     العروض
                 </span>
             </h1>
             <Swiper
                 style={{ width: "80%" }}
-                className="swiper-parent bg-red-600"
+                className="swiper-parent"
                 modules={[Navigation, EffectFade]}
                 navigation
                 loop
