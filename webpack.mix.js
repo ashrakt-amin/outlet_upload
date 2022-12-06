@@ -18,7 +18,7 @@ mix.browserSync({
       'resources/views/**/*.php',
       'app/Http/**/*/.php',
       'database/**/*/.php',
-      'route/*/.php',
+      'route/*/.php', 
     ],
     open: "http://127.0.0.1:8000/",
     browser: "google chrome",
