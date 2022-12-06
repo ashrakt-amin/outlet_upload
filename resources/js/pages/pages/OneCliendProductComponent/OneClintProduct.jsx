@@ -102,14 +102,14 @@ const OneClintProduct = ({ product, refetch }) => {
                 to={`/products/product/${product.id}`}
                 className="one-product-div block h-fit p-3 shadow-lg rounded-lg relative"
                 dir="rtl"
-                style={{ width: "250px" }}
+                style={{ width: "300px" }}
             >
                 <div
                     className="product-img "
-                    style={{ width: "200px", height: "200px" }}
+                    style={{ width: "200px", height: "250px" }}
                 >
                     <img
-                        className="mx-auto w-full"
+                        className="mx-auto h-full w-full"
                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
                         alt="لا يوجد صورة"
                     />

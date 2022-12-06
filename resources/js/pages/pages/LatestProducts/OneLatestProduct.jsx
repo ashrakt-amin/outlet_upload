@@ -96,15 +96,15 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-                <h5>إسم المنتج: {product.name}</h5>
-                <h5>
-                    {product.sale_price}
-                    جنية
+                <h5>{product.name}</h5>
+                <h5
+                    className="text-decoration-line-through"
+                    style={{ textDecorationColor: "red" }}
+                >
+                    {" "}
+                    السعر: {1000}{" "}
                 </h5>
-                <h5>
-                    العدد المتوفر:
-                    {product.stock}
-                </h5>
+                <h5> الخصم: {200} </h5>
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar

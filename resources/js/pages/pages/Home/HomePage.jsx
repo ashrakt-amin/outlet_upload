@@ -14,6 +14,7 @@ import ClientLogin from "../ClientLogin/ClientLogin";
 import ClientRegister from "../ClientRegister/ClientRegister";
 import ClientWichList from "../ClientsPages/ClientWishList/ClientWishList";
 import LevelTrader from "../LevelTrader/LevelTrader";
+import Footer from "../Footer/Footer";
 
 const HomePage = () => {
     return (
@@ -48,6 +49,7 @@ const HomePage = () => {
                 <Route path="/account" element={<Profile />} />
                 <Route path="/clientOrders" element={<ClientOrders />} />
             </Routes>
+            <Footer />
         </div>
     );
 };
