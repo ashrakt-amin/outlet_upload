@@ -104,22 +104,27 @@ const OneClintProduct = ({ product, refetch }) => {
                 dir="rtl"
                 style={{ width: "250px" }}
             >
-                <div className="product-img ">
+                <div
+                    className="product-img "
+                    style={{ width: "200px", height: "200px" }}
+                >
                     <img
                         className="mx-auto w-full"
                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
                         alt="لا يوجد صورة"
                     />
                 </div>
-                <h5 className="mt-2">
-                    تصنيف المنتج:{product?.item_type?.name}
+                <h5
+                    className="text-line-text-decoration-line-through"
+                    style={{ textDecorationColor: "red" }}
+                >
+                    {product.name}
                 </h5>
-                <h5 className="mt-2">اسم المنتج:{product.name}</h5>
-                <h5 className="mt-2">السعر: {product.sale_price}</h5>
+                <h5 className="mt-2">السعر: {product.sale_price} جنية</h5>
                 <h5 className="mt-2">{product?.available}</h5>
-                <div className="stock-count-div">
+                {/* <div className="stock-count-div">
                     <div>عدد القطع المتوفرة: {product?.stock}</div>
-                </div>
+                </div> */}
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar

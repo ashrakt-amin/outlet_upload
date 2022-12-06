@@ -14,7 +14,7 @@ import "swiper/swiper.min.css";
 import "swiper/css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
- 
+
 const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
@@ -80,7 +80,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
             <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
-                className="swiper-slide p-1 rounded-md"
+                className="swiper-slide p-1 rounded-md relative"
                 style={{
                     backgroundColor: "#fff",
                 }}
@@ -98,12 +98,23 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-                <h5 className="whitespace-nowrap overflow-hidden text-ellipsis w-2.5" >{product.name}</h5>
-                <h5>
-                    العدد المتوفر:
-                    30 {product.stock}
+
+                <div className="discount-percent-div absolute top-0 left-0 p-2 rounded-md bg-slate-100 opacity-4 text-red-500">
+                    20%
+                </div>
+
+                <h5 className="whitespace-nowrap overflow-hidden text-ellipsis w-1/2">
+                    {product.name}
                 </h5>
-                <h5>  السعر: {1000}  </h5>
+                <h5> السعر: {1000} </h5>
+                <h5
+                    className="text-line-text-decoration-line-through"
+                    style={{ textDecorationColor: "red" }}
+                >
+                    {" "}
+                    الخصم: {200}{" "}
+                </h5>
+
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
