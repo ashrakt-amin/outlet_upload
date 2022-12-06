@@ -46,7 +46,6 @@ class Item extends Model
         protected $visible = [
         ];
 
-
     protected $fillable  = [
         'name',
         'type_id',
