@@ -214,7 +214,7 @@ const Header = () => {
                     dir="rtl"
                     className="search-first-nav-btns w-100 flex justify-between items-center flex-wrap px-3"
                 >
-                    <div className="search-input-div relative">
+                    {/* <div className="search-input-div relative">
                         {closeSearch && (
                             <AiFillCloseCircle
                                 onClick={closeSerach}
@@ -227,7 +227,7 @@ const Header = () => {
                                 className="rounded-lg w-full "
                             />
                             <button className="search-btn border-2 text-sm rounded-md p-1 text-white">
-                                {/* <CgSearchFound /> */}
+                               
                                 بحث
                             </button>
                         </div>
@@ -237,10 +237,10 @@ const Header = () => {
                                     onClick={openSearch}
                                     className="text-lg text-white hidden show-search-icon cursor-pointer"
                                 />
-                                {/* بحث */}
+                                
                             </button>
                         )}
-                    </div>
+                    </div> */}
 
                     <h2
                         className="text-xl text-gray-100 logo-div cursor-pointer"

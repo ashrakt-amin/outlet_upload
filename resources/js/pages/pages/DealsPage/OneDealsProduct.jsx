@@ -89,7 +89,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     className="product-img"
                     style={{
                         width: "200px",
-                        height: "250px",
+                        height: "200px",
                     }}
                 >
                     <img
