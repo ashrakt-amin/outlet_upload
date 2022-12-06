@@ -160,7 +160,7 @@ const Header = () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
         axios.defaults.withCredentials = true;
         await axios
-            .get(`${process.env.MIX_APP_URL}` + "sanctum/csrf-cookie")
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
             .then(async (r) => {
                 try {
                     let res = await axios.post(

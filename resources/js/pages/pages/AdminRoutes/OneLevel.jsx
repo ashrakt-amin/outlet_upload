@@ -14,7 +14,7 @@ const OneLevel = () => {
     const opnAddUnit = () => setIsAddUnit(!isAddUnit);
 
     console.log(levelInfo);
-
+ 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getUnits = async () => {
