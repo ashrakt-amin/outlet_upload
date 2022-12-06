@@ -24,7 +24,7 @@ class WishlistController extends Controller
         if (request()->bearerToken() != null) {
             [$id, $user_token] = explode('|', request()->bearerToken(), 2);
             $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
-            $wishlists = Wishlist::where(['client_id'=>$token_data->tokenable_id])->with(['item'])->first();
+            $wishlists = Wishlist::where(['client_id'=>$token_data->tokenable_id])->with(['item'])->get();
             return response()->json([
                 "data" => WishlistResource::collection($wishlists),
             ]);
@@ -42,7 +42,7 @@ class WishlistController extends Controller
         if (request()->bearerToken() != null) {
             [$id, $user_token] = explode('|', request()->bearerToken(), 2);
             $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
-            $wishlist = Wishlist::where(['client_id'=>$token_data->tokenable_id])->first();
+            $wishlist = Wishlist::where(['client_id' => $token_data->tokenable_id, 'item_id' => $request->item_id])->first();
             if ($wishlist) {
                 if ($wishlist->delete()) {
                     return response()->json([
