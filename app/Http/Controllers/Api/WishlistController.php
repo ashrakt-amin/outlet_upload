@@ -39,29 +39,33 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        $wishlist = Wishlist::WishlistWhereAuth($request->item_id)->first();
-        if ($wishlist) {
-            if ($wishlist->delete()) {
-                return response()->json([
-                    "success" => true,
-                ], 200);
+        if (request()->bearerToken() != null) {
+            [$id, $user_token] = explode('|', request()->bearerToken(), 2);
+            $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
+            $wishlist = Wishlist::where(['client_id'=>$token_data->tokenable_id])->first();
+            if ($wishlist) {
+                if ($wishlist->delete()) {
+                    return response()->json([
+                        "success" => true,
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "success" => false,
+                    ], 422);
+                }
             } else {
-                return response()->json([
-                    "success" => false,
-                ], 422);
-            }
-        } else {
-            $wishlist = new Wishlist();
-            $wishlist->item_id    = $request->item_id;
-            $wishlist->client_id  = auth()->guard()->id();
-            if ($wishlist->save()) {
-                return response()->json([
-                    "success" => true,
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                ], 422);
+                $wishlist = new Wishlist();
+                $wishlist->item_id    = $request->item_id;
+                $wishlist->client_id  = $token_data->tokenable_id;
+                if ($wishlist->save()) {
+                    return response()->json([
+                        "success" => true,
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "success" => false,
+                    ], 422);
+                }
             }
         }
     }
