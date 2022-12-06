@@ -70,7 +70,9 @@ class ClientController extends Controller
                 'data' => ClientResource::collection($client),
             ], 200);
         } else {
-            return ($user);
+            return response()->json([
+                'data' => "سجل الدخول اولا",
+            ], 200);
         }
     }
 
@@ -82,11 +84,16 @@ class ClientController extends Controller
      */
     public function client()
     {
-        $user = Client::where(['id'=>Auth::guard()->id()])->with(['wishlists'])->first();
-        if ($user) {
-            return response()->json([
-                'data' => new ClientResource($user),
-            ], 200);
+        if (request()->bearerToken() != null) {
+            [$id, $user_token] = explode('|', request()->bearerToken(), 2);
+            $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
+            $guard = $token_data->name;
+            $user = Client::where(['id'=>$token_data->tokenable_id])->with(['wishlists'])->first();
+            if ($user) {
+                return response()->json([
+                    'data' => new ClientResource($user),
+                ], 200);
+            }
         }
     }
 
