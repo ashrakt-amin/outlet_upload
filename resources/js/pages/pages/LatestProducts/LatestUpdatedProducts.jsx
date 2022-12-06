@@ -81,7 +81,7 @@ const LatestUpdatedProducts = () => {
             </h1>
             <Swiper
                 style={{ width: "80%" }}
-                className="swiper-parent"
+                className="swiper-parent bg-red-600"
                 modules={[Navigation, EffectFade]}
                 navigation
                 loop
