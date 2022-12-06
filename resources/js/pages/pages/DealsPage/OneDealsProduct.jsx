@@ -14,7 +14,7 @@ import "swiper/swiper.min.css";
 import "swiper/css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+ 
 const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
@@ -86,10 +86,10 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 }}
             >
                 <div
-                    className="product-img"
+                    className="product-img max-sm:w-10/12"
                     style={{
-                        width: "220px",
-                        height: "220px",
+                        width: "200",
+                        height: "200px",
                     }}
                 >
                     <img
@@ -98,7 +98,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-                <h5>إسم المنتج: {product.name}</h5>
+                <h5 className="whitespace-nowrap overflow-hidden text-ellipsis w-2.5" >{product.name}</h5>
                 <h5>
                     العدد المتوفر:
                     30 {product.stock}
