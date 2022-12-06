@@ -106,16 +106,18 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 <h5 className="whitespace-nowrap overflow-hidden text-ellipsis w-1/2">
                     {product.name}
                 </h5>
-                <h5
+                <small
                     style={{
                         textDecorationColor: "red",
                         textDecorationLine: "line-through",
                     }}
                 >
-                    {" "}
-                    السعر: {1000}{" "}
+                    السعر: {1000} {"جنية "}
+                </small>
+                <h5>
+                    السعر: {800} {"جنية "}
                 </h5>
-                <h5> الخصم: {200} </h5>
+                <small> الخصم: {200} </small>
 
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
