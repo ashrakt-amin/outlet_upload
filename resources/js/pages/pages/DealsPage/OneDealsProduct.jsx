@@ -107,8 +107,10 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     {product.name}
                 </h5>
                 <h5
-                    className="text-decoration-line-through"
-                    style={{ textDecorationColor: "red" }}
+                    style={{
+                        textDecorationColor: "red",
+                        textDecorationLine: "line-through",
+                    }}
                 >
                     {" "}
                     السعر: {1000}{" "}

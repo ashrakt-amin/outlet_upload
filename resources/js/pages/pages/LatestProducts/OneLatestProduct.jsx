@@ -96,10 +96,12 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-                <h5>{product.name}</h5>
+                <h5 className="text-lg">{product.name}</h5>
                 <h5
-                    className="text-decoration-line-through"
-                    style={{ textDecorationColor: "red" }}
+                    style={{
+                        textDecorationColor: "red",
+                        textDecorationLine: "line-through",
+                    }}
                 >
                     {" "}
                     السعر: {1000}{" "}

@@ -18,7 +18,7 @@ import Footer from "../Footer/Footer";
 
 const HomePage = () => {
     return (
-        <div>
+        <div style={{ paddingBottom: "100px" }}>
             <HeaderOne />
             <Routes>
                 <Route path="/" element={<HomeContent />} />

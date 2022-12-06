@@ -114,14 +114,18 @@ const OneClintProduct = ({ product, refetch }) => {
                         alt="لا يوجد صورة"
                     />
                 </div>
+                <h5 className="">{product.name}</h5>
                 <h5
-                    className="text-line-text-decoration-line-through"
-                    style={{ textDecorationColor: "red" }}
+                    style={{
+                        textDecorationColor: "red",
+                        textDecorationLine: "line-through",
+                    }}
+                    className="mt-2"
                 >
-                    {product.name}
+                    السعر: {product.sale_price} جنية
                 </h5>
-                <h5 className="mt-2">السعر: {product.sale_price} جنية</h5>
-                <h5 className="mt-2">{product?.available}</h5>
+                <h5 className="mt-2">الخصم: {20}% جنية</h5>
+                {/* <h5 className="mt-2">{product?.available}</h5> */}
                 {/* <div className="stock-count-div">
                     <div>عدد القطع المتوفرة: {product?.stock}</div>
                 </div> */}
