@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\ItemUnitResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -134,6 +135,14 @@ class Item extends Model
     {
         if (!auth()->guard()->check()) return false;
         return Wishlist::where(['item_id'=>$this->id, 'client_id'=>auth()->guard()->id()])->exists();
+
+        // if (request()->bearerToken() != null) {
+        //     [$id, $user_token] = explode('|', request()->bearerToken(), 2);
+        //     $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
+        //     return Wishlist::where(['item_id'=>$this->id, 'client_id'=>$token_data->tokenable_id])->exists();
+        // } else {
+        //     return false;
+        // }
     }
 
     public function getClientRateAttribute()
