@@ -21,12 +21,17 @@ class AdvertisementController extends Controller
     {
         $advertisements = Advertisement::all();
         foreach ($advertisements as $advertisement) {
-            if ($advertisement->advertisement_expire == date('Y-m-d')) {
+            $contruct_expire = Carbon::parse($advertisement->advertisement_expire)->diffForHumans();
+            $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
+            if ($advertisement->advertisement_expire == date('Y-m-d') && $advertisement->renew > 0) {
                 $advertisement->renew = $advertisement->renew - 1;
                 $advertisement->update();
+            } elseif ($contruct_expire == "1 week ago") {
+                $advertisement->delete();
             }
         }
         $advertisements = Advertisement::with(['trader'])->get();
+        $advertisements = Advertisement::where('advertisement_expire' , '>', date('Y-m-d'))->with(['trader'])->get();
         return response()->json([
             "data" => AdvertisementResource::collection($advertisements)
         ]);
@@ -95,8 +100,12 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
+        if ($advertisement->advertisement_expire == date('Y-m-d') && $advertisement->renew > 0) {
+            $advertisement->renew = $advertisement->renew - 1;
+            $advertisement->update();
+        }
         return response()->json([
-            "data" => AdvertisementResource::collection($advertisement)
+            "data" => new AdvertisementResource($advertisement)
         ]);
     }
 
