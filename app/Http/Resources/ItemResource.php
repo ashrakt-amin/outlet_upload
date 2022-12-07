@@ -39,7 +39,7 @@ class ItemResource extends JsonResource
             'wishlist'         => $this->wishlist,
             'clientRate'       => $this->client_rate,
             'allRates'         => $this->all_rates,
-            'type'             => $this->item_type,
+            'category'         => $this->item_category,
             'colors'           => $this->item_colors,
             'sizes'            => $this->item_sizes,
             'wieght'           => new WeightResource($this->wieght),

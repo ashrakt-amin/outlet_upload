@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('item_unit_id');
             $table->integer('unit_parts_count');
             $table->decimal('sale_price', 16, 0);

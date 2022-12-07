@@ -10,15 +10,16 @@ class Category extends Model
     use HasFactory;
 
     protected $appends = [
+        'parent_category',
         'category_sub_categories'
     ];
 
     protected $hidden = [
-        'created_at',
-        'updated_at'
     ];
 
     protected $visible = [
+        'id',
+        'name',
     ];
 
     protected $guarded = [];
@@ -33,8 +34,17 @@ class Category extends Model
         return $this->hasManyThrow(Group::class, SubCategory::class);
     }
 
+    public function getParentCategoryAttribute()
+    {
+        // if ($this->category_id < 1) return false;
+        $parentCategory = Category::where(['id'=>$this->category_id])->first();
+        return $parentCategory;
+    }
+
     public function getCategorySubCategoriesAttribute()
     {
-        return $this->subCategories;
+        // if ($this->category_id < 1) return false;
+        $subCategories = Category::where(['category_id'=>$this->id])->get();
+        return $subCategories;
     }
 }

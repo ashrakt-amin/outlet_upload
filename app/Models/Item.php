@@ -21,7 +21,7 @@ class Item extends Model
         'item_colors',
         'item_sizes',
         'item_images',
-        'item_type',
+        'item_category',
         'item_unit',
         'item_color_size_stocks',
         'item_stocks'
@@ -63,9 +63,9 @@ class Item extends Model
         'importer_id',
         ];
 
-    public function type()
+    public function category()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function trader()
@@ -143,6 +143,12 @@ class Item extends Model
         // } else {
         //     return false;
         // }
+    }
+
+    public function getItemCategoryAttribute()
+    {
+        $itemCategory = $this->category;
+        return $this->category;
     }
 
     public function getClientRateAttribute()
