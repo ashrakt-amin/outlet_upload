@@ -12,12 +12,25 @@
             font-size: 10px!important;
             height: 30px!important;
             width: 30px!important;
+            overflow: hidden!important;
         };
 
         @media (max-width:500px) {
             .swiper-parent {
                 width: 100%!important
             }
+        }
+
+        .swiper-deals {
+                
+            .product-name-ellipces {
+                overflow: hidden!important;
+                text-overflow: ellipsis!important;
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical!important;
+            }
+
         }
 
 }

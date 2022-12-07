@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
-import { AiOutlineStar, AiTwotoneHeart, AiTwotoneStar } from "react-icons/ai";
+import { AiTwotoneHeart} from "react-icons/ai";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import heart from "./heart.gif";
 
@@ -77,18 +77,19 @@ const OneDealsProduct = ({ product, refetchFn }) => {
     };
     return (
 
-            <Link
-                className="bg-slate-300 rounded-md"
-                to={`/products/product/${product.id}`}
-                >
+
             <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
-                className="swiper-slide p-1 rounded-md relative"
+                className="swiper-slide swiper-deals p-1 rounded-md relative"
                 style={{
                     backgroundColor: "#fff",
                 }}
             >
+                <Link
+                className="bg-slate-300 rounded-md"
+                to={`/products/product/${product.id}`}
+                >
                 <div
                     className="product-img max-sm:w-10/12"
                     style={{
@@ -102,13 +103,13 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-
+                </Link>
                 <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                     20%
                 </div>
 
-                <h5 className="whitespace-nowrap overflow-hidden text-ellipsis text-xl">
-                    {product.name}
+                <h5 className="product-name-ellipces text-xl w-full" >
+                    {product.name}fdsaaaaaaaaaaaaaaaaaaaaaaaaaafd
                 </h5>
                 <small
                     style={{
@@ -148,8 +149,14 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
                     </span>
                 </div>
-                    </SwiperSlide>
+                <Link
+                className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
+                to={`/products/product/${product.id}`}
+                >
+                تفاصيل المنتج
                 </Link>
+                    </SwiperSlide>
+               
     );
 };
 

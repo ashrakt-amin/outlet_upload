@@ -74,17 +74,17 @@ const OneLatestProduct = ({ product, refetchFn }) => {
         }
     };
     return (
-        <Link
-        className="bg-slate-300 rounded-md"
-        to={`/products/product/${product.id}`}
-    >
-            <SwiperSlide
+        <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
                 className="swiper-slide relative p-1 rounded-md"
                 style={{
                     backgroundColor: "#fff",
                 }}
+            >
+                <Link
+                className="bg-slate-300 rounded-md"
+                to={`/products/product/${product.id}`}
             >
                 <div
                     className="product-img max-sm:w-10/12"
@@ -99,6 +99,8 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
+                
+            </Link>
 
                 <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                     20%
@@ -141,9 +143,15 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
                     </span>
                 </div>
+                <Link
+                    className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
+                    to={`/products/product/${product.id}`}
+                    >
+                    تفاصيل المنتج
+                </Link>
+
             </SwiperSlide>
 
-            </Link>
     );
 };
 

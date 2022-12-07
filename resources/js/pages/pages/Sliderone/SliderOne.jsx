@@ -45,13 +45,13 @@ const SliderOne = () => {
                         src={`${el}`}
                         alt=""
                     />
-                    <div className="nada-name absolute left-0 w-full top-0 opacity-80">
+                    {/* <div className="nada-name absolute left-0 w-full top-0 opacity-80">
                         <div className="div bg-red-600 w-fit p-1">
                             <h1 className="text-white font-bold text-sm">Designed by</h1>
                             <h1 className="text-white font-bold text-sm">Engineer: Nada Ebrahim Rady</h1>
                             <marquee className='font-semibold shadow-md rounded-md bg-slate-200 text-dark border-2' direction='left' scrollamount="5">ندى إبراهيم راضى</marquee>
                         </div>
-                    </div>
+                    </div> */}
                 </SwiperSlide>
             ))}
         </Swiper>
