@@ -49,6 +49,9 @@ class Item extends Model
 
     protected $fillable  = [
         'name',
+        'buy_price',
+        'buy_discount',
+        'sale_price',
         'category_id',
         'trader_id',
         'item_unit_id',
