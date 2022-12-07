@@ -28,6 +28,7 @@ const OneAdvertisement = ({ advertise, refetch }) => {
 
     const updateLink = async (adv) => {
         let getToken = JSON.parse(localStorage.getItem("uTk"));
+        setIsUpdateLink(!isUpdateLink);
         try {
             let res = await axios.put(
                 `${process.env.MIX_APP_URL}/api/advertisements/${adv.id}`,
@@ -53,14 +54,12 @@ const OneAdvertisement = ({ advertise, refetch }) => {
     const updateImg = async (imgvalue) => {
         const getToken = JSON.parse(localStorage.getItem("uTk"));
         const fData = new FormData();
-        fData.append("img", imgVal);
+        fData.append("img", imgVal);    
+        console.log(fData);
         try {
             let res = await axios.put(
                 `${process.env.MIX_APP_URL}/api/advertisements/${imgvalue.id}`,
                 { img: imgVal }
-                // {
-                //     headers: { Authorization: `Bearer ${getToken}` },
-                // }
             );
             console.log(res);
             refetch();
@@ -71,6 +70,7 @@ const OneAdvertisement = ({ advertise, refetch }) => {
     };
 
     const updateRemainginTime = async (remainingVal) => {
+        setIsRemaining(!isRemaining);
         try {
             let res = await axios.put(
                 `${process.env.MIX_APP_URL}/api/advertisements/${remainingVal.id}`,

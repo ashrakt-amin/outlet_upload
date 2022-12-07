@@ -68,6 +68,9 @@ const AddAdvertisement = () => {
         formData.append("trader_id", traderId);
         formData.append("created_by", 1);
         formData.append("updated_by", 1);
+
+        setIsAddAdvertise(!isAddAdvertise);
+        
         try {
             const res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/advertisements`,
@@ -76,7 +79,6 @@ const AddAdvertisement = () => {
                     headers: { Authorization: `Bearer ${getToken}` },
                 }
             );
-
             setIsAddAdvertise(!isAddAdvertise);
             setImgVal(null);
             setRenewNum("");

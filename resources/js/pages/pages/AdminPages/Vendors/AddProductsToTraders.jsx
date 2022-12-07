@@ -14,6 +14,11 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
     const [apiMessage, setApiMessage] = useState("");
 
+    
+    const [salePrice, setSalePrice] = useState("");
+
+    const [buyPrice, setBuyPrice] = useState("1");
+
     console.log(traderInfo);
 
     const [validationMsg, setValidationMsg] = useState("");
@@ -28,8 +33,8 @@ const AddProductsToTraders = ({ traderInfo }) => {
     const [imgVal, setImgVal] = useState(null);
 
     // (----------------------------- (types التصنيفات select) -----------------------------)
-    const [typesArray, setTypesArray] = useState([]);
-    const [typeId, setTypeId] = useState("1");
+    const [categoriesArray, setCategoriesArray] = useState([]);
+    const [categoryId, setcategoryId] = useState("0");
     // (----------------------------- (types التصنيفات select) -----------------------------)
 
     // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
@@ -69,11 +74,11 @@ const AddProductsToTraders = ({ traderInfo }) => {
     const [discountValue, setDiscountValue] = useState("");
     const [precentDiscount, setPrecentDiscount] = useState("");
     const [discountByPercentage, setDiscountByPercentage] = useState("");
-    // useEffect(() => {
-    //     let discountAmount = (discountByPercentage * salePrice) / 100;
-    //     setPrecentDiscount(discountAmount);
-    //     setDiscountValue(discountAmount);
-    // }, [discountByPercentage]);
+    useEffect(() => {
+        let discountAmount = (discountByPercentage * salePrice) / 100;
+        setPrecentDiscount(discountAmount);
+        setDiscountValue(discountAmount);
+    }, [discountByPercentage]);
 
     //  (---------------------- discount ------------------- )
 
@@ -89,12 +94,12 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 const getCategories = async () => {
                     try {
                         const res = await axios.get(
-                            `${process.env.MIX_APP_URL}/api/types`,
+                            `${process.env.MIX_APP_URL}/api/categories`,
                             {
                                 cancelRequest: cancelRequest.token,
                             }
                         );
-                        setTypesArray(res.data.data);
+                        setCategoriesArray(res.data.data);
                         console.log(res);
                     } catch (error) {
                         console.warn(error.message);
@@ -226,17 +231,25 @@ const AddProductsToTraders = ({ traderInfo }) => {
             fData.append("img[]", el);
         });
 
-        fData.append("type_id", typeId); // اسم التصنيف
+        fData.append("category_id", categoryId); // اسم التصنيف
 
         fData.append("item_code", itemCode); // كود المنتج 
 
         fData.append("item_unit_id", itemUnitId); // وحدة المنتج _ قطعة+-وحدة-علبة
 
-        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة
+        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة   
 
         fData.append("discount", discountValue); // الخصم
 
+        fData.append("sale_price", salePrice); // 
+        
+        fData.append("buy_price", buyPrice); // 
+
+        fData.append("buy_discount", discountValue); // خصم الشراء
+
         fData.append("trader_id", traderInfo.id);
+
+        fData.append("available", isAvalable);
 
         fData.append("description", productDescription);
 
@@ -270,8 +283,8 @@ const AddProductsToTraders = ({ traderInfo }) => {
         }
     };
     // (------------------------ (End adding product Function) -----------------------------)
-    const whatType = (e) => {
-        setTypeId(e.target.value);
+    const whatCategory = (e) => {
+        setcategoryId(e.target.value);
     };
 
     const handleImg = (e) => {
@@ -321,7 +334,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
 
 
-
     return (
         <div>
             <h1 className="p-1 bg-green-500 rounded-sm text-center text-white my-4">
@@ -350,6 +362,36 @@ const AddProductsToTraders = ({ traderInfo }) => {
                             onChange={(e) => setProdcutName(e.target.value)}
                         />
                     </div>
+                    
+                    <div className="buy-price-div">
+                        <div className="mt-3 mb-2">سعر الشراء</div>
+                        <input
+                            className="border-none shadow-md rounded-md"
+                            type="number"
+                            value={buyPrice}
+                            min={1}
+                            placeholder="سعر الشراء"
+                            onChange={(e) => setBuyPrice(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="discount-div">
+                        <div className="">إختر الخصم</div>
+                            <div>
+                                <div>{precentDiscount} جنية</div>
+                                <input
+                                    className="border-none shadow-md rounded-md"
+                                    type="text"
+                                    min={0}
+                                    value={discountByPercentage}
+                                    placeholder=" اكتب القيمة فقط مثال: 10"
+                                    onChange={(e) =>
+                                        setDiscountByPercentage(e.target.value)
+                                    }
+                                />
+                            </div>
+                      
+                    </div>
 
                     <div className="product-name-div">
                         <div className="mt-3 mb-2">كودالمنتج</div>
@@ -375,14 +417,14 @@ const AddProductsToTraders = ({ traderInfo }) => {
                         <h1> إختر التصنيف </h1>
                         <select
                             className="rounded-md cursor-pointer"
-                            onChange={whatType}
+                            onChange={whatCategory}
                             name="type"
                             id="type"
-                            value={typeId}
+                            value={categoryId}
                         >
-                            {/* <option value={"0"}>لم تختر بعد</option> */}
-                            {typesArray &&
-                                typesArray.map((oneType) => (
+                            <option value={"0"}>لم تختر بعد</option>
+                            {categoriesArray &&
+                                categoriesArray.map((oneType) => (
                                     <option value={oneType.id} key={oneType.id}>
                                         {oneType.name}
                                     </option>
@@ -402,7 +444,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                             id="itemunit"
                             value={itemUnitId}
                         >
-                            {/* <option value={"0"}>لم تختر بعد</option> */}
+                            <option value={"0"}>لم تختر بعد</option>
                             {itemsUnitsArr &&
                                 itemsUnitsArr.map((oneItemUnit) => (
                                     <option
@@ -428,6 +470,8 @@ const AddProductsToTraders = ({ traderInfo }) => {
                             title="Title"
                         />
                     </div>
+
+
 
                     {/* <div className="discount-div">
                         <div className="">إختر طريقة الخصم</div>
@@ -492,7 +536,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                         )}
                     </div> */}
 
-                    <div className="import-checkbox-div mt-4 p-1 rounded-md shadow-md w-fit h-fit">
+                    {/* <div className="import-checkbox-div mt-4 p-1 rounded-md shadow-md w-fit h-fit">
                         <div>هل هذا المنتج مستورد ؟</div>
                         <div className="types-div">
                             <select onChange={whatImportedComp} name="" id="">
@@ -508,10 +552,10 @@ const AddProductsToTraders = ({ traderInfo }) => {
                                     ))}
                             </select>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/*---------------------- الشركة المصنعة او المنتجة  ---------------------*/}
-                    <div className="manufactories-companies mt-3">
+                    {/* <div className="manufactories-companies mt-3">
                         <h1>إختر الشركات المصنعة</h1>
                         <select
                             className="rounded-md cursor-pointer"
@@ -530,11 +574,11 @@ const AddProductsToTraders = ({ traderInfo }) => {
                                     </option>
                                 ))}
                         </select>
-                    </div>
+                    </div> */}
                     {/*---------------------- الشركة المصنعة او المنتجة  ---------------------*/}
 
                     {/* ----------------------- Distribute Company Select ------------------- */}
-                    <div className="distribute-companies mt-3">
+                    {/* <div className="distribute-companies mt-3">
                         <h1> إختر الشركة الموزعة</h1>
                         <select
                             className="rounded-md cursor-pointer"
@@ -556,11 +600,11 @@ const AddProductsToTraders = ({ traderInfo }) => {
                                     )
                                 )}
                         </select>
-                    </div>
+                    </div> */}
                     {/* ----------------------- Distribute Company Select ------------------- */}
 
                     {/* ----------------------- Distribute Company Select ------------------- */}
-                    <div className="distribute-companies mt-3">
+                    {/* <div className="distribute-companies mt-3">
                         <h1> إختر الوكيل</h1>
                         <select
                             className="rounded-md cursor-pointer"
@@ -582,7 +626,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                                     )
                                 )}
                         </select>
-                    </div>
+                    </div> */}
                     {/* ----------------------- Distribute Company Select ------------------- */}
 
                     <TextEditorFunction textEditorValue={textEditorValue} />

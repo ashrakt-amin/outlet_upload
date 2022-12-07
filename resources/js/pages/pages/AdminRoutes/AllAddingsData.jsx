@@ -17,8 +17,6 @@ const AllAddingsData = () => {
         <div>
             <AllCategories />
             <AllSubCategories />
-            <AllGroups />
-            <AllType />
             <AllActivites />
             <AllColors />
             <AllSizes />
