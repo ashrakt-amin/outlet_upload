@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $categories = Category::where(['category_id' => 0])->get();
+        $categories = Category::where('category_id', '<', 1)->get();
         return response()->json([
                 'data' => CategoryResource::collection($categories)
         ], 200);
