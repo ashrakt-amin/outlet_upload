@@ -14,10 +14,11 @@ import ClientLogin from "../ClientLogin/ClientLogin";
 import ClientRegister from "../ClientRegister/ClientRegister";
 import ClientWichList from "../ClientsPages/ClientWishList/ClientWishList";
 import LevelTrader from "../LevelTrader/LevelTrader";
+import Footer from "../Footer/Footer";
 
 const HomePage = () => {
     return (
-        <div>
+        <div style={{ paddingBottom: "100px" }}>
             <HeaderOne />
             <Routes>
                 <Route path="/" element={<HomeContent />} />
@@ -48,6 +49,7 @@ const HomePage = () => {
                 <Route path="/account" element={<Profile />} />
                 <Route path="/clientOrders" element={<ClientOrders />} />
             </Routes>
+            <Footer />
         </div>
     );
 };

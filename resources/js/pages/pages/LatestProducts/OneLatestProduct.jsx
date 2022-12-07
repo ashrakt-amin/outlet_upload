@@ -78,7 +78,7 @@ const OneLatestProduct = ({ product, refetchFn }) => {
             <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
-                className="swiper-slide p-1 rounded-md"
+                className="swiper-slide relative p-1 rounded-md"
                 style={{
                     backgroundColor: "#fff",
                 }}
@@ -96,15 +96,23 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-                <h5>إسم المنتج: {product.name}</h5>
+
+                <div className="discount-percent-div absolute top-0 left-0 p-2 rounded-md bg-slate-100 opacity-4 text-red-500">
+                    20%
+                </div>
+                <h5 className="text-lg">{product.name}</h5>
+                <small
+                    style={{
+                        textDecorationColor: "red",
+                        textDecorationLine: "line-through",
+                    }}
+                >
+                    السعر: {1000} {"جنية "}
+                </small>
                 <h5>
-                    {product.sale_price}
-                    جنية
+                    السعر: {800} {"جنية "}
                 </h5>
-                <h5>
-                    العدد المتوفر:
-                    {product.stock}
-                </h5>
+                <small> الخصم: {200} </small>
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
