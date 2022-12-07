@@ -100,7 +100,7 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                 <div className="discount-percent-div absolute top-0 left-0 p-2 rounded-md bg-slate-100 opacity-4 text-red-500">
                     20%
                 </div>
-                <h5 className="text-lg">{product.name}</h5>
+                <h5 className="text-lg font-bold">{product.name}</h5>
                 <small
                     style={{
                         textDecorationColor: "red",
@@ -109,10 +109,10 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                 >
                     السعر: {1000} {"جنية "}
                 </small>
-                <h5>
+                <h5 className="font-bold">
                     السعر: {800} {"جنية "}
                 </h5>
-                <small> الخصم: {200} </small>
+                <small> الخصم {200} </small>
                 <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar

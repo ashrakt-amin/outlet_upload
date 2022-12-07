@@ -274,11 +274,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
         setTypeId(e.target.value);
     };
 
-    const logOutTrader = () => {
-        localStorage.removeItem("trTk");
-        navig("/");
-    };
-
     const handleImg = (e) => {
         setImgVal([...e.target.files]);
     };
@@ -323,6 +318,8 @@ const AddProductsToTraders = ({ traderInfo }) => {
         //     console.log("zero not valid");
         // }
     };
+
+
 
     return (
         <div>

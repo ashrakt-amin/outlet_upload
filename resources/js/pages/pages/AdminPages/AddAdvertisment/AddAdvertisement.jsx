@@ -34,7 +34,7 @@ const AddAdvertisement = () => {
                         console.log(res.data.data);
                     });
             } catch (er) {
-                console.log(er);
+                console.log(er); 
             }
         };
         getVendors();
@@ -49,10 +49,8 @@ const AddAdvertisement = () => {
                         // }
                     )
                     .then((res) => {
-                        // setTradersArr(res.data.data);
                         console.log(res.data.data);
                         setAdvirtiseArray(res.data.data);
-                        // setAdv(res.data.data[0]);
                     });
             } catch (er) {
                 console.log(er);
