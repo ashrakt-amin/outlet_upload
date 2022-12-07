@@ -76,7 +76,11 @@ const OneDealsProduct = ({ product, refetchFn }) => {
         }
     };
     return (
-        <div className="">
+
+            <Link
+                className="bg-slate-300 rounded-md"
+                to={`/products/product/${product.id}`}
+                >
             <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
@@ -99,11 +103,11 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     />
                 </div>
 
-                <div className="discount-percent-div absolute top-0 left-0 p-2 rounded-md bg-slate-100 opacity-4 text-red-500">
+                <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                     20%
                 </div>
 
-                <h5 className="whitespace-nowrap font-bold overflow-hidden text-ellipsis w-1/2">
+                <h5 className="whitespace-nowrap overflow-hidden text-ellipsis text-xl">
                     {product.name}
                 </h5>
                 <small
@@ -114,19 +118,19 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 >
                     السعر: {1000} {"جنية "}
                 </small>
-                <h5 className="font-bold">
+                <h5 className="font-semibold">
                     السعر: {800} {"جنية "}
                 </h5>
-                <small> الخصم {200} </small>
+                <small> وفر {200}  {"جنية "}</small>
 
-                <div className="rate-div flex gap-2 my-3">
+                {/* <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
                             key={star}
                             className="text-md text-amber-300"
                         />
                     ))}
-                </div>
+                </div> */}
                 <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
                     <span className="mb-4 hover:text-red-600">
                         {!wishlistBtn ? (
@@ -144,14 +148,8 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
                     </span>
                 </div>
-                <Link
-                    className="bg-slate-300 p-2 rounded-md"
-                    to={`/products/product/${product.id}`}
-                >
-                    تفاصيل المنتج
+                    </SwiperSlide>
                 </Link>
-            </SwiperSlide>
-        </div>
     );
 };
 

@@ -92,7 +92,7 @@ const Deals = () => {
                                     dir={`rtl`}
                                     className="swiper-slide p-3 rounded-md"
                                     style={{
-                                        minHeight: "400px",
+                                        minHeight: "300px",
                                         backgroundColor: "#fff",
                                     }}
                                 >

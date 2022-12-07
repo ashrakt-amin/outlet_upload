@@ -9,7 +9,7 @@ import "./slideronestyle.scss";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
-import outletImg from './outlet.jpeg'
+import outletImg from './website.png'
 
 const sliderContent = [
     "https://madina-center.com/wp-content/uploads/2022/10/new-web1-scaled.jpg",
@@ -37,7 +37,7 @@ const SliderOne = () => {
             {sliderContent.map((el, i) => (
                 <SwiperSlide
                     key={i}
-                    className="swiper-slide flex justify-center items-start"
+                    className="swiper-slide flex justify-center items-start relative"
                 >
                     <img
                         className="object-cover h-full"
@@ -45,6 +45,13 @@ const SliderOne = () => {
                         src={`${el}`}
                         alt=""
                     />
+                    <div className="nada-name absolute left-0 w-full top-0 opacity-80">
+                        <div className="div bg-red-600 w-fit p-1">
+                            <h1 className="text-white font-bold text-sm">Designed by</h1>
+                            <h1 className="text-white font-bold text-sm">Engineer: Nada Ebrahim Rady</h1>
+                            <marquee className='font-semibold shadow-md rounded-md bg-slate-200 text-dark border-2' direction='left' scrollamount="5">ندى إبراهيم راضى</marquee>
+                        </div>
+                    </div>
                 </SwiperSlide>
             ))}
         </Swiper>
@@ -52,3 +59,4 @@ const SliderOne = () => {
 };
 
 export default SliderOne;
+ 
