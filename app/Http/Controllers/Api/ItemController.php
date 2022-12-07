@@ -111,7 +111,7 @@ class ItemController extends Controller
             $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $user_token))->first();
             $guard = $token_data->name;
         }
-        if (request()->bearerToken() != null && $guard != 'trader' && $guard != 'user') {
+        if (request()->bearerToken() != null && $guard != 'trader' && $guard != 'user' || (request()->bearerToken() == null)) {
             $view = View::where(['item_id'=>$item->id, 'client_id'=>auth()->guard()->id()])->first();
             if (!$view) {
                 $view = new View();
