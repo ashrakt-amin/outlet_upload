@@ -109,7 +109,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 </div>
 
                 <h5 className="product-name-ellipces text-xl w-full" >
-                    {product.name}fdsaaaaaaaaaaaaaaaaaaaaaaaaaafd
+                    {product.name}
                 </h5>
                 <small
                     style={{

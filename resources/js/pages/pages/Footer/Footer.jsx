@@ -23,7 +23,7 @@ const Footer = () => {
                 </h1>
             </div>
             <div className="assest-div p-1">
-                <small>Design Assets:</small>
+                <small>Design Assistanc:</small>
                 <h1 className="text-lg p-1 font-bold">Accountant Samira</h1>
             </div>
         </div>
