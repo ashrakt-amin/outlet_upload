@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
     return (
         <div className="footer-div p-1 bg-slate-300">
-            <div className="general-manager shadow-md rounded-md p-1">
+            {/* <div className="general-manager shadow-md rounded-md p-1">
                 <h1 className="text-center font-semibold">General Manager (Eskan Elmansoura & Enterprise):</h1>
                 <h1 className="text-center font-bold text-lg">Mohammad Medhat</h1>
             </div>
@@ -25,7 +25,7 @@ const Footer = () => {
             <div className="assest-div p-1">
                 <small>Design Assistanc:</small>
                 <h1 className="text-lg p-1 font-bold">Accountant Samira</h1>
-            </div>
+            </div> */}
         </div>
     );
 };
