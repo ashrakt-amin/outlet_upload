@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FiHeart } from "react-icons/fi";
-import { MdOutlineCompareArrows } from "react-icons/md";
-import { FaCartArrowDown } from "react-icons/fa";
 
-// import "./dealsStyle.scss";
+import "./latsetProductsStyle.scss";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -14,18 +11,12 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import axios from "axios";
 import OneLatestProduct from "./OneLatestProduct";
-import { Compare } from "@mui/icons-material";
+
 
 const LatestUpdatedProducts = () => {
     const [products, setProducts] = useState([]);
 
-    const [wishList, setWishList] = useState([]);
-
-    const [wishlistBtn, setWishlistBtn] = useState(false);
-
     const [refetch, setRefetch] = useState(false);
-
-    const [result, setResult] = useState([]);
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -56,24 +47,10 @@ const LatestUpdatedProducts = () => {
         };
     }, [refetch]);
 
-    // useEffect(() => {
-    //     let newproducts = products;
-    //     let wish = wishList;
-    //     newproducts.forEach((product) => {
-    //         for (let i = 0; i < wish.length; i++) {
-    //             if (product.id == wish[i].item.id) {
-    //                 product.wishlists = "yes";
-    //             }
-    //         }
-    //     });
-    //     setResult(newproducts);
-    //     console.log(newproducts);
-    // }, [products, wishList, refetch]);
-
     const refetchFn = () => setRefetch(!refetch);
 
     return (
-        <div className="deals-parent bg-red-600 pb-2">
+        <div className="latestproducts-parent bg-red-600 pb-2">
             <h1 className="p-3 text-lg text-white bg-red-600 text-end mt-6 mb-2">
                 <span className="text-dark font-bold text-endfont-bold px-1 rounded-md">
                     المضافة حديثاً

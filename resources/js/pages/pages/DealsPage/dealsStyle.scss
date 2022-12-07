@@ -7,19 +7,30 @@
         .swiper-button-next, .swiper-button-prev { 
             color: white !important;
             background-color: rgb(45, 45, 45,.7);
-            padding: 20px!important;
+            padding: 10px!important;
             border-radius: 5px;
+            font-size: 10px!important;
+            height: 30px!important;
+            width: 30px!important;
+            overflow: hidden!important;
         };
-        
-        // .swiper-slide:hover .wichlist-product {
-        //     display: block!important;
-        //     background-color: rgb(240 82 82 / var(--tw-bg-opacity));
-        //     color: aliceblue;
-        // }
 
         @media (max-width:500px) {
             .swiper-parent {
                 width: 100%!important
             }
         }
+
+        .swiper-deals {
+                
+            .product-name-ellipces {
+                overflow: hidden!important;
+                text-overflow: ellipsis!important;
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical!important;
+            }
+
+        }
+
 }

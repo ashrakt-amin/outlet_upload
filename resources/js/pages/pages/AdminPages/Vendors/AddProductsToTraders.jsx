@@ -321,6 +321,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
 
 
+
     return (
         <div>
             <h1 className="p-1 bg-green-500 rounded-sm text-center text-white my-4">
@@ -369,7 +370,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                     {/*------------------------ Photo Table --------------------------------*/}
 
                     {/*-------------------- sub Category (Select list) ---------------------*/}
-                    {/*-------------------------- (اسم الصنيف) -------------------------------*/}
+                    {/*-------------------------- (اسم الصنيف) ----------------------------*/}
                     <div className="types-div mt-3">
                         <h1> إختر التصنيف </h1>
                         <select

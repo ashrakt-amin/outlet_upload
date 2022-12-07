@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
-import { AiOutlineStar, AiTwotoneHeart, AiTwotoneStar } from "react-icons/ai";
+import { AiTwotoneHeart} from "react-icons/ai";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import heart from "./heart.gif";
 
@@ -76,15 +76,20 @@ const OneDealsProduct = ({ product, refetchFn }) => {
         }
     };
     return (
-        <div className="">
+
+
             <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
-                className="swiper-slide p-1 rounded-md relative"
+                className="swiper-slide swiper-deals p-1 rounded-md relative"
                 style={{
                     backgroundColor: "#fff",
                 }}
             >
+                <Link
+                className="bg-slate-300 rounded-md"
+                to={`/products/product/${product.id}`}
+                >
                 <div
                     className="product-img max-sm:w-10/12"
                     style={{
@@ -98,12 +103,12 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-
-                <div className="discount-percent-div absolute top-0 left-0 p-2 rounded-md bg-slate-100 opacity-4 text-red-500">
+                </Link>
+                <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                     20%
                 </div>
 
-                <h5 className="whitespace-nowrap font-bold overflow-hidden text-ellipsis w-1/2">
+                <h5 className="product-name-ellipces text-xl w-full" >
                     {product.name}
                 </h5>
                 <small
@@ -114,19 +119,19 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 >
                     السعر: {1000} {"جنية "}
                 </small>
-                <h5 className="font-bold">
+                <h5 className="font-semibold">
                     السعر: {800} {"جنية "}
                 </h5>
-                <small> الخصم {200} </small>
+                <small> وفر {200}  {"جنية "}</small>
 
-                <div className="rate-div flex gap-2 my-3">
+                {/* <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
                             key={star}
                             className="text-md text-amber-300"
                         />
                     ))}
-                </div>
+                </div> */}
                 <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
                     <span className="mb-4 hover:text-red-600">
                         {!wishlistBtn ? (
@@ -145,13 +150,13 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     </span>
                 </div>
                 <Link
-                    className="bg-slate-300 p-2 rounded-md"
-                    to={`/products/product/${product.id}`}
+                className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
+                to={`/products/product/${product.id}`}
                 >
-                    تفاصيل المنتج
+                تفاصيل المنتج
                 </Link>
-            </SwiperSlide>
-        </div>
+                    </SwiperSlide>
+               
     );
 };
 

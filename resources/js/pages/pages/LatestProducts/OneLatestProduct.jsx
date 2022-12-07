@@ -74,14 +74,17 @@ const OneLatestProduct = ({ product, refetchFn }) => {
         }
     };
     return (
-        <div className="">
-            <SwiperSlide
+        <SwiperSlide
                 key={product.id}
                 dir={`rtl`}
                 className="swiper-slide relative p-1 rounded-md"
                 style={{
                     backgroundColor: "#fff",
                 }}
+            >
+                <Link
+                className="bg-slate-300 rounded-md"
+                to={`/products/product/${product.id}`}
             >
                 <div
                     className="product-img max-sm:w-10/12"
@@ -96,11 +99,13 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
+                
+            </Link>
 
-                <div className="discount-percent-div absolute top-0 left-0 p-2 rounded-md bg-slate-100 opacity-4 text-red-500">
+                <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                     20%
                 </div>
-                <h5 className="text-lg font-bold">{product.name}</h5>
+                <h5 className="text-xl">{product.name}</h5>
                 <small
                     style={{
                         textDecorationColor: "red",
@@ -109,18 +114,18 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                 >
                     السعر: {1000} {"جنية "}
                 </small>
-                <h5 className="font-bold">
+                <h5 className="font-semibold">
                     السعر: {800} {"جنية "}
                 </h5>
-                <small> الخصم {200} </small>
-                <div className="rate-div flex gap-2 my-3">
+                <small> وفر {200}  {"جنية "} </small>
+                {/* <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
                             key={star}
                             className="text-md text-amber-300"
                         />
                     ))}
-                </div>
+                </div> */}
                 <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
                     <span className="mb-4 hover:text-red-600">
                         {!wishlistBtn ? (
@@ -139,13 +144,14 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                     </span>
                 </div>
                 <Link
-                    className="bg-slate-300 p-2 rounded-md"
+                    className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
                     to={`/products/product/${product.id}`}
-                >
+                    >
                     تفاصيل المنتج
                 </Link>
+
             </SwiperSlide>
-        </div>
+
     );
 };
 

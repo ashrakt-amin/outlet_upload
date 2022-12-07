@@ -26,11 +26,11 @@ const ClinetLogin = () => {
         setClientInfo({ ...clientInfo, [e.target.name]: value });
     };
 
-    useEffect(() => {
-        if (localStorage.getItem("clTk")) {
-            // redirect("/");
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (localStorage.getItem("clTk")) {
+    //         // redirect("/");
+    //     }
+    // }, []);
 
     const loginFunc = async (e) => {
         e.preventDefault();

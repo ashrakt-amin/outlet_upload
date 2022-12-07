@@ -27,7 +27,8 @@ const TraderOwnInfo = () => {
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         if (localStorage.getItem("trTk")) {
-            let traderTk = JSON.parse(localStorage.getItem("trTk"));
+            let traderTk = JSON.parse(localStorage.getItem("trTk"));      
+
             const getTraders = async () => {
                 try {
                     axios.defaults.withCredentials = true;
@@ -38,7 +39,7 @@ const TraderOwnInfo = () => {
                         )
                         .then(async (res1) => {
                             let res = await axios.get(
-                                "${process.env.MIX_APP_URL}/api/traders/trader",
+                                `${process.env.MIX_APP_URL}/api/traders/trader`,
                                 {
                                     headers: {
                                         Authorization: `Bearer ${traderTk}`,
