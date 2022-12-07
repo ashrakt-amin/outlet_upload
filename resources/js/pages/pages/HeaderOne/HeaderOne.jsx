@@ -115,6 +115,7 @@ const Header = () => {
                     }
                 );
                 setCategoriesArr(res.data.data);
+                console.log(res.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -208,7 +209,7 @@ const Header = () => {
         <>
             <nav
                 dir="rtl"
-                className={`flex flex-col ${fixedNav} header-one justify-between flex-wrap pt-4 header`}
+                className={`flex flex-col ${fixedNav} header-one justify-between flex-wrap header`}
             >
                 <div
                     dir="rtl"

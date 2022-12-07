@@ -23,11 +23,6 @@ const AllCategories = () => {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/categories`
                     // {
-                    //     headers: {
-                    //         Authorization: `Bearer ${adminTrue}`,
-                    //     },
-                    // }
-                    // {
                     //     cancelRequest: cancelRequest.token,
                     // }
                 );

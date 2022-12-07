@@ -21,7 +21,7 @@ const AllSubCategories = () => {
         const getActivites = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/subCategories`
+                    `${process.env.MIX_APP_URL}/api/categories`
                     // {
                     //     headers: {
                     //         Authorization: `Bearer ${adminTrue}`,
@@ -31,7 +31,8 @@ const AllSubCategories = () => {
                     //     cancelRequest: cancelRequest.token,
                     // }
                 );
-                setActivites(res.data.data);
+                // setActivites(res.data.data);
+                console.log(res.data.data);
             } catch (error) {
                 console.warn(error.message);
             }

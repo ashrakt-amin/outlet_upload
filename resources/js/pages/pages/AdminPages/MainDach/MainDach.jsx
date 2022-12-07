@@ -14,13 +14,17 @@ import AddImportedCompany from "./AddingInputs/AddImportedCompany";
 import AddItemUnits from "./AddingInputs/AddItemUnits";
 import AddActivity from "./AddingInputs/AddActivity";
 import AddVolume from "./AddingInputs/AddVolume";
+import AddCategories from "./AddingInputs/AddCategories";
 
 const MainDach = () => {
+
+
+
     // ------------------------ ( Toggle State ) -----------------------
     const [isAddGroup, setIsAddGroup] = useState(false);
     const [isAddSubCatg, setIsAddSubCatg] = useState(false);
     const [isTypes, setIsTypes] = useState(false);
-    const [isAddCategory, setIsAddCategory] = useState(false);
+
     // ------------------------ ( Toggle State ) -----------------------
 
     // ------------------------ ( Success Message State ) -----------------------
@@ -32,46 +36,6 @@ const MainDach = () => {
     // const [allGroups, setAllGroups] = useState([]);
     // const [allTypes, setAllTypes] = useState([]);
 
-    const [categorryVal, setCategorryVal] = useState("");
-
-    const [categorryMsg, setCategorryMsg] = useState("");
-
-    //--------------------------------------- ("Get All Categories") ---------------------------------------\\
-    useEffect(() => {
-        const cancelRequest = axios.CancelToken.source();
-
-        return () => {
-            cancelRequest.cancel();
-        };
-    }, []);
-    //--------------------------------------- (" End Get All Categories") ---------------------------------------\\
-
-    //--------------------------------------- ("Adding Category Function") ---------------------------------------\\
-    const addCategorry = async () => {
-        if (categorryVal.length > 0) {
-            setIsAddCategory(!isAddCategory);
-            try {
-                axios
-                    .post(`${process.env.MIX_APP_URL}/api/categories`, {
-                        name: categorryVal,
-                    })
-                    .then((res) => {
-                        setCategorryMsg(`${res.data.data.name}`);
-                        setIsAddCategory(!isAddCategory);
-                        setCategorryVal("");
-                        setTimeout(() => {
-                            setCategorryMsg("");
-                        }, 5000);
-                    });
-            } catch (er) {
-                setCategorryMsg(er.response.data.message);
-                setTimeout(() => {
-                    setCategorryMsg("");
-                }, 5000);
-            }
-        }
-    };
-    //--------------------------------------- ("Adding Category Function") ---------------------------------------\\
 
     // ------------------------ (toggle modals) ---------------------
     const togleGender = () => setIsAddGroup(!isAddGroup);
@@ -96,14 +60,6 @@ const MainDach = () => {
                     {successMsg}
                 </div>
             )}
-            {categorryMsg.length > 0 && (
-                <div
-                    className="category-msg w-full p-3 text-center text-lg
-                 text-white fixed top-15 z-10 bg-green-400"
-                >
-                    {categorryMsg}{" "}
-                </div>
-            )}
 
             <h1>الصفحة الرئيسة</h1>
             <div className="project-grid grid grid-cols-5 gap-2 rounded-md">
@@ -123,43 +79,12 @@ const MainDach = () => {
             <h1 className="bg-blue-600 rounded-md text-center  p-2 my-5 text-white">
                 إضافة التصنيف الاساسى
             </h1>
-            <div className="addCategorry-div mx-3 flex gap-3  items-center border-2 my-5 p-3 rounded-md">
-                <span>التصنيف الأساسى</span>
-                <input
-                    type="text"
-                    value={categorryVal}
-                    placeholder="مثال : موضة - اجهزة إلكترونية"
-                    className="border-none rounded-lg shadow-md my-3"
-                    onChange={(e) => setCategorryVal(e.target.value)}
-                />
-                {!isAddCategory ? (
-                    <button
-                        onClick={() => setIsAddCategory(!isAddCategory)}
-                        className="bg-blue-600 rounded-md p-2 my-3 text-white"
-                    >
-                        إضافة التصنيف
-                    </button>
-                ) : (
-                    <span>
-                        <button
-                            onClick={addCategorry}
-                            className="bg-green-500 rounded-md p-2 my-3 text-white"
-                        >
-                            تأكيد إضافة التصنيف
-                        </button>
-                        <button
-                            onClick={() => setIsAddCategory(!isAddCategory)}
-                            className="bg-red-600 mx-1 rounded-md p-2 text-white"
-                        >
-                            إلغاء
-                        </button>
-                    </span>
-                )}
-            </div>
+            
+                <AddCategories />
 
-            <div className="modals-btns flex flex-col gap-4 ">
                 {/* ---------------------(Adding buttons)----------------  */}
-                <div className="adding-btns-div flex flex-col items-start gap-3">
+            <div className="modals-btns flex flex-col gap-4 ">
+                {/* <div className="adding-btns-div flex flex-col items-start gap-3">
                     <button
                         onClick={togleSubCatg}
                         className="bg-blue-600 rounded-md p-2 text-white"
@@ -178,7 +103,7 @@ const MainDach = () => {
                     >
                         إضافة داخل مجموعة التصنيف
                     </button>
-                </div>
+                </div> */}
                 {/* ---------------------(Adding buttons)----------------  */}
 
                 {/*---------------------- Activity ----------------------*/}
