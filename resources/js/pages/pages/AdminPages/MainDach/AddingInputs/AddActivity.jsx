@@ -33,11 +33,11 @@ const AddActivity = () => {
     // -----------------------| (colors) |-------------------- \\
 
     return (
-        <div className="colors-div mt-4 border-2 p-2">
+        <div className="colors-div relative mt-4 border-2 p-2">
             <h1>إضافة نشاط</h1>
             {successMsg.length > 0 && (
-                <div className="msg fixed top-20 left-0 w-full rounded-md p-2 bg-green-400">
-                    {successMsg}
+                <div className="msg absolute top-0 left-0 w-full text-start rounded-md p-2 bg-green-400">
+                    <span>{successMsg}</span>
                 </div>
             )}
             <input
