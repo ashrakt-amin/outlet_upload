@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Rate;
 use Illuminate\Http\Request;
 
 class RateController extends Controller
 {
+    use TraitsAuthGuardTrait;
     /**
      * Display a listing of the resource.
      *
@@ -26,33 +28,44 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        $rate = Rate::where(['client_id'=>auth()->guard()->id()])->first();
-        if ($rate) {
-            $rate->rate_degree = $request->rate_degree;
-            if ($rate->update()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تحديث تقييم المنتج",
-                    "data"    => ($rate->rate_degree)
-                ], 200);
+        if ($this->getTokenId('client')) {
+            $rate = Rate::where(['item_id'=>$request->item_id, 'client_id'=>$this->getTokenId('client')])->first();
+            if ($rate) {
+                $rate->rate_degree = $request->rate_degree;
+                if ($rate->update()) {
+                    return response()->json([
+                        "success" => true,
+                        "message" => "تم تحديث تقييم المنتج",
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "success" => true,
+                        "message" => "فشل تحديث تقييم المنتج",
+                    ], 200);
+                }
+            } else {
+                $rate = new Rate();
+                $rate->item_id     = $request->item_id;
+                $rate->client_id   = $this->getTokenId('client');
+                $rate->rate_degree = $request->rate_degree;
+                if ($rate->save()) {
+                    return response()->json([
+                        "success" => true,
+                        "message" => "تم تقييم المنتج",
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "success" => false,
+                        "message" => "فشل تقييم المنتج",
+                    ], 422);
+                }
             }
         } else {
-            $rate = new Rate();
-            $rate->item_id     = $request->item_id;
-            $rate->client_id   = auth()->guard()->id();
-            $rate->rate_degree = $request->rate_degree;
-            if ($rate->save()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تقييم المنتج",
-                    "data"    => ($rate->rate_degree)
-                ], 200);
-            }
+            return response()->json([
+                "success" => false,
+                "message" => "يرجى تسجيل الدخول كعميل",
+            ], 422);
         }
-        return response()->json([
-            "success" => false,
-            "message" => "فشل تقييم المنتج",
-        ], 422);
     }
 
     /**
