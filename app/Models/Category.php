@@ -11,7 +11,8 @@ class Category extends Model
 
     protected $appends = [
         'parent_category',
-        'category_sub_categories'
+        'category_sub_categories',
+        'category_items'
     ];
 
     protected $hidden = [
@@ -24,9 +25,9 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function subCategories()
+    public function items()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(Item::class);
     }
 
     public function groups()
@@ -46,5 +47,11 @@ class Category extends Model
         // if ($this->category_id < 1) return false;
         $subCategories = Category::where(['category_id'=>$this->id])->get();
         return $subCategories;
+    }
+
+    public function getCategoryItemsAttribute()
+    {
+        // return Item::where(['category_id'=>$this->id])->get();
+        return $this->items ? $this->items :false;
     }
 }

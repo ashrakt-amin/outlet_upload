@@ -28,6 +28,7 @@ class ItemResource extends JsonResource
             'itemUnit'         => $this->item_unit,
             'itemImages'       => $this->item_images,
             'unit_parts_count' => $this->unit_parts_count,
+            'sale_price'       => $this->sale_price,
             'code'             => $this->item_code,
             'available'        => $this->available ? true : false,
             'approved'         => $this->approved == 1 ? true : false,
