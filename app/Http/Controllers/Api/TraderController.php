@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Models\Trader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -14,25 +14,14 @@ use App\Http\Resources\TraderCollection;
 
 class TraderController extends Controller
 {
+    use TraitsAuthGuardTrait;
+
     public function __construct ()
     {
         $authorizationHeader = \request()->header('Authorization');
         if(isset($authorizationHeader)) {
             $this->middleware('auth:sanctum');
         };
-
-        // if (request()->bearerToken() != null) {
-        //     [$id, $user_token] = explode('|', request()->bearerToken(), 2);
-        //     $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $user_token))->first();
-        //     $guard        = $token_data->name;
-        //     $tokenable_id = $token_data->tokenable_id;
-        //     if ($guard == 'trader') {
-        //         $trader = Trader::find($tokenable_id);
-        //         if ($trader != null) {
-        //             $this->middleware('auth:sanctum');
-        //         }
-        //     }
-        // }
     }
 
     /**
@@ -56,7 +45,7 @@ class TraderController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->guard()->id()) {
+        if ($this->getTokenId('user')) {
             $request->validate([
             'f_name'      => 'required',
             'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
@@ -130,8 +119,8 @@ class TraderController extends Controller
      */
     public function trader()
     {
-        $user = auth()->guard()->user();
-        $trader = Trader::where(['id'=>Auth::guard()->id()])->with(['items', 'orderDetails'])->get();
+        $user = $this->getTokenId('trader');
+        $trader = Trader::where(['id'=>$this->getTokenId('trader')])->with(['items', 'orderDetails'])->get();
         if ($user) {
             return response()->json([
                 'data' => TraderResource::collection($trader),
