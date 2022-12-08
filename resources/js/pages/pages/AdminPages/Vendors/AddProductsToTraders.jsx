@@ -14,12 +14,11 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
     const [apiMessage, setApiMessage] = useState("");
 
-    
     const [salePrice, setSalePrice] = useState("");
 
-    const [buyPrice, setBuyPrice] = useState("1");
+    const [buyPrice, setBuyPrice] = useState("");
 
-    console.log(traderInfo);
+    // console.log(traderInfo);
 
     const [validationMsg, setValidationMsg] = useState("");
 
@@ -27,14 +26,14 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
     // (----------------------------- (Product Info) -----------------------------)
     const [productName, setProdcutName] = useState("");
-    
+
     const [itemCode, setItemCode] = useState("");
 
     const [imgVal, setImgVal] = useState(null);
 
     // (----------------------------- (types التصنيفات select) -----------------------------)
     const [categoriesArray, setCategoriesArray] = useState([]);
-    const [categoryId, setcategoryId] = useState("0");
+    const [categoryId, setcategoryId] = useState("");
     // (----------------------------- (types التصنيفات select) -----------------------------)
 
     // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
@@ -78,7 +77,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
         let discountAmount = (discountByPercentage * salePrice) / 100;
         setPrecentDiscount(discountAmount);
         setDiscountValue(discountAmount);
-    }, [discountByPercentage]);
+    }, [discountByPercentage, salePrice]);
 
     //  (---------------------- discount ------------------- )
 
@@ -107,21 +106,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 };
                 getCategories();
 
-                // الشركة المستوردة
-                const getImportedCompany = async () => {
-                    try {
-                        const res = await axios.get(
-                            `${process.env.MIX_APP_URL}/api/importers`,
-                            {
-                                cancelRequest: cancelRequest.token,
-                            }
-                        );
-                        setImportedCompArray(res.data.data);
-                    } catch (error) {
-                        console.warn(error.message);
-                    }
-                };
-                getImportedCompany();
                 // وحدات المنتج
                 const getItemUnits = async () => {
                     try {
@@ -139,38 +123,52 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 };
                 getItemUnits();
 
+                // الشركة المستوردة
+                // const getImportedCompany = async () => {
+                //     try {
+                //         const res = await axios.get(
+                //             `${process.env.MIX_APP_URL}/api/importers`,
+                //             {
+                //                 cancelRequest: cancelRequest.token,
+                //             }
+                //         );
+                //         setImportedCompArray(res.data.data);
+                //     } catch (error) {
+                //         console.warn(error.message);
+                //     }
+                // };
+                // getImportedCompany();
                 // الشركة المنتجة او المصنعة
-                const getManufactorCompanies = async () => {
-                    try {
-                        const res = await axios.get(
-                            `${process.env.MIX_APP_URL}/api/manufactories`,
-                            {
-                                cancelRequest: cancelRequest.token,
-                            }
-                        );
-                        setManufactoryArray(res.data.data);
-                        console.log(res.data.data);
-                    } catch (error) {
-                        console.warn(error.message);
-                    }
-                };
-                getManufactorCompanies();
-
+                // const getManufactorCompanies = async () => {
+                //     try {
+                //         const res = await axios.get(
+                //             `${process.env.MIX_APP_URL}/api/manufactories`,
+                //             {
+                //                 cancelRequest: cancelRequest.token,
+                //             }
+                //         );
+                //         setManufactoryArray(res.data.data);
+                //         console.log(res.data.data);
+                //     } catch (error) {
+                //         console.warn(error.message);
+                //     }
+                // };
+                // getManufactorCompanies();
                 // الشركة   الموزعة
-                const getDistributeCompanies = async () => {
-                    try {
-                        const res = await axios.get(
-                            `${process.env.MIX_APP_URL}/api/companies`,
-                            {
-                                cancelRequest: cancelRequest.token,
-                            }
-                        );
-                        setDistributeCompaniesArray(res.data.data);
-                    } catch (error) {
-                        console.warn(error.message);
-                    }
-                };
-                getDistributeCompanies();
+                // const getDistributeCompanies = async () => {
+                //     try {
+                //         const res = await axios.get(
+                //             `${process.env.MIX_APP_URL}/api/companies`,
+                //             {
+                //                 cancelRequest: cancelRequest.token,
+                //             }
+                //         );
+                //         setDistributeCompaniesArray(res.data.data);
+                //     } catch (error) {
+                //         console.warn(error.message);
+                //     }
+                // };
+                // getDistributeCompanies();
 
                 const getVolumes = async () => {
                     try {
@@ -208,15 +206,16 @@ const AddProductsToTraders = ({ traderInfo }) => {
         let regNum = /[0-9]/;
 
         if (imgVal == null) {
-            console.log("no images");
             setValidationMsg("اختر صور المنتج");
             setTimeout(() => {
                 setValidationMsg("");
-            }, 3000);
+            }, 2000);
             return;
         }
         addProductFunc();
     };
+
+    console.log(categoryId);
 
     const addProductFunc = async () => {
         let traderTk = JSON.parse(localStorage.getItem("uTk"));
@@ -233,29 +232,29 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
         fData.append("category_id", categoryId); // اسم التصنيف
 
-        fData.append("item_code", itemCode); // كود المنتج 
+        fData.append("item_code", itemCode); // كود المنتج
 
         fData.append("item_unit_id", itemUnitId); // وحدة المنتج _ قطعة+-وحدة-علبة
 
-        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة   
+        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة
 
-        fData.append("discount", discountValue); // الخصم
+        fData.append("discount", 20); // الخصم
 
-        fData.append("sale_price", salePrice); // 
-        
-        fData.append("buy_price", buyPrice); // 
+        fData.append("sale_price", salePrice); //
+
+        fData.append("buy_price", buyPrice); //
 
         fData.append("buy_discount", discountValue); // خصم الشراء
 
         fData.append("trader_id", traderInfo.id);
 
-        fData.append("available", isAvalable);
+        // fData.append("available", isAvalable);
 
         fData.append("description", productDescription);
 
         fData.append("manufactory_id", manufactoryID); //  الشركة المنتجة او المصنعة
 
-        fData.append("agent_id", agentId); //  الوكيل 
+        fData.append("agent_id", agentId); //  الوكيل
 
         fData.append("company_id", distributeCompanyId); // الشركة الموزعة
 
@@ -279,7 +278,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
         } catch (er) {
             console.log(er.response);
             console.log(er);
-            
         }
     };
     // (------------------------ (End adding product Function) -----------------------------)
@@ -332,8 +330,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
         // }
     };
 
-
-
     return (
         <div>
             <h1 className="p-1 bg-green-500 rounded-sm text-center text-white my-4">
@@ -362,35 +358,34 @@ const AddProductsToTraders = ({ traderInfo }) => {
                             onChange={(e) => setProdcutName(e.target.value)}
                         />
                     </div>
-                    
-                    <div className="buy-price-div">
-                        <div className="mt-3 mb-2">سعر الشراء</div>
+
+                    <div className="sale-price-div">
+                        <div className="mt-3 mb-2">سعر البيع</div>
                         <input
                             className="border-none shadow-md rounded-md"
                             type="number"
-                            value={buyPrice}
+                            value={salePrice}
                             min={1}
                             placeholder="سعر الشراء"
-                            onChange={(e) => setBuyPrice(e.target.value)}
+                            onChange={(e) => setSalePrice(e.target.value)}
                         />
                     </div>
 
                     <div className="discount-div">
-                        <div className="">إختر الخصم</div>
-                            <div>
-                                <div>{precentDiscount} جنية</div>
-                                <input
-                                    className="border-none shadow-md rounded-md"
-                                    type="text"
-                                    min={0}
-                                    value={discountByPercentage}
-                                    placeholder=" اكتب القيمة فقط مثال: 10"
-                                    onChange={(e) =>
-                                        setDiscountByPercentage(e.target.value)
-                                    }
-                                />
-                            </div>
-                      
+                        <div className="">إختر الخصم (ضع النسبة)</div>
+                        <div>
+                            <div>{precentDiscount} جنية</div>
+                            <input
+                                className="border-none shadow-md rounded-md"
+                                type="text"
+                                min={0}
+                                value={discountByPercentage}
+                                placeholder="10%"
+                                onChange={(e) =>
+                                    setDiscountByPercentage(e.target.value)
+                                }
+                            />
+                        </div>
                     </div>
 
                     <div className="product-name-div">
@@ -470,8 +465,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
                             title="Title"
                         />
                     </div>
-
-
 
                     {/* <div className="discount-div">
                         <div className="">إختر طريقة الخصم</div>
