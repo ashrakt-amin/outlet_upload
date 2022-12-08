@@ -23,7 +23,6 @@ class Item extends Model
         'item_images',
         'item_category',
         'item_unit',
-        'item_color_size_stocks',
         'item_stocks'
         ];
 
@@ -117,11 +116,6 @@ class Item extends Model
         return $this->belongsTo(ItemUnit::class);
     }
 
-    public function colorSizeStocks()
-    {
-        return $this->hasMany(ColorSizeStock::class);
-    }
-
     public function stocks()
     {
         return $this->hasMany(Stock::class);
@@ -150,14 +144,14 @@ class Item extends Model
     public function getClientRateAttribute()
     {
         if (!auth()->guard()->check()) return false;
-        $rate = Rate::select('rate_degree')->where(['item_id'=>$this->id, 'client_id'=>auth()->guard()->id()])->first();
+        $rate = Rate::select('rate_degree')->where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->first();
         return $rate ? $rate->rate_degree : false;
     }
 
     public function getClientViewsAttribute()
     {
         if (!auth()->guard()->check()) return false;
-        return View::where(['item_id'=>$this->id, 'client_id'=>auth()->guard()->id()])->sum('view_count');
+        return View::where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->sum('view_count');
     }
 
     public function getAllViewsAttribute()
@@ -169,11 +163,6 @@ class Item extends Model
     {
         $allRates =  Rate::select('rate_degree')->where(['item_id'=>$this->id])->get();
         return  count($allRates) > 0 ?  intval($allRates->sum('rate_degree')/$allRates->count('rate_degree'), 2) : false;
-    }
-
-    public function getItemColorSizeStocksAttribute()
-    {
-        return $this->colorSizeStocks ? $this->colorSizeStocks  : false;
     }
 
     public function getItemStocksAttribute()
@@ -201,14 +190,5 @@ class Item extends Model
     {
         $itemImages = ItemImage::where(['item_id'=>$this->id])->get();
         return   $itemImages ? $itemImages : false;
-    }
-
-    public function getItemTypeAttribute()
-    {
-        $type = Type::where(['id'=>$this->type_id])->first();
-        return [
-            'id'  =>$type->id,
-            'name'=>$type->name,
-        ];
     }
 }

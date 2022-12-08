@@ -106,13 +106,9 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         $item = Item::where(['id'=>$item->id])->with('stocks')->first();
-        if (request()->bearerToken() != null) {
-            [$id, $user_token] = explode('|', request()->bearerToken(), 2);
-            $token_data = DB::table('personal_access_tokens')->where('token', hash('sha256', $user_token))->first();
-            $guard = $token_data->name;
-        }
-        if (request()->bearerToken() != null && $guard != 'trader' && $guard != 'user' || (request()->bearerToken() == null)) {
-            $view = View::where(['item_id'=>$item->id, 'client_id'=>auth()->guard()->id()])->first();
+        $guard = $item->getTokenName('client');
+        if ($guard || (request()->bearerToken() == null)) {
+            $view = View::where(['item_id'=>$item->id, 'client_id'=>$item->getTokenId('client')])->first();
             if (!$view) {
                 $view = new View();
                 $view->item_id    = $item->id;
