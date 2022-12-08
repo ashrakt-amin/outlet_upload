@@ -18,9 +18,11 @@ trait AuthGuardTrait {
      *  get token id
      */
     public function getTokenId($guard) {
-        $token_data = $this->getTokenRow();
-        if ($token_data->name == $guard) {
-            return $token_data->tokenable_id;
+        if (request()->bearerToken() != null) {
+            $token_data = $this->getTokenRow();
+            if ($token_data->name == $guard) {
+                return $token_data->tokenable_id;
+            }
         }
     }
 
@@ -28,9 +30,11 @@ trait AuthGuardTrait {
      *  get token name
      */
     public function getTokenName($guard) {
-        $token_data = $this->getTokenRow();
-        if ($token_data->name == $guard) {
-            return $guard;
+        if (request()->bearerToken() != null) {
+            $token_data = $this->getTokenRow();
+            if ($token_data->name == $guard) {
+                return $guard;
+            }
         }
     }
 }

@@ -94,6 +94,11 @@ class TraderController extends Controller
                     "message" => "فشل تسجيل التاجر",
                 ], 422);
             }
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "ليست لديك صلاحية الاضافة",
+            ], 422);
         }
     }
 
