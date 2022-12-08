@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Resources\ItemUnitResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
-    use HasFactory;
+    use HasFactory, TraitsAuthGuardTrait;
 
     protected $appends = [
         'wishlist',
@@ -58,6 +58,7 @@ class Item extends Model
         'item_code',
         'unit_parts_count',
         'available',
+        'discount',
         'description',
         'manufactory_id', // 'الشركة المنتجة'
         'agent_id', // 'الشركة الوكيلة'
@@ -137,15 +138,7 @@ class Item extends Model
     public function getWishlistAttribute()
     {
         if (!auth()->guard()->check()) return false;
-        return Wishlist::where(['item_id'=>$this->id, 'client_id'=>auth()->guard()->id()])->exists();
-
-        // if (request()->bearerToken() != null) {
-        //     [$id, $user_token] = explode('|', request()->bearerToken(), 2);
-        //     $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
-        //     return Wishlist::where(['item_id'=>$this->id, 'client_id'=>$token_data->tokenable_id])->exists();
-        // } else {
-        //     return false;
-        // }
+        return $this->getTokenName('client') ? true : false;
     }
 
     public function getItemCategoryAttribute()

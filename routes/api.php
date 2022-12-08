@@ -73,7 +73,14 @@ use App\Http\Controllers\Api\Auth\RegisterTraderController;
 //     return $request->user();
 // });
 ########################################################################################################################
+Route::get('call-helper', function(){
 
+    $mdY = convertYmdToMdy('2022-02-12');
+    var_dump("Converted into 'MDY': " . $mdY);
+
+    $ymd = convertMdyToYmd('02-12-2022');
+    var_dump("Converted into 'YMD': " . $ymd);
+});
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("register")->group(function(){
     Route::middleware('auth:sanctum')->group(function () {

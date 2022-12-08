@@ -86,7 +86,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        if ($category->update($request->all())) {
+        $category->fill($request->input());
+        if ($category->category_id == null)  {
+            $category->category_id = 0;
+        }
+        if ($category->update()) {
             return response()->json([
                 "success" => true,
                 "message" => "تم تعديل التصنيف",
