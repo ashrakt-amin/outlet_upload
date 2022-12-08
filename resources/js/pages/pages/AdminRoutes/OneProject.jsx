@@ -47,6 +47,7 @@ const OneProject = () => {
                     .post(`${process.env.MIX_APP_URL}/api/levels`, {
                         name: levelName,
                         project_id: oneProject.id,
+                        level_type: 0
                     })
                     .then((res) => {
                         console.log(res.data);
@@ -62,7 +63,7 @@ const OneProject = () => {
 
     return (
         <div dir="rtl" className="p-2 text-center">
-            <h1>الطوابق</h1>
+            <h1>الشوارع</h1>
 
             <div className="add-project-div my-4 flex items-start">
                 {!isAddLevel && (
@@ -70,7 +71,7 @@ const OneProject = () => {
                         onClick={showConfirm}
                         className="bg-cyan-500 rounded-md p-2"
                     >
-                        إضافة طابق
+                        إضافة الشوارع
                     </button>
                 )}
 
@@ -79,7 +80,7 @@ const OneProject = () => {
                         onClick={addLevelFunc}
                         className="bg-blue-500 rounded-md p-2"
                     >
-                        تأكيد إضافة طابق
+                        تأكيد إضافة الشوارع
                     </button>
                 )}
 

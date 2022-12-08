@@ -90,9 +90,10 @@ const Deals = () => {
                                 <SwiperSlide
                                     key={product.id}
                                     dir={`rtl`}
-                                    className="swiper-slide p-3 rounded-md"
+                                    className="swiper-slide deals-one-swiper-slide p-3 rounded-md"
                                     style={{
                                         minHeight: "400px",
+                                        // width: '230px',
                                         backgroundColor: "#fff",
                                     }}
                                 >

@@ -169,9 +169,7 @@ const ClientProductDetails = () => {
                             }`}
                         />
                     </span>
-                    <div className="product-name mt-3">
-                        تصنيف المنتج : {singleProduct?.type?.name}{" "}
-                    </div>
+
                     <div className="product-name mt-3">
                         اسم المنتج: {singleProduct?.name}{" "}
                     </div>

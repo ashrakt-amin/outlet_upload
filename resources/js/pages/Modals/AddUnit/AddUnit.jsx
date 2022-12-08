@@ -3,21 +3,22 @@ import React, { useEffect, useState } from "react";
 
 const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     const [unitName, setUnitName] = useState("");
-    const [unitSpace, setUnitSpace] = useState("");
-    const [meterPrice, setMeterPrice] = useState("");
-    const [unitPrice, setUnitPrice] = useState("");
-    const [unitPriceVal, setUnitPriceVal] = useState("");
+
     const [unitDescription, setUnitDescription] = useState("");
-
+    
     const [sucessMsg, setSuccessMsg] = useState("");
-
+    
     console.log(levelInfo);
-
-    const [sites, setSites] = useState([]);
+    
+    // const [meterPrice, setMeterPrice] = useState("");
+    // const [unitPriceVal, setUnitPriceVal] = useState("");
+    // const [unitSpace, setUnitSpace] = useState("");
+    // const [sites, setSites] = useState([]);
+    // const [unitPrice, setUnitPrice] = useState("");
+    // const [siteID, setSiteID] = useState("");
 
     const [levelID, setLevelID] = useState("");
     const [projectId, setprojectId] = useState("");
-    const [siteID, setSiteID] = useState("");
 
     useEffect(() => {
         const { id, project_id } = levelInfo;
@@ -71,10 +72,10 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                     .post(`${process.env.MIX_APP_URL}/api/units`, {
                         name: unitName,
                         level_id: levelInfo.id, // select الطوابق (الادوار) hidden
-                        site_id: siteID, // select --> المواقع قبلى او بحرى
-                        space: unitSpace,
-                        price_m: meterPrice,
-                        unit_value: unitPriceVal,
+                        // site_id: siteID, // select --> المواقع قبلى او بحرى
+                        // space: unitSpace,
+                        // price_m: meterPrice,
+                        // unit_value: unitPriceVal,
                         description: unitDescription,
                     })
                     .then((res) => {
@@ -157,7 +158,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                     )}
                                 </div>
 
-                                <div className="rest-inputs flex gap-4 flex-wrap">
+                                {/* <div className="rest-inputs flex gap-4 flex-wrap">
                                     <div className="relative pb-3">
                                         <small>مساحة الوحدة</small>
                                         <input
@@ -206,7 +207,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                             placeholder="سعر الوحدة"
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="relative pb-3">
                                     <textarea
                                         onChange={(e) =>

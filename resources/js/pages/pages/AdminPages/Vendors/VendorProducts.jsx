@@ -18,26 +18,23 @@ const VendorProducts = ({ vendorProductArray }) => {
                             dir="rtl"
                             style={{ width: "250px" }}
                         >
-                            <Link to={`onevendorproduct/${product.id}`}>
+                            <Link className="flex" to={`onevendorproduct/${product.id}`}>
                                 <div
                                     className="product-img "
                                     style={{
-                                        width: "250px",
+                                        width: "100px",
                                     }}
                                 >
                                     <img
-                                        className="w-1/2 mx-auto"
+                                        className="w-full h-full"
                                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product.itemImages[0]?.img}`}
                                         alt="image"
                                     />
                                 </div>
-                                <h5 className="mt-2">
-                                    اسم المنتج:{product.name}
+                                <h5 className="mt-2 overflow-hidden text-ellipsis w-10/12">
+                                    {product.name}
                                 </h5>
 
-                                <div className="details font-bold cursor-pointer mt-2 border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200">
-                                    تفاصيل المنتج
-                                </div>
                             </Link>
                         </div>
                     ))}

@@ -1,5 +1,7 @@
 .deals-parent {
 
+    
+
         .swiper-parent .swiper-slide img {
             width: 100%;
         }
@@ -18,6 +20,9 @@
         @media (max-width:500px) {
             .swiper-parent {
                 width: 100%!important
+            }
+            .deals-one-swiper-slide {
+                width: 230px!important;
             }
         }
 

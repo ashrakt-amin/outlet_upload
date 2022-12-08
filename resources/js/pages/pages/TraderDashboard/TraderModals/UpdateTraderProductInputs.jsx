@@ -69,51 +69,51 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
 
     const [checkedValue, setCheckValue] = useState(false);
 
-    useEffect(() => {
-        // (----------------------------- ( Set select) ------------------------)
-        setTypeId(traderProductInfo?.type.id);
-        setDistributeCompanyId(
-            traderProductInfo.company == false
-                ? "0"
-                : traderProductInfo?.company?.id
-        );
-        setImportedCompId(
-            traderProductInfo.importer == false
-                ? "0"
-                : traderProductInfo.importer?.id
-        );
-        setManufactoryID(
-            traderProductInfo.manufactory == false
-                ? "0"
-                : traderProductInfo.manufactory?.id
-        );
-        setItemUnitId(
-            traderProductInfo.itemUnit == false
-                ? "0"
-                : traderProductInfo.itemUnit?.id
-        );
-        // (----------------------------- ( Set select) ------------------------)
-        // (----------------------------- ( check box false or true) ------------------------)
-        setCheckValue(traderProductInfo.import == true && true);
-        // setIsImported(traderProductInfo.import == true && !isImported);
-        // (----------------------------- ( check box false or true) ------------------------)
-        setProdcutName(traderProductInfo.name);
-        setUnitPartsCount(traderProductInfo.unit_parts_count);
-        setSalePrice(traderProductInfo.sale_price);
-        setBuyPrice(
-            traderProductInfo.buy_price != null && traderProductInfo.buy_price
-        );
-        setItemCode(traderProductInfo.code);
-        setBarCode(traderProductInfo.barcode);
-        setSpareBarCode(
-            traderProductInfo.spare_barcode != null &&
-                traderProductInfo.spare_barcode
-        );
-        setProductDescription(traderProductInfo.description);
-        setDiscountValue(traderProductInfo.discount);
-        // setDiscountByPound(traderProductInfo.discount);
-        console.log();
-    }, []);
+    // useEffect(() => {
+    //     // (----------------------------- ( Set select) ------------------------)
+    //     setTypeId(traderProductInfo?.type.id);
+    //     setDistributeCompanyId(
+    //         traderProductInfo.company == false
+    //             ? "0"
+    //             : traderProductInfo?.company?.id
+    //     );
+    //     setImportedCompId(
+    //         traderProductInfo.importer == false
+    //             ? "0"
+    //             : traderProductInfo.importer?.id
+    //     );
+    //     setManufactoryID(
+    //         traderProductInfo.manufactory == false
+    //             ? "0"
+    //             : traderProductInfo.manufactory?.id
+    //     );
+    //     setItemUnitId(
+    //         traderProductInfo.itemUnit == false
+    //             ? "0"
+    //             : traderProductInfo.itemUnit?.id
+    //     );
+    //     // (----------------------------- ( Set select) ------------------------)
+    //     // (----------------------------- ( check box false or true) ------------------------)
+    //     setCheckValue(traderProductInfo.import == true && true);
+    //     // setIsImported(traderProductInfo.import == true && !isImported);
+    //     // (----------------------------- ( check box false or true) ------------------------)
+    //     setProdcutName(traderProductInfo.name);
+    //     setUnitPartsCount(traderProductInfo.unit_parts_count);
+    //     setSalePrice(traderProductInfo.sale_price);
+    //     setBuyPrice(
+    //         traderProductInfo.buy_price != null && traderProductInfo.buy_price
+    //     );
+    //     setItemCode(traderProductInfo.code);
+    //     setBarCode(traderProductInfo.barcode);
+    //     setSpareBarCode(
+    //         traderProductInfo.spare_barcode != null &&
+    //             traderProductInfo.spare_barcode
+    //     );
+    //     setProductDescription(traderProductInfo.description);
+    //     setDiscountValue(traderProductInfo.discount);
+    //     // setDiscountByPound(traderProductInfo.discount);
+    //     console.log();
+    // }, []);
 
     //  (---------------------- discount ------------------- )
     const [discountValue, setDiscountValue] = useState("");
@@ -146,7 +146,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                         )
                         .then(async (res1) => {
                             let res = await axios.get(
-                                "${process.env.MIX_APP_URL}/api/traders/trader",
+                                `${process.env.MIX_APP_URL}/api/traders/trader`,
                                 {
                                     headers: {
                                         Authorization: `Bearer ${traderTk}`,
@@ -155,44 +155,26 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             );
                             setTraderInfo(res.data[0]);
                             console.log(res.data);
-                            const getCategories = async () => {
-                                try {
-                                    const res = await axios.get(
-                                        `${process.env.MIX_APP_URL}/api/types`,
-                                        {
-                                            cancelRequest: cancelRequest.token,
-
-                                            headers: {
-                                                Authorization: `Bearer ${traderTk}`,
-                                            },
-                                        }
-                                    );
-                                    setTypesArray(res.data.data);
-                                } catch (error) {
-                                    console.warn(error.message);
-                                }
-                            };
-                            getCategories();
 
                             // الشركة المستوردة
-                            const getImportedCompany = async () => {
-                                try {
-                                    const res = await axios.get(
-                                        `${process.env.MIX_APP_URL}/api/importers`,
-                                        {
-                                            cancelRequest: cancelRequest.token,
+                            // const getImportedCompany = async () => {
+                            //     try {
+                            //         const res = await axios.get(
+                            //             `${process.env.MIX_APP_URL}/api/importers`,
+                            //             {
+                            //                 cancelRequest: cancelRequest.token,
 
-                                            headers: {
-                                                Authorization: `Bearer ${traderTk}`,
-                                            },
-                                        }
-                                    );
-                                    setImportedCompArray(res.data.data);
-                                } catch (error) {
-                                    console.warn(error.message);
-                                }
-                            };
-                            getImportedCompany();
+                            //                 headers: {
+                            //                     Authorization: `Bearer ${traderTk}`,
+                            //                 },
+                            //             }
+                            //         );
+                            //         setImportedCompArray(res.data.data);
+                            //     } catch (error) {
+                            //         console.warn(error.message);
+                            //     }
+                            // };
+                            // getImportedCompany();
                             // وحدات المنتج
                             const getItemUnits = async () => {
                                 try {
@@ -215,46 +197,46 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             getItemUnits();
 
                             // الشركة المنتجة او المصنعة
-                            const getManufactorCompanies = async () => {
-                                try {
-                                    const res = await axios.get(
-                                        `${process.env.MIX_APP_URL}/api/manufactories`,
-                                        {
-                                            cancelRequest: cancelRequest.token,
+                            // const getManufactorCompanies = async () => {
+                            //     try {
+                            //         const res = await axios.get(
+                            //             `${process.env.MIX_APP_URL}/api/manufactories`,
+                            //             {
+                            //                 cancelRequest: cancelRequest.token,
 
-                                            headers: {
-                                                Authorization: `Bearer ${traderTk}`,
-                                            },
-                                        }
-                                    );
-                                    setManufactoryArray(res.data.data);
-                                    console.log(res.data.data);
-                                } catch (error) {
-                                    console.warn(error.message);
-                                }
-                            };
-                            getManufactorCompanies();
+                            //                 headers: {
+                            //                     Authorization: `Bearer ${traderTk}`,
+                            //                 },
+                            //             }
+                            //         );
+                            //         setManufactoryArray(res.data.data);
+                            //         console.log(res.data.data);
+                            //     } catch (error) {
+                            //         console.warn(error.message);
+                            //     }
+                            // };
+                            // getManufactorCompanies();
 
                             // الشركة   الموزعة
-                            const getDistributeCompanies = async () => {
-                                try {
-                                    const res = await axios.get(
-                                        `${process.env.MIX_APP_URL}/api/companies`,
-                                        {
-                                            cancelRequest: cancelRequest.token,
+                            // const getDistributeCompanies = async () => {
+                            //     try {
+                            //         const res = await axios.get(
+                            //             `${process.env.MIX_APP_URL}/api/companies`,
+                            //             {
+                            //                 cancelRequest: cancelRequest.token,
 
-                                            headers: {
-                                                Authorization: `Bearer ${traderTk}`,
-                                            },
-                                        }
-                                    );
-                                    setDistributeCompaniesArray(res.data.data);
-                                    console.log(res.data.data);
-                                } catch (error) {
-                                    console.warn(error.message);
-                                }
-                            };
-                            getDistributeCompanies();
+                            //                 headers: {
+                            //                     Authorization: `Bearer ${traderTk}`,
+                            //                 },
+                            //             }
+                            //         );
+                            //         setDistributeCompaniesArray(res.data.data);
+                            //         console.log(res.data.data);
+                            //     } catch (error) {
+                            //         console.warn(error.message);
+                            //     }
+                            // };
+                            // getDistributeCompanies();
                         });
                 } catch (er) {
                     console.log(er);

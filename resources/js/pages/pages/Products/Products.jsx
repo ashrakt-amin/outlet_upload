@@ -31,15 +31,16 @@ const Products = () => {
         const getSubCategories = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/subCategories/${id}`,
+                    `${process.env.MIX_APP_URL}/api/categories/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,
                         },
                     }
                 );
-                setProducts(res.data.data.groups);
-                setGroupsArray(res.data.data.groups);
+                // setProducts(res.data.data.groups);
+                // setGroupsArray(res.data.data.groups);
+                console.log(res.data.data);
             } catch (error) {
                 console.warn(error.message);
             }

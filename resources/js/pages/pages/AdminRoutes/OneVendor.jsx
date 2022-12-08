@@ -11,6 +11,8 @@ const OneVendor = () => {
 
     const [isAddingProduct, setIsAddingProduct] = useState(false);
 
+    const [getInfoAgain, setgetInfoAgain] = useState(false)
+
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("uTk"));
@@ -33,9 +35,11 @@ const OneVendor = () => {
         return () => {
             cancelRequest.cancel();
         };
-    }, []);
+    }, [getInfoAgain]);
 
     console.log(traderInfo);
+
+    const getInfoAgainFunc = ()=> setgetInfoAgain(!getInfoAgain)
 
     return (
         <div className="p-4" dir="rtl">
@@ -56,10 +60,10 @@ const OneVendor = () => {
                     العمر: {traderInfo.age}
                 </h3>
                 <h3 className="bg-blue-500 p-2 rounded-md font-bold text-white">
-                    الهاتف {traderInfo.phone}
+                    الهاتف :{traderInfo.phone}
                 </h3>
                 <h3 className="bg-blue-500 p-2 rounded-md font-bold text-white">
-                    الايميل {traderInfo.email}
+                    الايميل :{traderInfo.email}
                 </h3>
                 <h3 className="bg-blue-500 p-2 rounded-md font-bold flex gap-3 flex-wrap">
                     انشطة التاجر:{" "}
@@ -75,7 +79,6 @@ const OneVendor = () => {
                     {traderInfo.activities && "لا يوجد"}
                 </h3>
             </div>
-            <VendorProducts vendorProductArray={traderInfo} />
 
             {isAddingProduct ? (
                 <button
@@ -93,8 +96,12 @@ const OneVendor = () => {
                 </button>
             )}
             {isAddingProduct && (
-                <AddProductsToTraders traderInfo={traderInfo} />
+                <AddProductsToTraders getInfoAgainFunc={getInfoAgainFunc} traderInfo={traderInfo} />
             )}
+
+
+            <VendorProducts vendorProductArray={traderInfo} />
+
         </div>
     );
 };

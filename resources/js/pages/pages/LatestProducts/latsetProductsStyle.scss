@@ -11,4 +11,10 @@
             overflow: hidden!important;
         };
     }
+
+            @media (max-width: 500px) {
+                .latestproducts-one-swiper-slide {
+                    width: 230px!important;
+                }
+            }
 }

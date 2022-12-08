@@ -90,7 +90,7 @@ const LatestUpdatedProducts = () => {
                                 <SwiperSlide
                                     key={product.id}
                                     dir={`rtl`}
-                                    className="swiper-slide p-3 rounded-md"
+                                    className="swiper-slide latestproducts-one-swiper-slide p-3 rounded-md"
                                     style={{
                                         minHeight: "400px",
                                         backgroundColor: "#fff",

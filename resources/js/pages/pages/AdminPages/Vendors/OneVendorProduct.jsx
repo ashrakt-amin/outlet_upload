@@ -238,6 +238,8 @@ const OneVendorProduct = () => {
     };
     // (------------------------ handle Color select ----------------------)
 
+    console.log(stockCode);
+
     const addStkSizClr = async (prodcutInf) => {
         const { id, trader } = prodcutInf;
         if (stockCount < "1") {
@@ -377,7 +379,7 @@ const OneVendorProduct = () => {
                                 ))}
                         </div>
 
-                        <h1 className="my-2 shadow-md rounded-md p-2">
+                        {/* <h1 className="my-2 shadow-md rounded-md p-2">
                             الشركة المصنعة: {itemInfo.manufactory?.name}
                         </h1>
                         <h1 className="my-2 shadow-md rounded-md p-2">
@@ -385,7 +387,7 @@ const OneVendorProduct = () => {
                         </h1>
                         <h1 className="my-2 shadow-md rounded-md p-2">
                             الشركة المستوردة: {itemInfo?.importer?.name}
-                        </h1>
+                        </h1> */}
 
                         <h1 className="my-2 shadow-md rounded-md p-2">
                             عدد زيارة المنتج:{" "}
@@ -579,9 +581,9 @@ const OneVendorProduct = () => {
                         <input
                             className="border-none shadow-md rounded-md"
                             type="number"
-                            value={barCode}
+                            value={stockCode}
                             placeholder="بار كود"
-                            onChange={(e) => setBareCode(e.target.value)}
+                            onChange={(e) => setStockCode(e.target.value)}
                         />
                     </div>
 

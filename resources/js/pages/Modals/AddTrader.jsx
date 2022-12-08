@@ -167,11 +167,11 @@ function AddTrader({ closeModal, getTradersAgain }) {
                     password: password,
                     // level_id:11
                 },
-                // {
-                //     headers: {
-                //         Authorization: `Bear99er ${getUserToken}`,
-                //     },
-                // }
+                {
+                    headers: {
+                        Authorization: `Bearer ${getUserToken}`,
+                    },
+                }
             );
             console.log(res);
             setSuccessMsg(res.data.message);

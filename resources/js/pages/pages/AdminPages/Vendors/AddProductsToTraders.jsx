@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-import Checkbox from "@mui/material/Checkbox";
 
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import TextEditorFunction from "../../TextEditorClassComponent/TextEditorFunction";
 import TextEditorFunction from "../../TraderDashboard/TextEditorClassComponent/TextEditorFunction";
 
-const AddProductsToTraders = ({ traderInfo }) => {
+
+import './addproducts.scss'
+
+const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
+    const [allSubCategories, setallSubCategories] = useState([])
 
     const navig = useNavigate();
 
@@ -17,8 +21,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
     const [salePrice, setSalePrice] = useState("");
 
     const [buyPrice, setBuyPrice] = useState("");
-
-    // console.log(traderInfo);
 
     const [validationMsg, setValidationMsg] = useState("");
 
@@ -34,6 +36,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
     // (----------------------------- (types التصنيفات select) -----------------------------)
     const [categoriesArray, setCategoriesArray] = useState([]);
     const [categoryId, setcategoryId] = useState("");
+    const [seletedSubName, setSeletedSubName] = useState('')
     // (----------------------------- (types التصنيفات select) -----------------------------)
 
     // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
@@ -100,6 +103,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                         );
                         setCategoriesArray(res.data.data);
                         console.log(res);
+
                     } catch (error) {
                         console.warn(error.message);
                     }
@@ -215,8 +219,6 @@ const AddProductsToTraders = ({ traderInfo }) => {
         addProductFunc();
     };
 
-    console.log(categoryId);
-
     const addProductFunc = async () => {
         let traderTk = JSON.parse(localStorage.getItem("uTk"));
 
@@ -238,7 +240,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
 
         fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة  او العلبة
 
-        fData.append("discount", 20); // الخصم
+        fData.append("discount", discountByPercentage); // الخصم
 
         fData.append("sale_price", salePrice); //
 
@@ -271,9 +273,10 @@ const AddProductsToTraders = ({ traderInfo }) => {
                 }
             );
             setApiMessage(res.data.message);
+            getInfoAgainFunc()
             setTimeout(() => {
                 setApiMessage("");
-            }, 4000);
+            }, 2000);
             console.log(res.data.message);
         } catch (er) {
             console.log(er.response);
@@ -330,18 +333,24 @@ const AddProductsToTraders = ({ traderInfo }) => {
         // }
     };
 
+    const whatSub = (sub)=> {
+        console.log(sub);
+        setcategoryId(sub.id)
+        setSeletedSubName(sub.name)
+    }
+
     return (
         <div>
             <h1 className="p-1 bg-green-500 rounded-sm text-center text-white my-4">
                 اضافة منتجات
             </h1>
             {apiMessage.length > 0 && (
-                <div className="fixed top-32 z-50 text-center w-full left-0 bg-green-500">
+                <div className="fixed top-32 z-50 text-center w-full left-0 p-1 bg-green-500">
                     {apiMessage}
                 </div>
             )}
             {validationMsg.length > 0 && (
-                <div className="fixed top-32 z-50 text-center w-full left-0 bg-red-500">
+                <div className="fixed top-32 z-50 text-center w-full left-0 p-1 bg-red-500">
                     {validationMsg}
                 </div>
             )}
@@ -409,8 +418,31 @@ const AddProductsToTraders = ({ traderInfo }) => {
                     {/*-------------------- sub Category (Select list) ---------------------*/}
                     {/*-------------------------- (اسم الصنيف) ----------------------------*/}
                     <div className="types-div mt-3">
-                        <h1> إختر التصنيف </h1>
-                        <select
+                        <h1 className="font-bold"> إختر التصنيف </h1>
+                        <h1>التصنيف الذى تم اختيارة : {seletedSubName.length > 0 ? <span className="border-b-2 font-bold shadow-md">{seletedSubName}</span> : 'لم يتم الاختيار بعد'}</h1>
+                        <div className="category-container-add-prodcut">
+                        <div className="main-category-btn relative rounded-md p-1" >
+                            <span className="cursor-pointer">التصنيفات</span>
+                            <div className="category-div-toggle hidden bg-blue-600 rounded-md">
+                                {categoriesArray &&
+                                categoriesArray.map(categ=>(
+                                    <div key={categ.id} className='categoy-name cursor-pointer relative' >
+                                        <h1 className="p-1">{categ.name}</h1>
+                                        <div className="subCateg bg-slate-400 rounded-md absolute hidden">
+                                            <div className="subCategory-div ">
+                                                {categ.subCategories &&
+                                                categ.subCategories.map(sub=> (
+                                                    <button onClick={()=> whatSub(sub)} className="m-1 p-1 rounded-md bg-red-500 text-white" key={sub.id} >{sub.name}</button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                                }
+                            </div>
+                        </div>
+                        </div>
+                        {/* <select
                             className="rounded-md cursor-pointer"
                             onChange={whatCategory}
                             name="type"
@@ -424,7 +456,7 @@ const AddProductsToTraders = ({ traderInfo }) => {
                                         {oneType.name}
                                     </option>
                                 ))}
-                        </select>
+                        </select> */}
                     </div>
 
                     {/*-------------------- sub Category (Select list) ---------------------*/}

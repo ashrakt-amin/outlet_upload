@@ -11,6 +11,10 @@ const AddCategories = () => {
 
     const [categoryIdVal, setCategoryIdVal] = useState("");
 
+    const [getCetgAgain, setgetCetgAgain] = useState(false)
+
+    console.log(categoryIdVal);
+
     //--------------------------------------- ("Get All Categories") ---------------------------------------\\
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -21,7 +25,7 @@ const AddCategories = () => {
                         name: categorryVal,
                     })
                     .then((res) => {
-                        console.log(res);
+                        console.log(res.data.data);
                         setCategoryId(res.data.data);
                     });
             } catch (er) {
@@ -33,7 +37,7 @@ const AddCategories = () => {
         return () => {
             cancelRequest.cancel();
         };
-    }, []);
+    }, [getCetgAgain]);
     //--------------------------------------- (" End Get All Categories") ---------------------------------------\\
 
     //--------------------------------------- ("Adding Category Function") ---------------------------------------\\
@@ -49,6 +53,7 @@ const AddCategories = () => {
                     .then((res) => {
                         setCategorryMsg(`${res.data.data.name}`);
                         setIsAddCategory(!isAddCategory);
+                        setgetCetgAgain(!getCetgAgain)
                         setCategorryVal("");
                         setTimeout(() => {
                             setCategorryMsg("");

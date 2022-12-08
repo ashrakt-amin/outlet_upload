@@ -36,15 +36,11 @@ const VendrosPage = () => {
     const [fetchAgain, setFetchAgain] = useState(false);
 
     useEffect(() => {
-        let getToken = JSON.parse(localStorage.getItem("uTk"));
         const getVendors = async () => {
             try {
                 axios
                     .get(
                         `${process.env.MIX_APP_URL}/api/traders`
-                        // , {
-                        //     headers: { Authorization: `Bearer ${getToken}` },
-                        // }
                     )
                     .then((res) => {
                         setTradersArr(res.data.data);
