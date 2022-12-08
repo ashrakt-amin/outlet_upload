@@ -13,6 +13,7 @@ const AddManufactories = () => {
     // (----------------------- (manufactor Function) -----------------------)
     const addManufactorComp = async () => {
         if (manufactorCompaneyName.length > 0) {
+            setIsAddManifec(!isAddManifec);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/manufactories`, {

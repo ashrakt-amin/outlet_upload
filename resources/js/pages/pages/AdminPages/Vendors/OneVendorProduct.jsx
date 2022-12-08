@@ -428,7 +428,7 @@ const OneVendorProduct = () => {
                     )}
                 </div>
 
-                {isUpdateProduct ? (
+                {/* {isUpdateProduct ? (
                     <button
                         onClick={() => setisUpdateProduct(!isUpdateProduct)}
                         className="bg-red-600 rounded-md p-2 my-3 text-white"
@@ -442,7 +442,7 @@ const OneVendorProduct = () => {
                     >
                         تعديل المنتج
                     </button>
-                )}
+                )} */}
 
                 {isUpdateProduct && (
                     <UpdateTraderProductModal traderProductInfo={itemInfo} />

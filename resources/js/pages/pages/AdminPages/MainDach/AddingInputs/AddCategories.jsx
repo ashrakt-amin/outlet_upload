@@ -11,9 +11,7 @@ const AddCategories = () => {
 
     const [categoryIdVal, setCategoryIdVal] = useState("");
 
-    const [getCetgAgain, setgetCetgAgain] = useState(false)
-
-    console.log(categoryIdVal);
+    const [getCetgAgain, setgetCetgAgain] = useState(false);
 
     //--------------------------------------- ("Get All Categories") ---------------------------------------\\
     useEffect(() => {
@@ -53,7 +51,7 @@ const AddCategories = () => {
                     .then((res) => {
                         setCategorryMsg(`${res.data.data.name}`);
                         setIsAddCategory(!isAddCategory);
-                        setgetCetgAgain(!getCetgAgain)
+                        setgetCetgAgain(!getCetgAgain);
                         setCategorryVal("");
                         setTimeout(() => {
                             setCategorryMsg("");

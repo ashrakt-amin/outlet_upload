@@ -12,6 +12,7 @@ const AddImportedCompany = () => {
     // (----------------------- (Importer Companey Function) -----------------------)
     const addImporterCompaney = async () => {
         if (importersName.length > 0) {
+            setImportedCompany(!isImportedCompany);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/importers`, {

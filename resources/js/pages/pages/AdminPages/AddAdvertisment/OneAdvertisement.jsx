@@ -54,7 +54,7 @@ const OneAdvertisement = ({ advertise, refetch }) => {
     const updateImg = async (imgvalue) => {
         const getToken = JSON.parse(localStorage.getItem("uTk"));
         const fData = new FormData();
-        fData.append("img", imgVal);    
+        fData.append("img", imgVal);
         console.log(fData);
         try {
             let res = await axios.put(
@@ -148,24 +148,24 @@ const OneAdvertisement = ({ advertise, refetch }) => {
                         className="bg-green-500 rounded-md p-2 mb-3 text-white"
                         onClick={() => setIsRemaining(!isRemaining)}
                     >
-                        تعديل المدة
+                        تعديل مدة الاعلان
                     </button>
                 )}
             </div>
 
-            <div className="adjust-img-advertise bg-slate-200 m-3 p-2 rounded-md">
+            {/* <div className="adjust-img-advertise bg-slate-200 m-3 p-2 rounded-md">
                 <h1>تعديل صورة الاعلان</h1>
                 <input type="file" onChange={handleImg} />
-            </div>
+            </div> */}
 
-            {isImgUpdate && (
+            {/* {isImgUpdate && (
                 <button
                     className="bg-green-500 rounded-md p-2 mb-3 text-white"
                     onClick={() => updateImg(advertise)}
                 >
                     تأكيد تعديل الصورة
                 </button>
-            )}
+            )} */}
 
             {isUpdateLink && (
                 <div className="link-input-div">

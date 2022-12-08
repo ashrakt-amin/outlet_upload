@@ -11,7 +11,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [fName, setfName] = useState("");
     const [mName, setmName] = useState("");
     const [lName, setlName] = useState("");
-    const [age, setAge] = useState('');
+    const [age, setAge] = useState("");
     const [phone, setPhone] = useState("");
     const [nationalId, setNationalId] = useState("");
     const [phone2, setPhone2] = useState("");
@@ -143,6 +143,19 @@ function AddTrader({ closeModal, getTradersAgain }) {
         console.log("hi");
     };
 
+    const emptyInputs = () => {
+        setfName("");
+        setmName("");
+        setlName("");
+        setAge("");
+        setPhone("");
+        setNationalId("");
+        setPhone2("");
+        setEmail("");
+        setTraderCode("");
+        setPassword("");
+    };
+
     const postData = async () => {
         const getUserToken = JSON.parse(localStorage.getItem("uTk"));
 
@@ -174,6 +187,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                 }
             );
             console.log(res);
+            emptyInputs();
             setSuccessMsg(res.data.message);
             getTradersAgain();
             setTimeout(() => {

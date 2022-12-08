@@ -12,6 +12,7 @@ const AddColors = () => {
     const [colorName, setColorName] = useState("");
     const addColor = async () => {
         if (colorName.length > 0) {
+            setIsAddColor(!isAddColor);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/colors`, {

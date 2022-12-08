@@ -13,6 +13,7 @@ const AddColors = () => {
     const addItemUnits = async () => {
         const getToken = JSON.parse(localStorage.getItem("uTk"));
         if (itemUnitName.length > 0) {
+            setIsAddItemUnits(!isAddItemUnits);
             try {
                 axios
                     .post(

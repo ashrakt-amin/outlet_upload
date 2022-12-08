@@ -12,6 +12,7 @@ const AddActivity = () => {
     const [activityName, setActivityName] = useState("");
     const addColor = async () => {
         if (activityName.length > 0) {
+            setIsAddActivity(!isAddActivity);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/activities`, {
@@ -19,7 +20,7 @@ const AddActivity = () => {
                     })
                     .then((res) => {
                         setSuccessMsg(res.data.message);
-                        setIsAddActivity("");
+                        setIsAddActivity(!isAddActivity);
                         setActivityName("");
                         setTimeout(() => {
                             setSuccessMsg("");

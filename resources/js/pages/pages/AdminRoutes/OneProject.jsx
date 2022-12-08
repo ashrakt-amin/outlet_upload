@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-
 const OneProject = () => {
     const { id } = useParams();
 
@@ -24,10 +23,10 @@ const OneProject = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setOneProject(res.data.data);
-                console.log(res,'projoect 28');
+                console.log(res, "projoect 28");
             } catch (error) {
-                console.log(error,'project');
-                console.log('error');
+                console.log(error, "project");
+                console.log("error");
             }
         };
         getLevels();
@@ -41,16 +40,16 @@ const OneProject = () => {
     };
 
     const addLevelFunc = () => {
+        setIsAddLevel(!isAddLevel);
         if (levelName != "") {
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/levels`, {
                         name: levelName,
                         project_id: oneProject.id,
-                        level_type: 0
+                        level_type: 0,
                     })
                     .then((res) => {
-                        console.log(res.data);
                         setLevelName("");
                         setFechAgain(!fetchAgain);
                         setIsAddLevel(!isAddLevel);

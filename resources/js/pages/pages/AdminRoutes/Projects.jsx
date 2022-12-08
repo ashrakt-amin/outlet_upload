@@ -34,6 +34,7 @@ const Projects = () => {
     };
 
     const addProject = async () => {
+        setIsAddproject(!isAddproject);
         if (projectName != "") {
             try {
                 axios
@@ -42,6 +43,7 @@ const Projects = () => {
                     })
                     .then((res) => {
                         setSuccessMsg(res.data.message);
+                        setProjectName("");
                         setTimeout(() => {
                             setSuccessMsg("");
                         }, 3000);
@@ -84,6 +86,7 @@ const Projects = () => {
                 )}
 
                 <input
+                    value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
                     type="text"
                     className="rounded-md mx-1"

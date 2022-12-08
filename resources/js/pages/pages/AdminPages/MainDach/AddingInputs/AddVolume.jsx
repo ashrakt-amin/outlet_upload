@@ -12,6 +12,7 @@ const AddVolume = () => {
     const [volumeName, setVolumeName] = useState("");
     const addVolume = async () => {
         if (volumeName.length > 0) {
+            setIsAddValume(!isAddValume);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/volumes`, {

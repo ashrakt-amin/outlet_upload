@@ -2,11 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
-import { AiTwotoneHeart} from "react-icons/ai";
+import { AiTwotoneHeart } from "react-icons/ai";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import heart from "./heart.gif";
 
 import "./dealsStyle.scss";
+
 import { SwiperSlide } from "swiper/react";
 
 import "swiper/swiper-bundle.min.css";
@@ -18,23 +19,19 @@ import { useDispatch } from "react-redux";
 const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
-    const [discountValue,setDiscountValue] = useState('')
+    const [discountValue, setDiscountValue] = useState("");
 
-    const [priceAfterdiscount, setpriceAfterdiscount] = useState('')
+    const [priceAfterdiscount, setpriceAfterdiscount] = useState("");
 
-    
     useEffect(() => {
-        let theDiscountValue = product.discount * product.sale_price /100;// ما تم خصمه
-        setDiscountValue(theDiscountValue)
-    
-        let priceAfterDiscount = product.sale_price - theDiscountValue;// السعر بعد الخصم
-        setpriceAfterdiscount(priceAfterDiscount)
+        let theDiscountValue = (product.discount * product.sale_price) / 100; // ما تم خصمه
+        setDiscountValue(theDiscountValue);
 
-    }, [])
+        let priceAfterDiscount = product.sale_price - theDiscountValue; // السعر بعد الخصم
+        setpriceAfterdiscount(priceAfterDiscount);
+    }, []);
 
     console.log(product);
-    
-
 
     const dispatch = useDispatch();
 
@@ -92,20 +89,18 @@ const OneDealsProduct = ({ product, refetchFn }) => {
         }
     };
     return (
-
-
-            <SwiperSlide
-                key={product.id}
-                dir={`rtl`}
-                className="swiper-slide swiper-deals p-1 rounded-md relative"
-                style={{
-                    backgroundColor: "#fff",
-                }}
-            >
-                <Link
+        <SwiperSlide
+            key={product.id}
+            dir={`rtl`}
+            className="swiper-slide swiper-deals p-1 rounded-md relative"
+            style={{
+                backgroundColor: "#fff",
+            }}
+        >
+            <Link
                 className="bg-slate-300 rounded-md"
                 to={`/products/product/${product.id}`}
-                >
+            >
                 <div
                     className="product-img max-sm:w-10/12"
                     style={{
@@ -119,40 +114,44 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         alt=""
                     />
                 </div>
-                </Link>
-                <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+            </Link>
+            <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                 {product.discount}%
             </div>
 
-                <h5 className="overflow-hidden text-ellipsis text-xl w-full" >
-                    {product.name}
-                </h5>
+            <h5 className="overflow-hidden text-ellipsis text-xl w-full">
+                {product.name}
+            </h5>
 
-                {product.discount > 0 ?
+            {product.discount > 0 ? (
                 <>
                     <small
-                        style={{
-                            textDecorationColor: "red",
-                            textDecorationLine: "line-through",
-                        }}
+                        className="linethorugh relative"
+                        // style={{
+                        //     textDecorationColor: "red",
+                        //     textDecorationLine: "line-through",
+                        // }}
                     >
                         السعر: {product.sale_price} {"جنية "}
                     </small>
                     <h5 className="font-semibold sale-price-after-discount">
                         السعر: {priceAfterdiscount} {"جنية "}
                     </h5>
-                </>:
-                    <h5 className="font-semibold sale-price">
+                </>
+            ) : (
+                <h5 className="font-semibold sale-price">
                     السعر: {product.sale_price} {"جنية "}
-                    </h5>
-            }
+                </h5>
+            )}
 
-                {
-                product.discount > 0 &&
-                <small> وفر {discountValue}  {"جنية "}</small>
-                }
+            {product.discount > 0 && (
+                <small>
+                    {" "}
+                    وفر {discountValue} {"جنية "}
+                </small>
+            )}
 
-                {/* <div className="rate-div flex gap-2 my-3">
+            {/* <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
                             key={star}
@@ -160,31 +159,30 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         />
                     ))}
                 </div> */}
-                <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
-                    <span className="mb-4 hover:text-red-600">
-                        {!wishlistBtn ? (
-                            <AiTwotoneHeart
-                                onClick={() => saveToWishList(product.id)}
-                                className={`cursor-pointer ${
-                                    product.wishlist == true && "text-red-500"
-                                }`}
-                            />
-                        ) : (
-                            <img className="w-5 h-5" src={heart} alt="" />
-                        )}
-                    </span>
-                    <span className="my-3 py-3 ">
-                        <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
-                    </span>
-                </div>
-                <Link
+            <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
+                <span className="mb-4 hover:text-red-600">
+                    {!wishlistBtn ? (
+                        <AiTwotoneHeart
+                            onClick={() => saveToWishList(product.id)}
+                            className={`cursor-pointer ${
+                                product.wishlist == true && "text-red-500"
+                            }`}
+                        />
+                    ) : (
+                        <img className="w-5 h-5" src={heart} alt="" />
+                    )}
+                </span>
+                <span className="my-3 py-3 ">
+                    <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
+                </span>
+            </div>
+            <Link
                 className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
                 to={`/products/product/${product.id}`}
-                >
+            >
                 تفاصيل المنتج
-                </Link>
-                    </SwiperSlide>
-               
+            </Link>
+        </SwiperSlide>
     );
 };
 

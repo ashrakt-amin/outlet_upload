@@ -12,6 +12,7 @@ const AddSize = () => {
     const [sizeName, setSizeName] = useState("");
     const addSize = async () => {
         if (sizeName.length > 0) {
+            setIsAddSize(!isAddSize);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/sizes`, {

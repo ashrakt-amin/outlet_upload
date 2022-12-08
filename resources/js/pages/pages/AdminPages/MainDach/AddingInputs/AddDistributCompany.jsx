@@ -13,6 +13,7 @@ const AddDistributCompany = () => {
     // (----------------------- (addDistributCompany (companies) Function) -----------------------)
     const addDistributCompany = async () => {
         if (distributCompanyName.length > 0) {
+            setIsDistributCompany(!isDistributCompany);
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/companies`, {

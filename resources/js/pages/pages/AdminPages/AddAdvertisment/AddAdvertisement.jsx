@@ -27,14 +27,13 @@ const AddAdvertisement = () => {
         const getVendors = async () => {
             try {
                 axios
-                    .get(`${process.env.MIX_APP_URL}/api/traders`, 
-                    )
+                    .get(`${process.env.MIX_APP_URL}/api/traders`)
                     .then((res) => {
                         setTradersArr(res.data.data);
                         console.log(res.data.data);
                     });
             } catch (er) {
-                console.log(er); 
+                console.log(er);
             }
         };
         getVendors();
@@ -70,7 +69,7 @@ const AddAdvertisement = () => {
         formData.append("updated_by", 1);
 
         setIsAddAdvertise(!isAddAdvertise);
-        
+
         try {
             const res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/advertisements`,
@@ -80,9 +79,11 @@ const AddAdvertisement = () => {
                 }
             );
             setIsAddAdvertise(!isAddAdvertise);
+            setLinkUrl("");
             setImgVal(null);
             setRenewNum("");
             setTraderId("");
+            setTraderName("");
             setFetchAgain();
         } catch (error) {
             console.warn(error.message);

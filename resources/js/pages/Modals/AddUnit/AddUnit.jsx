@@ -5,11 +5,11 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     const [unitName, setUnitName] = useState("");
 
     const [unitDescription, setUnitDescription] = useState("");
-    
+
     const [sucessMsg, setSuccessMsg] = useState("");
-    
+
     console.log(levelInfo);
-    
+
     // const [meterPrice, setMeterPrice] = useState("");
     // const [unitPriceVal, setUnitPriceVal] = useState("");
     // const [unitSpace, setUnitSpace] = useState("");
@@ -28,23 +28,23 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
     // --------------------- Validation inputs -------------------------------
     const [unitNameValid, setUnitNameValid] = useState(false);
-    const [unitSpaseValid, setUnitSpaceValid] = useState(false);
-    const [meterPriceValid, setMeterPriceValid] = useState(false);
+    // const [unitSpaseValid, setUnitSpaceValid] = useState(false);
+    // const [meterPriceValid, setMeterPriceValid] = useState(false);
 
     //----------------------- validation inputs check -----------------------
-    useEffect(() => {
-        unitName == "" ? setUnitNameValid(true) : setUnitNameValid(false);
+    // useEffect(() => {
+    //     unitName == "" ? setUnitNameValid(true) : setUnitNameValid(false);
 
-        unitSpace == "" ? setUnitSpaceValid(true) : setUnitSpaceValid(false);
+    //     unitSpace == "" ? setUnitSpaceValid(true) : setUnitSpaceValid(false);
 
-        meterPrice == "" ? setMeterPriceValid(true) : setMeterPriceValid(false);
-    }, [unitName, unitSpace, meterPrice]);
+    //     meterPrice == "" ? setMeterPriceValid(true) : setMeterPriceValid(false);
+    // }, [unitName, unitSpace, meterPrice]);
     //----------------------- validation inputs check -----------------------
 
-    useEffect(() => {
-        let calcUnitValue = unitSpace * meterPrice;
-        setUnitPriceVal(calcUnitValue);
-    }, [unitSpace, meterPrice]);
+    // useEffect(() => {
+    //     let calcUnitValue = unitSpace * meterPrice;
+    //     setUnitPriceVal(calcUnitValue);
+    // }, [unitSpace, meterPrice]);
 
     ////////////////////////////////////////////////////// End Selections //////////////////////////////////////////////////////////////////////
     const emptyValues = () => {
@@ -59,14 +59,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     //////////////////////////////////////////////////////// Add New Unit Function  ///////////////////////////////////////////////////////////
     console.log(levelID);
     const addNewUnit = async () => {
-        let validnumber = /[0-9]/;
-        if (
-            unitName != "" &&
-            unitSpace.match(validnumber) != null &&
-            meterPrice.match(validnumber) != null &&
-            projectId != "" &&
-            levelID != ""
-        ) {
+        if (unitName != "" && projectId != "" && levelID != "") {
             try {
                 await axios
                     .post(`${process.env.MIX_APP_URL}/api/units`, {

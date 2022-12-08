@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import TextEditorFunction from "../../TextEditorClassComponent/TextEditorFunction";
 import TextEditorFunction from "../../TraderDashboard/TextEditorClassComponent/TextEditorFunction";
 
+import "./addproducts.scss";
 
-import './addproducts.scss'
-
-const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
+const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-    const [allSubCategories, setallSubCategories] = useState([])
+    const [allSubCategories, setallSubCategories] = useState([]);
 
     const navig = useNavigate();
 
@@ -36,7 +34,7 @@ const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
     // (----------------------------- (types التصنيفات select) -----------------------------)
     const [categoriesArray, setCategoriesArray] = useState([]);
     const [categoryId, setcategoryId] = useState("");
-    const [seletedSubName, setSeletedSubName] = useState('')
+    const [seletedSubName, setSeletedSubName] = useState("");
     // (----------------------------- (types التصنيفات select) -----------------------------)
 
     // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
@@ -103,7 +101,6 @@ const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
                         );
                         setCategoriesArray(res.data.data);
                         console.log(res);
-
                     } catch (error) {
                         console.warn(error.message);
                     }
@@ -273,7 +270,7 @@ const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
                 }
             );
             setApiMessage(res.data.message);
-            getInfoAgainFunc()
+            getInfoAgainFunc();
             setTimeout(() => {
                 setApiMessage("");
             }, 2000);
@@ -333,11 +330,11 @@ const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
         // }
     };
 
-    const whatSub = (sub)=> {
+    const whatSub = (sub) => {
         console.log(sub);
-        setcategoryId(sub.id)
-        setSeletedSubName(sub.name)
-    }
+        setcategoryId(sub.id);
+        setSeletedSubName(sub.name);
+    };
 
     return (
         <div>
@@ -419,28 +416,59 @@ const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
                     {/*-------------------------- (اسم الصنيف) ----------------------------*/}
                     <div className="types-div mt-3">
                         <h1 className="font-bold"> إختر التصنيف </h1>
-                        <h1>التصنيف الذى تم اختيارة : {seletedSubName.length > 0 ? <span className="border-b-2 font-bold shadow-md">{seletedSubName}</span> : 'لم يتم الاختيار بعد'}</h1>
+                        <h1>
+                            التصنيف الذى تم اختيارة :{" "}
+                            {seletedSubName.length > 0 ? (
+                                <span className="border-b-2 font-bold shadow-md">
+                                    {seletedSubName}
+                                </span>
+                            ) : (
+                                "لم يتم الاختيار بعد"
+                            )}
+                        </h1>
                         <div className="category-container-add-prodcut">
-                        <div className="main-category-btn relative rounded-md p-1" >
-                            <span className="cursor-pointer">التصنيفات</span>
-                            <div className="category-div-toggle hidden bg-blue-600 rounded-md">
-                                {categoriesArray &&
-                                categoriesArray.map(categ=>(
-                                    <div key={categ.id} className='categoy-name cursor-pointer relative' >
-                                        <h1 className="p-1">{categ.name}</h1>
-                                        <div className="subCateg bg-slate-400 rounded-md absolute hidden">
-                                            <div className="subCategory-div ">
-                                                {categ.subCategories &&
-                                                categ.subCategories.map(sub=> (
-                                                    <button onClick={()=> whatSub(sub)} className="m-1 p-1 rounded-md bg-red-500 text-white" key={sub.id} >{sub.name}</button>
-                                                ))}
+                            <div className="main-category-btn relative rounded-md p-1">
+                                <span className="cursor-pointer">
+                                    التصنيفات
+                                </span>
+                                <div className="category-div-toggle hidden bg-blue-600 rounded-md">
+                                    {categoriesArray &&
+                                        categoriesArray.map((categ) => (
+                                            <div
+                                                key={categ.id}
+                                                className="categoy-name cursor-pointer relative"
+                                            >
+                                                <h1 className="p-1">
+                                                    {categ.name}
+                                                </h1>
+                                                <div className="subCateg bg-slate-400 rounded-md absolute hidden">
+                                                    <div className="subCategory-div ">
+                                                        {categ.subCategories &&
+                                                            categ.subCategories.map(
+                                                                (sub) => (
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            whatSub(
+                                                                                sub
+                                                                            )
+                                                                        }
+                                                                        className="m-1 p-1 rounded-md bg-red-500 text-white"
+                                                                        key={
+                                                                            sub.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            sub.name
+                                                                        }
+                                                                    </button>
+                                                                )
+                                                            )}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                ))
-                                }
+                                        ))}
+                                </div>
                             </div>
-                        </div>
                         </div>
                         {/* <select
                             className="rounded-md cursor-pointer"
@@ -471,7 +499,7 @@ const AddProductsToTraders = ({ traderInfo,getInfoAgainFunc }) => {
                             id="itemunit"
                             value={itemUnitId}
                         >
-                            <option value={"0"}>لم تختر بعد</option>
+                            {/* <option value={"0"}>لم تختر بعد</option> */}
                             {itemsUnitsArr &&
                                 itemsUnitsArr.map((oneItemUnit) => (
                                     <option
