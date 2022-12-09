@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('available')                 ->nullable();
             $table->boolean('approved')                  ->default(0);
             $table->string('item_code')                    ->unique();
-            $table->decimal('discount', 16)              ->default(0);
+            $table->decimal('discount', 16)  ->nullable()->default(0);
             $table->text('description')                  ->nullable();
             $table->unsignedBigInteger('manufactory_id') ->nullable();
             $table->unsignedBigInteger('agent_id')       ->nullable();

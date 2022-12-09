@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Item;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -50,8 +51,11 @@ class StockController extends Controller
                 "data" => new StockResource($stock)
             ], 200);
         } else {
-        $stock = Stock::create($request->all());
-            if ($stock) {
+            $item = Item::find($request->item_id);
+            $stock = new Stock();
+            $stock->fill($request->input());
+            $stock->stock_code = $item->code.$request->color_id.$request->size_id;
+            if ($stock->save()) {
                 return response()->json([
                     "success" => true,
                     "message" => "تم اضافة رصيدا جديدا للمنتج",

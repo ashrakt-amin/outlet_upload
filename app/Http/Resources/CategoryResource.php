@@ -14,12 +14,13 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        // $subCategories = $this->whenLoaded('subCategories');
+        $items = $this->whenLoaded('items');
         return [
-            'id'              => $this->id,
-            'name'            => $this->name,
+            'id'            => $this->id,
+            'name'          => $this->name,
             // 'parentCategory'  => ($this->parent_category),
-            'subCategories'   => CategoryResource::collection($this->category_sub_categories),
+            'subCategories' => CategoryResource::collection($this->category_sub_categories),
+            'items'         => ItemResource::collection($this->category_items),
         ];
     }
 }

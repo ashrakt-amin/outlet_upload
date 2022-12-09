@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Item;
-use App\Models\Client;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ItemResource;
-use App\Http\Resources\ClientResource;
 use App\Http\Resources\WishlistResource;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
 class WishlistController extends Controller
 {
+    use TraitsAuthGuardTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,10 +37,8 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        if (request()->bearerToken() != null) {
-            [$id, $user_token] = explode('|', request()->bearerToken(), 2);
-            $token_data = DB::table('personal_access_tokens')->where(['token' => hash('sha256', $user_token), 'name'=>'client' ])->first();
-            $wishlist = Wishlist::where(['client_id' => $token_data->tokenable_id, 'item_id' => $request->item_id])->first();
+        if ($this->getTokenId('client')) {
+            $wishlist = Wishlist::where(['client_id' => $this->getTokenId('client'), 'item_id' => $request->item_id])->first();
             if ($wishlist) {
                 if ($wishlist->delete()) {
                     return response()->json([
@@ -56,7 +52,7 @@ class WishlistController extends Controller
             } else {
                 $wishlist = new Wishlist();
                 $wishlist->item_id    = $request->item_id;
-                $wishlist->client_id  = $token_data->tokenable_id;
+                $wishlist->client_id  = $this->getTokenId('client');
                 if ($wishlist->save()) {
                     return response()->json([
                         "success" => true,
@@ -67,6 +63,10 @@ class WishlistController extends Controller
                     ], 422);
                 }
             }
+        } else {
+            return response()->json([
+                "message" => "",
+            ], 422);
         }
     }
 
@@ -78,7 +78,7 @@ class WishlistController extends Controller
      */
     public function destroy()
     {
-        $wishlists = Wishlist::where(['client_id'=>auth()->guard()->id()])->get();
+        $wishlists = Wishlist::where(['client_id'=>$this->getTokenId('client')])->get();
         if (count($wishlists) > 0) {
             foreach ($wishlists as $wishlist) {
                 $wishlist->delete();

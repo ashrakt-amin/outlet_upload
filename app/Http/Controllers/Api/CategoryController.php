@@ -72,7 +72,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // $category = Category::where(['id'=>$category->id])->with(['items'])->first();
         return response()->json([
             'data' => new CategoryResource($category),
         ], 200);

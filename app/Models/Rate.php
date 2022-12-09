@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
 class Rate extends Model
 {
-    use HasFactory;
+    use HasFactory, TraitsAuthGuardTrait;
 
     protected $fillable = [
         'item_id',
@@ -19,7 +20,7 @@ class Rate extends Model
     public function scopeRateWhereAuth($query, $itemId)
     {
 
-        return $query->where(['client_id' => auth()->guard()->id(), 'item_id' => $itemId]);
+        return $query->where(['client_id' => $this->getTokenId('client'), 'item_id' => $itemId]);
 
     }
 }

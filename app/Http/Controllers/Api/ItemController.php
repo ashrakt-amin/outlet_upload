@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Item;
 use App\Models\View;
+use App\Models\ItemImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
+use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
@@ -112,7 +113,7 @@ class ItemController extends Controller
             if (!$view) {
                 $view = new View();
                 $view->item_id    = $item->id;
-                $view->client_id  = auth()->guard()->id();
+                $view->client_id  = $item->getTokenId('client');
                 $view->view_count = 1;
                 $view->save();
             } elseif ($view) {
@@ -181,12 +182,22 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        if ($item->colorSizeStocks->count() == 0) {
+        if ($item->stocks->count() == 0) {
+            $itemImages = ItemImage::where(['item_id'=>$item->id])->get();
             if ($item->delete()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم حذف المنتج",
-                ], 200);
+                foreach ($itemImages as $itemImage) {
+                    $image_path = "assets/images/uploads/items/".$itemImage->img;  // Value is not URL but directory file path
+                    if(File::exists($image_path)) {
+                        File::delete($image_path);
+                        $itemImage->delete();
+                    }
+                }
+                if (count($item->itemImages) < 1) {
+                    return response()->json([
+                        "success" => true,
+                        "message" => "تم حذف المنتج",
+                    ], 200);
+                };
             } else {
                 return response()->json([
                     "success" => false,

@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('level_id');
+            $table->unsignedBigInteger('trader_id')->default('0');
             $table->unsignedBigInteger('site_id')    ->nullable();
             $table->unsignedBigInteger('statu_id') ->default('0');
-            $table->unsignedBigInteger('trader_id')->default('0');
             $table->unsignedBigInteger('finance_id') ->nullable();
-            $table->decimal('space', 8, 0);
-            $table->decimal('price_m', 8, 0);
+            $table->decimal('space', 8, 0)           ->nullable();
+            $table->decimal('price_m', 8, 0)         ->nullable();
             $table->decimal('unit_value', 16, 0)     ->nullable();
             $table->tinyInteger('deposit')         ->default('6');
             $table->decimal('rent_value', 8, 0)      ->nullable();

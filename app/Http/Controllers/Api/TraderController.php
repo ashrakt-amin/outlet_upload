@@ -47,14 +47,12 @@ class TraderController extends Controller
     {
         if ($this->getTokenId('user')) {
             $request->validate([
-            'f_name'      => 'required',
             'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
             'code'        => 'unique:traders,code',
             'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
             'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
             'national_id' => 'unique:traders,national_id',
             ], [
-                'f_name.required'    => 'الاسم ضروري',
                 'phone.unique'       => 'الهاتف مسجل من قبل',
                 'code.unique'        => 'الكود مسجل من قبل',
                 'phone.regex'        => 'صيغة الهاتف غير صحيحة',
@@ -142,7 +140,7 @@ class TraderController extends Controller
      */
     public function update(Request $request, Trader $trader)
     {
-        if (auth()->guard()->id()) {
+        if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             $trader->fill($request->input());
             if ($request->hasFile('logo')) {
                 $image_path = "assets/images/uploads/traders/".$trader->logo;  // Value is not URL but directory file path
