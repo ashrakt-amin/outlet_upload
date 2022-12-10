@@ -35,7 +35,8 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const inputsValid = () => {
         let regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let regPhone = /^(01)[0-9]{9}$/;
-        console.log(parseInt(age));
+
+        console.log(fName);
         if (fName.length <= 3) {
             setcheckFName("التاكد من الاسم الاول");
             return;
@@ -110,16 +111,17 @@ function AddTrader({ closeModal, getTradersAgain }) {
         const getUserToken = JSON.parse(localStorage.getItem("uTk"));
 
         const fromData = new FormData();
-        fromData.append("f_name,", fName);
-        fromData.append("m_name,", mName);
-        fromData.append("l_name,", lName);
-        fromData.append("age,", age);
-        fromData.append("phone,", phone);
-        fromData.append("phone2,", phone2);
-        fromData.append("national_id,", nationalId);
-        fromData.append("email,", email);
-        fromData.append("code,", traderCode);
-        fromData.append("img,", imgVal);
+        console.log(fName);
+        fromData.append("f_name", fName);
+        fromData.append("m_name", mName);
+        fromData.append("l_name", lName);
+        fromData.append("age", age);
+        fromData.append("phone", phone);
+        fromData.append("phone2", phone2);
+        fromData.append("national_id", nationalId);
+        fromData.append("email", email);
+        fromData.append("code", traderCode);
+        fromData.append("img", imgVal);
         try {
             let res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/traders`,

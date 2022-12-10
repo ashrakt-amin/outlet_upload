@@ -39,9 +39,7 @@ const VendrosPage = () => {
         const getVendors = async () => {
             try {
                 axios
-                    .get(
-                        `${process.env.MIX_APP_URL}/api/traders`
-                    )
+                    .get(`${process.env.MIX_APP_URL}/api/traders`)
                     .then((res) => {
                         setTradersArr(res.data.data);
                         // console.log(res.data.data);
@@ -60,8 +58,6 @@ const VendrosPage = () => {
     const currentRange = tradersArr.slice(firstCustIndx, lastCustIndx);
     let num = pagination(tradersArr.length, customersPerPages);
     //------------------------ Pagintion vars ------------------------
-
-    console.log(currentRange);
 
     const showConfirm = () => {
         setDeleteNowBtn(!deleteNowBtn);

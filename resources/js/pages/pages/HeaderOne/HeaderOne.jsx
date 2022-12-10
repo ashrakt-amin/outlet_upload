@@ -245,7 +245,9 @@ const Header = () => {
                             <span className="absolute crt-wich-num text-sm font-bold -top-2 left-3 bg-gray-100 rounded-xl w-7 ">
                                 {wichlistCount}
                             </span>
-                            <span className="hide-text-mob">المفضلة</span>
+                            <span className="hide-text-mob text-white">
+                                مشتريات لاحقا
+                            </span>
                             <FiHeart className="text-lg mx-2 text-white" />
                         </button>
 

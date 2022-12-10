@@ -22,6 +22,8 @@ const ClientProductDetails = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+
     const [discountValue, setDiscountValue] = useState("");
 
     const [priceAfterdiscount, setpriceAfterdiscount] = useState("");
@@ -213,14 +215,14 @@ const ClientProductDetails = () => {
                     className="product-details-div relative py-5 rounded-md px-2 gap-3 bg-slate-200 flex-1"
                     dir="rtl"
                 >
-                    <div className="wichlist-product w-fit rounded-md bg-slate-100 opacity-4">
-                        <span className="mb-4 hover:text-red-600 flex items-center">
+                    <div
+                        onClick={() => saveToWishList(singleProduct.id)}
+                        className="wichlist-product w-fit rounded-md cursor-pointer bg-slate-100 opacity-4"
+                    >
+                        <span className="mb-4  hover:text-red-600 flex items-center">
                             <span>الشراء لاحقا</span>
                             {!wishlistBtn ? (
                                 <AiTwotoneHeart
-                                    onClick={() =>
-                                        saveToWishList(singleProduct.id)
-                                    }
                                     className={`cursor-pointer ${
                                         singleProduct.wishlist == true &&
                                         "text-red-500"

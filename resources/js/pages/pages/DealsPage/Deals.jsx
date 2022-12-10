@@ -99,7 +99,7 @@ const Deals = () => {
                                         dir={`rtl`}
                                         className="swiper-slide deals-one-swiper-slide p-3 rounded-md"
                                         style={{
-                                            minHeight: "300px",
+                                            minHeight: "350px",
                                             // width: '230px',
                                             backgroundColor: "#fff",
                                         }}

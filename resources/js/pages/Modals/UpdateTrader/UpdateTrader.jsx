@@ -37,14 +37,13 @@ function UpdateTrader({ closeModal, traderInfo }) {
         setPhone(phone);
         setPhone2(phone2 == null ? "" : phone2);
         setPhone3(phone3 == null ? "" : phone3);
-        setPhone4(phone4 == null ? "" : phone4);
-        setPhone5(phone5 == null ? "" : phone5);
         setEmail(email == null ? "" : email);
         console.log(email);
         setTraderCode(code);
     }, []);
 
     const updateTraderFunc = async () => {
+        console.log(traderInfo);
         try {
             axios
                 .put(
@@ -57,8 +56,6 @@ function UpdateTrader({ closeModal, traderInfo }) {
                         phone: phone,
                         phone2: phone2,
                         phone3: phone3,
-                        phone4: phone4,
-                        phone5: phone5,
                         email: email,
                         code: traderCode,
                     }
@@ -167,10 +164,9 @@ function UpdateTrader({ closeModal, traderInfo }) {
                                 <div className="relative ">
                                     <h1>العمر</h1>
                                     <input
-                                        type="number"
+                                        type="date"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
                                         placeholder="العمر"
-                                        min={18}
                                         value={age}
                                         onChange={(e) => setAge(e.target.value)}
                                     />
@@ -216,32 +212,6 @@ function UpdateTrader({ closeModal, traderInfo }) {
                                         value={phone3}
                                         onChange={(e) =>
                                             setPhone3(e.target.value)
-                                        }
-                                    />
-                                </div>
-
-                                <div className="relative ">
-                                    <h1>التليفون الرابع</h1>
-                                    <input
-                                        type="tel"
-                                        className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="التليفون الرابع"
-                                        value={phone4}
-                                        onChange={(e) =>
-                                            setPhone4(e.target.value)
-                                        }
-                                    />
-                                </div>
-
-                                <div className="relative ">
-                                    <h1>التليفون الخامس</h1>
-                                    <input
-                                        type="tel"
-                                        className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="التليفون الخامس"
-                                        value={phone5}
-                                        onChange={(e) =>
-                                            setPhone5(e.target.value)
                                         }
                                     />
                                 </div>

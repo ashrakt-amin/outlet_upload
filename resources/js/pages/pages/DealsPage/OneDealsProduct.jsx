@@ -62,75 +62,85 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 backgroundColor: "#fff",
             }}
         >
-            <Link
-                className="bg-slate-300 rounded-md"
-                to={`/products/product/${product.id}`}
+            <div
+                className="deals-porduct-container flex flex-col justify-between items-start"
+                style={{ minHeight: "350px" }}
             >
-                <div
-                    className="product-img max-sm:w-10/12"
-                    style={{
-                        width: "200",
-                        height: "200px",
-                    }}
+                <Link
+                    className="bg-slate-300 rounded-md"
+                    to={`/products/product/${product.id}`}
                 >
-                    <img
-                        className="w-full h-full "
-                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
-                        alt=""
-                    />
-                </div>
-            </Link>
-            <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
-                {product.discount}%
-            </div>
-
-            <h5 className="overflow-hidden text-ellipsis text-xl w-full">
-                {product.name}
-            </h5>
-
-            {product.discount > 0 ? (
-                <>
-                    <small
-                        className="linethorugh relative"
-                        // style={{
-                        //     textDecorationColor: "red",
-                        //     textDecorationLine: "line-through",
-                        // }}
+                    <div
+                        className="product-img"
+                        style={{
+                            width: "200px",
+                            height: "200px",
+                        }}
                     >
-                        السعر: {product.sale_price} {"جنية "}
-                    </small>
-                    <h5 className="font-semibold sale-price-after-discount">
-                        السعر: {priceAfterdiscount} {"جنية "}
-                    </h5>
-                </>
-            ) : (
-                <h5 className="font-semibold sale-price">
-                    السعر: {product.sale_price} {"جنية "}
-                </h5>
-            )}
-
-            {product.discount > 0 && (
-                <small>
-                    {" "}
-                    وفر {discountValue} {"جنية "}
-                </small>
-            )}
-
-            {/* <div className="rate-div flex gap-2 my-3">
-                    {Array.from(Array(product.allRates).keys()).map((star) => (
-                        <AiTwotoneStar
-                            key={star}
-                            className="text-md text-amber-300"
+                        <img
+                            className="w-full h-full "
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
+                            alt=""
                         />
-                    ))}
-            </div> */}
+                    </div>
+                </Link>
+                {product.discount > 0 && (
+                    <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+                        {product.discount}%
+                    </div>
+                )}
 
-            <Link
-                className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
-                to={`/products/product/${product.id}`}
-            >
-                تفاصيل
-            </Link>
+                <h5
+                    className="overflow-hidden text-ellipsis text-xl"
+                    style={{ width: "97%" }}
+                >
+                    {product.name}
+                </h5>
+
+                {product.discount > 0 ? (
+                    <>
+                        <small
+                            className="linethorugh relative"
+                            // style={{
+                            //     textDecorationColor: "red",
+                            //     textDecorationLine: "line-through",
+                            // }}
+                        >
+                            السعر: {product.sale_price} {"جنية "}
+                        </small>
+                        <h5 className="font-semibold sale-price-after-discount">
+                            السعر: {priceAfterdiscount} {"جنية "}
+                        </h5>
+                    </>
+                ) : (
+                    <h5 className="font-semibold sale-price">
+                        السعر: {product.sale_price} {"جنية "}
+                    </h5>
+                )}
+
+                {product.discount > 0 && (
+                    <small>
+                        {" "}
+                        وفر {discountValue} {"جنية "}
+                    </small>
+                )}
+
+                {/* <div className="rate-div flex gap-2 my-3">
+                        {Array.from(Array(product.allRates).keys()).map((star) => (
+                            <AiTwotoneStar
+                                key={star}
+                                className="text-md text-amber-300"
+                            />
+                        ))}
+                </div> */}
+
+                <Link
+                    className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
+                    to={`/products/product/${product.id}`}
+                >
+                    تفاصيل
+                </Link>
+            </div>
         </SwiperSlide>
     );
 };
