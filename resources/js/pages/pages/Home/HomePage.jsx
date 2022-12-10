@@ -16,9 +16,11 @@ import ClientWichList from "../ClientsPages/ClientWishList/ClientWishList";
 import LevelTrader from "../LevelTrader/LevelTrader";
 import Footer from "../Footer/Footer";
 
+import "./homePage.scss";
+
 const HomePage = () => {
     return (
-        <div className="sm:pb-20" >
+        <div className="heigh-padding-mob">
             <HeaderOne />
             <Routes>
                 <Route path="/" element={<HomeContent />} />

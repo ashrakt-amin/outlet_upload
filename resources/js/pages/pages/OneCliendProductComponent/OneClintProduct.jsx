@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./oneClientProductStyle.scss";
 import heart from "./heart.gif";
@@ -13,7 +13,17 @@ import { useDispatch } from "react-redux";
 const OneClintProduct = ({ product, refetch }) => {
     const navigate = useNavigate();
 
-    console.log(product);
+    const [discountValue, setDiscountValue] = useState("");
+
+    const [priceAfterdiscount, setpriceAfterdiscount] = useState("");
+
+    useEffect(() => {
+        let theDiscountValue = (product.discount * product.sale_price) / 100; // ما تم خصمه
+        setDiscountValue(theDiscountValue);
+
+        let priceAfterDiscount = product.sale_price - theDiscountValue; // السعر بعد الخصم
+        setpriceAfterdiscount(priceAfterDiscount);
+    }, []);
 
     const dispatch = useDispatch();
 
@@ -66,85 +76,79 @@ const OneClintProduct = ({ product, refetch }) => {
             } catch (er) {
                 console.log(er);
             }
-            // axios
-            //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-            //     .then(async (res) => {
-            //         try {
-            //             await axios
-            //                 .post(
-            //                     `${process.env.MIX_APP_URL}/api/wishlists`,
-            //                     {
-            //                         item_id: product,
-            //                     },
-            //                     {
-            //                         headers: {
-            //                             Authorization: `Bearer ${getToken}`,
-            //                         },
-            //                     }
-            //                 )
-            //                 .then(async (resp) => {
-            //                     setWishlistBtn(false);
-            //                     getWishlistProductsCount();
-            //                     refetch();
-            //                 });
-            //         } catch (er) {
-            //             console.log(er);
-            //         }
-            //     });
         } else {
             navigate("/clientLogin");
         }
     };
 
     return (
-        <div className="relative">
+        <div
+            className="relative one-client-product p-3 bg-white shadow-md rounded-md"
+            dir={`rtl`}
+            style={{ maxWidth: "300px" }}
+        >
             <Link
+                className="bg-slate-300 rounded-md"
                 to={`/products/product/${product.id}`}
-                className="one-product-div block h-fit p-3 shadow-lg rounded-lg relative"
-                dir="rtl"
-                style={{ width: "300px" }}
             >
                 <div
-                    className="product-img "
-                    style={{ width: "200px", height: "250px" }}
+                    className="product-img"
+                    style={{
+                        width: "280",
+                        height: "200px",
+                    }}
                 >
                     <img
-                        className="mx-auto h-full w-full"
+                        className="w-full h-full "
                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
-                        alt="لا يوجد صورة"
+                        alt=""
                     />
                 </div>
-                <h5 className="">{product.name}</h5>
-                <h5
-                    style={{
-                        textDecorationColor: "red",
-                        textDecorationLine: "line-through",
-                    }}
-                    className="mt-2"
-                >
-                    السعر: {product.sale_price} جنية
+            </Link>
+            <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+                {product.discount}%
+            </div>
+
+            <h5 className="overflow-hidden text-ellipsis text-xl w-full">
+                {product.name}
+            </h5>
+
+            {product.discount > 0 ? (
+                <>
+                    <small
+                        className="linethorugh relative"
+                        // style={{
+                        //     textDecorationColor: "red",
+                        //     textDecorationLine: "line-through",
+                        // }}
+                    >
+                        السعر: {product.sale_price} {"جنية "}
+                    </small>
+                    <h5 className="font-semibold sale-price-after-discount">
+                        السعر: {priceAfterdiscount} {"جنية "}
+                    </h5>
+                </>
+            ) : (
+                <h5 className="font-semibold sale-price">
+                    السعر: {product.sale_price} {"جنية "}
                 </h5>
-                <h5 className="mt-2">الخصم: {20}% جنية</h5>
-                {/* <h5 className="mt-2">{product?.available}</h5> */}
-                {/* <div className="stock-count-div">
-                    <div>عدد القطع المتوفرة: {product?.stock}</div>
-                </div> */}
-                <div className="rate-div flex gap-2 my-3">
+            )}
+
+            {product.discount > 0 && (
+                <p>
+                    {" "}
+                    وفر {discountValue} {"جنية "}
+                </p>
+            )}
+
+            {/* <div className="rate-div flex gap-2 my-3">
                     {Array.from(Array(product.allRates).keys()).map((star) => (
                         <AiTwotoneStar
                             key={star}
                             className="text-md text-amber-300"
                         />
                     ))}
-                </div>
-
-                <div
-                    onClick={() => goToDetails(product)}
-                    className="details font-bold cursor-pointer mt-2 border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
-                >
-                    تفاصيل المنتج
-                </div>
-            </Link>
+            </div> */}
             <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
                 <span className="mb-4 hover:text-red-600">
                     {!wishlistBtn ? (
@@ -162,6 +166,12 @@ const OneClintProduct = ({ product, refetch }) => {
                     <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
                 </span>
             </div>
+            <Link
+                className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
+                to={`/products/product/${product.id}`}
+            >
+                تفاصيل
+            </Link>
         </div>
     );
 };

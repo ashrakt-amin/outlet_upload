@@ -7,6 +7,8 @@ const OneProject = () => {
 
     const [levelName, setLevelName] = useState("");
 
+    const [successMsg, setSuccessMsg] = useState("");
+
     const [fetchAgain, setFechAgain] = useState(false);
 
     const [isAddLevel, setIsAddLevel] = useState(false);
@@ -51,6 +53,11 @@ const OneProject = () => {
                     })
                     .then((res) => {
                         setLevelName("");
+                        console.log(res);
+                        setSuccessMsg(res.data.message);
+                        setTimeout(() => {
+                            setSuccessMsg("");
+                        }, 2000);
                         setFechAgain(!fetchAgain);
                         setIsAddLevel(!isAddLevel);
                     });
@@ -62,13 +69,18 @@ const OneProject = () => {
 
     return (
         <div dir="rtl" className="p-2 text-center">
-            <h1>الشوارع</h1>
+            <h1 className="text-lg">الشوارع</h1>
 
+            {successMsg.length > 0 && (
+                <div className="fixed top-32 z-50 text-center w-full left-0 bg-red-500">
+                    {successMsg}
+                </div>
+            )}
             <div className="add-project-div my-4 flex items-start">
                 {!isAddLevel && (
                     <button
                         onClick={showConfirm}
-                        className="bg-cyan-500 rounded-md p-2"
+                        className="bg-green-500 rounded-md p-2 text-white"
                     >
                         إضافة الشوارع
                     </button>
@@ -94,8 +106,14 @@ const OneProject = () => {
             <div className="levels-grid grid grid-cols-3 gap-3">
                 {oneProject.levels &&
                     oneProject.levels.map((levl) => (
-                        <div key={levl.id} className="p-3 bg-slate-500">
-                            <Link to={`/dachboard/projects/level/${levl.id}`}>
+                        <div
+                            key={levl.id}
+                            className="p-3 bg-white rounded-md shadow-md"
+                        >
+                            <Link
+                                className="w-full"
+                                to={`/dachboard/projects/level/${levl.id}`}
+                            >
                                 {levl.name}
                             </Link>
                         </div>

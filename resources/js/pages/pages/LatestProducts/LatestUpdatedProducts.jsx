@@ -12,7 +12,6 @@ import "swiper/swiper.min.css";
 import axios from "axios";
 import OneLatestProduct from "./OneLatestProduct";
 
-
 const LatestUpdatedProducts = () => {
     const [products, setProducts] = useState([]);
 
@@ -92,7 +91,7 @@ const LatestUpdatedProducts = () => {
                                     dir={`rtl`}
                                     className="swiper-slide latestproducts-one-swiper-slide p-3 rounded-md"
                                     style={{
-                                        minHeight: "400px",
+                                        minHeight: "300px",
                                         backgroundColor: "#fff",
                                     }}
                                 >

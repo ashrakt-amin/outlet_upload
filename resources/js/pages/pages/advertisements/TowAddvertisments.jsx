@@ -21,9 +21,9 @@ const TowAddvertisments = () => {
 
     return (
         <div className="my-5">
-            <h1 className="p-2 bg-slate-500 text-white text-center my-5">
+            {/* <h1 className="p-2 bg-slate-500 text-white text-center my-5">
                 اعلانات
-            </h1>
+            </h1> */}
             {advertise.length > 0 && (
                 <div className="tow-advertisements-contaienr flex justify-center gap-5">
                     <a href={`${advertise?.link}`} target="_blanck">
