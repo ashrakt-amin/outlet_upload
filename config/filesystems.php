@@ -44,6 +44,14 @@ return [
             'throw' => false,
         ],
 
+        'imagesFb' => [
+            'driver' => 'local',
+            'root' => storage_path('app/imagesFb'),
+            'url' => env('APP_URL').'/imagesFb',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -70,7 +78,8 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('storage')  => storage_path('app/public'),
+        public_path('imagesFb') => storage_path('app/imagesFb'),
     ],
 
 ];

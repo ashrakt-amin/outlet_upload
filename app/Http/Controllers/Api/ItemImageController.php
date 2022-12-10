@@ -6,11 +6,13 @@ use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use App\Http\Resources\ItemImageResource;
-use Illuminate\Database\Eloquent\Collection;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemImageController extends Controller
 {
+    use TraitImageProccessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -37,12 +39,20 @@ class ItemImageController extends Controller
                 $name            = $image->getClientOriginalName();
                 $ext             = $image->getClientOriginalExtension();
                 $filename        = rand(10, 100000).time().'.'.$ext;
-                $image->move('assets/images/uploads/items/', $filename);
+
+                $image_path = storage_path('app/imagesFb');
+                $image->move($image_path, $filename);
 
                 $itemImage = new ItemImage();
                 $itemImage->item_id = $item;
                 $itemImage->img     = $filename;
                 $itemImage->save();
+
+                $img = Image::make(storage_path('app/imagesFb').$filename)->fit(200, 200)->save();
+                // $img->resize(300, 300, function($constraint) {
+                //     $constraint->aspectRatio();
+                // });
+                // $img->save(storage_path('app/imagesFb').'/'.$filename);
             }
         }
     }

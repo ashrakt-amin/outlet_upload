@@ -44,6 +44,7 @@ use App\Http\Controllers\Api\Auth\LoginTraderController;
 use App\Http\Controllers\Api\Auth\RegisterUserController;
 use App\Http\Controllers\Api\Auth\RegisterClientController;
 use App\Http\Controllers\Api\Auth\RegisterTraderController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,9 @@ use App\Http\Controllers\Api\Auth\RegisterTraderController;
 //     return $request->user();
 // });
 ########################################################################################################################
+Route::get('/phpinfo', function() {
+    return phpinfo();
+});
 Route::get('call-helper', function(){
 
     $mdY = convertYmdToMdy('2022-02-12');
@@ -116,6 +120,15 @@ Route::middleware('auth:sanctum')->group(function () {
  */
 
 Route::middleware('auth:sanctum')->group(function () {
+    //-----------------------------------------------------------------------------------------------------------
+    Route::prefix("users")->group(function(){
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/show', 'show')->name('users.show');
+        });
+    });
+    // Route::resource('/users', UserController::class);
+    //______________________________________________________________________________________________________________________
+
     //-----------------------------------------------------------------------------------------------------------
     Route::prefix("traders")->group(function(){
         Route::controller(TraderController::class)->group(function () {

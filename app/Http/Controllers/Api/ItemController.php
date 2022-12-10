@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use Illuminate\Support\Facades\File;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemController extends Controller
 {
-
+    use TraitImageProccessingTrait;
     public function __construct ()
     {
         $authorizationHeader = \request()->header('Authorization');
