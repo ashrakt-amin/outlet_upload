@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAC,CAAC,CAAC;EACZ,OAAO,EAAE,IAAI;CAChB;;AAED,AACI,2BADuB,CACvB,gBAAgB,CAAC,EAAE,CAAC;EAChB,OAAO,EAAE,IAAI;CAChB;;AAHL,AAII,2BAJuB,CAIvB,gBAAgB,CAAC,EAAE,CAAC,EAAE,CAAC;EACnB,UAAU,EAAE,MAAM;CACrB",
+    "sources": [
+        "traderProductDetails.scss"
+    ],
+    "names": [],
+    "file": "traderProductDetails.css"
+}

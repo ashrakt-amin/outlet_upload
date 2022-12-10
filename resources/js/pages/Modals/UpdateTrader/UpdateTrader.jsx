@@ -59,7 +59,6 @@ function UpdateTrader({ closeModal, traderInfo }) {
                         phone3: phone3,
                         phone4: phone4,
                         phone5: phone5,
-                        activity: 1,
                         email: email,
                         code: traderCode,
                     }

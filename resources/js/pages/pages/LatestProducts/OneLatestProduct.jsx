@@ -89,7 +89,7 @@ const OneLatestProduct = ({ product, refetchFn }) => {
         <SwiperSlide
             key={product.id}
             dir={`rtl`}
-            className="swiper-slide relative p-1 rounded-md flex flex-col justify-between"
+            className="swiper-slide relative p-1 rounded-md flex flex-col justify-between items-start"
             style={{
                 backgroundColor: "#fff",
             }}
@@ -125,19 +125,20 @@ const OneLatestProduct = ({ product, refetchFn }) => {
             {product.discount > 0 ? (
                 <>
                     <small
-                        style={{
-                            textDecorationColor: "red",
-                            textDecorationLine: "line-through",
-                        }}
+                        className="linethorugh relative"
+                        // style={{
+                        //     textDecorationColor: "red",
+                        //     textDecorationLine: "line-through",
+                        // }}
                     >
                         السعر: {product.sale_price} {"جنية "}
                     </small>
-                    <h5 className="font-semibold sale-price-after-discount my-1">
+                    <h5 className="font-semibold sale-price-after-discount">
                         السعر: {priceAfterdiscount} {"جنية "}
                     </h5>
                 </>
             ) : (
-                <h5 className="font-semibold sale-price my-1">
+                <h5 className="font-semibold sale-price">
                     السعر: {product.sale_price} {"جنية "}
                 </h5>
             )}
@@ -157,23 +158,6 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                         />
                     ))}
                 </div> */}
-            <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
-                <span className="mb-4 hover:text-red-600">
-                    {!wishlistBtn ? (
-                        <AiTwotoneHeart
-                            onClick={() => saveToWishList(product.id)}
-                            className={`cursor-pointer ${
-                                product.wishlist == true && "text-red-500"
-                            }`}
-                        />
-                    ) : (
-                        <img className="w-5 h-5" src={heart} alt="" />
-                    )}
-                </span>
-                <span className="my-3 py-3 ">
-                    <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
-                </span>
-            </div>
             <Link
                 className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
                 to={`/products/product/${product.id}`}

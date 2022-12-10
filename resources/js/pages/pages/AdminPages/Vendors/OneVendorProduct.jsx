@@ -320,6 +320,8 @@ const OneVendorProduct = () => {
     };
     // (------------------------ open discount handle ----------------------)
 
+    console.log(itemInfo.description);
+
     return (
         <div dir="rtl" className="p-3">
             <div className="info-div">
@@ -397,12 +399,17 @@ const OneVendorProduct = () => {
                         </h1>
 
                         <div className="descripion-container">
-                            <div
-                                className="description-div"
-                                dangerouslySetInnerHTML={{
-                                    __html: itemInfo.description,
-                                }}
-                            />
+                            <h1>وصف المنتج</h1>
+                            {itemInfo.description == false ? (
+                                "لايوجد وصف"
+                            ) : (
+                                <div
+                                    className="description-div"
+                                    dangerouslySetInnerHTML={{
+                                        __html: itemInfo.description,
+                                    }}
+                                />
+                            )}
                         </div>
                     </div>
                 </details>
@@ -428,7 +435,7 @@ const OneVendorProduct = () => {
                     )}
                 </div>
 
-                {/* {isUpdateProduct ? (
+                {isUpdateProduct ? (
                     <button
                         onClick={() => setisUpdateProduct(!isUpdateProduct)}
                         className="bg-red-600 rounded-md p-2 my-3 text-white"
@@ -442,7 +449,7 @@ const OneVendorProduct = () => {
                     >
                         تعديل المنتج
                     </button>
-                )} */}
+                )}
 
                 {isUpdateProduct && (
                     <UpdateTraderProductModal traderProductInfo={itemInfo} />

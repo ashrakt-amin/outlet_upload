@@ -1,0 +1,10 @@
+.color-select-div .product-color-btn {
+  background-color: #707070;
+  border-bottom: 1px solid white;
+  color: aliceblue;
+}
+
+.color-select-div .product-color-btn:hover {
+  background-color: darkgray;
+}
+/*# sourceMappingURL=traderdashboardStyle.css.map */

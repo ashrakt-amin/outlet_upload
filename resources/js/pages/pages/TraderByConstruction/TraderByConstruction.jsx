@@ -43,6 +43,17 @@ const TraderByConstruction = () => {
                 محلات {levelName}
             </h1>
 
+            {!levelTraders.length > 0 && (
+                <div style={{ maxWidth: "500px" }} className=" mx-auto">
+                    <marquee
+                        direction="right"
+                        className="p-4 bg-red-600 text-white text-lg"
+                    >
+                        مرحبا بك فى{" Mansoura Outlet "}
+                    </marquee>
+                </div>
+            )}
+
             <div className="trader-grid-div grid gap-3 lg:grid-cols-3 md:grid:cols-2  place-items-center p-3">
                 {levelTraders &&
                     levelTraders.map((trader, i) => (

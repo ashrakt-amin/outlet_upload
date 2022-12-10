@@ -53,41 +53,6 @@ const OneDealsProduct = ({ product, refetchFn }) => {
         }
     };
 
-    const saveToWishList = (id) => {
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
-
-        if (getToken) {
-            setWishlistBtn(true);
-            axios
-                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-                .then(async (res) => {
-                    try {
-                        await axios
-                            .post(
-                                `${process.env.MIX_APP_URL}/api/wishlists`,
-                                {
-                                    item_id: id,
-                                },
-                                {
-                                    headers: {
-                                        Authorization: `Bearer ${getToken}`,
-                                    },
-                                }
-                            )
-                            .then(async (resp) => {
-                                setWishlistBtn(false);
-                                getWishlistProductsCount();
-                                console.log(resp);
-                                refetchFn();
-                            });
-                    } catch (er) {
-                        console.log(er);
-                    }
-                });
-        } else {
-            navigate("/clientLogin");
-        }
-    };
     return (
         <SwiperSlide
             key={product.id}
@@ -159,23 +124,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         />
                     ))}
             </div> */}
-            <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
-                <span className="mb-4 hover:text-red-600">
-                    {!wishlistBtn ? (
-                        <AiTwotoneHeart
-                            onClick={() => saveToWishList(product.id)}
-                            className={`cursor-pointer ${
-                                product.wishlist == true && "text-red-500"
-                            }`}
-                        />
-                    ) : (
-                        <img className="w-5 h-5" src={heart} alt="" />
-                    )}
-                </span>
-                <span className="my-3 py-3 ">
-                    <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
-                </span>
-            </div>
+
             <Link
                 className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
                 to={`/products/product/${product.id}`}

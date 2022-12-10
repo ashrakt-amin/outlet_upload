@@ -38,9 +38,8 @@ const Products = () => {
                         },
                     }
                 );
-                // setProducts(res.data.data.groups);
-                // setGroupsArray(res.data.data.groups);
-                console.log(res.data.data);
+                setProducts(res.data.data.items);
+                console.log(res.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -74,7 +73,7 @@ const Products = () => {
 
     return (
         <div className="clients-products-div">
-            <div dir="rtl" className="select-type-div p-2">
+            {/* <div dir="rtl" className="select-type-div p-2">
                 <div className="text-sm">إختر التصنيف</div>
 
                 <div className="select-color-size-div">
@@ -98,34 +97,43 @@ const Products = () => {
                         </select>
                     </div>
                 </div>
-            </div>
-            <div className="mt-5">
+            </div> */}
+            {!products.length > 0 && (
+                <h1 className="p-4 bg-red-600 text-white text-lg">
+                    <marquee>Mansoura Outlet مرحبا بك فى </marquee>
+                </h1>
+            )}
+
+            {products && (
+                <div className="gird-products flex flex-wrap justify-center pb-16 gap-4 my-4">
+                    {products &&
+                        products.map((item) => (
+                            <div key={item.id}>
+                                <OneClintProduct
+                                    product={item}
+                                    refetch={refetch}
+                                />
+                            </div>
+                        ))}
+                </div>
+            )}
+            {/* <div className="mt-5">
                 {products &&
                     products.map((product) => (
                         <div key={product.id} className="">
                             {product.types &&
                                 product.types.map((type) => (
                                     <div key={type.id} className="">
-                                        {/* grid md:grid-cols-3 sm:grid-cols-1 gap-3 p-3 */}
+                                        
                                         <div className="p-3 bg-slate-200 text-center rounded-md shadow ">
                                             {type.name}
                                         </div>
-                                        <div className="gird-products flex flex-wrap justify-center pb-16 gap-4 my-4">
-                                            {type.items &&
-                                                type.items.map((item) => (
-                                                    <div key={item.id}>
-                                                        <OneClintProduct
-                                                            product={item}
-                                                            refetch={refetch}
-                                                        />
-                                                    </div>
-                                                ))}
-                                        </div>
+                                        
                                     </div>
                                 ))}
                         </div>
                     ))}
-            </div>
+            </div> */}
             {/* <Outlet /> */}
         </div>
     );

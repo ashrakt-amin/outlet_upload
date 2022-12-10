@@ -7,10 +7,6 @@ import { useState } from "react";
 export default function TraderRegister() {
     const redirect = useNavigate();
 
-    const [imgVal, setImgVal] = useState(null);
-
-    const [psswordMatch, setPasswordMatch] = useState("");
-
     const [errorRegister, setErrorRegsiter] = useState("");
 
     const [reloadBtn, setReloadBtn] = useState(false);
@@ -68,7 +64,6 @@ export default function TraderRegister() {
         fData.append("code", userInfo.code);
         fData.append("password", userInfo.password);
         fData.append("confirm_password", userInfo.confirm_password);
-        fData.append("logo", imgVal);
 
         axios.defaults.withCredentials = true;
         axios
@@ -101,12 +96,6 @@ export default function TraderRegister() {
                 }
             });
     };
-
-    const handleImg = (e) => {
-        setImgVal(e.target.files[0]);
-    };
-
-    console.log(imgVal);
 
     return (
         <div
@@ -223,10 +212,6 @@ export default function TraderRegister() {
                                 onChange={handleChangeInputs}
                                 value={userInfo.code}
                             />
-                        </span>
-                        <span>
-                            <span className="text-sm">الصورة</span>
-                            <input type="file" onChange={handleImg} />
                         </span>
                     </div>
                     {!reloadBtn ? (

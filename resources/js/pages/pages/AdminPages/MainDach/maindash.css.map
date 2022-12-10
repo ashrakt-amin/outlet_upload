@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAC,gCAAgC,CAAC;EAC1C,UAAU,EAAE,IAAI,CAAA,UAAU;EAC1B,aAAa,EAAE,GAAG,CAAC,KAAK,CAAC,UAAU,CAAA,UAAU;EAC7C,YAAY,EAAE,GAAG,CAAC,KAAK,CAAC,UAAU,CAAA,UAAU;EAC5C,WAAW,EAAE,GAAG,CAAC,KAAK,CAAC,UAAU,CAAA,UAAU;CAC9C",
+    "sources": [
+        "maindash.scss"
+    ],
+    "names": [],
+    "file": "maindash.css"
+}

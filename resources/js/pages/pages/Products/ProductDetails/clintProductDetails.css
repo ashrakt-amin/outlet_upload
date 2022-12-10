@@ -1,0 +1,19 @@
+@media (max-width: 500px) {
+  .prodcut-details-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+li {
+  list-style: auto;
+}
+
+.all-imgs {
+  overflow-x: auto;
+  max-width: 400px;
+  height: 190px;
+}
+/*# sourceMappingURL=clintProductDetails.css.map */

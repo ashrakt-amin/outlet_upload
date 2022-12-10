@@ -17,9 +17,6 @@ import AddVolume from "./AddingInputs/AddVolume";
 import AddCategories from "./AddingInputs/AddCategories";
 
 const MainDach = () => {
-
-
-
     // ------------------------ ( Toggle State ) -----------------------
     const [isAddGroup, setIsAddGroup] = useState(false);
     const [isAddSubCatg, setIsAddSubCatg] = useState(false);
@@ -36,19 +33,11 @@ const MainDach = () => {
     // const [allGroups, setAllGroups] = useState([]);
     // const [allTypes, setAllTypes] = useState([]);
 
-
     // ------------------------ (toggle modals) ---------------------
     const togleGender = () => setIsAddGroup(!isAddGroup);
     const togleSubCatg = () => setIsAddSubCatg(!isAddSubCatg);
     const togleTypes = () => setIsTypes(!isTypes);
     // ------------------------ (toggle modals) ---------------------
-
-    const genderMsg = (msg) => {
-        setSuccessMsg(msg);
-        setTimeout(() => {
-            setSuccessMsg("");
-        }, 5000);
-    };
 
     return (
         <div className="p-2" dir="rtl">
@@ -79,10 +68,10 @@ const MainDach = () => {
             <h1 className="bg-blue-600 rounded-md text-center  p-2 my-5 text-white">
                 إضافة التصنيف الاساسى
             </h1>
-            
-                <AddCategories />
 
-                {/* ---------------------(Adding buttons)----------------  */}
+            <AddCategories />
+
+            {/* ---------------------(Adding buttons)----------------  */}
             <div className="modals-btns flex flex-col gap-4 ">
                 {/* <div className="adding-btns-div flex flex-col items-start gap-3">
                     <button
