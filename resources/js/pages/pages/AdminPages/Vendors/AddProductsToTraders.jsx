@@ -12,6 +12,8 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
 
     const [allSubCategories, setallSubCategories] = useState([]);
 
+    const [isAddProduct, setIsAddProduct] = useState(false);
+
     const navig = useNavigate();
 
     const [apiMessage, setApiMessage] = useState("");
@@ -37,38 +39,38 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
     const [seletedSubName, setSeletedSubName] = useState("");
     // (----------------------------- (types التصنيفات select) -----------------------------)
 
-    // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
+    // وحدة المنتج
     const [itemsUnitsArr, setItemsUnitsArr] = useState([]);
-    const [itemUnitId, setItemUnitId] = useState("1"); // send as (id):Number from select
-    // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
+    const [itemUnitId, setItemUnitId] = useState("1");
+    // item unit id وحدة المنتج
 
-    // (----------------------------- (العدد داخل الوحدة) -----------------------------)
+    // العدد داخل الوحدة
     const [unitPartsCount, setUnitPartsCount] = useState("1");
-    // (----------------------------- (العدد داخل الوحدة) -----------------------------)
+    // العدد داخل الوحدة
 
     const [productDescription, setProductDescription] = useState("");
 
-    // (----------------------------- (manufactory الشركة المصنعة او المنتجة select) -----------------------------)
+    // الشركة المصنعة او المنتجة
     const [manufactoryArray, setManufactoryArray] = useState([]);
     const [manufactoryID, setManufactoryID] = useState("");
 
-    // (----------------------------- (manufactory الشركة المصنعة او المنتجة select) -----------------------------)
+    // الشركة المصنعة او المنتجة
 
-    // (----------------------------- ( Agent Id) -----------------------------)
+    // الوكيل
     const [agentId, setAgentId] = useState("");
-    // (----------------------------- ( Agent Id) -----------------------------)
+    // الوكيل
 
     // (----------------------------- (manufactory الشركة المستوردة   select) -----------------------------)
     const [importedCompArray, setImportedCompArray] = useState([]);
     const [importedCompId, setImportedCompId] = useState("");
-    // (----------------------------- (manufactory الشركة المستوردة  select) -----------------------------)
+    // الشركة المستوردةselect
 
-    // (----------------------------- (Distribute companies الشركة الموزعة select) ------------------------)
+    // الشركة الموزعة
     const [distributeCompaniesArray, setDistributeCompaniesArray] = useState(
         []
     );
     const [distributeCompanyId, setDistributeCompanyId] = useState("");
-    // (----------------------------- (Distribute companies الشركة الموزعة select) ------------------------)
+    // الشركة الموزعة select
 
     //  (---------------------- discount ------------------- )
     const [discountValue, setDiscountValue] = useState("");
@@ -216,10 +218,23 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
         addProductFunc();
     };
 
+    const emptyInputs = () => {
+        setProdcutName("");
+        setImgVal(null);
+        setSalePrice("");
+        setItemCode("");
+        setcategoryId("");
+        setSeletedSubName("");
+        setItemUnitId("1");
+        setUnitPartsCount("1");
+        setProductDescription("");
+        setDiscountValue("");
+        setPrecentDiscount("");
+        setDiscountByPercentage("");
+    };
+
     const addProductFunc = async () => {
         let traderTk = JSON.parse(localStorage.getItem("uTk"));
-
-        console.log(traderTk);
 
         const fData = new FormData();
 
@@ -269,6 +284,7 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
                     },
                 }
             );
+            emptyInputs();
             setApiMessage(res.data.message);
             getInfoAgainFunc();
             setTimeout(() => {
@@ -338,9 +354,9 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
 
     return (
         <div>
-            <h1 className="p-1 bg-green-500 rounded-sm text-center text-white my-4">
+            {/* <h1 className="p-1 bg-green-500 rounded-sm text-center text-white my-4">
                 اضافة منتجات
-            </h1>
+            </h1> */}
             {apiMessage.length > 0 && (
                 <div className="fixed top-32 z-50 text-center w-full left-0 p-1 bg-green-500">
                     {apiMessage}
@@ -438,11 +454,11 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
                                                 key={categ.id}
                                                 className="categoy-name cursor-pointer relative"
                                             >
-                                                <h1 className="p-1">
+                                                <h1 className="p-1 m-3">
                                                     {categ.name}
                                                 </h1>
-                                                <div className="subCateg bg-slate-400 rounded-md absolute hidden">
-                                                    <div className="subCategory-div ">
+                                                <div className="subCateg bg-white shadow-lg rounded-md absolute hidden">
+                                                    <div className="subCategory-div">
                                                         {categ.subCategories &&
                                                             categ.subCategories.map(
                                                                 (sub) => (
@@ -452,7 +468,7 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
                                                                                 sub
                                                                             )
                                                                         }
-                                                                        className="m-1 p-1 rounded-md bg-red-500 text-white"
+                                                                        className="rounded-md shadow-md text-black"
                                                                         key={
                                                                             sub.id
                                                                         }
@@ -684,6 +700,7 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
 
                     <TextEditorFunction textEditorValue={textEditorValue} />
                 </div>
+
                 <button
                     onClick={validFirst}
                     className="bg-blue-600 mx-3 rounded-md p-2 my-3 text-white"

@@ -41,7 +41,7 @@ const ClientProductDetails = () => {
 
     const [singleProduct, setSingleProduct] = useState({});
 
-    const [traderLogo,setTraderLogo] = useState('')
+    const [traderLogo, setTraderLogo] = useState("");
 
     const [colorId, setColorId] = useState("");
     const [sizeId, setSizeId] = useState("");
@@ -49,8 +49,8 @@ const ClientProductDetails = () => {
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        if(getToken == null){
-            getToken = ''
+        if (getToken == null) {
+            getToken = "";
         }
 
         const getSubCategoriesWihoutOuth = async () => {
@@ -64,17 +64,20 @@ const ClientProductDetails = () => {
                     }
                 );
                 setSingleProduct(res.data.data);
-                if(res.data.data.trader.logo == null){
-                    setTraderLogo('https://th.bing.com/th/id/OIP.OCfe-0Jyvn5SS8on4BacEAHaEc?pid=ImgDet&rs=1')
-                }else {
+                if (res.data.data.trader.logo == null) {
+                    setTraderLogo(
+                        "https://th.bing.com/th/id/OIP.OCfe-0Jyvn5SS8on4BacEAHaEc?pid=ImgDet&rs=1"
+                    );
+                } else {
                     setTraderLogo(
                         `${process.env.MIX_APP_URL}/assets/images/uploads/traders/${res.data.data.trader.logo}`
-                        )
+                    );
                 }
                 window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 setProductImgs(res.data.data.itemImages);
-                getMatchingProducts(res.data.data.type.id);
-                setTypeIdValue(res.data.data.type.id);
+                console.log(res.data.data);
+                // getMatchingProducts(res.data.data.type.id);
+                // setTypeIdValue(res.data.data.type.id);
             } catch (er) {
                 console.log(er);
             }
@@ -85,7 +88,6 @@ const ClientProductDetails = () => {
             cancelRequest.cancel();
         };
     }, [id]);
-
 
     const nextImg = (indx) => {
         setImgNum(indx);
@@ -175,7 +177,8 @@ const ClientProductDetails = () => {
                     </div>
                     <div className="product-price mt-3">
                         {"السعر: "}
-                        {singleProduct?.sale_price}{" 1000 "}
+                        {singleProduct?.sale_price}
+                        {" 1000 "}
                     </div>
 
                     <div className="units-count-div mt-3">

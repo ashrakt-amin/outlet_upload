@@ -11,7 +11,7 @@ const OneVendor = () => {
 
     const [isAddingProduct, setIsAddingProduct] = useState(false);
 
-    const [getInfoAgain, setgetInfoAgain] = useState(false)
+    const [getInfoAgain, setgetInfoAgain] = useState(false);
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -39,7 +39,9 @@ const OneVendor = () => {
 
     console.log(traderInfo);
 
-    const getInfoAgainFunc = ()=> setgetInfoAgain(!getInfoAgain)
+    const getInfoAgainFunc = () => setgetInfoAgain(!getInfoAgain);
+
+    const toggleAdding = () => setIsAddingProduct(!isAddingProduct);
 
     return (
         <div className="p-4" dir="rtl">
@@ -96,12 +98,14 @@ const OneVendor = () => {
                 </button>
             )}
             {isAddingProduct && (
-                <AddProductsToTraders getInfoAgainFunc={getInfoAgainFunc} traderInfo={traderInfo} />
+                <AddProductsToTraders
+                    toggleAdding={toggleAdding}
+                    getInfoAgainFunc={getInfoAgainFunc}
+                    traderInfo={traderInfo}
+                />
             )}
 
-
             <VendorProducts vendorProductArray={traderInfo} />
-
         </div>
     );
 };

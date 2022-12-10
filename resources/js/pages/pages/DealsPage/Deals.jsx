@@ -20,8 +20,8 @@ const Deals = () => {
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        if(getToken == null) {
-            getToken = '';
+        if (getToken == null) {
+            getToken = "";
         }
         const getAuthItems = async () => {
             try {
@@ -82,7 +82,7 @@ const Deals = () => {
                         slidesPerView: 3,
                     },
                 }}
-            > 
+            >
                 {products &&
                     products.map((product) => (
                         <div key={product.id} className="">
@@ -92,7 +92,7 @@ const Deals = () => {
                                     dir={`rtl`}
                                     className="swiper-slide deals-one-swiper-slide p-3 rounded-md"
                                     style={{
-                                        minHeight: "400px",
+                                        minHeight: "300px",
                                         // width: '230px',
                                         backgroundColor: "#fff",
                                     }}

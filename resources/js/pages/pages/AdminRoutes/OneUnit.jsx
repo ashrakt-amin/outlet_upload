@@ -270,7 +270,7 @@ function OneUnit() {
                         {selectTraderMstg}
                     </div>
                 )}
-
+                {/* 
                 <div className="book-btns">
                     {confirmBook ? (
                         <>
@@ -356,98 +356,18 @@ function OneUnit() {
                             </button>
                         )}
                     </>
-                )}
-
-                {/* <>
-                        {nextStatus.id == 1 && (
-                            <>
-                                <button
-                                    onClick={confrimBookUnit}
-                                    className="bg-green-500 text-white rounded-md p-2 my-3 mx-3"
-                                >
-                                    إتمام التعاقد
-                                </button>
-                                <button
-                                    onClick={cancelbookUnit}
-                                    className="bg-red-500 text-white rounded-md p-2 my-3"
-                                >
-                                    إلغاء الحجز
-                                </button>
-                            </>
-                        )}
-                        {nextStatus.id == 2 && (
-                            <button
-                                onClick={cancelbookUnit}
-                                className="bg-red-500 text-white rounded-md p-2 my-3"
-                            >
-                                إلغاء التعاقد
-                            </button>
-                        )}
-                        {nextStatus.id == 3 && (
-                            <div className="book-btns">
-                                {confirmBook ? (
-                                    <>
-                                        <button
-                                            onClick={() => bookUnit(1)}
-                                            className="bg-green-500 text-white rounded-md p-2 my-3"
-                                        >
-                                            تأكيد الحجز
-                                        </button>
-                                        <FormControl
-                                            sx={{ m: 1, minWidth: 120 }}
-                                            size="small"
-                                        >
-                                            <InputLabel id="demo-select-small">
-                                                التجار
-                                            </InputLabel>
-                                            <Select
-                                                labelId="demo-select-small"
-                                                id="demo-select-small"
-                                                value={traderName}
-                                                label="التجار"
-                                                onChange={categoryHandle}
-                                            >
-                                                {traders &&
-                                                    traders.map((trader) => (
-                                                        <MenuItem
-                                                            key={trader.id}
-                                                            onClick={() =>
-                                                                handleCategg(
-                                                                    trader
-                                                                )
-                                                            }
-                                                            value={
-                                                                trader.f_name
-                                                            }
-                                                        >
-                                                            {trader.f_name}
-                                                        </MenuItem>
-                                                    ))}
-                                            </Select>
-                                        </FormControl>
-                                    </>
-                                ) : (
-                                    <button
-                                        onClick={showBookBtn}
-                                        className="bg-green-500 text-white rounded-md p-2 my-3"
-                                    >
-                                        حجز
-                                    </button>
-                                )}
-                            </div>
-                        )}
-                    </> */}
+                )} */}
             </div>
 
-            <h1 className="text-center bg-teal-500 p-2 my-3 text-yellow-50">
-                معلومات الوحدة
+            <h1 className="text-center bg-white shadow-lg p-2 my-3 text-black">
+                معلومات المحل
             </h1>
 
-            <div className="deposit my-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
+            {/* <div className="deposit my-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                 حالة الوحدة : {oneUnit.statu != undefined && oneUnit.statu.name}
-            </div>
-            <h1>نشاطات الوحدة</h1>
-            <div className="activites-unit flex gap-4 mb-5">
+            </div> */}
+            {/* <h1>نشاطات الوحدة</h1> */}
+            {/* <div className="activites-unit flex gap-4 mb-5">
                 {oneUnit.activities &&
                     oneUnit.activities.map((active) => (
                         <div
@@ -457,12 +377,12 @@ function OneUnit() {
                             {active.name}
                         </div>
                     ))}
+            </div> */}
+            <div className="unitname bg-blue-700 p-2 rounded-md text-center text-yellow-50">
+                إسم المحل : {oneUnit.name}
             </div>
             <div className="one-unit-info-div grid grid-cols-3 gap-4 mb-4">
-                <div className="unitname bg-blue-700 p-2 rounded-md text-center text-yellow-50">
-                    إسم الوحدة : {oneUnit.name}
-                </div>
-                <div className="deposit bg-blue-700 p-2 rounded-md text-center text-yellow-50">
+                {/* <div className="deposit bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                     عدد أشهر التأمين : {oneUnit.deposit} أشهر
                 </div>
                 <div className="deposit bg-blue-700 p-2 rounded-md text-center text-yellow-50">
@@ -477,7 +397,7 @@ function OneUnit() {
                 <div className="unit-price bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                     سعر الوحدة :{" "}
                     {oneUnit.unit_value != null && oneUnit.unit_value} جنية
-                </div>
+                </div> */}
 
                 {oneUnit?.trader != null && (
                     <div className="">
@@ -512,7 +432,7 @@ function OneUnit() {
                 )}
             </div>
 
-            {oneUnit?.statu?.id == 2 && (
+            {/* {oneUnit?.statu?.id == 2 && (
                 <>
                     <FormControl
                         className="form-select"
@@ -575,7 +495,7 @@ function OneUnit() {
                         </button>
                     )}
                 </>
-            )}
+            )} */}
         </div>
     );
 }

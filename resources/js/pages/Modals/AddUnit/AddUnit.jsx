@@ -8,6 +8,10 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
     const [sucessMsg, setSuccessMsg] = useState("");
 
+    const [traders, settraders] = useState([]);
+
+    const [traderId, settraderId] = useState("");
+
     console.log(levelInfo);
 
     // const [meterPrice, setMeterPrice] = useState("");
@@ -24,6 +28,19 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
         const { id, project_id } = levelInfo;
         setLevelID(id);
         setprojectId(project_id);
+
+        const getTraders = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/traders/`
+                );
+                settraders(res.data.data);
+                console.log(res.data.data);
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
+        getTraders();
     }, []);
 
     // --------------------- Validation inputs -------------------------------
@@ -49,15 +66,15 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     ////////////////////////////////////////////////////// End Selections //////////////////////////////////////////////////////////////////////
     const emptyValues = () => {
         setUnitName("");
-        setUnitSpace("");
-        setMeterPrice("");
-        setUnitPriceVal("");
         setUnitDescription("");
         setLevelID("");
         setprojectId("");
+        // setUnitSpace("");
+        // setMeterPrice("");
+        // setUnitPriceVal("");
     };
     //////////////////////////////////////////////////////// Add New Unit Function  ///////////////////////////////////////////////////////////
-    console.log(levelID);
+
     const addNewUnit = async () => {
         if (unitName != "" && projectId != "" && levelID != "") {
             try {
@@ -65,11 +82,12 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                     .post(`${process.env.MIX_APP_URL}/api/units`, {
                         name: unitName,
                         level_id: levelInfo.id, // select الطوابق (الادوار) hidden
+                        description: unitDescription,
+                        trader_id: traderId, // select
                         // site_id: siteID, // select --> المواقع قبلى او بحرى
                         // space: unitSpace,
                         // price_m: meterPrice,
                         // unit_value: unitPriceVal,
-                        description: unitDescription,
                     })
                     .then((res) => {
                         console.log(res.data.message);
@@ -86,6 +104,10 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
         } else {
             console.log("not valid");
         }
+    };
+
+    const selectTrader = (e) => {
+        settraderId(e.target.value);
     };
 
     return (
@@ -106,7 +128,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                            إضافة وحدة جديدة
+                            إضافة محل جديد
                         </h3>
                         <button
                             onClick={togglAddModal}
@@ -131,9 +153,9 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                     </div>
                     <div className="p-6 space-y-6">
                         <form className="flex flex-col items-center gap-3 mt-6">
-                            <div className="flex flex-wrap justify-between gap-y-5 gap-4 w-full">
+                            <div className="w-full">
                                 <div className="relative pb-3 min-w-full">
-                                    <small>اسم الوحدة</small>
+                                    <small>اسم محل</small>
 
                                     <input
                                         onChange={(e) =>
@@ -142,14 +164,32 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                         value={unitName}
                                         type="text"
                                         className="py-1 min-w-full px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="اسم الوحدة"
+                                        placeholder="اسم محل"
                                     />
                                     {unitNameValid && (
                                         <span className="text-sm text-red-500 absolute -bottom-3 right-0">
-                                            إسم الوحدة مطلوب
+                                            إسم محل مطلوب
                                         </span>
                                     )}
                                 </div>
+
+                                <select
+                                    onChange={selectTrader}
+                                    name=""
+                                    id=""
+                                    className="my-2 rounded-md"
+                                >
+                                    <option value="0">إختر التاجر</option>
+                                    {traders &&
+                                        traders.map((trader) => (
+                                            <option
+                                                key={trader.id}
+                                                value={trader.id}
+                                            >
+                                                {trader.f_name}
+                                            </option>
+                                        ))}
+                                </select>
 
                                 {/* <div className="rest-inputs flex gap-4 flex-wrap">
                                     <div className="relative pb-3">
@@ -211,7 +251,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                         rows="4"
                                         cols="50"
                                         className="py-1  px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="وصف الوحدة"
+                                        placeholder="وصف محل(إختيارى) "
                                     ></textarea>
                                 </div>
                             </div>

@@ -14,13 +14,13 @@ const OneLevel = () => {
     const opnAddUnit = () => setIsAddUnit(!isAddUnit);
 
     console.log(levelInfo);
- 
+
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getUnits = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/levels/${id}`,
+                    `${process.env.MIX_APP_URL}/api/levels/${id}`
                 );
                 setLevelInfo(res.data.data);
                 console.log(res);
@@ -40,7 +40,7 @@ const OneLevel = () => {
     };
 
     return (
-        <div dir="rtl">
+        <div dir="rtl" className="p-1">
             {isAddUnit && (
                 <AddUnit
                     fetchAgainFunc={getUnitsFunc}
@@ -50,9 +50,9 @@ const OneLevel = () => {
             )}
             <button
                 onClick={opnAddUnit}
-                className="bg-cyan-500 rounded-md p-2 my-3"
+                className="bg-blue-500 rounded-md p-2 my-3 font-bold text-lg"
             >
-                إضافة وحدة
+                إضافة محل
             </button>
 
             {/* Show units regard to this level */}
@@ -62,10 +62,10 @@ const OneLevel = () => {
                     levelInfo.units.map((unit) => (
                         <div
                             key={unit.id}
-                            className="single-unit bg-cyan-600 p-3 rounded-md"
+                            className="single-unit bg-blue-600 text-white p-3 rounded-md"
                         >
                             <Link to={`/dachboard/projects/unit/${unit.id}`}>
-                                اسم الوحدة : {unit.name}
+                                اسم المحل : {unit.name}
                             </Link>
                         </div>
                     ))}

@@ -158,7 +158,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                             className="text-md text-amber-300"
                         />
                     ))}
-                </div> */}
+            </div> */}
             <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
                 <span className="mb-4 hover:text-red-600">
                     {!wishlistBtn ? (
@@ -180,7 +180,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
                 to={`/products/product/${product.id}`}
             >
-                تفاصيل المنتج
+                تفاصيل
             </Link>
         </SwiperSlide>
     );

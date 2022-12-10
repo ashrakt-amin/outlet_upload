@@ -86,7 +86,7 @@ const LevelTrader = () => {
                                 setWishlistBtn(false);
                                 getWishlistProductsCount();
                                 console.log(resp);
-                                refetchFn();
+                                // refetchFn();
                             });
                     } catch (er) {
                         console.log(er);
@@ -128,76 +128,6 @@ const LevelTrader = () => {
                             product={item}
                             refetch={refetch}
                         />
-                        // <div
-                        //     key={item.id}
-                        //     className="one-product-div p-3 shadow-lg rounded-lg relative"
-                        //     dir="rtl"
-                        //     style={{ width: "250px" }}
-                        // >
-                        //     <div
-                        //         className="product-img "
-                        //         style={{
-                        //             width: "100%",
-                        //             height: "200px",
-                        //         }}
-                        //     >
-                        //         <img
-                        //             className="w-full h-full "
-                        //             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${item?.itemImages[0]?.img}`}
-                        //             alt=""
-                        //         />
-                        //     </div>
-                        //     <h5>إسم المنتج: {item.name}</h5>
-                        //     <h5>
-                        //         {item.sale_price}
-                        //         جنية
-                        //     </h5>
-                        //     <h5>
-                        //         العدد المتوفر:
-                        //         {item.stock}
-                        //     </h5>
-                        //     <h5 className="rate-div mb-3 flex mt-2 gap-2">
-                        //         <span className="">
-                        //             <AiOutlineStar />
-                        //         </span>
-                        //         <span className="">
-                        //             <AiOutlineStar />
-                        //         </span>
-                        //         <span className="">
-                        //             <AiOutlineStar />
-                        //         </span>
-                        //     </h5>
-                        //     <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
-                        //         <span className="mb-4 hover:text-red-600">
-                        //             {!wishlistBtn ? (
-                        //                 <AiTwotoneHeart
-                        //                     onClick={() =>
-                        //                         saveToWishList(item.id)
-                        //                     }
-                        //                     className={`cursor-pointer ${
-                        //                         item.wishlists == "true" &&
-                        //                         "text-red-500"
-                        //                     }`}
-                        //                 />
-                        //             ) : (
-                        //                 <img
-                        //                     className="w-5 h-5"
-                        //                     src={heart}
-                        //                     alt=""
-                        //                 />
-                        //             )}
-                        //         </span>
-                        //         <span className="my-3 py-3 ">
-                        //             <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
-                        //         </span>
-                        //     </div>
-                        //     <Link
-                        //         className="bg-slate-300 p-2 rounded-md"
-                        //         to={`/products/product/${item.id}`}
-                        //     >
-                        //         تفاصيل المنتج
-                        //     </Link>
-                        // </div>
                     ))}
             </div>
         </div>
