@@ -83,9 +83,9 @@ const OneClintProduct = ({ product, refetch }) => {
 
     return (
         <div
-            className="relative one-client-product p-3 bg-white shadow-md rounded-md"
+            className="relative one-client-product flex flex-col justify-between items-start p-3 bg-white shadow-md rounded-md"
             dir={`rtl`}
-            style={{ maxWidth: "300px" }}
+            style={{ maxWidth: "300px", minHeight: "360px" }}
         >
             <Link
                 className="bg-slate-300 rounded-md"
@@ -105,9 +105,12 @@ const OneClintProduct = ({ product, refetch }) => {
                     />
                 </div>
             </Link>
-            <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
-                {product.discount}%
-            </div>
+
+            {product.discount > 0 && (
+                <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+                    {product.discount}%
+                </div>
+            )}
 
             <h5 className="overflow-hidden text-ellipsis text-xl w-full">
                 {product.name}
@@ -148,8 +151,9 @@ const OneClintProduct = ({ product, refetch }) => {
                             className="text-md text-amber-300"
                         />
                     ))}
-            </div> */}
-            <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
+            </div>  */}
+
+            {/* <div className="wichlist-product absolute top-0 right-0 p-2 rounded-md bg-slate-100 opacity-4">
                 <span className="mb-4 hover:text-red-600">
                     {!wishlistBtn ? (
                         <AiTwotoneHeart
@@ -165,7 +169,7 @@ const OneClintProduct = ({ product, refetch }) => {
                 <span className="my-3 py-3 ">
                     <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
                 </span>
-            </div>
+            </div> */}
             <Link
                 className="details block font-bold cursor-pointer border-zinc-400 border-b-2 p-2 rounded-md bg-slate-200"
                 to={`/products/product/${product.id}`}

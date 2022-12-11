@@ -23,7 +23,7 @@ function Dashboard() {
     const { isDark, isShow } = useContext(darkTheme);
     const navigate = useNavigate();
 
-    const [isAdmin, setIsAdmin] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         let adminTrue = JSON.parse(localStorage.getItem("uTk"));
@@ -31,22 +31,24 @@ function Dashboard() {
         console.log(adminTrue);
         const checkUserFirst = async () => {
             try {
-                const res = await axios.get(`${process.env.MIX_APP_URL}/`, {
-                    headers: { Authorization: `Bearer ${adminTrue}` },
-                });
-            } catch (error) {}
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/users/show`,
+                    {
+                        headers: { Authorization: `Bearer ${adminTrue}` },
+                    }
+                );
+                if (res.status == 200) {
+                    setIsAdmin(true);
+                } else {
+                    navigate("/adminlogin");
+                }
+                // console.log(res.data.data);
+            } catch (er) {
+                // console.log(er);
+                navigate("/adminlogin");
+            }
         };
-
-        if (adminTrue) {
-        }
-
-        //2 if true open
-        const cancelRequest = axios.CancelToken.source();
-        if (!adminTrue) {
-            navigate("/adminlogin");
-        } else {
-            setIsAdmin(true);
-        }
+        checkUserFirst();
     }, []);
 
     return (

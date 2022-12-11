@@ -188,11 +188,6 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
                     }
                 };
                 getVolumes();
-                // axios.defaults.withCredentials = true;
-                // axios
-                //     .get(`${process.env.MIX_APP_URL}` + "sanctum/csrf-cookie")
-                //     .then(async (res1) => {
-                //     });
             } catch (er) {
                 console.log(er);
             }
@@ -347,7 +342,6 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
     };
 
     const whatSub = (sub) => {
-        console.log(sub);
         setcategoryId(sub.id);
         setSeletedSubName(sub.name);
     };

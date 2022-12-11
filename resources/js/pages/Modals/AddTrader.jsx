@@ -15,12 +15,12 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [phone, setPhone] = useState("");
     const [nationalId, setNationalId] = useState("");
     const [phone2, setPhone2] = useState("");
+    const [imgVal, setImgVal] = useState("");
 
     const [email, setEmail] = useState("");
     const [traderCode, setTraderCode] = useState("");
-    const [password, setPassword] = useState("");
 
-    // (---------------------------- check state -----------------------------------------------)
+    // (check state)
     const [checkFName, setcheckFName] = useState("");
     const [checkMName, setcheckMName] = useState("");
     const [checkLName, setcheckLName] = useState("");
@@ -30,55 +30,13 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [checkEmail, setcheckEmail] = useState("");
     const [checkTraderCode, setcheckTraderCode] = useState("");
     const [checkPassword, setcheckPassword] = useState("");
-    // (---------------------------- check state -----------------------------------------------)
-
-    // useEffect(() => {
-    //     if (fName.length <= 3) {
-    //         console.log("التاكد من الاسم");
-    //         return;
-    //     }
-
-    //     if (mName.length <= 3) {
-    //         console.log("التاكد من الاسم");
-    //         return;
-    //     }
-
-    //     if (lName.length <= 3) {
-    //         console.log("التاكد من الاسم");
-    //         return;
-    //     }
-
-    //     if (age.length == 0) {
-    //         console.log("اكتب العمر");
-    //     }
-    //     console.log(age);
-
-    //     if (regPhone.test(phone) == false) {
-    //         console.log("not valid");
-    //         return;
-    //     }
-
-    //     if (nationalId.length != 14) {
-    //         console.log("الرقم القومى غير صحيح");
-    //         return;
-    //     }
-
-    //     if (regEmail.test(email) == false && email.length > 1) {
-    //         console.log("الايميل خطا");
-    //         return;
-    //     }
-
-    //     if (traderCode != "") {
-    //         console.log("trader code valid");
-    //     } else {
-    //         console.log("الكود مكون من ارقام فقط");
-    //     }
-    // }, [fName, mName, lName, age, phone, nationalId, email, traderCode]);
+    // (check state)
 
     const inputsValid = () => {
         let regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let regPhone = /^(01)[0-9]{9}$/;
-        console.log(parseInt(age));
+
+        console.log(fName);
         if (fName.length <= 3) {
             setcheckFName("التاكد من الاسم الاول");
             return;
@@ -133,14 +91,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
         }
         setcheckTraderCode("");
 
-        if (password.length < 8) {
-            setcheckPassword("يجب كتابه 8 ارقام او حروف على الاقل");
-            return;
-        }
-        setcheckPassword("");
-
         postData();
-        console.log("hi");
     };
 
     const emptyInputs = () => {
@@ -159,27 +110,22 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const postData = async () => {
         const getUserToken = JSON.parse(localStorage.getItem("uTk"));
 
-        if (password.length < 8) {
-            console.log("not valid");
-            return;
-        }
-
+        const fromData = new FormData();
+        console.log(fName);
+        fromData.append("f_name", fName);
+        fromData.append("m_name", mName);
+        fromData.append("l_name", lName);
+        fromData.append("age", age);
+        fromData.append("phone", phone);
+        fromData.append("phone2", phone2);
+        fromData.append("national_id", nationalId);
+        fromData.append("email", email);
+        fromData.append("code", traderCode);
+        fromData.append("img", imgVal);
         try {
             let res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/traders`,
-                {
-                    f_name: fName,
-                    m_name: mName,
-                    l_name: lName,
-                    age: age,
-                    phone: phone,
-                    phone2: phone2,
-                    national_id: nationalId,
-                    email: email,
-                    code: traderCode,
-                    password: password,
-                    // level_id:11
-                },
+                fromData,
                 {
                     headers: {
                         Authorization: `Bearer ${getUserToken}`,
@@ -202,7 +148,11 @@ function AddTrader({ closeModal, getTradersAgain }) {
         }
     };
 
-    console.log(age);
+    const handleImg = (e) => {
+        setImgVal(e.target.files[0]);
+    };
+
+    console.log(imgVal);
 
     return (
         <div
@@ -250,6 +200,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                             )}
                             <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
                                 <div className="relative ">
+                                    <h1>الاسم الاول</h1>
                                     <input
                                         type="text"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -268,6 +219,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 {/* <span className="bg-red-400 p-2 rounded-lg">{inputsValidMessage}</span> */}
 
                                 <div className="relative ">
+                                    <h1>الاسم الثانى</h1>
                                     <input
                                         type="text"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -285,10 +237,11 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>الاسم الثالث</h1>
                                     <input
                                         type="text"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="اسم العائلة"
+                                        placeholder="الاسم الثالث"
                                         value={lName}
                                         onChange={(e) =>
                                             setlName(e.target.value)
@@ -302,6 +255,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>تاريخ الميلاد</h1>
                                     <input
                                         type="date"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -317,6 +271,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>التليفون الاول</h1>
                                     <input
                                         type="tel"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -334,6 +289,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>الرقم القومى</h1>
                                     <input
                                         type="number"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -351,6 +307,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>التليفون الثانى</h1>
                                     <input
                                         type="tel"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -363,6 +320,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>الايميل</h1>
                                     <input
                                         type="email"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -380,6 +338,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>كود التاجر</h1>
                                     <input
                                         type="number"
                                         className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
@@ -397,14 +356,12 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                 </div>
 
                                 <div className="relative ">
+                                    <h1>إختر صورة المحل</h1>
                                     <input
-                                        type="password"
-                                        className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="الرقم السرى"
-                                        value={password}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
+                                        onChange={handleImg}
+                                        type="file"
+                                        name="traderimg"
+                                        id="traderlogo"
                                     />
                                     {checkPassword.length > 0 && (
                                         <span className="absolute -bottom-6 right-1 text-sm text-red-400">

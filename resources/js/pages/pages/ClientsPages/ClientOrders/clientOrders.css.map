@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,MAAM,EAAE,SAAS,EAAE,KAAK;EACpB,AAAA,cAAc,CAAC;IACX,cAAc,EAAE,MAAM;IACtB,GAAG,EAAE,GAAG;GACX",
+    "sources": [
+        "clientOrders.scss"
+    ],
+    "names": [],
+    "file": "clientOrders.css"
+}

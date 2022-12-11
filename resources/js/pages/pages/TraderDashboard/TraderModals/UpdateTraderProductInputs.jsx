@@ -8,7 +8,9 @@ import TextEditorFunction from "../TextEditorClassComponent/TextEditorFunction";
 
 const UpdateTraderProductModal = ({ traderProductInfo }) => {
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
     const navig = useNavigate();
+
     const [apiMessage, setApiMessage] = useState("");
 
     const [isImported, setIsImported] = useState(false);
@@ -18,13 +20,14 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
 
     const [traderInfo, setTraderInfo] = useState({});
 
+    // (----------------------------- (types التصنيفات select) -----------------------------)
+    const [categoriesArray, setCategoriesArray] = useState([]);
+    const [categoryId, setcategoryId] = useState("");
+    const [seletedSubName, setSeletedSubName] = useState("");
+    // (----------------------------- (types التصنيفات select) -----------------------------)
+
     // (----------------------------- (Product Info) -----------------------------)
     const [productName, setProdcutName] = useState("");
-
-    // (----------------------------- (types التصنيفات select) -----------------------------)
-    const [typesArray, setTypesArray] = useState([]);
-    const [typeId, setTypeId] = useState("0");
-    // (----------------------------- (types التصنيفات select) -----------------------------)
 
     // (----------------------------- (item unit id وحدة المنتج-- select) -----------------------------)
     const [itemsUnitsArr, setItemsUnitsArr] = useState([]);
@@ -134,127 +137,59 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
     // if response true get all data regarde to this trader
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
-        if (localStorage.getItem("trTk")) {
-            let traderTk = JSON.parse(localStorage.getItem("trTk"));
-            const getTraders = async () => {
-                try {
-                    axios.defaults.withCredentials = true;
-                    axios
-                        .get(
-                            `${process.env.MIX_APP_URL}/` +
-                                "sanctum/csrf-cookie"
-                        )
-                        .then(async (res1) => {
-                            let res = await axios.get(
-                                `${process.env.MIX_APP_URL}/api/traders/trader`,
-                                {
-                                    headers: {
-                                        Authorization: `Bearer ${traderTk}`,
-                                    },
-                                }
-                            );
-                            setTraderInfo(res.data[0]);
-                            console.log(res.data);
+        let traderTk = JSON.parse(localStorage.getItem("trTk"));
+        // وحدات المنتج
+        const getItemUnits = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/itemUnits`,
+                    {
+                        cancelRequest: cancelRequest.token,
+                    }
+                );
+                setItemsUnitsArr(res.data.data);
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
+        getItemUnits();
 
-                            // الشركة المستوردة
-                            // const getImportedCompany = async () => {
-                            //     try {
-                            //         const res = await axios.get(
-                            //             `${process.env.MIX_APP_URL}/api/importers`,
-                            //             {
-                            //                 cancelRequest: cancelRequest.token,
-
-                            //                 headers: {
-                            //                     Authorization: `Bearer ${traderTk}`,
-                            //                 },
-                            //             }
-                            //         );
-                            //         setImportedCompArray(res.data.data);
-                            //     } catch (error) {
-                            //         console.warn(error.message);
-                            //     }
-                            // };
-                            // getImportedCompany();
-                            // وحدات المنتج
-                            const getItemUnits = async () => {
-                                try {
-                                    const res = await axios.get(
-                                        `${process.env.MIX_APP_URL}/api/itemUnits`,
-                                        {
-                                            cancelRequest: cancelRequest.token,
-
-                                            headers: {
-                                                Authorization: `Bearer ${traderTk}`,
-                                            },
-                                        }
-                                    );
-                                    console.log(res.data.data);
-                                    setItemsUnitsArr(res.data.data);
-                                } catch (error) {
-                                    console.warn(error.message);
-                                }
-                            };
-                            getItemUnits();
-
-                            // الشركة المنتجة او المصنعة
-                            // const getManufactorCompanies = async () => {
-                            //     try {
-                            //         const res = await axios.get(
-                            //             `${process.env.MIX_APP_URL}/api/manufactories`,
-                            //             {
-                            //                 cancelRequest: cancelRequest.token,
-
-                            //                 headers: {
-                            //                     Authorization: `Bearer ${traderTk}`,
-                            //                 },
-                            //             }
-                            //         );
-                            //         setManufactoryArray(res.data.data);
-                            //         console.log(res.data.data);
-                            //     } catch (error) {
-                            //         console.warn(error.message);
-                            //     }
-                            // };
-                            // getManufactorCompanies();
-
-                            // الشركة   الموزعة
-                            // const getDistributeCompanies = async () => {
-                            //     try {
-                            //         const res = await axios.get(
-                            //             `${process.env.MIX_APP_URL}/api/companies`,
-                            //             {
-                            //                 cancelRequest: cancelRequest.token,
-
-                            //                 headers: {
-                            //                     Authorization: `Bearer ${traderTk}`,
-                            //                 },
-                            //             }
-                            //         );
-                            //         setDistributeCompaniesArray(res.data.data);
-                            //         console.log(res.data.data);
-                            //     } catch (error) {
-                            //         console.warn(error.message);
-                            //     }
-                            // };
-                            // getDistributeCompanies();
-                        });
-                } catch (er) {
-                    console.log(er);
-                }
-            };
-            getTraders();
-        } else {
-            // navig("/traderLogin");
-        }
+        const getCategories = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/categories`,
+                    {
+                        cancelRequest: cancelRequest.token,
+                    }
+                );
+                setCategoriesArray(res.data.data);
+                console.log(res);
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
+        getCategories();
 
         return () => {
             cancelRequest.cancel();
         };
     }, []);
 
+    useEffect(() => {
+        setProdcutName(traderProductInfo.name);
+        setItemUnitId(traderProductInfo.itemUnit.id);
+        setcategoryId(traderProductInfo.category.id);
+        setSeletedSubName(traderProductInfo.category.name);
+        setUnitPartsCount(traderProductInfo.unit_parts_count);
+        setSalePrice(traderProductInfo.sale_price);
+        setItemCode(traderProductInfo.code);
+        setDiscountValue(traderProductInfo.discount);
+        console.log(traderProductInfo.discount);
+    }, []);
+
     // (------------------------ (Start adding product Function) -----------------------------)
     const validFirst = () => {
-        addProductFunc();
+        updateProductFunc();
         // let regNum = /[0-9]/;
         // if (
         //     salePrice.match(regNum) &&
@@ -268,14 +203,13 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         //     console.log("not valid");
         // }
     };
-    const addProductFunc = async () => {
+
+    console.log(traderProductInfo);
+
+    const updateProductFunc = async () => {
         let traderTk = JSON.parse(localStorage.getItem("trTk"));
         const fData = new FormData();
         fData.append("name", productName);
-        // imgVal.map((el) => {
-        //     fData.append("img[]", el);
-        // });
-        fData.append("type_id", typeId); // اسم التصنيف
 
         fData.append("item_unit_id", itemUnitId); // وحدة المنتج _ قطعة+-وحدة-علبة
 
@@ -293,16 +227,11 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
 
         fData.append("trader_id", traderProductInfo.id);
 
-        fData.append("spare_barcode", spareBarCode); // الباركود الاضافى
-
         fData.append("description", productDescription);
 
         fData.append("manufactory_id", manufactoryID); //  الشركة المنتجة او المصنعة
-
         fData.append("company_id", distributeCompanyId); // الشركة الموزعة
-
         fData.append("importer_id", importedCompId); // الشركة المستوردة
-
         fData.append("import", importBoolean); // هل المنتج مستورد
 
         try {
@@ -310,7 +239,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                 `${process.env.MIX_APP_URL}/api/items/${traderProductInfo.id}`,
                 {
                     name: productName,
-                    type_id: typeId,
+                    // type_id: typeId,
                     item_unit_id: itemUnitId,
                     unit_parts_count: unitPartsCount,
                     sale_price: salePrice,
@@ -321,10 +250,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                     trader_id: traderProductInfo.id,
                     spare_barcode: spareBarCode,
                     description: productDescription,
-                    manufactory_id: manufactoryID,
-                    company_id: distributeCompanyId,
-                    importer_id: importedCompId,
-                    import: importBoolean,
                 },
                 {
                     headers: {
@@ -426,6 +351,11 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         // }
     };
 
+    const whatSub = (sub) => {
+        setcategoryId(sub.id);
+        setSeletedSubName(sub.name);
+    };
+
     return (
         <div>
             <h1>اضافة منتجات</h1>
@@ -450,24 +380,83 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
 
                     {/*-------------------- sub Category (Select list) ---------------------*/}
                     {/*-------------------------- (اسم الصنيف) -------------------------------*/}
-                    <div className="types-div">
-                        <h1> إختر التصنيف</h1>
-                        <select
+
+                    {/*-------------------- sub Category (Select list) ---------------------*/}
+                    {/*-------------------------- (اسم الصنيف) ----------------------------*/}
+                    <div className="types-div mt-3">
+                        <h1 className="font-bold"> إختر التصنيف </h1>
+                        <h1>
+                            التصنيف الذى تم اختيارة :{" "}
+                            {seletedSubName.length > 0 ? (
+                                <span className="border-b-2 font-bold shadow-md">
+                                    {seletedSubName}
+                                </span>
+                            ) : (
+                                "لم يتم الاختيار بعد"
+                            )}
+                        </h1>
+                        <div className="category-container-add-prodcut">
+                            <div className="main-category-btn relative rounded-md p-1">
+                                <span className="cursor-pointer">
+                                    التصنيفات
+                                </span>
+                                <div className="category-div-toggle hidden bg-blue-600 rounded-md">
+                                    {categoriesArray &&
+                                        categoriesArray.map((categ) => (
+                                            <div
+                                                key={categ.id}
+                                                className="categoy-name cursor-pointer relative"
+                                            >
+                                                <h1 className="p-1 m-3">
+                                                    {categ.name}
+                                                </h1>
+                                                <div className="subCateg bg-white shadow-lg rounded-md absolute hidden">
+                                                    <div className="subCategory-div">
+                                                        {categ.subCategories &&
+                                                            categ.subCategories.map(
+                                                                (sub) => (
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            whatSub(
+                                                                                sub
+                                                                            )
+                                                                        }
+                                                                        className="rounded-md shadow-md text-black"
+                                                                        key={
+                                                                            sub.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            sub.name
+                                                                        }
+                                                                    </button>
+                                                                )
+                                                            )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                </div>
+                            </div>
+                        </div>
+                        {/* <select
                             className="rounded-md cursor-pointer"
-                            onChange={whatType}
-                            value={typeId}
+                            onChange={whatCategory}
                             name="type"
                             id="type"
+                            value={categoryId}
                         >
-                            <option value={"0"}>لا يوجد</option>
-                            {typesArray &&
-                                typesArray.map((oneType) => (
+                            <option value={"0"}>لم تختر بعد</option>
+                            {categoriesArray &&
+                                categoriesArray.map((oneType) => (
                                     <option value={oneType.id} key={oneType.id}>
                                         {oneType.name}
                                     </option>
                                 ))}
-                        </select>
+                        </select> */}
                     </div>
+
+                    {/*-------------------- sub Category (Select list) ---------------------*/}
 
                     {/*-------------------- sub Category (Select list) ---------------------*/}
 
@@ -506,7 +495,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             onChange={(e) => setUnitPartsCount(e.target.value)}
                         />
                     </div>
-
+                    {/*  سعر البيع  */}
                     <div className="sale-price-div">
                         <div className="mt-3 mb-2">سعر البيع</div>
                         <input
@@ -518,8 +507,8 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             onChange={(e) => setSalePrice(e.target.value)}
                         />
                     </div>
-
-                    <div className="buy-price-div">
+                    {/*  سعر الشراء  */}
+                    {/* <div className="buy-price-div">
                         <div className="mt-3 mb-2">سعر الشراء</div>
                         <input
                             className="border-none shadow-md rounded-md"
@@ -529,9 +518,9 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             placeholder="سعر الشراء"
                             onChange={(e) => setBuyPrice(e.target.value)}
                         />
-                    </div>
+                    </div> */}
 
-                    <div className="discount-div">
+                    {/* <div className="discount-div">
                         <div className="">إختر طريقة الخصم</div>
                         <button
                             onClick={opnDiscByPound}
@@ -592,8 +581,8 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                                 />
                             </div>
                         )}
-                    </div>
-
+                    </div> */}
+                    {/*  كود المنتج */}
                     <div className="product-code-div">
                         <div className="mt-3 mb-2">كود المنتج</div>
                         <input
@@ -606,7 +595,24 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                         />
                     </div>
 
-                    <div className="product-barcode-div">
+                    <div className="discount-div">
+                        <div className="">إختر الخصم (ضع النسبة)</div>
+                        <div>
+                            <div>{precentDiscount} جنية</div>
+                            <input
+                                className="border-none shadow-md rounded-md"
+                                type="text"
+                                min={0}
+                                value={discountByPercentage}
+                                placeholder="10%"
+                                onChange={(e) =>
+                                    setDiscountByPercentage(e.target.value)
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    {/* <div className="product-barcode-div">
                         <div className="mt-3 mb-2">بار كود</div>
                         <input
                             className="border-none shadow-md rounded-md"
@@ -616,9 +622,9 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             placeholder="بار كود"
                             onChange={(e) => setBarCode(e.target.value)}
                         />
-                    </div>
+                    </div> */}
 
-                    <div className="product-spare-barcode-div">
+                    {/* <div className="product-spare-barcode-div">
                         <div className="mt-3 mb-2">بار كود إضافى</div>
                         <input
                             className="border-none shadow-md rounded-md"
@@ -628,46 +634,46 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                             placeholder="بار كود"
                             onChange={(e) => setSpareBarCode(e.target.value)}
                         />
-                    </div>
+                    </div> */}
 
-                    <div className="import-checkbox-div mt-4 p-1 rounded-md shadow-md w-fit h-fit">
-                        <div>هل هذا المنتج مستورد ؟</div>
-                        <Checkbox onChange={openImportedInput} {...label} />
-                        {isImported && (
-                            <div>
-                                {/*-------------------- الشركة المستوردة (Select list) ---------------------*/}
-                                <div className="imported-company-div">
-                                    <h1>اختر</h1>
-                                    <select
-                                        onChange={whatImportedComp}
-                                        name="imported-company"
-                                        id="imported-company"
-                                        vlaue={importedCompId}
-                                        className="rounded-md cursor-pointer"
-                                    >
-                                        <option value="0">لا يوجد</option>
-                                        {importedCompArray &&
-                                            importedCompArray.map(
-                                                (oneImporedComp) => (
-                                                    <option
-                                                        value={
-                                                            oneImporedComp.id
-                                                        }
-                                                        key={oneImporedComp.id}
-                                                    >
-                                                        {oneImporedComp.name}
-                                                    </option>
-                                                )
-                                            )}
-                                    </select>
+                    {/*-------------------- الشركة المستوردة (Select list) ---------------------*/}
+                    {/* <div className="import-checkbox-div mt-4 p-1 rounded-md shadow-md w-fit h-fit">
+                            <div>هل هذا المنتج مستورد ؟</div>
+                            <Checkbox onChange={openImportedInput} {...label} />
+                            {isImported && (
+                                <div>
+                                    <div className="imported-company-div">
+                                        <h1>اختر</h1>
+                                        <select
+                                            onChange={whatImportedComp}
+                                            name="imported-company"
+                                            id="imported-company"
+                                            vlaue={importedCompId}
+                                            className="rounded-md cursor-pointer"
+                                        >
+                                            <option value="0">لا يوجد</option>
+                                            {importedCompArray &&
+                                                importedCompArray.map(
+                                                    (oneImporedComp) => (
+                                                        <option
+                                                            value={
+                                                                oneImporedComp.id
+                                                            }
+                                                            key={oneImporedComp.id}
+                                                        >
+                                                            {oneImporedComp.name}
+                                                        </option>
+                                                    )
+                                                )}
+                                        </select>
+                                    </div>
                                 </div>
-                                {/*-------------------- الشركة المستوردة (Select list)  ---------------------*/}
-                            </div>
-                        )}
-                    </div>
+                            )}
+                        </div> */}
+                    {/*-------------------- الشركة المستوردة (Select list)  ---------------------*/}
 
                     {/*---------------------- الشركة المصنعة او المنتجة  ---------------------*/}
-                    <div className="manufactories-companies my-3">
+                    {/* <div className="manufactories-companies my-3">
                         <h1>الشركات المصنعة</h1>
                         <select
                             className="rounded-md cursor-pointer"
@@ -687,11 +693,11 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                                     </option>
                                 ))}
                         </select>
-                    </div>
+                    </div> */}
                     {/*---------------------- الشركة المصنعة او المنتجة  ---------------------*/}
 
                     {/* ----------------------- Distribute Company Select ------------------- */}
-                    <div className="distribute-companies">
+                    {/* <div className="distribute-companies">
                         <h1>الشركة الموزعة</h1>
                         <select
                             className="rounded-md cursor-pointer"
@@ -714,7 +720,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                                     )
                                 )}
                         </select>
-                    </div>
+                    </div> */}
                     {/* ----------------------- Distribute Company Select ------------------- */}
 
                     <TextEditorFunction textEditorValue={textEditorValue} />

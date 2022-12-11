@@ -120,6 +120,12 @@ const LevelTrader = () => {
                 </h1>
             </div>
 
+            {!traderInfo.items > 0 && (
+                <h1 className="p-4 bg-red-600 text-white text-lg">
+                    <marquee>Mansoura Outlet مرحبا بك فى </marquee>
+                </h1>
+            )}
+
             <div className="gird-products flex flex-wrap justify-center pb-16 gap-6 my-4">
                 {traderInfo.items &&
                     traderInfo.items.map((item) => (

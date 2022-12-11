@@ -115,26 +115,11 @@ const Header = () => {
                     }
                 );
                 setCategoriesArr(res.data.data);
-                console.log(res.data);
             } catch (error) {
                 console.warn(error.message);
             }
         };
         getCategories();
-        const getConstructions = async () => {
-            try {
-                const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/levels`,
-                    {
-                        cancelRequest: cancelRequest.token,
-                    }
-                );
-                setLevels(res.data.data);
-            } catch (error) {
-                console.warn(error.message);
-            }
-        };
-        getConstructions();
         return () => {
             cancelRequest.cancel();
         };
@@ -169,41 +154,38 @@ const Header = () => {
                 }
             );
             dispatch(productsInWishlistNumber(0));
-            console.log(res);
             localStorage.removeItem("clTk");
             navigate("/");
         } catch (er) {
             console.log(er);
         }
-        // await axios
-        //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-        //     .then(async (r) => {
-        //     });
     };
 
-    const wishlistProductsCount = async () => {
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
-        try {
-            const res = await axios.get(
-                `${process.env.MIX_APP_URL}/api/wishlists/`,
-                {
-                    headers: { Authorization: `Bearer ${getToken}` },
-                }
-            );
-            let wishlistCount = res.data.data.length;
-            dispatch(productsInWishlistNumber(wishlistCount));
-            console.log(res);
-        } catch (er) {
-            console.log(er);
-        }
-    };
+    // const wishlistProductsCount = async () => {
+    //     let getToken = JSON.parse(localStorage.getItem("clTk"));
+    //     try {
+    //         const res = await axios.get(
+    //             `${process.env.MIX_APP_URL}/api/wishlists/`,
+    //             {
+    //                 headers: { Authorization: `Bearer ${getToken}` },
+    //             }
+    //         );
+    //         let wishlistCount = res.data.data.length;
+    //         dispatch(productsInWishlistNumber(wishlistCount));
+    //         console.log(res);
+    //     } catch (er) {
+    //         console.log(er);
+    //     }
+    // };
 
     const goToWishList = () => {
-        if (localStorage.getItem("clTk")) {
-            navigate("/client/wishList");
-        } else {
-            navigate("/clientLogin");
-        }
+        // if (localStorage.getItem("clTk")) {
+        //     navigate("/client/wishList");
+        // } else {
+        //     navigate("/clientLogin");
+        // }
+        //  if token make request with token
+        // if not token the save it to locl storage
     };
     return (
         <>
@@ -263,7 +245,9 @@ const Header = () => {
                             <span className="absolute crt-wich-num text-sm font-bold -top-2 left-3 bg-gray-100 rounded-xl w-7 ">
                                 {wichlistCount}
                             </span>
-                            <span className="hide-text-mob">التمنيات</span>
+                            <span className="hide-text-mob text-white">
+                                مشتريات لاحقا
+                            </span>
                             <FiHeart className="text-lg mx-2 text-white" />
                         </button>
 
@@ -306,11 +290,14 @@ const Header = () => {
                 <div className="categories-div flex text-white justify-center gap-4 py-2 header-tow bg-white">
                     <div className="traders-container">
                         <div className="dropdown-tradres">
-                            <button className="dropbtn-traders flex items-center  border-b-2 p-2 rounded-md">
-                                <AiOutlineArrowDown />
-                                <span>المحلات</span>
-                            </button>
-                            <div className="dropdown-trader-list">
+                            <Link
+                                to={"/allStreets"}
+                                className="dropbtn-traders flex items-center  border-b-2 p-2 rounded-md"
+                            >
+                                {/* <AiOutlineArrowDown /> */}
+                                <span>محلات المنصورة</span>
+                            </Link>
+                            {/* <div className="dropdown-trader-list">
                                 {levels &&
                                     levels.map((level) => (
                                         <div
@@ -323,7 +310,7 @@ const Header = () => {
                                             محلات {level.name}
                                         </div>
                                     ))}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="categories">
@@ -367,27 +354,6 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-            {/* <Routes>
-                <Route path="/" element={<HomeContent />} />
-                <Route path="/products/:id/*" element={<Products />} />
-                <Route
-                    path="/products/product/:id"
-                    element={<ClientProductDetails />}
-                />
-                <Route
-                    path="/products/types/:id"
-                    element={<SingleTypeProduct />}
-                />
-                <Route
-                    path="/traderByConstruction/:id"
-                    element={<TraderByConstruction />}
-                />
-
-                <Route path="/client/cart" element={<CartPage />} />
-                <Route path="/client/wishList" element={<ClientWishList />} />
-                <Route path="/account" element={<Profile />} />
-                <Route path="/clientOrders" element={<ClientOrders />} />
-            </Routes> */}
         </>
     );
 };

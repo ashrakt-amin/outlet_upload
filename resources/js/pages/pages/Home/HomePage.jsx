@@ -17,6 +17,7 @@ import LevelTrader from "../LevelTrader/LevelTrader";
 import Footer from "../Footer/Footer";
 
 import "./homePage.scss";
+import AllStreets from "../AllStreetsPage/AllStreets";
 
 const HomePage = () => {
     return (
@@ -38,6 +39,8 @@ const HomePage = () => {
                     path="/products/types/:id"
                     element={<SingleTypeProduct />}
                 />
+
+                <Route path="/allStreets" element={<AllStreets />} />
 
                 <Route
                     path="/traderByConstruction/:id"

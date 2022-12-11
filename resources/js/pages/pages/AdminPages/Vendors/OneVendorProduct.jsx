@@ -320,8 +320,54 @@ const OneVendorProduct = () => {
     };
     // (------------------------ open discount handle ----------------------)
 
+    console.log(itemInfo.description);
+
     return (
         <div dir="rtl" className="p-3">
+            {isUpdateProduct ? (
+                <button
+                    onClick={() => setisUpdateProduct(!isUpdateProduct)}
+                    className="bg-red-600 rounded-md p-2 my-3 text-white"
+                >
+                    الغاء تعديل المنتج
+                </button>
+            ) : (
+                <button
+                    onClick={() => setisUpdateProduct(!isUpdateProduct)}
+                    className="bg-blue-600 rounded-md p-2 my-3 text-white"
+                >
+                    تعديل المنتج
+                </button>
+            )}
+
+            {isUpdateProduct && (
+                <UpdateTraderProductModal traderProductInfo={itemInfo} />
+            )}
+
+            <div className="add-imgs my-5 bg-slate-300 p-3 border-2 rounded-md border-indigo-600">
+                <h1 className="p-2 bg-white shadow-md rounded-md m-2">
+                    اضافة صور للمنتج
+                </h1>
+                <input type="file" multiple onChange={addImages} />
+                {isAddImages && (
+                    <>
+                        <button
+                            className="bg-green-500 rounded-md p-1 text-white m-2 hover:bg-green-600 hover:px-2 transition-all"
+                            onClick={() => addImagesNow(itemInfo)}
+                        >
+                            تأكيد اضافة الصور
+                        </button>
+                        <button
+                            className="bg-red-500 rounded-md p-1 text-white m-2 hover:bg-green-600 hover:px-2 transition-all"
+                            onClick={cancelUpdateImgs}
+                        >
+                            الغاء
+                        </button>
+                    </>
+                )}
+            </div>
+
+            <h1 className="p-2 m-2 bg-green-400 rounded-md">معلومات المنتج</h1>
             <div className="info-div">
                 <details className="my-3 show-product-imgs-details p-3 border-2 rounded-md border-indigo-600">
                     <summary className="cursor-pointer">
@@ -397,56 +443,20 @@ const OneVendorProduct = () => {
                         </h1>
 
                         <div className="descripion-container">
-                            <div
-                                className="description-div"
-                                dangerouslySetInnerHTML={{
-                                    __html: itemInfo.description,
-                                }}
-                            />
+                            <h1>وصف المنتج</h1>
+                            {itemInfo.description == false ? (
+                                "لايوجد وصف"
+                            ) : (
+                                <div
+                                    className="description-div"
+                                    dangerouslySetInnerHTML={{
+                                        __html: itemInfo.description,
+                                    }}
+                                />
+                            )}
                         </div>
                     </div>
                 </details>
-
-                <div className="add-imgs my-5 bg-slate-300 p-3 border-2 rounded-md border-indigo-600">
-                    <h1>اضافة صور للمنتج</h1>
-                    <input type="file" multiple onChange={addImages} />
-                    {isAddImages && (
-                        <>
-                            <button
-                                className="bg-green-500 rounded-md p-1 text-white m-2 hover:bg-green-600 hover:px-2 transition-all"
-                                onClick={() => addImagesNow(itemInfo)}
-                            >
-                                تأكيد اضافة الصور
-                            </button>
-                            <button
-                                className="bg-red-500 rounded-md p-1 text-white m-2 hover:bg-green-600 hover:px-2 transition-all"
-                                onClick={cancelUpdateImgs}
-                            >
-                                الغاء
-                            </button>
-                        </>
-                    )}
-                </div>
-
-                {/* {isUpdateProduct ? (
-                    <button
-                        onClick={() => setisUpdateProduct(!isUpdateProduct)}
-                        className="bg-red-600 rounded-md p-2 my-3 text-white"
-                    >
-                        الغاء تعديل المنتج
-                    </button>
-                ) : (
-                    <button
-                        onClick={() => setisUpdateProduct(!isUpdateProduct)}
-                        className="bg-blue-600 rounded-md p-2 my-3 text-white"
-                    >
-                        تعديل المنتج
-                    </button>
-                )} */}
-
-                {isUpdateProduct && (
-                    <UpdateTraderProductModal traderProductInfo={itemInfo} />
-                )}
 
                 <div className="add-product-res-info shadow-lg border-2 rounded-md p-2">
                     {/* (------------------ Stock div ------------------) */}
@@ -461,6 +471,10 @@ const OneVendorProduct = () => {
                                 {successMsg}
                             </h1>
                         )}
+
+                        <h1 className="p-2 font-bold text-white m-3 bg-blue-500 text-center text-lg rounded-md">
+                            إستكمال إضافة مواصفات المنتج
+                        </h1>
 
                         <div className="mt-3 mb-2">اضافة رصيد</div>
                         <input

@@ -1,0 +1,12 @@
+.remove-links a {
+  display: none;
+}
+
+.trader-product-details-div .description-div ul {
+  padding: 15px;
+}
+
+.trader-product-details-div .description-div ul li {
+  list-style: circle;
+}
+/*# sourceMappingURL=traderProductDetails.css.map */
