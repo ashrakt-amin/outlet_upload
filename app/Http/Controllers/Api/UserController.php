@@ -17,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if ($this->getTokenId('user')) {
+            $users = User::all();
+            return response()->json([
+                'data' => ($users)
+            ], 200);
+        }
     }
 
     /**
@@ -28,7 +33,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -40,10 +44,10 @@ class UserController extends Controller
     public function show()
     {
         if ($this->getTokenId('user')) {
-        $user = User::where(['id'=>$this->getTokenId('user')])->first();
-        return response()->json([
-            'data' => ($user)
-        ], 200);
+            $user = User::where(['id'=>$this->getTokenId('user')])->first();
+            return response()->json([
+                'data' => ($user)
+            ], 200);
         }
     }
 
