@@ -43,7 +43,7 @@ class RegisterTraderController extends BaseController
                         $success['token']     =  $user->createToken('trader')->plainTextToken;
                         $success['tokenName'] =  "trader";
                         $success['name']      =  $user;
-                        return $this->sendResponse($success, 'register successfully.');
+                        return $this->sendResponse($success, 'تم التسجيل بنجاح.');
                     }
                 } else {
                     return response()->json([

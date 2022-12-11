@@ -44,7 +44,7 @@ class RegisterUserController extends BaseController
             $success['token'] =  $user->createToken('user')->plainTextToken;
             $success['tokenName'] =  DB::table('personal_access_tokens')->orderBy('id', 'DESC')->select('name')->where(['tokenable_id'=>$user->id])->first();
             $success['name'] =  $user;
-            return $this->sendResponse($success, $user->f_name.' '.'register successfully.');
+            return $this->sendResponse($success, 'تم التسجيل بنجاح.');
         } else {
             return response()->json([
                 'message' => "unauthenticated",
