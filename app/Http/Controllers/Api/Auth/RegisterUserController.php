@@ -23,9 +23,15 @@ class RegisterUserController extends BaseController
         $validator = Validator::make($request->all(), [
             'phone'            => 'unique:users,phone|regex:/^(01)[0-9]{9}$/',
             'email'            => 'unique:users,email',
+            'password'         => 'required:users,email',
+            'f_name'           => 'required',
         ], [
             'email.unique'     => 'البريد الالكتروني مسجل من قبل',
             'phone.unique'     => 'الهاتف مسجل من قبل',
+            'phone.required'   => 'الهاتف مطلوب',
+            'phone.regex'      => 'يرجى التاكد ان الهاتف صحيحا',
+            'f_name.required'  => 'الاسم الاول مطلوب',
+            'password.required'=> 'الرقم السري مطلوب',
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());

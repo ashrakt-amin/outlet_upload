@@ -132,7 +132,7 @@ class Item extends Model
     public function getWishlistAttribute()
     {
         if (!auth()->guard()->check()) return false;
-        return $this->getTokenName('client') ? true : false;
+        return Wishlist::where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false;
     }
 
     public function getItemCategoryAttribute()
