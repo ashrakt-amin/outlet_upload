@@ -44,7 +44,7 @@ class RegisterClientController extends BaseController
         $success['token'] =  $user->createToken('client')->plainTextToken;
         $success['tokenName'] =  DB::table('personal_access_tokens')->orderBy('id', 'DESC')->select('name', 'tokenable_id')->where(['tokenable_id'=>$user->id])->first();
         $success['name']  =  $user;
-        return $this->sendResponse($success, $user->f_name.' '.'تم التسجيل بنجاح.');
+        return $this->sendResponse($success, 'تم التسجيل بنجاح.');
     }
 
 }
