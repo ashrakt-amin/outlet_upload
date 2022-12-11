@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use Illuminate\Support\Facades\File;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemController extends Controller
 {
+    use TraitsAuthGuardTrait;
     use TraitImageProccessingTrait;
     public function __construct ()
     {
@@ -108,8 +110,9 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         $item = Item::where(['id'=>$item->id])->with('stocks')->first();
-        $guard = $item->getTokenName('client');
-        if ($guard || (request()->bearerToken() == null)) {
+        $user = $item->getTokenName('user');
+        $trader = $item->getTokenName('trader');
+        if (!$user && !$trader) {
             $view = View::where(['item_id'=>$item->id, 'client_id'=>$item->getTokenId('client')])->first();
             if (!$view) {
                 $view = new View();
@@ -137,16 +140,23 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        if ($item->update($request->all())) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل المنتج",
-                "data" => new ItemResource($item)
-            ], 200);
+        if ($this->getTokenId('user')) {
+            if ($item->update($request->all())) {
+                return response()->json([
+                    "success" => true,
+                    "message" => "تم تعديل المنتج",
+                    "data" => new ItemResource($item)
+                ], 200);
+            } else {
+                return response()->json([
+                    "success" => false,
+                    "message" => "فشل تعديل المنتج ",
+                ], 422);
+            }
         } else {
             return response()->json([
                 "success" => false,
-                "message" => "فشل تعديل المنتج ",
+                "message" => "يرجى التسجيل كمستخدم",
             ], 422);
         }
     }

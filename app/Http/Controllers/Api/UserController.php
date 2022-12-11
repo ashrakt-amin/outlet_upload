@@ -39,7 +39,6 @@ class UserController extends Controller
      */
     public function show()
     {
-        // dd($this->getTokenId('user'));
         if ($this->getTokenId('user')) {
         $user = User::where(['id'=>$this->getTokenId('user')])->first();
         return response()->json([
@@ -57,7 +56,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if ($user->update($request->all())) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم تعديل المستخدم",
+                "data"    => ($user)
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل تعديل المستخدم ",
+            ], 422);
+        }
     }
 
     /**
