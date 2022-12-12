@@ -36,7 +36,6 @@ class ItemImageController extends Controller
     {
         if ($request->hasFile('img')) {
             foreach ($request->file('img') as $image) {
-                foreach ($request->file('img') as $image) {
                     $name            = $image->getClientOriginalName();
                     $ext             = $image->getClientOriginalExtension();
                     $filename        = rand(10, 100000).time().'.'.$ext;
@@ -46,7 +45,6 @@ class ItemImageController extends Controller
                     $itemImage->item_id = $item;
                     $itemImage->img     = $filename;
                     $itemImage->save();
-                }
                 // $itemImage = new ItemImage();
                 // $itemImage->item_id = $item;
                 // $itemImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
