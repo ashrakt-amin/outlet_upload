@@ -27,28 +27,28 @@ function Dashboard() {
 
     useEffect(() => {
         let adminTrue = JSON.parse(localStorage.getItem("uTk"));
-        //1 make request with token to check if user true
-        console.log(adminTrue);
-        const checkUserFirst = async () => {
-            try {
-                const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/users/show`,
-                    {
-                        headers: { Authorization: `Bearer ${adminTrue}` },
+        if (adminTrue) {
+            const checkUserFirst = async () => {
+                try {
+                    const res = await axios.get(
+                        `${process.env.MIX_APP_URL}/api/users/show`,
+                        {
+                            headers: { Authorization: `Bearer ${adminTrue}` },
+                        }
+                    );
+                    if (res.status == 200) {
+                        setIsAdmin(true);
+                    } else {
+                        navigate("/adminlogin");
                     }
-                );
-                if (res.status == 200) {
-                    setIsAdmin(true);
-                } else {
+                } catch (er) {
                     navigate("/adminlogin");
                 }
-                // console.log(res.data.data);
-            } catch (er) {
-                // console.log(er);
-                navigate("/adminlogin");
-            }
-        };
-        checkUserFirst();
+            };
+            checkUserFirst();
+        } else {
+            navigate("/adminlogin");
+        }
     }, []);
 
     return (

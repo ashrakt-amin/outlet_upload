@@ -2,10 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
-import { AiOutlineStar, AiTwotoneHeart, AiTwotoneStar } from "react-icons/ai";
-import { MdOutlineCompareArrows } from "react-icons/md";
-import heart from "./heart.gif";
-
 // import "./dealsStyle.scss";
 import { SwiperSlide } from "swiper/react";
 

@@ -10,9 +10,9 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
     const [traders, settraders] = useState([]);
 
-    const [traderId, settraderId] = useState("");
+    const [traderId, settraderId] = useState("0");
 
-    console.log(levelInfo);
+    const [validInputMsg, setValidInputMsg] = useState("");
 
     // const [meterPrice, setMeterPrice] = useState("");
     // const [unitPriceVal, setUnitPriceVal] = useState("");
@@ -68,7 +68,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
         setUnitName("");
         setUnitDescription("");
         setLevelID("");
-        setprojectId("");
+        settraderId("");
         // setUnitSpace("");
         // setMeterPrice("");
         // setUnitPriceVal("");
@@ -76,7 +76,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     //////////////////////////////////////////////////////// Add New Unit Function  ///////////////////////////////////////////////////////////
 
     const addNewUnit = async () => {
-        if (unitName != "" && projectId != "" && levelID != "") {
+        if (unitName != "" && traderId != "0") {
             try {
                 await axios
                     .post(`${process.env.MIX_APP_URL}/api/units`, {
@@ -103,6 +103,10 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
             }
         } else {
             console.log("not valid");
+            setValidInputMsg("تاكد من اختيار اسم المحل والتاجر");
+            setTimeout(() => {
+                setValidInputMsg("");
+            }, 2000);
         }
     };
 
@@ -122,6 +126,11 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
             {sucessMsg.length > 0 && (
                 <div className="fixed top-32 z-50 p-2 text-white text-center w-full left-0 bg-green-500">
                     {sucessMsg}
+                </div>
+            )}
+            {validInputMsg.length > 0 && (
+                <div className="fixed top-32 z-50 p-2 text-white text-center w-full left-0 bg-green-500">
+                    {validInputMsg}
                 </div>
             )}
             <div className="relative p-4 w-full max-w-4xl h-full md:h-auto">
@@ -177,6 +186,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                     onChange={selectTrader}
                                     name=""
                                     id=""
+                                    value={traderId}
                                     className="my-2 rounded-md"
                                 >
                                     <option value="0">إختر التاجر</option>

@@ -34,7 +34,6 @@ const LatestUpdatedProducts = () => {
                     }
                 );
                 setProducts(res.data.data);
-                console.log(res.data);
             } catch (error) {
                 console.warn(error.message);
             }

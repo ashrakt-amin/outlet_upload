@@ -1,20 +1,18 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
-import { FiShoppingCart } from "react-icons/fi";
 import { MdOutlineManageAccounts } from "react-icons/md";
-import { BiSearchAlt } from "react-icons/bi";
-import { AiFillCloseCircle, AiOutlineArrowDown } from "react-icons/ai";
+import { AiOutlineArrowDown } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import "./headerOne.scss";
+
 import "./headerTow.scss";
 
 import { useState, useRef, useEffect } from "react";
 import React from "react";
-import { productsInCartNumber } from "../../Redux/countInCartSlice";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
 const Header = () => {
@@ -70,23 +68,6 @@ const Header = () => {
         }
 
         if (getToken) {
-            const getCartProductsCount = async () => {
-                try {
-                    const res = await axios.get(
-                        `${process.env.MIX_APP_URL}/api/carts/`,
-                        {
-                            cancelRequest: cancelRequest.token,
-                            headers: { Authorization: `Bearer ${getToken}` },
-                        }
-                    );
-                    let cartCount = res.data.data.length;
-                    dispatch(productsInCartNumber(cartCount));
-                } catch (error) {
-                    console.warn(error.message);
-                }
-            };
-            getCartProductsCount();
-
             const getWishlistProductsCount = async () => {
                 try {
                     const res = await axios.get(
@@ -179,13 +160,11 @@ const Header = () => {
     // };
 
     const goToWishList = () => {
-        // if (localStorage.getItem("clTk")) {
-        //     navigate("/client/wishList");
-        // } else {
-        //     navigate("/clientLogin");
-        // }
-        //  if token make request with token
-        // if not token the save it to locl storage
+        if (localStorage.getItem("clTk")) {
+            navigate("/client/wishList");
+        } else {
+            navigate("/clientLogin");
+        }
     };
     return (
         <>
@@ -246,7 +225,7 @@ const Header = () => {
                                 {wichlistCount}
                             </span>
                             <span className="hide-text-mob text-white">
-                                مشتريات لاحقا
+                                المفضلة
                             </span>
                             <FiHeart className="text-lg mx-2 text-white" />
                         </button>
@@ -295,7 +274,7 @@ const Header = () => {
                                 className="dropbtn-traders flex items-center  border-b-2 p-2 rounded-md"
                             >
                                 {/* <AiOutlineArrowDown /> */}
-                                <span>محلات المنصورة</span>
+                                <span> المحلات</span>
                             </Link>
                             {/* <div className="dropdown-trader-list">
                                 {levels &&

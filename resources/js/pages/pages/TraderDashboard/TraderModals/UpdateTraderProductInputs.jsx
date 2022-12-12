@@ -15,11 +15,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
 
     const [isImported, setIsImported] = useState(false);
 
-    const [isDiscountPerc, setIsDicountPerc] = useState(false);
-    const [isDiscountPrice, setIsDicountPrice] = useState(false);
-
-    const [traderInfo, setTraderInfo] = useState({});
-
     // (----------------------------- (types التصنيفات select) -----------------------------)
     const [categoriesArray, setCategoriesArray] = useState([]);
     const [categoryId, setcategoryId] = useState("");
@@ -71,52 +66,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
     const [importBoolean, setImportBoolean] = useState("");
 
     const [checkedValue, setCheckValue] = useState(false);
-
-    // useEffect(() => {
-    //     // (----------------------------- ( Set select) ------------------------)
-    //     setTypeId(traderProductInfo?.type.id);
-    //     setDistributeCompanyId(
-    //         traderProductInfo.company == false
-    //             ? "0"
-    //             : traderProductInfo?.company?.id
-    //     );
-    //     setImportedCompId(
-    //         traderProductInfo.importer == false
-    //             ? "0"
-    //             : traderProductInfo.importer?.id
-    //     );
-    //     setManufactoryID(
-    //         traderProductInfo.manufactory == false
-    //             ? "0"
-    //             : traderProductInfo.manufactory?.id
-    //     );
-    //     setItemUnitId(
-    //         traderProductInfo.itemUnit == false
-    //             ? "0"
-    //             : traderProductInfo.itemUnit?.id
-    //     );
-    //     // (----------------------------- ( Set select) ------------------------)
-    //     // (----------------------------- ( check box false or true) ------------------------)
-    //     setCheckValue(traderProductInfo.import == true && true);
-    //     // setIsImported(traderProductInfo.import == true && !isImported);
-    //     // (----------------------------- ( check box false or true) ------------------------)
-    //     setProdcutName(traderProductInfo.name);
-    //     setUnitPartsCount(traderProductInfo.unit_parts_count);
-    //     setSalePrice(traderProductInfo.sale_price);
-    //     setBuyPrice(
-    //         traderProductInfo.buy_price != null && traderProductInfo.buy_price
-    //     );
-    //     setItemCode(traderProductInfo.code);
-    //     setBarCode(traderProductInfo.barcode);
-    //     setSpareBarCode(
-    //         traderProductInfo.spare_barcode != null &&
-    //             traderProductInfo.spare_barcode
-    //     );
-    //     setProductDescription(traderProductInfo.description);
-    //     setDiscountValue(traderProductInfo.discount);
-    //     // setDiscountByPound(traderProductInfo.discount);
-    //     console.log();
-    // }, []);
 
     //  (---------------------- discount ------------------- )
     const [discountValue, setDiscountValue] = useState("");
@@ -184,7 +133,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         setSalePrice(traderProductInfo.sale_price);
         setItemCode(traderProductInfo.code);
         setDiscountValue(traderProductInfo.discount);
-        console.log(traderProductInfo.discount);
     }, []);
 
     // (------------------------ (Start adding product Function) -----------------------------)
@@ -204,56 +152,29 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         // }
     };
 
-    console.log(traderProductInfo);
-
     const updateProductFunc = async () => {
-        let traderTk = JSON.parse(localStorage.getItem("trTk"));
-        const fData = new FormData();
-        fData.append("name", productName);
-
-        fData.append("item_unit_id", itemUnitId); // وحدة المنتج _ قطعة+-وحدة-علبة
-
-        fData.append("unit_parts_count", unitPartsCount); // العدد داخل الوحدة او القطعة او العلبة
-
-        fData.append("sale_price", salePrice); // سعر البيع
-
-        fData.append("buy_price", buyPrice); // سعر الشراء
-
-        fData.append("discount", discountValue); // الخصم
-
-        fData.append("code", itemCode); // كود المنتج
-
-        fData.append("barcode", barCode); // الباركود
-
-        fData.append("trader_id", traderProductInfo.id);
-
-        fData.append("description", productDescription);
-
-        fData.append("manufactory_id", manufactoryID); //  الشركة المنتجة او المصنعة
-        fData.append("company_id", distributeCompanyId); // الشركة الموزعة
-        fData.append("importer_id", importedCompId); // الشركة المستوردة
-        fData.append("import", importBoolean); // هل المنتج مستورد
-
+        let userTk = JSON.parse(localStorage.getItem("uTk"));
         try {
             const res = await axios.put(
                 `${process.env.MIX_APP_URL}/api/items/${traderProductInfo.id}`,
                 {
                     name: productName,
-                    // type_id: typeId,
                     item_unit_id: itemUnitId,
                     unit_parts_count: unitPartsCount,
+                    category_id: categoryId,
                     sale_price: salePrice,
                     buy_price: buyPrice,
-                    discount: discountValue,
-                    code: itemCode,
+                    discount: discountByPercentage,
+                    item_code: itemCode,
                     barcode: barCode,
                     trader_id: traderProductInfo.id,
                     spare_barcode: spareBarCode,
                     description: productDescription,
                 },
+
                 {
                     headers: {
-                        Authorization: `Bearer ${traderTk}`,
+                        Authorization: `Bearer ${userTk}`,
                     },
                 }
             );
@@ -267,9 +188,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         }
     };
     // (------------------------ (End adding product Function) -------------------------)
-    const whatType = (e) => {
-        setTypeId(e.target.value);
-    };
 
     //  (------------------------ (Import checkBox) --------------------------)
     const openImportedInput = (e) => {
@@ -282,43 +200,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         setCheckValue(!checkedValue);
     };
     //  (------------------------ (Import checkBox) ------------------------------)
-
-    const logOutTrader = () => {
-        localStorage.removeItem("trTk");
-        navig("/");
-    };
-
-    const handleImg = (e) => {
-        setImgVal([...e.target.files]);
-    };
-
-    // (------------------------ open discount handle ----------------------)
-    const opnDiscByPound = () => {
-        setIsDicountPrice(true);
-        setIsDicountPerc(false);
-    };
-
-    const opnDiscByPercentage = () => {
-        setIsDicountPrice(false);
-        setIsDicountPerc(true);
-    };
-
-    const cancelDiscount = () => {
-        setIsDicountPrice(false);
-        setIsDicountPerc(false);
-    };
-    // (------------------------ open discount handle ----------------------)
-
-    // (------------------------ handle item unints select ----------------------)
-    const whatItem = (e) => {
-        setItemUnitId(e.target.value);
-        // if (e.target.value != "0") {
-        // } else {
-        //     console.log("zero not valid");
-        // }
-        // console.log(e.target.value);
-    };
-    // (------------------------ handle item unints select ----------------------)
 
     // (------------------------ handle Text Editor Value ----------------------)
     const textEditorValue = (text) => {
@@ -351,6 +232,12 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         // }
     };
 
+    // (handle item unints select)
+    const whatItem = (e) => {
+        setItemUnitId(e.target.value);
+    };
+    // (handle item unints select)
+
     const whatSub = (sub) => {
         setcategoryId(sub.id);
         setSeletedSubName(sub.name);
@@ -365,7 +252,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                 </div>
             )}
 
-            <div className="add-product-inputs ">
+            <div className="update-product-inputs">
                 <div className="grid lg:grid-cols-2 gap-x-12 gap-y-3 p-3">
                     <div className="product-name-div">
                         <div className="mt-3 mb-2">إسم المنتج</div>
@@ -520,68 +407,6 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                         />
                     </div> */}
 
-                    {/* <div className="discount-div">
-                        <div className="">إختر طريقة الخصم</div>
-                        <button
-                            onClick={opnDiscByPound}
-                            className={`${
-                                isDiscountPrice ? "bg-green-400" : ""
-                            } mx-2 p-1 mb-2 shadow-md rounded-md`}
-                        >
-                            الخصم بالجنية
-                        </button>
-                        <button
-                            onClick={opnDiscByPercentage}
-                            className={`${
-                                isDiscountPerc ? "bg-green-400" : ""
-                            } mx-2 p-1 mb-2 shadow-md rounded-md`}
-                        >
-                            الخصم بالنسبة
-                        </button>
-                        {isDiscountPerc && (
-                            <button
-                                onClick={cancelDiscount}
-                                className={`mt-3 mx-2 p-1 bg-red-400 mb-2 shadow-md rounded-md`}
-                            >
-                                إلغاء الخصم
-                            </button>
-                        )}
-                        {isDiscountPrice && (
-                            <button
-                                onClick={cancelDiscount}
-                                className="mt-3 mx-2 p-1 bg-red-400 mb-2 shadow-md rounded-md"
-                            >
-                                إلغاء الخصم
-                            </button>
-                        )}
-                        {isDiscountPrice && (
-                            <input
-                                className="border-none shadow-md rounded-md"
-                                type="number"
-                                min={0}
-                                value={discountValue}
-                                placeholder="10"
-                                onChange={(e) =>
-                                    setDiscountValue(e.target.value)
-                                }
-                            />
-                        )}
-                        {isDiscountPerc && (
-                            <div>
-                                <div>{precentDiscount}</div>
-                                <input
-                                    className="border-none shadow-md rounded-md"
-                                    type="text"
-                                    min={0}
-                                    value={discountByPercentage}
-                                    placeholder=" اكتب القيمة فقط مثال: 10"
-                                    onChange={(e) =>
-                                        setDiscountByPercentage(e.target.value)
-                                    }
-                                />
-                            </div>
-                        )}
-                    </div> */}
                     {/*  كود المنتج */}
                     <div className="product-code-div">
                         <div className="mt-3 mb-2">كود المنتج</div>
@@ -722,7 +547,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                         </select>
                     </div> */}
                     {/* ----------------------- Distribute Company Select ------------------- */}
-
+                    <h1>وصف جديد للمنتج</h1>
                     <TextEditorFunction textEditorValue={textEditorValue} />
                 </div>
                 <button

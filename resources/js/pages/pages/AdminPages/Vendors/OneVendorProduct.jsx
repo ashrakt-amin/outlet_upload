@@ -191,8 +191,6 @@ const OneVendorProduct = () => {
     const addImagesNow = async (prodcutInf) => {
         const { id } = prodcutInf;
 
-        console.log(prodcutInf);
-
         const fData = new FormData();
         fData.append("item_id", id);
         images.map((img) => {
@@ -241,6 +239,7 @@ const OneVendorProduct = () => {
     console.log(stockCode);
 
     const addStkSizClr = async (prodcutInf) => {
+        let userToken = JSON.parse(localStorage.getItem("uTk"));
         const { id, trader } = prodcutInf;
         if (stockCount < "1") {
             setAddToProductMsg("يجب ملئ البيانات بطريقة صحيحة");
@@ -256,22 +255,15 @@ const OneVendorProduct = () => {
                         stock: stockCount,
                         stock_code: stockCode,
                         trader_id: trader.id,
-                        season_id: "",
                         color_id: colorIdSelect,
                         size_id: sizeIdSelect,
                         weight_id: weightId,
                         season_id: seasonId,
                         sale_price: salePrice,
-                        // buy_price: buyPrice,
-                        // buy_discount: discount,
-                        // weight_id: "",
-                        // volume_id: volumeIdSelect,
-                        // manufacture_data: manufactureDate,
-                        // expire_date: expireDate,
-                        // stock_discount: stockDiscount,
-                        // discount_start_date: discountStartDate,
-                        // discount_end_date: discountEndDate,
                     }
+                    // {
+                    //     headers: { Authorization: `Bearer ${userToken}` },
+                    // }
                 );
                 console.log(res);
                 setFetchAgain(!fetchAgain);
