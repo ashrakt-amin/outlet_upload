@@ -44,10 +44,10 @@ return [
             'throw' => false,
         ],
 
-        'imagesFb' => [
+        'assets' => [
             'driver' => 'local',
-            'root' => storage_path('app/imagesFb'),
-            'url' => env('APP_URL').'/imagesFb',
+            'root' => public_path('assets/images/uploads'),
+            'url' => env('MIX_APP_URL').'assets/images/uploads/items',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -79,7 +79,7 @@ return [
 
     'links' => [
         public_path('storage')  => storage_path('app/public'),
-        public_path('imagesFb') => storage_path('app/imagesFb'),
+        public_path('assets')   => storage_path('app/assets'),
     ],
 
 ];

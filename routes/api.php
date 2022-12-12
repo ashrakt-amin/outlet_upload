@@ -291,6 +291,11 @@ Route::resource('traders', TraderController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
+Route::prefix("itemImages")->group(function(){
+    Route::controller(ItemImageController::class)->group(function () {
+        Route::post('/store2',             'store2');
+    });
+});
 Route::resource('itemImages', ItemImageController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
