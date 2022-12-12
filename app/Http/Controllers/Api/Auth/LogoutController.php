@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LogoutController extends Controller
 {
     /**
-    * Login api
+    * Logout function
     *
     * @return \Illuminate\Http\Response
     */

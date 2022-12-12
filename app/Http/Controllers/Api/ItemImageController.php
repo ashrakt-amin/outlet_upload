@@ -36,23 +36,10 @@ class ItemImageController extends Controller
     {
         if ($request->hasFile('img')) {
             foreach ($request->file('img') as $image) {
-                $name            = $image->getClientOriginalName();
-                $ext             = $image->getClientOriginalExtension();
-                $filename        = rand(10, 100000).time().'.'.$ext;
-
-                $image_path = storage_path('app/imagesFb');
-                $image->move($image_path, $filename);
-
                 $itemImage = new ItemImage();
                 $itemImage->item_id = $item;
-                $itemImage->img     = $filename;
+                $itemImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
                 $itemImage->save();
-
-                $img = Image::make(storage_path('app/imagesFb').$filename)->fit(200, 200)->save();
-                // $img->resize(300, 300, function($constraint) {
-                //     $constraint->aspectRatio();
-                // });
-                // $img->save(storage_path('app/imagesFb').'/'.$filename);
             }
         }
     }
@@ -92,6 +79,16 @@ class ItemImageController extends Controller
                 "message" => "فشل اضافة الصورة",
             ], 422);
         }
+    }
+
+    public function store2(Request $request) {
+        $data = $request->all();
+        if ($request->hasfile('img')){
+            // $this->setImage($request->img, 'items');
+            $data['img'] = $this->aspectForResize($request->img, $request->item_id, 2000, 1800, 'items');
+        }
+        $create = ItemImage::create($data);
+        return $create;
     }
 
     /**

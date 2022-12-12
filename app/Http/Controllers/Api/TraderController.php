@@ -66,11 +66,9 @@ class TraderController extends Controller
                 'email'     => 'البريد الالكتروني مسجل من قبل',
                 ]);
             }
-
             $trader = new Trader();
             $trader->fill($request->input());
-            if ($request->hasFile('logo'))
-            {
+            if ($request->hasFile('logo')) {
                 $file            = $request->file('logo');
                 $ext             = $file->getClientOriginalExtension();
                 $filename        = time().'.'.$ext;
