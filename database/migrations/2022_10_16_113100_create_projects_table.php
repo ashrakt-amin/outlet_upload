@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('eskan_company_id')->default(1);
-            $table->unsignedBigInteger('code')->default(1);
+            $table->boolean('project_type')->default(1);
             $table->timestamps();
         });
     }
