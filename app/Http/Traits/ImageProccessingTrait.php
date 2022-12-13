@@ -160,7 +160,7 @@ Trait ImageProccessingTrait {
     /**
      * store multi images for all models
      */
-    public function storeMultiModelImages($image, $modelName, $relationColumnName, $relationColumnId, $path)
+    public function storeMultiModelImages($image, $modelName, $relationColumnName, $relationColumnValue, $path)
     {
         $img = Image::make($image);
         $name            = $image->getClientOriginalName();
@@ -168,15 +168,13 @@ Trait ImageProccessingTrait {
         $filename        = rand(10, 100000).time().'.'.$ext;
         $image->save(public_path('assets/images/uploads/'.$path).'/'.$name);
 
-        // $modelName = new $modelName();
-        // $relationColumnName      = $relationColumn.'_id';
-        // $relationColumnNameImage = $relationColumnName.'Image';
 
         $relationColumnNameImage = $modelName;
-        $relationColumnNameImage->$relationColumnName = $relationColumnId;
+        $relationColumnNameImage->$relationColumnName = $relationColumnValue;
         $relationColumnNameImage->img                 = $name;
-        return $image;
         $relationColumnNameImage->save();
+        return $image;
+
         // $levelImage = new LevelImage();
         // $levelImage->item_id = $item;
         // $levelImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
