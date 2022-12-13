@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Cart;
-use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderStatu;
 use App\Models\OrderDetail;
@@ -11,9 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\OrderResource;
-use App\Http\Resources\OrderCollection;
 use App\Http\Resources\OrderStatuResource;
-use App\Models\ColorSizeStock;
+use App\Models\Stock;
 
 class OrderController extends Controller
 {
@@ -51,20 +49,20 @@ class OrderController extends Controller
         $order_details = $request->order_details;
         foreach ($order_details as $key => $value) {
             $orderDetail = new OrderDetail();
-            $orderDetail ->order_id            = $order->id;
-            $orderDetail ->color_size_stock_id = $value['color_size_stock_id'];
-            $orderDetail ->trader_id           = $value['trader_id'];
-            $orderDetail ->discount            = $value['discount'];
-            $orderDetail ->quantity            = $value['quantity'];
-            $orderDetail ->item_price          = $value['item_price'];
-            $orderDetail ->order_statu_id      = $order ->order_statu_id;
+            $orderDetail ->order_id       = $order->id;
+            $orderDetail ->stock_id       = $value['stock_id'];
+            $orderDetail ->trader_id      = $value['trader_id'];
+            $orderDetail ->discount       = $value['discount'];
+            $orderDetail ->quantity       = $value['quantity'];
+            $orderDetail ->item_price     = $value['item_price'];
+            $orderDetail ->order_statu_id = $order ->order_statu_id;
             $orderDetail ->save();
             $discount[] = $orderDetail ->discount;
 
 
-            $colorSizeStock = ColorSizeStock::where(['id'=>$orderDetail->color_size_stock_id])->first();
-            $colorSizeStock->stock = $colorSizeStock->stock - $orderDetail ->quantity;
-            $colorSizeStock->update();
+            $stock = Stock::where(['id'=>$orderDetail->stock_id])->first();
+            $stock->stock = $stock->stock - $orderDetail ->quantity;
+            $stock->update();
             // $item = Item::where(['id'=>$orderDetail->item_id])->first();
             // $item->stock = $item->stock - $orderDetail ->quantity;
             // $item->update();
@@ -177,9 +175,9 @@ class OrderController extends Controller
                 $orderDetail->order_statu_id = $request->order_statu_id;
                 $orderDetail->update();
                 if ( ($orderStatu->code == 0)) {
-                    $colorSizeStock = ColorSizeStock::where(['id'=>$orderDetail->color_size_stock_id])->first();
-                    $colorSizeStock->stock = $colorSizeStock->stock + $orderDetail->quantity;
-                    $colorSizeStock->update();
+                    $stock = Stock::where(['id'=>$orderDetail->stock_id])->first();
+                    $stock->stock = $stock->stock + $orderDetail->quantity;
+                    $stock->update();
                 }
             }
             if ( ($orderStatu->code == 0)) {
@@ -219,9 +217,9 @@ class OrderController extends Controller
                 $orderDetail->order_statu_id = 0;
                 $orderDetail->update();
 
-                $colorSizeStock = ColorSizeStock::where(['id'=>$orderDetail->color_size_stock_id])->first();
-                $colorSizeStock->stock = $colorSizeStock->stock + $orderDetail->quantity;
-                $colorSizeStock->update();
+                $stock = Stock::where(['id'=>$orderDetail->stock_id])->first();
+                $stock->stock = $stock->stock + $orderDetail->quantity;
+                $stock->update();
             }
             if (($order->order_statu_id == 0)) {
                 return response()->json([

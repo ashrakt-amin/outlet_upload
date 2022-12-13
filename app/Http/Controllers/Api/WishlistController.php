@@ -73,7 +73,7 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Weight  $weight
+     * @param  \App\Models\Wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
     public function destroy()

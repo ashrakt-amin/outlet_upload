@@ -6,11 +6,10 @@ use App\Models\Order;
 use App\Models\OrderStatu;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
-use App\Models\ColorSizeStock;
+use App\Models\Stock;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderStatuResource;
 use App\Http\Resources\OrderDetailResource;
-use App\Http\Resources\OrderDetailCollection;
 use App\Http\Resources\OrderResource;
 
 class OrderDetailController extends Controller
@@ -24,7 +23,7 @@ class OrderDetailController extends Controller
     {
         $orderdetails = OrderDetail::WhereTraderAuth('trader_id')->get();
         return response()->json([
-            "data" => new OrderDetailCollection($orderdetails)
+            "data" => OrderDetailResource::collection($orderdetails)
         ]);
     }
 
@@ -89,9 +88,9 @@ class OrderDetailController extends Controller
         if ($orderDetail->update($request->all())) {
             $orderStatu = OrderStatu::where(['id'=>$request->order_statu_id])->first();
             if ( ($orderStatu->code == 0)) {
-                    $colorSizeStock = ColorSizeStock::where(['id'=>$orderDetail->color_size_stock_id])->first();
-                    $colorSizeStock->stock = $colorSizeStock->stock + $orderDetail->quantity;
-                    $colorSizeStock->update();
+                    $stock = Stock::where(['id'=>$orderDetail->stock_id])->first();
+                    $stock->stock = $stock->stock + $orderDetail->quantity;
+                    $stock->update();
                 return response()->json([
                     "success" => true,
                     "message" => "تم الغاءالاوردر",
@@ -133,9 +132,9 @@ class OrderDetailController extends Controller
                 $orderDetail->order_statu_id = 0;
                 $orderDetail->update();
 
-                $colorSizeStock = ColorSizeStock::where(['id'=>$orderDetail->color_size_stock_id])->first();
-                $colorSizeStock->stock = $colorSizeStock->stock + $orderDetail->quantity;
-                $colorSizeStock->update();
+                $stock = Stock::where(['id'=>$orderDetail->stock_id])->first();
+                $stock->stock = $stock->stock + $orderDetail->quantity;
+                $stock->update();
             }
 
             if (($orderDetail->order_statu_id == 0)) {
@@ -166,9 +165,9 @@ class OrderDetailController extends Controller
                 $orderDetail->order_statu_id = 0;
                 $orderDetail->update();
 
-                $colorSizeStock = ColorSizeStock::where(['id'=>$orderDetail->color_size_stock_id])->first();
-                $colorSizeStock->stock = $colorSizeStock->stock + $orderDetail->quantity;
-                $colorSizeStock->update();
+                $stock = Stock::where(['id'=>$orderDetail->stock_id])->first();
+                $stock->stock = $stock->stock + $orderDetail->quantity;
+                $stock->update();
             if (($orderDetail->order_statu_id == 0)) {
                 return response()->json([
                     "success" => true,

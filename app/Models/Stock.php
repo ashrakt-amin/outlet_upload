@@ -16,7 +16,6 @@ class Stock extends Model
         'stock_size',
         'stock_volume',
         'stock_season',
-        'stock_weight',
         ];
 
         protected $hidden = [
@@ -37,7 +36,6 @@ class Stock extends Model
         'available',
         'color_id',
         'size_id',
-        'weight_id',
         'volume_id',
         'season_id',
         'manufacture_date',
@@ -72,12 +70,6 @@ class Stock extends Model
     {
         return $this->belongsTo(Size::class);
     }
-
-    public function weight()
-    {
-        return $this->belongsTo(Weight::class);
-    }
-
     public function season()
     {
         return $this->belongsTo(Season::class);
@@ -108,11 +100,6 @@ class Stock extends Model
     // public function getStockSizeAttribute()
     // {
     //     return $this->size ? $this->size : false;
-    // }
-
-    // public function getStockWeight()
-    // {
-    //     return $this->weight ? $this->weight : false;
     // }
 
     // public function getStockVolumeAttribute()

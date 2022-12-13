@@ -30,7 +30,6 @@ class Item extends Model
             'type_id',
             'item_unit_id',
             'season_id',
-            'weight_id',
             'volume_id',
             'manufactory_id', // 'الشركة المنتجة'
             'agent_id', // 'الشركة الوكيلة'

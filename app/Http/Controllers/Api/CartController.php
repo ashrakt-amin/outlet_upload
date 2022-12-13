@@ -7,7 +7,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
-use App\Models\ColorSizeStock;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -19,7 +19,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::where(['client_id'=> Auth::guard()->id()])->with(['colorSizeStock'])->get();
+        $carts = Cart::where(['client_id'=> Auth::guard()->id()])->with(['stock'])->get();
         return response()->json([
             'data' => CartResource::collection($carts),
         ], 200);
@@ -34,13 +34,13 @@ class CartController extends Controller
     public function store(Request $request)
     {
         if ($request->color_id && $request->size_id) {
-            $colorSizeStock = ColorSizeStock::where([
+            $stock = Stock::where([
                 'item_id'=>$request->item_id,
                 'color_id'=>$request->color_id,
                 'size_id'=>$request->size_id,
             ])->first();
-            if ($colorSizeStock->stock >= $request->quantity) {
-                $cart = Cart::where(['color_size_stock_id'=>$colorSizeStock->id, 'client_id'=>Auth::guard()->id()])->first();
+            if ($stock->stock >= $request->quantity) {
+                $cart = Cart::where(['stock_id'=>$stock->id, 'client_id'=>Auth::guard()->id()])->first();
                 if ($cart) {
                     $cart->update($request->all());
                     return response()->json([
@@ -49,8 +49,8 @@ class CartController extends Controller
                     ], 200);
                 } else {
                     $cart = new Cart();
-                    $cart ->color_size_stock_id = $colorSizeStock->id;
-                    $cart ->trader_id           = $colorSizeStock->item->trader_id;
+                    $cart ->stock_id = $stock->id;
+                    $cart ->trader_id           = $stock->item->trader_id;
                     $cart ->client_id           = Auth::guard()->id();
                     $cart ->quantity            = $request->quantity;
                     if ($cart->save()) {
@@ -68,14 +68,14 @@ class CartController extends Controller
             } else {
                 return response()->json([
                     "success" => false,
-                    "message" => "الرصيد المتاح".' '.$colorSizeStock->stock,
+                    "message" => "الرصيد المتاح".' '.$stock->stock,
                 ], 422);
             }
         }
         // An old
-        // $itemCount = ColorSizeStock::find($request->color_size_stock_id);
+        // $itemCount = Stock::find($request->stock_id);
         // if ($itemCount->stock > $request->quantity) {
-        //     $cart = Cart::where(['color_size_stock_id'=>$request->color_size_stock_id, 'client_id'=>Auth::guard()->id()])->first();
+        //     $cart = Cart::where(['stock_id'=>$request->stock_id, 'client_id'=>Auth::guard()->id()])->first();
         //     if ($cart) {
         //         $cart->update($request->all());
         //         return response()->json([
@@ -84,7 +84,7 @@ class CartController extends Controller
         //         ], 200);
         //     } else {
         //         $cart = new Cart();
-        //         $cart ->color_size_stock_id = $request->color_size_stock_id;
+        //         $cart ->stock_id = $request->stock_id;
         //         $cart ->trader_id           = $request->trader_id;
         //         $cart ->client_id           = Auth::guard()->id();
         //         $cart ->quantity            = $request->quantity;
@@ -125,25 +125,25 @@ class CartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ColorSizeStock  $colorSizeStock
+     * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
         if ($request->color_id && $request->size_id) {
-            $colorSizeStock = ColorSizeStock::where([
+            $stock = Stock::where([
                 'item_id'=>$request->item_id,
                 'color_id'=>$request->color_id,
                 'size_id'=>$request->size_id,
             ])->first();
-            if ($colorSizeStock->stock >= $request->stock) {
+            if ($stock->stock >= $request->stock) {
                 return response()->json([
                     "success" => true,
                 ], 200);
             } else {
                 return response()->json([
                     "success" => false,
-                    "message" => "الرصيد المتاح".$colorSizeStock->stock,
+                    "message" => "الرصيد المتاح".$stock->stock,
                 ], 422);
             }
         }

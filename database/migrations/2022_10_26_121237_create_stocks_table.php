@@ -30,7 +30,6 @@ return new class extends Migration
             $table->bigInteger('spare_barcode')     ->nullable();
             $table->unsignedBigInteger('color_id')  ->nullable();
             $table->unsignedBigInteger('size_id')   ->nullable();
-            $table->unsignedBigInteger('weight_id') ->nullable();
             $table->unsignedBigInteger('volume_id') ->nullable();
             $table->unsignedBigInteger('season_id') ->nullable();
             $table->date('manufacture_date')        ->nullable();
