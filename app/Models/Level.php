@@ -29,6 +29,7 @@ class Level extends Model
     protected $fillable = [
         'name',
         'project_id',
+        'level_type',
     ];
 
     public function project()
