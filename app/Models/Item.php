@@ -137,7 +137,6 @@ class Item extends Model
 
     public function getItemCategoryAttribute()
     {
-        $itemCategory = $this->category;
         return $this->category;
     }
 

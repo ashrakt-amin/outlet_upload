@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\LevelImage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LevelResource extends JsonResource
@@ -23,6 +24,7 @@ class LevelResource extends JsonResource
             'project'    => new ProjectResource($project),
             'units'      => UnitResource::collection($units),
             'traders'    => TraderResource::collection($traders),
+            'images'     => $this->level_images_appended,
         ];
     }
 }

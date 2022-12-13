@@ -8,7 +8,6 @@ use App\Models\LevelImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LevelResource;
-use App\Http\Resources\LevelCollection;
 
 class LevelController extends Controller
 {
@@ -20,9 +19,8 @@ class LevelController extends Controller
     public function index()
     {
         $levels = Level::all();
-        // return new Collection($projects);
         return response()->json([
-            "data" => new LevelCollection($levels)
+            "data" => LevelResource::collection($levels)
         ]);
     }
 

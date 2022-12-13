@@ -10,6 +10,7 @@ class Level extends Model
     use HasFactory;
 
     protected $appends = [
+        'level_images_appended',
         'level_units'
     ];
 
@@ -42,6 +43,11 @@ class Level extends Model
         return $this->belongsTo(Zone::class);
     }
 
+    public function levelImages()
+    {
+        return $this->hasMany(LevelImage::class);
+    }
+
     public function units()
     {
         return $this->hasMany(Unit::class);
@@ -59,10 +65,14 @@ class Level extends Model
         );
     }
 
+    public function getlevelImagesAppendedAttribute()
+    {
+        return $this->levelImages;
+    }
+
     public function getLevelUnitsAttribute()
     {
         return Unit::where(['level_id'=>$this->id])->get();
-        return $this->units ? $this->units  : false;
     }
 }
 
