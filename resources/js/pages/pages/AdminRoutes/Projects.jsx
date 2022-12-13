@@ -13,8 +13,6 @@ const Projects = () => {
     const [fetchAgain, setFechAgain] = useState(false);
     const [isAddproject, setIsAddproject] = useState(false);
 
-    const [projectType, setprojectType] = useState("");
-
     const [imgs, setImgs] = useState(null);
 
     useEffect(() => {
@@ -49,7 +47,7 @@ const Projects = () => {
         if (projectName != "") {
             const fData = new FormData();
             fData.append("name", projectName);
-            fData.append("project_type", projectType);
+            // fData.append("project_type", projectType);
             // imgs.map((el) => {
             //     fData.append("img[]", el);
             // });
@@ -73,10 +71,6 @@ const Projects = () => {
         }
     };
 
-    const handleProjectType = (e) => {
-        setprojectType(e);
-        console.log(e);
-    };
     return (
         <div dir="rtl" className="p-2 text-center ">
             <h1> صفحة المشاريع</h1>
@@ -112,22 +106,6 @@ const Projects = () => {
                     type="text"
                     className="rounded-md mx-1"
                 />
-
-                <div className="project-type">
-                    <h1>اختر نوع المشروع</h1>
-                    <button
-                        onClick={() => handleProjectType(0)}
-                        className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
-                    >
-                        مول
-                    </button>
-                    <button
-                        onClick={() => handleProjectType(1)}
-                        className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
-                    >
-                        شوارع
-                    </button>
-                </div>
             </div>
             <div className="">
                 <span className="text-lg">إختر صور المشروع</span>
