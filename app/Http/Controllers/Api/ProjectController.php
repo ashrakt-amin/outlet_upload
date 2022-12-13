@@ -19,7 +19,6 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        // return new Collection($projects);
         return response()->json([
             "data" => ProjectResource::collection($projects)
         ]);
@@ -73,7 +72,7 @@ class ProjectController extends Controller
     {
         $project = Project::where(['id'=>$project->id])->with('levels')->first();
         return response()->json([
-            "data"=> new ProjectResource($project),
+            "data"=> ($project),
         ], 200);
     }
 
@@ -113,7 +112,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
 
-        if ($project->levels()->count() == 0) {
+        if ($project->levels->count() == 0) {
             $project->delete();
             return response()->json([
                 "success" => true,

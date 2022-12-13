@@ -20,6 +20,9 @@ class Project extends Model
     ];
 
     protected $visible = [
+        'id',
+        'name',
+        'levels'
     ];
 
 
@@ -39,14 +42,15 @@ class Project extends Model
 
     public function levels()
     {
-        return $this->hasManyThrough(
-            Level::class,
-            Unit::class,
-            'level_id', // Foreign key on the incoming table...
-            'id', // Foreign key on the throwing table...
-            'id', // Local key on the this table...
-            'level_id', // Local key on the incoming table..
-        );
+        return $this->hasMany(Level::class);
+        // return $this->hasManyThrough(
+        //     Level::class,
+        //     Unit::class,
+        //     'level_id', // Foreign key on the incoming table...
+        //     'id', // Foreign key on the throwing table...
+        //     'id', // Local key on the this table...
+        //     'level_id', // Local key on the incoming table..
+        // );
     }
 
     public function traders()
