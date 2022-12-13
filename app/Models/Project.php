@@ -10,6 +10,7 @@ class Project extends Model
     use HasFactory;
 
     protected $appends = [
+        'project_images_appended',
         'project_levels',
         ];
 
@@ -63,10 +64,14 @@ class Project extends Model
         return $this->hasManyThrough(Trader::class, Unit::class);
     }
 
+    public function getProjectImagesAppendedAttribute()
+    {
+        return $this->projectImages ?$this->projectImages : false;
+    }
+
     public function getProjectLevelsAttribute()
     {
         return Level::where(['project_id'=>$this->id, 'level_type'=> 0 ])->get();
-        // return $this->levels ? $this->levels  : false;
     }
 
 }
