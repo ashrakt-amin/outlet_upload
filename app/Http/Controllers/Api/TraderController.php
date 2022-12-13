@@ -76,8 +76,8 @@ class TraderController extends Controller
                 $trader->logo = $filename;
             }
             // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
-            $age = Carbon::parse($request->age)->format('Y-m-d');
-            $trader->age = Carbon::parse($age)->age;
+            // $age = Carbon::parse($request->age)->format('Y-m-d');
+            $trader->age = Carbon::parse($request->age)->age;
             if ($trader->save()) {
                 return response()->json([
                     "success" => true,
