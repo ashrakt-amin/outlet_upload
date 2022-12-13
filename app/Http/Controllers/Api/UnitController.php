@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Api;
 use App\Models\Unit;
 
 use App\Models\Level;
+use App\Models\Statu;
 use App\Models\Activity;
+use App\Models\UnitImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ActivityResource;
-use App\Http\Resources\StatuResource;
 use App\Http\Resources\UnitResource;
+use App\Http\Resources\StatuResource;
 use App\Http\Resources\UnitCollection;
-use App\Models\Statu;
+use App\Http\Resources\ActivityResource;
 
 class UnitController extends Controller
 {
@@ -40,6 +41,19 @@ class UnitController extends Controller
     {
         $unit = Unit::create($request->all());
             if ($unit) {
+                if ($request->hasFile('img')) {
+                    foreach ($request->file('img') as $image) {
+                        $name            = $image->getClientOriginalName();
+                        $ext             = $image->getClientOriginalExtension();
+                        $filename        = rand(10, 100000).time().'.'.$ext;
+                        $image->move('assets/images/uploads/levels/', $filename);
+
+                        $image = new UnitImage();
+                        $image->unit_id = $unit->id;
+                        $image->img     = $filename;
+                        $image->save();
+                    }
+                }
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل وحدة جديدة",
