@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { FcCamera } from "react-icons/fc";
 
 const OneProject = () => {
     const { id } = useParams();
@@ -41,9 +42,21 @@ const OneProject = () => {
         setIsAddLevel(!isAddLevel);
     };
 
+    const [imgs, setImgs] = useState(null);
+
+    const handleImg = (e) => {
+        setImgs([...e.target.files]);
+    };
+
     const addLevelFunc = () => {
         setIsAddLevel(!isAddLevel);
         if (levelName != "") {
+            const fData = new FormData();
+
+            fData.append("name", levelName);
+            // imgs.map((el) => {
+            //     fData.append("img[]", el);
+            // });
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/levels`, {
@@ -101,6 +114,24 @@ const OneProject = () => {
                     className="rounded-md mx-1"
                     value={levelName}
                 />
+
+                <div className="">
+                    <span className="text-lg">إختر صور الدور</span>
+                    <label
+                        onChange={handleImg}
+                        htmlFor="formId"
+                        className="text-center flex justify-center"
+                    >
+                        <FcCamera className="text-3xl cursor-pointer " />
+                    </label>
+                    <input
+                        multiple
+                        className="hidden"
+                        name=""
+                        type="file"
+                        id="formId"
+                    />
+                </div>
             </div>
 
             <div className="levels-grid grid grid-cols-3 gap-3">

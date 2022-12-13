@@ -2,7 +2,26 @@
     z-index: 400;
 }
 
+.shops-list-container {
+    &:hover {
+        .units-into-level {
+            display: block;
+            min-width: 200px;
+            min-height: 200px;
+            top: 45px!important;
+            left: -120px!important;
+            background-color: rgb(228, 228, 228);
+            color: #ededed;
+            padding: 10px;
 
+            div {
+                background-color: #dc1a21;
+                margin: 5px;
+                padding: 5px;
+            }
+        }
+    }
+}
 
 .fixed-nav-one {
     position: fixed;

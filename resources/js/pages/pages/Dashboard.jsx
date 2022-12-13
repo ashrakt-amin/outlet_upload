@@ -23,32 +23,32 @@ function Dashboard() {
     const { isDark, isShow } = useContext(darkTheme);
     const navigate = useNavigate();
 
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(true);
 
     useEffect(() => {
-        let adminTrue = JSON.parse(localStorage.getItem("uTk"));
-        if (adminTrue) {
-            const checkUserFirst = async () => {
-                try {
-                    const res = await axios.get(
-                        `${process.env.MIX_APP_URL}/api/users/show`,
-                        {
-                            headers: { Authorization: `Bearer ${adminTrue}` },
-                        }
-                    );
-                    if (res.status == 200) {
-                        setIsAdmin(true);
-                    } else {
-                        navigate("/adminlogin");
-                    }
-                } catch (er) {
-                    navigate("/adminlogin");
-                }
-            };
-            checkUserFirst();
-        } else {
-            navigate("/adminlogin");
-        }
+        // let adminTrue = JSON.parse(localStorage.getItem("uTk"));
+        // if (adminTrue) {
+        //     const checkUserFirst = async () => {
+        //         try {
+        //             const res = await axios.get(
+        //                 `${process.env.MIX_APP_URL}/api/users/show`,
+        //                 {
+        //                     headers: { Authorization: `Bearer ${adminTrue}` },
+        //                 }
+        //             );
+        //             if (res.status == 200) {
+        //                 setIsAdmin(true);
+        //             } else {
+        //                 navigate("/adminlogin");
+        //             }
+        //         } catch (er) {
+        //             navigate("/adminlogin");
+        //         }
+        //     };
+        //     checkUserFirst();
+        // } else {
+        //     navigate("/adminlogin");
+        // }
     }, []);
 
     return (

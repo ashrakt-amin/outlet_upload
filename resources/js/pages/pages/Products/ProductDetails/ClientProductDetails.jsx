@@ -194,17 +194,39 @@ const ClientProductDetails = () => {
                         className="bg-white shadow-md p-2 z-50 fixed top-0 flex justify-center items-center left-0 w-full h-full"
                     >
                         <div
-                            className="buy-from-home-content p-1 bg-red-400"
+                            className="buy-from-home-content flex flex-col p-1 bg-red-500 rounded-md"
                             style={{ maxWidth: "500px" }}
                         >
-                            <button onClick={getitTohome}>إغلاق</button>
-                            <h1>الاسم</h1>
-                            <input type="text" name="name" id="name" />
-                            <h1>رقم التليفون</h1>
-                            <input type="tel" name="tel" id="tel" />
-                            <h1>العنوان</h1>
-                            <input type="text" name="address" id="address" />
-                            <button>طلب الان</button>
+                            <button
+                                className="text-white border-2 p-1"
+                                onClick={getitTohome}
+                            >
+                                إغلاق
+                            </button>
+                            <h1 className="text-white">الاسم</h1>
+                            <input
+                                className="rounded-md "
+                                type="text"
+                                name="name"
+                                id="name"
+                            />
+                            <h1 className="text-white">رقم التليفون</h1>
+                            <input
+                                className="rounded-md "
+                                type="tel"
+                                name="tel"
+                                id="tel"
+                            />
+                            <h1 className="text-white">العنوان</h1>
+                            <input
+                                className="rounded-md "
+                                type="text"
+                                name="address"
+                                id="address"
+                            />
+                            <button className="text-black mt-1 shadow-md p-1 bg-slate-200 rounded-md">
+                                طلب الان
+                            </button>
                         </div>
                     </div>
                 )}
