@@ -56,7 +56,7 @@ class Project extends Model
 
     public function getProjectLevelsAttribute()
     {
-        return Level::where(['project_id'=>$this->id])->get();
+        return Level::where(['project_id'=>$this->id, 'level_type'=> 1 ])->get();
         // return $this->levels ? $this->levels  : false;
     }
 
