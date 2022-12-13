@@ -96,11 +96,29 @@ const Header = () => {
                     }
                 );
                 setCategoriesArr(res.data.data);
+                console.log(res.data);
             } catch (error) {
                 console.warn(error.message);
             }
         };
         getCategories();
+        const getLevels = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.MIX_APP_URL}/api/projects`
+                    // {
+                    //     headers: {
+                    //         Authorization: `Bearer ${getToken}`,
+                    //     },
+                    // }
+                );
+                setLevels(res.data.data);
+                console.log(res.data.data);
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
+        getLevels();
         return () => {
             cancelRequest.cancel();
         };
@@ -120,7 +138,9 @@ const Header = () => {
     };
 
     const traderByContstruction = (constructId) => {
-        navigate(`/traderByConstruction/${constructId}`);
+        navigate(`/traderByConstruction/${constructId.id}`);
+        // navigate(`/leveltrader/${constructId.id}`);
+        console.log(constructId);
     };
 
     const logoutFunc = async () => {
@@ -269,27 +289,38 @@ const Header = () => {
                 <div className="categories-div flex text-white justify-center gap-4 py-2 header-tow bg-white">
                     <div className="traders-container">
                         <div className="dropdown-tradres">
-                            <Link
-                                to={"/allStreets"}
-                                className="dropbtn-traders flex items-center  border-b-2 p-2 rounded-md"
-                            >
+                            <button className="dropbtn-traders flex items-center border-b-2 p-2 rounded-md">
                                 {/* <AiOutlineArrowDown /> */}
                                 <span> المحلات</span>
-                            </Link>
-                            {/* <div className="dropdown-trader-list">
+                            </button>
+                            <div className="dropdown-trader-list relative">
                                 {levels &&
                                     levels.map((level) => (
                                         <div
-                                            className="hover:rounded-md"
+                                            className="hover:rounded-md shops-list-container relative"
                                             key={level.id}
-                                            onClick={() =>
-                                                traderByContstruction(level.id)
-                                            }
                                         >
                                             محلات {level.name}
+                                            <div className="units-into-level rounded-md absolute z-50 hidden">
+                                                {level.levels &&
+                                                    level.levels.map((lev) => (
+                                                        <div
+                                                            className="rounded-md"
+                                                            onClick={() =>
+                                                                traderByContstruction(
+                                                                    lev
+                                                                )
+                                                            }
+                                                            key={lev.id}
+                                                        >
+                                                            {" "}
+                                                            {lev.name}
+                                                        </div>
+                                                    ))}
+                                            </div>
                                         </div>
                                     ))}
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                     <div className="categories">

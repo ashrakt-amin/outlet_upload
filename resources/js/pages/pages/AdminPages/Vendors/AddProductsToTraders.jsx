@@ -60,7 +60,7 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
     const [agentId, setAgentId] = useState("");
     // الوكيل
 
-    // (----------------------------- (manufactory الشركة المستوردة   select) -----------------------------)
+    // ((manufactory الشركة المستوردة   select))
     const [importedCompArray, setImportedCompArray] = useState([]);
     const [importedCompId, setImportedCompId] = useState("");
     // الشركة المستوردةselect

@@ -9,24 +9,42 @@ const TraderByConstruction = () => {
 
     const [levelName, setLevelName] = useState("");
 
+    const [oneLevel, setOneLevel] = useState({});
+
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        const getSubCategories = async () => {
+        // const getSubCategories = async () => {
+        //     try {
+        //         const res = await axios.get(
+        //             `${process.env.MIX_APP_URL}/api/levels/client/${id}`,
+        //             {
+        //                 cancelRequest: cancelRequest.token,
+        //             }
+        //         );
+        //         setLevelTraders(res.data.data[0].traders);
+        //         setLevelName(res.data.data[0].name);
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // };
+        // getSubCategories();
+
+        const getOneLevel = async () => {
             try {
                 const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/levels/client/${id}`,
+                    `${process.env.MIX_APP_URL}/api/levels/${id}`,
                     {
                         cancelRequest: cancelRequest.token,
                     }
                 );
-                setLevelTraders(res.data.data[0].traders);
-                setLevelName(res.data.data[0].name);
+                console.log(res.data.data);
+                setOneLevel(res.data.data);
             } catch (error) {
                 console.log(error);
             }
         };
-        getSubCategories();
+        getOneLevel();
 
         return () => {
             cancelRequest.cancel();
@@ -35,13 +53,12 @@ const TraderByConstruction = () => {
 
     return (
         <div dir="rtl">
-            <h1
+            <div
                 className="text-center p-3 shadow-md m-3 text-white rounded-md"
                 style={{ backgroundColor: "rgb(220, 26, 33" }}
             >
-                {" "}
-                محلات {levelName}
-            </h1>
+                <h1>{oneLevel?.name}</h1>
+            </div>
 
             {!levelTraders.length > 0 && (
                 <div style={{ maxWidth: "500px" }} className=" mx-auto">
@@ -53,6 +70,11 @@ const TraderByConstruction = () => {
                     </marquee>
                 </div>
             )}
+
+            {oneLevel?.units &&
+                oneLevel?.units.map((oneUnit) => (
+                    <div key={oneUnit.id}>{oneUnit.name}</div>
+                ))}
 
             <div className="trader-grid-div grid gap-3 lg:grid-cols-3 md:grid:cols-2  place-items-center p-3">
                 {levelTraders &&

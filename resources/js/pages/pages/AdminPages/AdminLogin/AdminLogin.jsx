@@ -28,33 +28,33 @@ const AdminLogin = () => {
             return;
         }
 
-        axios
-            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-            .then(async (res) => {
-                try {
-                    let res = await axios.post(
-                        `${process.env.MIX_APP_URL}/api/login/users`,
-                        {
-                            phone: adminInfo.phone,
-                            password: adminInfo.password,
-                        }
-                    );
-
-                    if (res.data.success == true) {
-                        setCookie("user", res.data.data.token);
-                        localStorage.setItem(
-                            "uTk",
-                            JSON.stringify(res.data.data.token)
-                        );
-                        redirect("/dachboard");
-                    }
-                } catch (er) {
-                    setsuccessMsg(er.response.data.data.error);
-                    setTimeout(() => {
-                        setsuccessMsg("");
-                    }, 3000);
+        try {
+            let res = await axios.post(
+                `${process.env.MIX_APP_URL}/api/login/users`,
+                {
+                    phone: adminInfo.phone,
+                    password: adminInfo.password,
                 }
-            });
+            );
+
+            if (res.data.success == true) {
+                setCookie("user", res.data.data.token);
+                localStorage.setItem(
+                    "uTk",
+                    JSON.stringify(res.data.data.token)
+                );
+                redirect("/dachboard");
+            }
+        } catch (er) {
+            setsuccessMsg(er.response.data.data.error);
+            setTimeout(() => {
+                setsuccessMsg("");
+            }, 3000);
+        }
+        // axios
+        //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+        //     .then(async (res) => {
+        //     });
     };
 
     return (

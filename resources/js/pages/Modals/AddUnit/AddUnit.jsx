@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FcCamera } from "react-icons/fc";
 
 const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     const [unitName, setUnitName] = useState("");
@@ -23,6 +24,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
     const [levelID, setLevelID] = useState("");
     const [projectId, setprojectId] = useState("");
+    const [imgs, setImgs] = useState(null);
 
     useEffect(() => {
         const { id, project_id } = levelInfo;
@@ -42,6 +44,10 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
         };
         getTraders();
     }, []);
+
+    const handleImg = (e) => {
+        setImgs([...e.target.files]);
+    };
 
     // --------------------- Validation inputs -------------------------------
     const [unitNameValid, setUnitNameValid] = useState(false);
@@ -77,18 +83,32 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
     const addNewUnit = async () => {
         if (unitName != "" && traderId != "0") {
+            const fData = new FormData();
+            fData.append("name", unitName);
+            fData.append("level_id", levelInfo.id);
+            fData.append("description", unitDescription);
+            fData.append("trader_id", traderId);
+            // imgs.map((el) => {
+            //     fData.append("img[]", el);
+            // });
+
             try {
                 await axios
-                    .post(`${process.env.MIX_APP_URL}/api/units`, {
-                        name: unitName,
-                        level_id: levelInfo.id, // select الطوابق (الادوار) hidden
-                        description: unitDescription,
-                        trader_id: traderId, // select
-                        // site_id: siteID, // select --> المواقع قبلى او بحرى
-                        // space: unitSpace,
-                        // price_m: meterPrice,
-                        // unit_value: unitPriceVal,
-                    })
+                    .post(
+                        `${process.env.MIX_APP_URL}/api/units`,
+                        fData
+                        //  {
+                        //     name: unitName,
+                        //     level_id: levelInfo.id, // select الطوابق (الادوار) hidden
+                        //     description: unitDescription,
+                        //     trader_id: traderId, // select
+                        //     img: imgs,
+                        //     // site_id: siteID, // select --> المواقع قبلى او بحرى
+                        //     // space: unitSpace,
+                        //     // price_m: meterPrice,
+                        //     // unit_value: unitPriceVal,
+                        // }
+                    )
                     .then((res) => {
                         console.log(res.data.message);
                         setSuccessMsg(res.data.message);
@@ -164,7 +184,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                         <form className="flex flex-col items-center gap-3 mt-6">
                             <div className="w-full">
                                 <div className="relative pb-3 min-w-full">
-                                    <small>اسم محل</small>
+                                    <h1 className="text-lg">اسم محل</h1>
 
                                     <input
                                         onChange={(e) =>
@@ -187,7 +207,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                     name=""
                                     id=""
                                     value={traderId}
-                                    className="my-2 rounded-md"
+                                    className="my-2 rounded-md cursor-pointer"
                                 >
                                     <option value="0">إختر التاجر</option>
                                     {traders &&
@@ -200,6 +220,26 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                             </option>
                                         ))}
                                 </select>
+
+                                <div className="">
+                                    <span className="text-lg">
+                                        إختر صور الدور
+                                    </span>
+                                    <label
+                                        onChange={handleImg}
+                                        htmlFor="formId"
+                                        className=""
+                                    >
+                                        <FcCamera className="text-3xl cursor-pointer " />
+                                    </label>
+                                    <input
+                                        multiple
+                                        className="hidden"
+                                        name=""
+                                        type="file"
+                                        id="formId"
+                                    />
+                                </div>
 
                                 {/* <div className="rest-inputs flex gap-4 flex-wrap">
                                     <div className="relative pb-3">
@@ -251,7 +291,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                         />
                                     </div>
                                 </div> */}
-                                <div className="relative pb-3">
+                                <div className="relative pb-3 mt-4">
                                     <textarea
                                         onChange={(e) =>
                                             setUnitDescription(e.target.value)

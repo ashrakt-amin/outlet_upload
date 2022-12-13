@@ -117,7 +117,6 @@ function AddTrader({ closeModal, getTradersAgain }) {
         const getUserToken = JSON.parse(localStorage.getItem("uTk"));
 
         const fromData = new FormData();
-        console.log(fName);
         fromData.append("f_name", fName);
         fromData.append("m_name", mName);
         fromData.append("l_name", lName);

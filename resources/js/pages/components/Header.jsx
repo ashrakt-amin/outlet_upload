@@ -5,37 +5,41 @@ import { useContext } from "react";
 import { darkTheme } from "../context/darkTheme";
 import { useNavigate } from "react-router-dom";
 
+import { useCookies } from "react-cookie";
+
 export default function Header() {
     const { isDark, toggleDark, isShow, toggleMenu } = useContext(darkTheme);
 
+    const [cookies, setCookie, removeCookie] = useCookies("");
     const navigate = useNavigate();
+    // console.log(cookies);
 
-    const logoutFunc = async () => {
-        document.cookie = "";
-        // console.log(document.cookie);
-        let getToken = JSON.parse(localStorage.getItem("uTk"));
-
-        axios
-            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-            .then(async (res) => {
-                try {
-                    let res = await axios.post(
-                        `${process.env.MIX_APP_URL}/api/logout`,
-                        {},
-                        {
-                            headers: { Authorization: `Bearer ${getToken}` },
-                        }
-                    );
-
-                    localStorage.removeItem("uTk");
-                    navigate("/adminlogin");
-                } catch (er) {
-                    console.log(er);
-                }
-            });
-    };
+    // let token = document.head.querySelector('meta[name="XSRF-TOKEN"]');
     // console.log(document.cookie);
 
+    // axios.defaults.withCredentials = true;
+    const logoutFunc = async () => {
+        const adminTrue = JSON.parse(localStorage.getItem("uTk"));
+        // removeCookie();
+        try {
+            let res = await axios.post(
+                `${process.env.MIX_APP_URL}/api/logout`,
+                {},
+                {
+                    headers: { Authorization: `Bearer ${adminTrue}` },
+                }
+            );
+            console.log(res);
+            // localStorage.removeItem("uTk");
+            // navigate("/adminlogin");
+        } catch (er) {
+            console.log(er);
+        }
+        // axios
+        //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+        //     .then(async (res) => {
+        //     });
+    };
     return (
         <div
             className={
