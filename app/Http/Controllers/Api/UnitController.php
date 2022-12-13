@@ -46,7 +46,7 @@ class UnitController extends Controller
                         $name            = $image->getClientOriginalName();
                         $ext             = $image->getClientOriginalExtension();
                         $filename        = rand(10, 100000).time().'.'.$ext;
-                        $image->move('assets/images/uploads/levels/', $filename);
+                        $image->move('assets/images/uploads/units/', $filename);
 
                         $image = new UnitImage();
                         $image->unit_id = $unit->id;
