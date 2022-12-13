@@ -32,7 +32,6 @@ class StockResource extends JsonResource
             'color'               => new ColorResource($this->color),
             'size'                => new SizeResource($this->size),
             'volume'              => new VolumeResource($this->volume),
-            'weight'              => new WeightResource($this->weight),
             'season'              => $this->stock_season,
             'barcode'             => $this->barcode,
             'spare_barcode'       => $this->spare_barcode,

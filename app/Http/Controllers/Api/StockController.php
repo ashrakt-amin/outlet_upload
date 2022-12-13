@@ -36,7 +36,6 @@ class StockController extends Controller
             'trader_id' =>$request->trader_id,
             'color_id'  =>$request->color_id,
             'size_id'   =>$request->size_id,
-            'weight_id' =>$request->weight_id,
             'volume_id' =>$request->volume_id,
             'season_id' =>$request->season_id,
             ])->first();
