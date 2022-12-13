@@ -56,10 +56,10 @@ class ProjectController extends Controller
                         $filename        = rand(10, 100000).time().'.'.$ext;
                         $image->move('assets/images/uploads/projects/', $filename);
 
-                        $image = new ProjectImage();
-                        $image->project_id = $project->id;
-                        $image->img        = $filename;
-                        $image->save();
+                        $projectImage = new ProjectImage();
+                        $projectImage->project_id = $project->id;
+                        $projectImage->img        = $filename;
+                        $projectImage->save();
                     }
                 }
                 return response()->json([

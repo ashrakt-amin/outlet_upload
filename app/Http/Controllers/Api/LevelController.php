@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Unit;
 
 use App\Models\Level;
+use App\Models\LevelImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LevelResource;
@@ -44,6 +45,19 @@ class LevelController extends Controller
         if ($validate) {
             $level = Level::create($request->all());
             if ($level) {
+                if ($request->hasFile('img')) {
+                    foreach ($request->file('img') as $image) {
+                        $name            = $image->getClientOriginalName();
+                        $ext             = $image->getClientOriginalExtension();
+                        $filename        = rand(10, 100000).time().'.'.$ext;
+                        $image->move('assets/images/uploads/levels/', $filename);
+
+                        $image = new LevelImage();
+                        $image->project_id = $level->id;
+                        $image->img        = $filename;
+                        $image->save();
+                    }
+                }
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل طابقا جديدا",
