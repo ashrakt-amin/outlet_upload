@@ -98,12 +98,12 @@ class Item extends Model
 
     public function colors()
     {
-        return $this->belongsToMany(Color::class, 'color_size_stocks');
+        return $this->belongsToMany(Color::class, 'stocks');
     }
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, 'color_size_stocks');
+        return $this->belongsToMany(Size::class, 'stocks');
     }
 
     public function itemImages()

@@ -26,7 +26,6 @@ class OrderDetailResource extends JsonResource
             'itemPrice'      => $this->item_price,
             'orderStatu'     => new OrderStatuResource($this->orderStatu),
             'nextOrderStatu' => new OrderStatuResource($this->next_order_statu),
-            'colorSizeStock' => new ColorSizeStockResource($colorSizeStock),
             'item'           => new ItemResource($item),
             'trader'         => new traderResource($trader),
         ];
