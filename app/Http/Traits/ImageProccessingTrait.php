@@ -14,8 +14,10 @@ Trait ImageProccessingTrait {
      * img extenstions
      */
     public function getMime ($mime){
-        if ($mime == 'image/jpeg')
+        if ($mime == 'image/jpg')
             $extension = '.jpg';
+        elseif ($mime == 'image/jpeg')
+            $extension = '.jpeg';
         elseif ($mime == 'image/png')
             $extension = '.png';
         elseif ($mime == 'image/gif')
@@ -39,21 +41,25 @@ Trait ImageProccessingTrait {
         $extension = $this->getMime($img->mime());
 
         $strRandom = Str::random(8);
+        $imgPath   = $strRandom.time().$extension;
 
-        return $strRandom;
+        return $imgPath;
     }
 
     /**
      * Set Image
      */
-    public function setImage($image)
+    public function setImage($image, $ownerId, $path)
     {
         $img = Image::make($image);
-        $extension = $this->getMime($img->mime());
 
+        $name            = $image->getClientOriginalName();
+
+        $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
-        $imgPath   = $strRandom.time().$extension;
-        $img->save(storage_path('app/imagesFb').'/'.$imgPath);
+        // $imgPath   = $strRandom.time().$extension;
+        $imgPath   = $ownerId.$name;
+        $img->save(public_path('assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -61,18 +67,20 @@ Trait ImageProccessingTrait {
     /**
      * update image width and height
      */
-    public function aspectForResize($image, $width, $height)
+    public function aspectForResize($image, $ownerId, $width, $height, $path)
     {
-        // $this->imageName($image);
         $img = Image::make($image);
-        $extension = $this->getMime($img->mime());
 
+        $name            = $image->getClientOriginalName();
+
+        $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
         $img->resize($width, $height, function($constraint) {
             $constraint->aspectRatio();
         });
-        $imgPath   = $strRandom.time().$extension;
-        $img->save(storage_path('app/imagesFb').'/'.$imgPath);
+        // $imgPath   = $strRandom.time().$extension;
+        $imgPath   = $ownerId.$name;
+        $img->save(public_path('assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -80,16 +88,19 @@ Trait ImageProccessingTrait {
     /**
      * crop image width and height
      */
-    public function aspectForCrop($image, $width, $height)
+    public function aspectForCrop($image, $ownerId, $width, $height, $path)
     {
         // $this->imageName($image);
         $img = Image::make($image);
-        $extension = $this->getMime($img->mime());
 
+        $name            = $image->getClientOriginalName();
+
+        $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
         $img->crop($width, $height, 0, 0);
-        $imgPath   = $strRandom.time().$extension;
-        $img->save(storage_path('app/imagesFb').'/'.$imgPath);
+        // $imgPath   = $strRandom.time().$extension;
+        $imgPath   = $ownerId.$name;
+        $img->save(public_path('assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -97,14 +108,39 @@ Trait ImageProccessingTrait {
     /**
      * Thumbnail image width and height
      */
-    public function ImageThumbnail($image, $thumb = false)
+    public function ImageThumbnail($image, $ownerId, $path, $thumb = false)
     {
+        // $dataArray = array();
+        // $dataArray['image'] = $this->setImage($image, $ownerId, $path);
+        // if ($thumb) {
+        //     $dataArray['thumbnailSm'] = $this->aspectForResize($image, $ownerId, $path, 200, 200);
+        //     $dataArray['thumbnailMd'] = $this->aspectForResize($image, $ownerId, $path, 400, 400);
+        //     $dataArray['thumbnailLg'] = $this->aspectForResize($image, $ownerId, $path, 600, 600);
+        // }
+        // return $dataArray;
+
         $dataArray = array();
-        $dataArray['image'] = $this->setImage($image);
+        $img = Image::make($image);
+
+        $name            = $image->getClientOriginalName();
+        $imgPath   = $ownerId.$name;
+        $dataArray['image'] = $imgPath ;
         if ($thumb) {
-            $dataArray['thumbnailSm'] = $this->aspectForResize($image, 200, 200);
-            $dataArray['thumbnailMd'] = $this->aspectForResize($image, 400, 400);
-            $dataArray['thumbnailLg'] = $this->aspectForResize($image, 600, 600);
+            // sm image
+            $dataArray['thumbnailSm'] = $img->resize(200, 200, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save(public_path('assets/images/uploads/'.$path.'/sm').'/'.$imgPath);
+            // md image
+            $dataArray['thumbnailSm'] = $img->resize(400, 400, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save(public_path('assets/images/uploads/'.$path.'/md').'/'.$imgPath);
+            // lg image
+            $dataArray['thumbnailSm'] = $img->resize(600, 600, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save(public_path('assets/images/uploads/'.$path.'/lg').'/'.$imgPath);
         }
         return $dataArray;
     }
@@ -120,4 +156,31 @@ Trait ImageProccessingTrait {
         //     }
         // }
     }
+
+    /**
+     * store multi images for all models
+     */
+    public function storeMultiModelImages($image, $modelName, $relationColumnName, $relationColumnId, $path)
+    {
+        $img = Image::make($image);
+        $name            = $image->getClientOriginalName();
+        $ext             = $image->getClientOriginalExtension();
+        $filename        = rand(10, 100000).time().'.'.$ext;
+        $image->save(public_path('assets/images/uploads/'.$path).'/'.$name);
+
+        // $modelName = new $modelName();
+        // $relationColumnName      = $relationColumn.'_id';
+        // $relationColumnNameImage = $relationColumnName.'Image';
+
+        $relationColumnNameImage = $modelName;
+        $relationColumnNameImage->$relationColumnName = $relationColumnId;
+        $relationColumnNameImage->img                 = $name;
+        return $image;
+        $relationColumnNameImage->save();
+        // $levelImage = new LevelImage();
+        // $levelImage->item_id = $item;
+        // $levelImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
+        // $levelImage->save();
+    }
+
 }

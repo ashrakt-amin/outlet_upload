@@ -16,6 +16,7 @@ class LogoutController extends Controller
     {
         $logout = $request->user()->currentAccessToken()->delete(); // logout from this device
         // $logout = $request->user()->tokens()->delete(); //  logout from all devices
+        // $logout = auth()->logout();
         if ($logout) {
             return response()->json([
                 'message' => 'تم تسجيل الخروج',
