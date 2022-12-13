@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Project;
 
-use Illuminate\Validation\Rule;
+use App\Models\EskanCompany;
+use App\Models\ProjectImage;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
-use App\Models\EskanCompany;
 
 class ProjectController extends Controller
 {
@@ -48,6 +49,19 @@ class ProjectController extends Controller
         if ($validate) {
             $project = Project::create($request->all());
             if ($project) {
+                if ($request->hasFile('img')) {
+                    foreach ($request->file('img') as $image) {
+                        $name            = $image->getClientOriginalName();
+                        $ext             = $image->getClientOriginalExtension();
+                        $filename        = rand(10, 100000).time().'.'.$ext;
+                        $image->move('assets/images/uploads/projects/', $filename);
+
+                        $image = new ProjectImage();
+                        $image->project_id = $project->id;
+                        $image->img        = $filename;
+                        $image->save();
+                    }
+                }
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل مشروعا جديدا",
