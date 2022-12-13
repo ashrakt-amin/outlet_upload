@@ -34,6 +34,11 @@ class Unit extends Model
         'description',
     ];
 
+    public function unitImages()
+    {
+        return $this->hasMany(UnitImage::class);
+    }
+
     public function level()
     {
         return $this->belongsTo(Level::class);
