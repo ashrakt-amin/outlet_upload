@@ -14,6 +14,7 @@ class Unit extends Model
         'unit_level',
         'unit_statu',
         'unit_trader',
+        'unit_images_appended',
     ];
 
     protected $fillable = [
@@ -84,5 +85,10 @@ class Unit extends Model
     public function getUnitTraderAttribute()
     {
         return $this->trader ? $this->trader  : false;
+    }
+
+    public function getUnitImagesAppendedAttribute()
+    {
+        return $this->unitImages;
     }
 }
