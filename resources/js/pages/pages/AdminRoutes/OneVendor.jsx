@@ -56,7 +56,7 @@ const OneVendor = () => {
                 >
                     <img
                         className="w-full"
-                        src={`http://127.0.0.1:8000/assets/images/uploads/traders/${traderInfo.logo}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${traderInfo.logo}`}
                         alt=""
                     />
                 </div>
