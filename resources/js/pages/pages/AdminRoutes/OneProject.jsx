@@ -56,10 +56,10 @@ const OneProject = () => {
 
             fData.append("name", levelName);
             fData.append("project_id", oneProject.id);
-            fData.append("level_type", 1);
-            // imgs.map((el) => {
-            //     fData.append("img[]", el);
-            // });
+            fData.append("level_type", projectType);
+            imgs.map((el) => {
+                fData.append("img[]", el);
+            });
             try {
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/levels`, fData)
@@ -121,16 +121,17 @@ const OneProject = () => {
 
                 <div className="">
                     <span className="text-lg">إختر صور الدور</span>
-                    <label
-                        onChange={handleImg}
+                    {/* <label
+                        
                         htmlFor="formId"
                         className="text-center flex justify-center"
                     >
                         <FcCamera className="text-3xl cursor-pointer " />
-                    </label>
+                    </label> */}
                     <input
+                        onChange={handleImg}
                         multiple
-                        className="hidden"
+                        className=""
                         name=""
                         type="file"
                         id="formId"

@@ -186,6 +186,15 @@ const Header = () => {
             navigate("/clientLogin");
         }
     };
+
+    const whatLevel = (e) => {
+        console.log(e.levels);
+        if (e.levels.length == 0) {
+            console.log(e.levels);
+            navigate("/allStreets");
+        }
+    };
+
     return (
         <>
             <nav
@@ -299,25 +308,30 @@ const Header = () => {
                                         <div
                                             className="hover:rounded-md shops-list-container relative"
                                             key={level.id}
+                                            onClick={() => whatLevel(level)}
                                         >
                                             محلات {level.name}
-                                            <div className="units-into-level rounded-md absolute z-50 hidden">
-                                                {level.levels &&
-                                                    level.levels.map((lev) => (
-                                                        <div
-                                                            className="rounded-md"
-                                                            onClick={() =>
-                                                                traderByContstruction(
-                                                                    lev
-                                                                )
-                                                            }
-                                                            key={lev.id}
-                                                        >
-                                                            {" "}
-                                                            {lev.name}
-                                                        </div>
-                                                    ))}
-                                            </div>
+                                            {level.levels && (
+                                                <div className="units-into-level rounded-md absolute z-50 hidden">
+                                                    {level.levels &&
+                                                        level.levels.map(
+                                                            (lev) => (
+                                                                <div
+                                                                    className="rounded-md"
+                                                                    onClick={() =>
+                                                                        traderByContstruction(
+                                                                            lev
+                                                                        )
+                                                                    }
+                                                                    key={lev.id}
+                                                                >
+                                                                    {" "}
+                                                                    {lev.name}
+                                                                </div>
+                                                            )
+                                                        )}
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                             </div>

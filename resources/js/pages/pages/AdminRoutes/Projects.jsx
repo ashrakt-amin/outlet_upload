@@ -24,6 +24,7 @@ const Projects = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setProjects(response.data.data);
+                console.log(response.data.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -41,16 +42,16 @@ const Projects = () => {
     const handleImg = (e) => {
         setImgs([...e.target.files]);
     };
-
+    console.log(imgs);
     const addProject = async () => {
         setIsAddproject(!isAddproject);
         if (projectName != "") {
             const fData = new FormData();
             fData.append("name", projectName);
             // fData.append("project_type", projectType);
-            // imgs.map((el) => {
-            //     fData.append("img[]", el);
-            // });
+            imgs.map((el) => {
+                fData.append("img[]", el);
+            });
             console.log(fData);
 
             try {
@@ -58,6 +59,7 @@ const Projects = () => {
                     .post(`${process.env.MIX_APP_URL}/api/projects`, fData)
                     .then((res) => {
                         setSuccessMsg(res.data.message);
+                        console.log(res);
                         setProjectName("");
                         setTimeout(() => {
                             setSuccessMsg("");
@@ -109,16 +111,16 @@ const Projects = () => {
             </div>
             <div className="">
                 <span className="text-lg">إختر صور المشروع</span>
-                <label
-                    onChange={handleImg}
+                {/* <label
+                    
                     htmlFor="formId"
                     className="text-center flex justify-center"
                 >
                     <FcCamera className="text-3xl cursor-pointer " />
-                </label>
+                </label> */}
                 <input
+                    onChange={handleImg}
                     multiple
-                    className="hidden"
                     name=""
                     type="file"
                     id="formId"

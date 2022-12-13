@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+import LevelSlider from "../LevelsSlider/LevelSlider";
+
 const TraderByConstruction = () => {
     const { id } = useParams();
 
@@ -10,6 +12,8 @@ const TraderByConstruction = () => {
     const [levelName, setLevelName] = useState("");
 
     const [oneLevel, setOneLevel] = useState({});
+
+    const [imgs, setImgs] = useState([]);
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -39,6 +43,7 @@ const TraderByConstruction = () => {
                     }
                 );
                 console.log(res.data.data);
+                setImgs(res.data.data.images);
                 setOneLevel(res.data.data);
             } catch (error) {
                 console.log(error);
@@ -53,6 +58,8 @@ const TraderByConstruction = () => {
 
     return (
         <div dir="rtl">
+            <LevelSlider imgs={imgs} />
+
             <div
                 className="text-center p-3 shadow-md m-3 text-white rounded-md"
                 style={{ backgroundColor: "rgb(220, 26, 33" }}

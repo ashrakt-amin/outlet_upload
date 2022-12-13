@@ -88,9 +88,9 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
             fData.append("level_id", levelInfo.id);
             fData.append("description", unitDescription);
             fData.append("trader_id", traderId);
-            // imgs.map((el) => {
-            //     fData.append("img[]", el);
-            // });
+            imgs.map((el) => {
+                fData.append("img[]", el);
+            });
 
             try {
                 await axios
@@ -225,16 +225,17 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                     <span className="text-lg">
                                         إختر صور الدور
                                     </span>
-                                    <label
-                                        onChange={handleImg}
+                                    {/* <label
+                                        
                                         htmlFor="formId"
                                         className=""
                                     >
                                         <FcCamera className="text-3xl cursor-pointer " />
-                                    </label>
+                                    </label> */}
                                     <input
+                                        onChange={handleImg}
                                         multiple
-                                        className="hidden"
+                                        className=""
                                         name=""
                                         type="file"
                                         id="formId"
