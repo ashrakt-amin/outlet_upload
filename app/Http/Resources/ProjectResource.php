@@ -24,6 +24,7 @@ class ProjectResource extends JsonResource
             'eskanCompany'  => new EskanCompanyResource($eskanCompany),
             'levels'        => LevelResource::collection($this->project_levels),
             'units'         => UnitResource::collection($units),
+            'images'        => ($this->projectImages),
         ];
     }
 }
