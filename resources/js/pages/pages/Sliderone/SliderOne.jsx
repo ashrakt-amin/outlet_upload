@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css"; 
+import "swiper/css";
 
 import { Navigation, EffectFade, Autoplay } from "swiper";
 
@@ -9,13 +9,13 @@ import "./slideronestyle.scss";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
-import outletImg from './website.png'
+import outletImg from "./website.png";
 
 const sliderContent = [
     "https://madina-center.com/wp-content/uploads/2022/10/new-web1-scaled.jpg",
     "https://madina-center.com/wp-content/uploads/2022/10/new-web-3-scaled.jpg",
     "https://madina-center.com/wp-content/uploads/2022/10/new-web1-scaled.jpg",
-    outletImg
+    outletImg,
 ];
 
 const SliderOne = () => {
@@ -59,4 +59,3 @@ const SliderOne = () => {
 };
 
 export default SliderOne;
- 

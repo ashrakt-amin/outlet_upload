@@ -15,7 +15,8 @@ const OneProject = () => {
     const [isAddLevel, setIsAddLevel] = useState(false);
 
     const [oneProject, setOneProject] = useState({});
-    // const [levels, setLevels] = useState([]);
+
+    const [projectType, setprojectType] = useState("");
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -54,16 +55,14 @@ const OneProject = () => {
             const fData = new FormData();
 
             fData.append("name", levelName);
-            // imgs.map((el) => {
-            //     fData.append("img[]", el);
-            // });
+            fData.append("project_id", oneProject.id);
+            fData.append("level_type", projectType);
+            imgs.map((el) => {
+                fData.append("img[]", el);
+            });
             try {
                 axios
-                    .post(`${process.env.MIX_APP_URL}/api/levels`, {
-                        name: levelName,
-                        project_id: oneProject.id,
-                        level_type: 0,
-                    })
+                    .post(`${process.env.MIX_APP_URL}/api/levels`, fData)
                     .then((res) => {
                         setLevelName("");
                         console.log(res);
@@ -78,6 +77,11 @@ const OneProject = () => {
                 console.log(er);
             }
         }
+    };
+
+    const handleProjectType = (e) => {
+        setprojectType(e);
+        console.log(e);
     };
 
     return (
@@ -117,21 +121,37 @@ const OneProject = () => {
 
                 <div className="">
                     <span className="text-lg">إختر صور الدور</span>
-                    <label
-                        onChange={handleImg}
+                    {/* <label
+                        
                         htmlFor="formId"
                         className="text-center flex justify-center"
                     >
                         <FcCamera className="text-3xl cursor-pointer " />
-                    </label>
+                    </label> */}
                     <input
+                        onChange={handleImg}
                         multiple
-                        className="hidden"
+                        className=""
                         name=""
                         type="file"
                         id="formId"
                     />
                 </div>
+            </div>
+            <div className="project-type">
+                <h1>اختر نوع المشروع</h1>
+                <button
+                    onClick={() => handleProjectType(0)}
+                    className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
+                >
+                    مول
+                </button>
+                <button
+                    onClick={() => handleProjectType(1)}
+                    className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
+                >
+                    شوارع
+                </button>
             </div>
 
             <div className="levels-grid grid grid-cols-3 gap-3">

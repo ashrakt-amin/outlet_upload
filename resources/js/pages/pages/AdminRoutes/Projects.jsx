@@ -13,8 +13,6 @@ const Projects = () => {
     const [fetchAgain, setFechAgain] = useState(false);
     const [isAddproject, setIsAddproject] = useState(false);
 
-    const [projectType, setprojectType] = useState("");
-
     const [imgs, setImgs] = useState(null);
 
     useEffect(() => {
@@ -26,6 +24,7 @@ const Projects = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setProjects(response.data.data);
+                console.log(response.data.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -43,16 +42,16 @@ const Projects = () => {
     const handleImg = (e) => {
         setImgs([...e.target.files]);
     };
-
+    console.log(imgs);
     const addProject = async () => {
         setIsAddproject(!isAddproject);
         if (projectName != "") {
             const fData = new FormData();
             fData.append("name", projectName);
-            fData.append("project_type", projectType);
-            // imgs.map((el) => {
-            //     fData.append("img[]", el);
-            // });
+            // fData.append("project_type", projectType);
+            imgs.map((el) => {
+                fData.append("img[]", el);
+            });
             console.log(fData);
 
             try {
@@ -60,6 +59,7 @@ const Projects = () => {
                     .post(`${process.env.MIX_APP_URL}/api/projects`, fData)
                     .then((res) => {
                         setSuccessMsg(res.data.message);
+                        console.log(res);
                         setProjectName("");
                         setTimeout(() => {
                             setSuccessMsg("");
@@ -73,10 +73,6 @@ const Projects = () => {
         }
     };
 
-    const handleProjectType = (e) => {
-        setprojectType(e);
-        console.log(e);
-    };
     return (
         <div dir="rtl" className="p-2 text-center ">
             <h1> صفحة المشاريع</h1>
@@ -112,35 +108,19 @@ const Projects = () => {
                     type="text"
                     className="rounded-md mx-1"
                 />
-
-                <div className="project-type">
-                    <h1>اختر نوع المشروع</h1>
-                    <button
-                        onClick={() => handleProjectType(0)}
-                        className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
-                    >
-                        مول
-                    </button>
-                    <button
-                        onClick={() => handleProjectType(1)}
-                        className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
-                    >
-                        شوارع
-                    </button>
-                </div>
             </div>
             <div className="">
                 <span className="text-lg">إختر صور المشروع</span>
-                <label
-                    onChange={handleImg}
+                {/* <label
+                    
                     htmlFor="formId"
                     className="text-center flex justify-center"
                 >
                     <FcCamera className="text-3xl cursor-pointer " />
-                </label>
+                </label> */}
                 <input
+                    onChange={handleImg}
                     multiple
-                    className="hidden"
                     name=""
                     type="file"
                     id="formId"

@@ -194,7 +194,7 @@ const ClientProductDetails = () => {
                         className="bg-white shadow-md p-2 z-50 fixed top-0 flex justify-center items-center left-0 w-full h-full"
                     >
                         <div
-                            className="buy-from-home-content flex flex-col p-1 bg-red-500 rounded-md"
+                            className="buy-from-home-content flex flex-col p-1 bg-red-600 rounded-md"
                             style={{ maxWidth: "500px" }}
                         >
                             <button
