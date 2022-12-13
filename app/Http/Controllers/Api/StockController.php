@@ -53,7 +53,7 @@ class StockController extends Controller
             $item = Item::find($request->item_id);
             $stock = new Stock();
             $stock->fill($request->input());
-            $stock->stock_code = $item->code.$request->color_id.$request->size_id;
+            $stock->stock_code = $item->item_code.$request->color_id.$request->size_id;
             if ($stock->save()) {
                 return response()->json([
                     "success" => true,
