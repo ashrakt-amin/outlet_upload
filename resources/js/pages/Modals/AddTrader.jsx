@@ -29,7 +29,6 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [checkNationalId, setcheckNationalId] = useState("");
     const [checkEmail, setcheckEmail] = useState("");
     const [checkTraderCode, setcheckTraderCode] = useState("");
-    const [checkPassword, setcheckPassword] = useState("");
     // (check state)
 
     const inputsValid = () => {
@@ -91,6 +90,12 @@ function AddTrader({ closeModal, getTradersAgain }) {
         }
         setcheckTraderCode("");
 
+        if (imgVal == "") {
+            setSuccessMsg("ادخل صورة المحل");
+            return;
+        }
+        setSuccessMsg("");
+
         postData();
     };
 
@@ -104,9 +109,10 @@ function AddTrader({ closeModal, getTradersAgain }) {
         setPhone2("");
         setEmail("");
         setTraderCode("");
-        setPassword("");
+        setImgVal("");
     };
 
+    console.log(age);
     const postData = async () => {
         const getUserToken = JSON.parse(localStorage.getItem("uTk"));
 
@@ -121,7 +127,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
         fromData.append("national_id", nationalId);
         fromData.append("email", email);
         fromData.append("code", traderCode);
-        fromData.append("img", imgVal);
+        fromData.append("logo", imgVal);
         try {
             let res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/traders`,
@@ -151,8 +157,6 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const handleImg = (e) => {
         setImgVal(e.target.files[0]);
     };
-
-    console.log(imgVal);
 
     return (
         <div
@@ -363,11 +367,6 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                         name="traderimg"
                                         id="traderlogo"
                                     />
-                                    {checkPassword.length > 0 && (
-                                        <span className="absolute -bottom-6 right-1 text-sm text-red-400">
-                                            {checkPassword}
-                                        </span>
-                                    )}
                                 </div>
                             </div>
                         </form>

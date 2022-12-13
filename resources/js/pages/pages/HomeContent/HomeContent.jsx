@@ -12,6 +12,7 @@ import TowAddvertisments from "../advertisements/TowAddvertisments";
 import { useDispatch } from "react-redux";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 import axios from "axios";
+import LatestTowStreets from "../LatestStreets/LatestTowStreets";
 
 const HomeContent = () => {
     const dispatch = useDispatch();
@@ -30,7 +31,6 @@ const HomeContent = () => {
                     );
                     let wishlistCount = res.data.data.length;
                     dispatch(productsInWishlistNumber(wishlistCount));
-                    console.log(res);
                 } catch (er) {
                     console.log(er);
                 }
@@ -47,7 +47,7 @@ const HomeContent = () => {
             <HighAdvertisement />
             <LatestUpdatedProducts />
             <TowAddvertisments />
-            {/* <MostRecent /> */}
+            <LatestTowStreets />
         </div>
     );
 };

@@ -41,6 +41,18 @@ const AllStreets = () => {
             <h1 className="shadow-md p-5 rounded-md text-lg text-center">
                 المحلات
             </h1>
+
+            {!levels.length > 0 && (
+                <h1
+                    className="p-4 bg-red-600 text-white text-lg mx-auto"
+                    style={{ maxWidth: "600px" }}
+                >
+                    <marquee direction="right">
+                        Mansoura Outlet مرحبا بك فى{" "}
+                    </marquee>
+                </h1>
+            )}
+
             <div dir="rtl" className="streets-constainer flex gap-5 flex-wrap">
                 {levels &&
                     levels.map((level) => (

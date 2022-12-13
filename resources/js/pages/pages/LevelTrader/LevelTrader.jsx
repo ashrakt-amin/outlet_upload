@@ -108,7 +108,7 @@ const LevelTrader = () => {
                     <img
                         className="w-1/2 mx-auto"
                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${traderInfo.logo}`}
-                        alt=""
+                        alt="لا يوجد صورة"
                     />
                 </div>
 
@@ -116,13 +116,15 @@ const LevelTrader = () => {
                     className="text-center p-3 shadow-md m-3 text-white rounded-md"
                     style={{ backgroundColor: "rgb(220, 26, 33" }}
                 >
-                    {traderInfo.f_name}
+                    {traderInfo.f_name} {traderInfo.m_name} {traderInfo.l_name}
                 </h1>
             </div>
 
             {!traderInfo.items > 0 && (
                 <h1 className="p-4 bg-red-600 text-white text-lg">
-                    <marquee>Mansoura Outlet مرحبا بك فى </marquee>
+                    <marquee direction="right">
+                        Mansoura Outlet مرحبا بك فى{" "}
+                    </marquee>
                 </h1>
             )}
 

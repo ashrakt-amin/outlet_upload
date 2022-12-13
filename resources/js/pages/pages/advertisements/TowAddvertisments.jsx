@@ -10,7 +10,6 @@ const TowAddvertisments = () => {
                     .get(`${process.env.MIX_APP_URL}/api/advertisements`)
                     .then((res) => {
                         setAdvertise(res.data.data);
-                        console.log(res);
                     });
             } catch (er) {
                 console.log(er);

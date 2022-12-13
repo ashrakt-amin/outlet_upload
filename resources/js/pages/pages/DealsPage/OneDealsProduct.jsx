@@ -31,8 +31,6 @@ const OneDealsProduct = ({ product, refetchFn }) => {
         setpriceAfterdiscount(priceAfterDiscount);
     }, []);
 
-    console.log(product);
-
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -85,7 +83,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     </div>
                 </Link>
                 {product.discount > 0 && (
-                    <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+                    <div className="discount-percent-div absolute p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                         {product.discount}%
                     </div>
                 )}

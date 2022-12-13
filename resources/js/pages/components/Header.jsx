@@ -1,31 +1,40 @@
 import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsMoon, BsSun } from "react-icons/bs";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { darkTheme } from "../context/darkTheme";
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
     const { isDark, toggleDark, isShow, toggleMenu } = useContext(darkTheme);
 
+    const navigate = useNavigate();
+
     const logoutFunc = async () => {
+        document.cookie = "";
+        // console.log(document.cookie);
         let getToken = JSON.parse(localStorage.getItem("uTk"));
-        axios.defaults.withCredentials = true;
-        try {
-            let res = await axios.post(
-                `${process.env.MIX_APP_URL}/api/logout`,
-                {},
-                {
-                    headers: { Authorization: `Bearer ${getToken}` },
+
+        axios
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+            .then(async (res) => {
+                try {
+                    let res = await axios.post(
+                        `${process.env.MIX_APP_URL}/api/logout`,
+                        {},
+                        {
+                            headers: { Authorization: `Bearer ${getToken}` },
+                        }
+                    );
+
+                    localStorage.removeItem("uTk");
+                    navigate("/adminlogin");
+                } catch (er) {
+                    console.log(er);
                 }
-            );
-            console.log(res);
-            // localStorage.removeItem("uTk");
-            navigate("/adminlogin");
-        } catch (er) {
-            console.log(er);
-        }
+            });
     };
+    // console.log(document.cookie);
 
     return (
         <div

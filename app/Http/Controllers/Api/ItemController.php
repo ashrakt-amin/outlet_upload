@@ -92,7 +92,7 @@ class ItemController extends Controller
                 "message"  => "تم تسجيل منتجا جديدا",
                 "data"     => new ItemResource($item),
                 "approved" => $item->approved == 1 ? true : false,
-            ], 200);
+d            ], 200);
         } else {
             return response()->json([
                 "success" => false,

@@ -48,6 +48,19 @@ const OneVendor = () => {
             <h1 className="text-center font-bold my-3 text-xl">
                 معلومات التاجر
             </h1>
+            <h1 className="text-lg">صورة المحل</h1>
+            <div className="trader-logo-div">
+                <div
+                    className="logo-container"
+                    style={{ maxWidth: "300px", maxHeight: "300px" }}
+                >
+                    <img
+                        className="w-full"
+                        src={`http://127.0.0.1:8000/assets/images/uploads/traders/${traderInfo.logo}`}
+                        alt=""
+                    />
+                </div>
+            </div>
             <div className="tarder-info-grid grid lg:grid-cols-4 md:grid-cols-2 gap-4 p-3">
                 <h3 className="bg-blue-500 p-2 rounded-md font-bold text-white">
                     الاسم الاول: {traderInfo.f_name}

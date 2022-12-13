@@ -11,7 +11,6 @@ const HighAdvertisement = () => {
                     .get(`${process.env.MIX_APP_URL}/api/advertisements`)
                     .then((res) => {
                         setAdvertise(res.data.data[0]);
-                        console.log(res.data.data[0]);
                     });
             } catch (er) {
                 console.log(er);

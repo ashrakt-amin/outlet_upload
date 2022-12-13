@@ -4,11 +4,14 @@ import { useFormik } from "formik";
 import { loginSchema } from "../../../components/schemas/login";
 import React, { useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const AdminLogin = () => {
     const redirect = useNavigate();
 
     const [successMsg, setsuccessMsg] = useState("");
+
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
     const [adminInfo, setAdminInfo] = useState({ phone: "", password: "" });
 
@@ -16,18 +19,6 @@ const AdminLogin = () => {
         const value = e.target.value;
         setAdminInfo({ ...adminInfo, [e.target.name]: value });
     };
-
-    // const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    //     useFormik({
-    //         initialValues: {
-    //             email: "",
-    //             password: "",
-    //         },
-    //         validationSchema: loginSchema,
-    //         onSubmit: async (values, actions) => {
-
-    //         },
-    //     });
 
     const loginAdmin = async (e) => {
         e.preventDefault();
@@ -37,27 +28,33 @@ const AdminLogin = () => {
             return;
         }
 
-        try {
-            let res = await axios.post(
-                `${process.env.MIX_APP_URL}/api/login/users`,
-                {
-                    phone: adminInfo.phone,
-                    password: adminInfo.password,
+        axios
+            .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+            .then(async (res) => {
+                try {
+                    let res = await axios.post(
+                        `${process.env.MIX_APP_URL}/api/login/users`,
+                        {
+                            phone: adminInfo.phone,
+                            password: adminInfo.password,
+                        }
+                    );
+
+                    if (res.data.success == true) {
+                        setCookie("user", res.data.data.token);
+                        localStorage.setItem(
+                            "uTk",
+                            JSON.stringify(res.data.data.token)
+                        );
+                        redirect("/dachboard");
+                    }
+                } catch (er) {
+                    setsuccessMsg(er.response.data.data.error);
+                    setTimeout(() => {
+                        setsuccessMsg("");
+                    }, 3000);
                 }
-            );
-            if (res.data.success == true) {
-                localStorage.setItem(
-                    "uTk",
-                    JSON.stringify(res.data.data.token)
-                );
-                redirect("/dachboard");
-            }
-        } catch (er) {
-            setsuccessMsg(er.response.data.data.error);
-            setTimeout(() => {
-                setsuccessMsg("");
-            }, 3000);
-        }
+            });
     };
 
     return (

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { AiTwotoneHeart } from "react-icons/ai";
+import { FaCartArrowDown } from "react-icons/fa";
 
 import { MdOutlineCompareArrows } from "react-icons/md";
 
@@ -54,10 +55,17 @@ const ClientProductDetails = () => {
 
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
+    const [isbuyProduct, setisbuyProduct] = useState(false);
+
+    const [isbuyFromHome, setisbuyFromHome] = useState(false);
+
     const [traderLogo, setTraderLogo] = useState("");
 
     const [colorId, setColorId] = useState("");
+
     const [sizeId, setSizeId] = useState("");
+
+    const [relaodstate, setrelaodstate] = useState(false);
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -95,9 +103,7 @@ const ClientProductDetails = () => {
                 }
                 window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 setProductImgs(res.data.data.itemImages);
-                console.log(res.data.data.category);
                 getMatchingProducts(res.data.data?.category?.id);
-                console.log();
             } catch (er) {
                 console.log(er);
             }
@@ -107,7 +113,7 @@ const ClientProductDetails = () => {
         return () => {
             cancelRequest.cancel();
         };
-    }, [id]);
+    }, [id, relaodstate]);
 
     const nextImg = (indx) => {
         setImgNum(indx);
@@ -153,7 +159,8 @@ const ClientProductDetails = () => {
                             )
                             .then(async (resp) => {
                                 setWishlistBtn(false);
-                                getWishlistProductsCount();
+                                setrelaodstate(!relaodstate);
+                                // getWishlistProductsCount();
                                 console.log(resp);
                                 // refetchFn();
                             });
@@ -165,10 +172,43 @@ const ClientProductDetails = () => {
             navigate("/clientLogin");
         }
     };
+
+    const buyProduct = () => {
+        setisbuyProduct(!isbuyProduct);
+    };
+
+    const getitTohome = () => {
+        setisbuyFromHome(!isbuyFromHome);
+        document.cookie = "";
+    };
+
+    const getitFromShope = () => {};
+
     return (
         <div>
             {/* <div className="prodcut-details-container flex gap-3 p-1 flex-wrap pb-24"> */}
             <div className="prodcut-details-container relative p-1 pb-24">
+                {isbuyFromHome && (
+                    <div
+                        dir="rtl"
+                        className="bg-white shadow-md p-2 z-50 fixed top-0 flex justify-center items-center left-0 w-full h-full"
+                    >
+                        <div
+                            className="buy-from-home-content p-1 bg-red-400"
+                            style={{ maxWidth: "500px" }}
+                        >
+                            <button onClick={getitTohome}>إغلاق</button>
+                            <h1>الاسم</h1>
+                            <input type="text" name="name" id="name" />
+                            <h1>رقم التليفون</h1>
+                            <input type="tel" name="tel" id="tel" />
+                            <h1>العنوان</h1>
+                            <input type="text" name="address" id="address" />
+                            <button>طلب الان</button>
+                        </div>
+                    </div>
+                )}
+
                 {productMsg && (
                     <div
                         dir="rtl"
@@ -220,7 +260,7 @@ const ClientProductDetails = () => {
                         className="wichlist-product w-fit rounded-md cursor-pointer bg-slate-100 opacity-4"
                     >
                         <span className="mb-4  hover:text-red-600 flex items-center">
-                            <span>الشراء لاحقا</span>
+                            <span> اضف الى المفضلة</span>
                             {!wishlistBtn ? (
                                 <AiTwotoneHeart
                                     className={`cursor-pointer ${
@@ -239,7 +279,7 @@ const ClientProductDetails = () => {
                     </span>
 
                     <div className="product-name text-lg mt-3">
-                        اسم المنتج: {singleProduct?.name}{" "}
+                        {singleProduct?.name}
                     </div>
 
                     {singleProduct.discount > 0 ? (
@@ -342,6 +382,35 @@ const ClientProductDetails = () => {
                         </div>
                     </div>
 
+                    <div
+                        onClick={buyProduct}
+                        className="cart-btn w-20 flex cursor-pointer justify-center items-center "
+                    >
+                        <span className="bg-red-500 text-md p-1 mx-1 rounded-lg text-white">
+                            <FaCartArrowDown />
+                        </span>
+                        <span className="font-bold text-md hover:text-red-500 ">
+                            إشترى
+                        </span>{" "}
+                    </div>
+
+                    {isbuyProduct && (
+                        <div>
+                            <button
+                                onClick={getitTohome}
+                                className="p-1 m-1 bg-red-500 text-white rounded-md"
+                            >
+                                الاستلام من المنزل
+                            </button>
+                            <button
+                                onClick={getitFromShope}
+                                className="p-1 m-1 bg-red-500 text-white rounded-md"
+                            >
+                                الاستلام من المحل
+                            </button>
+                        </div>
+                    )}
+
                     {/* <div className="add-to-cart relative flex gap-4 py-5 px-2">
                         {!reloadBtn ? (
                             <div
@@ -381,7 +450,7 @@ const ClientProductDetails = () => {
                 </div>
 
                 {/* معلومات التاجر */}
-                <div
+                {/* <div
                     dir="rtl"
                     className="trader-info-for-client text-center shadow-lg m-3 rounded-lg p-2"
                 >
@@ -398,7 +467,7 @@ const ClientProductDetails = () => {
                     <h1> اسم التاجر: {singleProduct?.trader?.f_name}</h1>
                     <h1>هاتف التاجر: {singleProduct?.trader?.phone}</h1>
                     <h1>عنوان التاجر: {"المشاية بجوار الصياد"}</h1>
-                </div>
+                </div> */}
                 {/* معلومات التاجر */}
             </div>
             {/* المنتجات المشابهة لهذا المنج */}

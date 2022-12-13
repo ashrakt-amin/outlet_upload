@@ -43,7 +43,7 @@ const VendorDashboard = () => {
             .then(async (r) => {
                 try {
                     let res = await axios.post(
-                        "${process.env.MIX_APP_URL}/api/logout",
+                        `${process.env.MIX_APP_URL}/api/logout`,
                         {},
                         {
                             headers: {
@@ -97,33 +97,6 @@ const VendorDashboard = () => {
                                 صفحتى الرئيسة
                             </NavLink>
 
-                            {/* <NavLink
-                                className={`rounded-md p-1 border-b-2`}
-                                to={`/trader/dachboard/addproducts`}
-                                style={({ isActive }) =>
-                                    isActive
-                                        ? {
-                                              backgroundColor: "white",
-                                          }
-                                        : undefined
-                                }
-                            >
-                                اضافة منتج
-                            </NavLink> */}
-
-                            <NavLink
-                                className={`rounded-md p-1 border-b-2`}
-                                to={`/trader/dachboard/myorders`}
-                                style={({ isActive }) =>
-                                    isActive
-                                        ? {
-                                              backgroundColor: "white",
-                                          }
-                                        : undefined
-                                }
-                            >
-                                اوردراتى
-                            </NavLink>
                             <NavLink
                                 className={`rounded-md p-1 border-b-2`}
                                 to={`/trader/dachboard/traderinfo`}
