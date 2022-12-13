@@ -35,6 +35,11 @@ class Project extends Model
         return $this->belongsTo(EskanCompany::class);
     }
 
+    public function projectImages()
+    {
+        return $this->hasMany(ProjectImage::class);
+    }
+
     public function units()
     {
         return $this->hasManyThrough(Unit::class, Level::class);

@@ -53,7 +53,7 @@ class LevelController extends Controller
                         $image->move('assets/images/uploads/levels/', $filename);
 
                         $image = new LevelImage();
-                        $image->project_id = $level->id;
+                        $image->level_id = $level->id;
                         $image->img        = $filename;
                         $image->save();
                     }
