@@ -43,7 +43,6 @@ class ItemResource extends JsonResource
             'category'         => $this->item_category,
             'colors'           => $this->item_colors,
             'sizes'            => $this->item_sizes,
-            'wieght'           => new WeightResource($this->wieght),
             'volume'           => new VolumeResource($this->wieght),
             'stocks'           => StockResource::collection($stocks),
             'company'          => $this->company ? new CompanyResource($this->company) : false,
