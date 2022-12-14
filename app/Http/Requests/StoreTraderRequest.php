@@ -24,13 +24,15 @@ class StoreTraderRequest extends FormRequest
     public function rules()
     {
         return [
-                'f_name'      => 'required',
-                'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-                'code'        => 'unique:traders,code',
-                'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-                'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-                'national_id' => 'unique:traders,national_id',
-        ];
+            'f_name'      => 'required',
+            'm_name'      => 'required',
+            'l_name'      => 'required',
+            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            'code'        => 'unique:traders,code',
+            'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            'national_id' => 'unique:traders,national_id',
+            ];
     }
 
     /**
@@ -39,14 +41,13 @@ class StoreTraderRequest extends FormRequest
     public function messages()
     {
         return [
-            'f_name.required'    => 'الاسم ضروري',
+            'phone.required'     => 'الهاتف مسجل من قبل',
             'phone.unique'       => 'الهاتف مسجل من قبل',
             'code.unique'        => 'الكود مسجل من قبل',
             'phone.regex'        => 'صيغة الهاتف غير صحيحة',
             'national_id.unique' => 'الرقم القومي مسجل من قبل',
             'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
             'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
-
         ];
     }
 }
