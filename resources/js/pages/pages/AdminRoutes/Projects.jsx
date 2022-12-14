@@ -24,9 +24,8 @@ const Projects = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setProjects(response.data.data);
-                console.log(response.data.data);
-            } catch (error) {
-                console.warn(error.message);
+            } catch (er) {
+                console.warn(er);
             }
         };
         getProjects();
@@ -42,7 +41,7 @@ const Projects = () => {
     const handleImg = (e) => {
         setImgs([...e.target.files]);
     };
-    console.log(imgs);
+
     const addProject = async () => {
         setIsAddproject(!isAddproject);
         if (projectName != "") {
@@ -52,7 +51,6 @@ const Projects = () => {
             imgs.map((el) => {
                 fData.append("img[]", el);
             });
-            console.log(fData);
 
             try {
                 axios

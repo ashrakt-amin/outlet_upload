@@ -30,8 +30,8 @@ export default function Header() {
                 }
             );
             console.log(res);
-            // localStorage.removeItem("uTk");
-            // navigate("/adminlogin");
+            localStorage.removeItem("uTk");
+            navigate("/adminlogin");
         } catch (er) {
             console.log(er);
         }

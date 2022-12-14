@@ -18,6 +18,7 @@ import Footer from "../Footer/Footer";
 
 import "./homePage.scss";
 import AllStreets from "../AllStreetsPage/AllStreets";
+import OneShop from "../OneShop/OneShop";
 
 const HomePage = () => {
     return (
@@ -46,6 +47,8 @@ const HomePage = () => {
                     path="/traderByConstruction/:id"
                     element={<TraderByConstruction />}
                 />
+
+                <Route path="/oneshop/:id" element={<OneShop />} />
 
                 <Route path="/leveltrader/:id" element={<LevelTrader />} />
 

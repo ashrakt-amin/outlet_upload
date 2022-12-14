@@ -151,9 +151,13 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
         //     console.log("not valid");
         // }
     };
-
+    console.log(traderProductInfo, " product info");
     const updateProductFunc = async () => {
         let userTk = JSON.parse(localStorage.getItem("uTk"));
+
+        console.log(traderProductInfo.trader.id, "trader id");
+        console.log(traderProductInfo.id, "trader id");
+
         try {
             const res = await axios.put(
                 `${process.env.MIX_APP_URL}/api/items/${traderProductInfo.id}`,
@@ -167,7 +171,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                     discount: discountByPercentage,
                     item_code: itemCode,
                     barcode: barCode,
-                    trader_id: traderProductInfo.id,
+                    trader_id: traderProductInfo.trader.id,
                     spare_barcode: spareBarCode,
                     description: productDescription,
                 },
@@ -292,7 +296,7 @@ const UpdateTraderProductModal = ({ traderProductInfo }) => {
                                         categoriesArray.map((categ) => (
                                             <div
                                                 key={categ.id}
-                                                className="categoy-name cursor-pointer relative"
+                                                className="categoy-name bg-slate-100 text-black cursor-pointer relative"
                                             >
                                                 <h1 className="p-1 m-3">
                                                     {categ.name}
