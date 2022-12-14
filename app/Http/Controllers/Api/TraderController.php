@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 
-use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Models\Trader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\TraderResource;
 use App\Http\Resources\TraderCollection;
+use App\Http\Requests\StoreTraderRequest;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
 class TraderController extends Controller
 {
@@ -38,28 +40,58 @@ class TraderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Get a validator for an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function store(Request $request)
+    protected function validator(array $data)
     {
-        if ($this->getTokenId('user')) {
-            $request->validate([
-            'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+        return Validator::make($data, [
+            'f_name'      => 'required',
+            'm_name'      => 'required',
+            'l_name'      => 'required',
+            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
             'code'        => 'unique:traders,code',
             'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
             'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
             'national_id' => 'unique:traders,national_id',
-            ], [
-                'phone.unique'       => 'الهاتف مسجل من قبل',
-                'code.unique'        => 'الكود مسجل من قبل',
-                'phone.regex'        => 'صيغة الهاتف غير صحيحة',
-                'national_id.unique' => 'الرقم القومي مسجل من قبل',
-                'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-                'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
-            ]);
+        ], [
+            'phone.unique'       => 'الهاتف مسجل من قبل',
+            'code.unique'        => 'الكود مسجل من قبل',
+            'phone.regex'        => 'صيغة الهاتف غير صحيحة',
+            'national_id.unique' => 'الرقم القومي مسجل من قبل',
+            'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
+            'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
+        ]);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\StoreTraderRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreTraderRequest $request)
+    {
+        if ($this->getTokenId('user')) {
+            // if ($this->validator($request->all()) ) {
+            //     return $request->f_name;
+            // }
+            // return $validator;
+            // $request->validate([
+            // 'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            // 'code'        => 'unique:traders,code',
+            // 'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            // 'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            // 'national_id' => 'unique:traders,national_id',
+            // ], [
+            //     'phone.unique'       => 'الهاتف مسجل من قبل',
+            //     'code.unique'        => 'الكود مسجل من قبل',
+            //     'phone.regex'        => 'صيغة الهاتف غير صحيحة',
+            //     'national_id.unique' => 'الرقم القومي مسجل من قبل',
+            //     'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
+            //     'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
+            // ]);
             $emailExist = Trader::where(['email'=>$request->email])->first();
             if (!empty($emailExist->email)) {
                 return response()->json([
