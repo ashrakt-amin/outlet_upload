@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { AiTwotoneHeart } from "react-icons/ai";
-import { FaCartArrowDown } from "react-icons/fa";
+import { FaWhatsapp, FaCartPlus } from "react-icons/fa";
 
 import { MdOutlineCompareArrows } from "react-icons/md";
 
@@ -12,6 +12,8 @@ import heart from "./heart.gif";
 
 import "./clintProductDetails.scss";
 import { useDispatch } from "react-redux";
+
+import imgsize from "./900-650.jpg";
 
 import cartAnimation from "./cartanimation.gif";
 
@@ -30,8 +32,6 @@ const ClientProductDetails = () => {
     const [priceAfterdiscount, setpriceAfterdiscount] = useState("");
 
     const [singleProduct, setSingleProduct] = useState({});
-
-    console.log(singleProduct);
 
     const [typeIdValue, setTypeIdValue] = useState("");
 
@@ -92,7 +92,7 @@ const ClientProductDetails = () => {
                 let priceAfterDiscount =
                     res.data.data.sale_price - theDiscountValue; // السعر بعد الخصم
                 setpriceAfterdiscount(priceAfterDiscount);
-                if (res.data.data.trader.logo == null) {
+                if (res.data.data.trader?.logo == null) {
                     setTraderLogo(
                         "https://th.bing.com/th/id/OIP.OCfe-0Jyvn5SS8on4BacEAHaEc?pid=ImgDet&rs=1"
                     );
@@ -194,30 +194,30 @@ const ClientProductDetails = () => {
                         className="bg-white shadow-md p-2 z-50 fixed top-0 flex justify-center items-center left-0 w-full h-full"
                     >
                         <div
-                            className="buy-from-home-content flex flex-col p-1 bg-red-600 rounded-md"
+                            className="buy-from-home-content flex flex-col p-1 bg-slate-300 rounded-md"
                             style={{ maxWidth: "500px" }}
                         >
                             <button
-                                className="text-white border-2 p-1"
+                                className="text-black border-2 border-black rounded-lg p-1"
                                 onClick={getitTohome}
                             >
                                 إغلاق
                             </button>
-                            <h1 className="text-white">الاسم</h1>
+                            <h1 className="text-black">الاسم</h1>
                             <input
                                 className="rounded-md "
                                 type="text"
                                 name="name"
                                 id="name"
                             />
-                            <h1 className="text-white">رقم التليفون</h1>
+                            <h1 className="text-black">رقم التليفون</h1>
                             <input
                                 className="rounded-md "
                                 type="tel"
                                 name="tel"
                                 id="tel"
                             />
-                            <h1 className="text-white">العنوان</h1>
+                            <h1 className="text-black">العنوان</h1>
                             <input
                                 className="rounded-md "
                                 type="text"
@@ -240,12 +240,19 @@ const ClientProductDetails = () => {
                     </div>
                 )}
 
+                <div className="product-name text-lg mt-3">
+                    {singleProduct?.name}
+                </div>
                 <div className="imgs-product-div mx-auto">
-                    <div className="img-div">
+                    <div
+                        className="img-div mx-auto"
+                        style={{ maxWidth: "650px" }}
+                    >
                         <img
                             className=""
                             loading="lazy"
-                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${productImgs[imgNum]?.img}`}
+                            // src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${productImgs[imgNum]?.img}`}
+                            src={imgsize}
                         />
                     </div>
                 </div>
@@ -299,10 +306,6 @@ const ClientProductDetails = () => {
                         {/* <span>اضف الى صفحة مقارنة المنتج</span> */}
                         <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
                     </span>
-
-                    <div className="product-name text-lg mt-3">
-                        {singleProduct?.name}
-                    </div>
 
                     {singleProduct.discount > 0 ? (
                         <>
@@ -404,19 +407,32 @@ const ClientProductDetails = () => {
                         </div>
                     </div>
 
-                    <div
-                        onClick={buyProduct}
-                        className="cart-btn w-20 flex cursor-pointer justify-center items-center "
-                    >
-                        <span className="bg-red-500 text-md p-1 mx-1 rounded-lg text-white">
-                            <FaCartArrowDown />
+                    <div className="cart-btn whats-div-btn flex gap-2 cursor-pointer mt-2">
+                        <span className="bg-green-500 text-md p-1 mx-1 rounded-lg text-white">
+                            <FaWhatsapp />
                         </span>
-                        <span className="font-bold text-md hover:text-red-500 ">
-                            إشترى
-                        </span>{" "}
+                        <a
+                            href={`http://wa.me/+${singleProduct.trader?.phone}`}
+                            target="_blank"
+                            className="font-bold text-md hover:text-green-500"
+                        >
+                            إشترى من خلال الواتس اب
+                        </a>{" "}
                     </div>
 
-                    {isbuyProduct && (
+                    <div
+                        onClick={getitTohome}
+                        className="form-div cursor-pointer flex items-center gap-2 mt-2"
+                    >
+                        <span className="bg-red-500 text-md p-1 mx-1 rounded-lg text-white">
+                            <FaCartPlus />
+                        </span>
+                        <span className="hover:text-red-500 font-bold text-md">
+                            اشترى من خلال الموقع
+                        </span>
+                    </div>
+
+                    {/* {isbuyProduct && (
                         <div>
                             <button
                                 onClick={getitTohome}
@@ -431,7 +447,7 @@ const ClientProductDetails = () => {
                                 الاستلام من المحل
                             </button>
                         </div>
-                    )}
+                    )} */}
 
                     {/* <div className="add-to-cart relative flex gap-4 py-5 px-2">
                         {!reloadBtn ? (

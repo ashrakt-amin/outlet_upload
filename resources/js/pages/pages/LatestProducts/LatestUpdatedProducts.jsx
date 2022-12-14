@@ -48,8 +48,8 @@ const LatestUpdatedProducts = () => {
     const refetchFn = () => setRefetch(!refetch);
 
     return (
-        <div className="latestproducts-parent bg-red-600 pb-2">
-            <h1 className="p-3 text-lg text-white bg-red-600 text-end mt-6 mb-2">
+        <div className="latestproducts-parent pb-2">
+            <h1 className="p-3 text-lg  text-end mt-6 mb-2">
                 <span className="text-dark font-bold text-endfont-bold px-1 rounded-md">
                     المضافة حديثاً
                 </span>

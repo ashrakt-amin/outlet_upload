@@ -236,11 +236,10 @@ const OneVendorProduct = () => {
     };
     // (------------------------ handle Color select ----------------------)
 
-    console.log(stockCode);
-
     const addStkSizClr = async (prodcutInf) => {
         let userToken = JSON.parse(localStorage.getItem("uTk"));
         const { id, trader } = prodcutInf;
+
         if (stockCount < "1") {
             setAddToProductMsg("يجب ملئ البيانات بطريقة صحيحة");
             setTimeout(() => {
@@ -269,7 +268,7 @@ const OneVendorProduct = () => {
                 setSuccessMsg(res.data.message);
                 setTimeout(() => {
                     setSuccessMsg("");
-                }, 3000);
+                }, 2000);
                 // setColors(res.data.data);
             } catch (er) {
                 console.log(er);

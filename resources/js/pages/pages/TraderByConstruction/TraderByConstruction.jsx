@@ -60,14 +60,7 @@ const TraderByConstruction = () => {
         <div dir="rtl">
             <LevelSlider imgs={imgs} />
 
-            <div
-                className="text-center p-3 shadow-md m-3 text-white rounded-md"
-                style={{ backgroundColor: "rgb(220, 26, 33" }}
-            >
-                <h1>{oneLevel?.name}</h1>
-            </div>
-
-            {!levelTraders.length > 0 && (
+            {!oneLevel?.units?.length > 0 && (
                 <div style={{ maxWidth: "500px" }} className=" mx-auto">
                     <marquee
                         direction="right"
@@ -78,10 +71,27 @@ const TraderByConstruction = () => {
                 </div>
             )}
 
-            {oneLevel?.units &&
-                oneLevel?.units.map((oneUnit) => (
-                    <div key={oneUnit.id}>{oneUnit.name}</div>
-                ))}
+            <div className="shops-container flex flex-wrap gap-5 p-2">
+                {oneLevel?.units &&
+                    oneLevel?.units.map((oneUnit) => (
+                        <Link
+                            to={`/oneshop/${oneUnit.id}`}
+                            key={oneUnit.id}
+                            className="shadow-md rounded-md p-1"
+                        >
+                            <div
+                                style={{ maxWidth: "300px" }}
+                                className="shope-img"
+                            >
+                                <img
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/${oneUnit?.images[0]?.img}`}
+                                    alt=""
+                                />
+                            </div>
+                            <h1>{oneUnit.name}</h1>
+                        </Link>
+                    ))}
+            </div>
 
             <div className="trader-grid-div grid gap-3 lg:grid-cols-3 md:grid:cols-2  place-items-center p-3">
                 {levelTraders &&

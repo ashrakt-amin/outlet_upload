@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
+import img1 from "./pr1.jpg";
+
 // import "./dealsStyle.scss";
 import { SwiperSlide } from "swiper/react";
 
@@ -101,13 +103,13 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                     <div
                         className="product-img"
                         style={{
-                            width: "200px",
-                            height: "200px",
+                            maxWidth: "200px",
+                            maxHeight: "200px",
                         }}
                     >
                         <img
                             className="w-full h-full "
-                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
+                            src={`${img1}`}
                             alt=""
                         />
                     </div>
