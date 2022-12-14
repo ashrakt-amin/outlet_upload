@@ -95,7 +95,7 @@ class Unit extends Model
 
     public function getUnitItemsAttribute()
     {
-        return Item::where(['item_id', $this->trader->item_id])->all();
+        return Item::where(['item_id', $this->trader->item_id])->get();
     }
 
     public function getUnitImagesAppendedAttribute()
