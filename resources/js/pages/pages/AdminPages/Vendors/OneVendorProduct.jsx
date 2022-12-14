@@ -14,7 +14,7 @@ const OneVendorProduct = () => {
     // stock: stockCount,
     const [stockCount, setStockCount] = useState("1");
 
-    const [stockCode, setStockCode] = useState("1");
+    const [stockCode, setStockCode] = useState("");
 
     // sale_price: sale_price,
     const [salePrice, setSalePrice] = useState("1");
@@ -253,11 +253,10 @@ const OneVendorProduct = () => {
                     {
                         item_id: id,
                         stock: stockCount,
-                        stock_code: stockCode,
+                        // stock_code: stockCode,
                         trader_id: trader.id,
                         color_id: colorIdSelect,
                         size_id: sizeIdSelect,
-                        weight_id: weightId,
                         season_id: seasonId,
                         sale_price: salePrice,
                     }
@@ -582,7 +581,7 @@ const OneVendorProduct = () => {
                         />
                     </div> */}
 
-                    <div className="product-barcode-div">
+                    {/* <div className="product-barcode-div">
                         <div className="mt-3 mb-2">بار كود</div>
                         <input
                             className="border-none shadow-md rounded-md"
@@ -591,7 +590,7 @@ const OneVendorProduct = () => {
                             placeholder="بار كود"
                             onChange={(e) => setStockCode(e.target.value)}
                         />
-                    </div>
+                    </div> */}
 
                     {/* ------------------------------- add stock,size,color button ---------------------------------- */}
                     <button
