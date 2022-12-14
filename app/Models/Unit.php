@@ -14,6 +14,7 @@ class Unit extends Model
         'unit_level',
         'unit_statu',
         'unit_trader',
+        'unit_items',
         'unit_images_appended',
     ];
 
@@ -90,6 +91,11 @@ class Unit extends Model
     public function getUnitTraderAttribute()
     {
         return $this->trader ? $this->trader  : false;
+    }
+
+    public function getUnitItemsAttribute()
+    {
+        return Item::where(['item_id', $this->trader->item_id])->all();
     }
 
     public function getUnitImagesAppendedAttribute()
