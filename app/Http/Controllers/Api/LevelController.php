@@ -45,16 +45,24 @@ class LevelController extends Controller
             if ($level) {
                 if ($request->hasFile('img')) {
                     foreach ($request->file('img') as $image) {
-                        $name            = $image->getClientOriginalName();
-                        $ext             = $image->getClientOriginalExtension();
-                        $filename        = rand(10, 100000).time().'.'.$ext;
-                        $image->move('assets/images/uploads/levels/', $filename);
-
+                        $originalFilename = $this->setImage($image, $level->id, 'levels/lg');
+                        $filename = $this->aspectForResize($image, $level->id, 450, 450, 'levels/sm');
                         $image = new LevelImage();
-                        $image->level_id = $level->id;
+                        $image->level_id   = $level->id;
                         $image->img        = $filename;
                         $image->save();
                     }
+                    // foreach ($request->file('img') as $image) {
+                    //     $name            = $image->getClientOriginalName();
+                    //     $ext             = $image->getClientOriginalExtension();
+                    //     $filename        = rand(10, 100000).time().'.'.$ext;
+                    //     $image->move('assets/images/uploads/levels/', $filename);
+
+                    //     $image = new LevelImage();
+                    //     $image->level_id = $level->id;
+                    //     $image->img        = $filename;
+                    //     $image->save();
+                    // }
                 }
                 return response()->json([
                     "success" => true,

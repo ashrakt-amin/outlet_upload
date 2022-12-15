@@ -90,7 +90,7 @@ class ItemController extends Controller
                     $originalFilename = $this->setImage($image, $item->id, 'items/lg');
                     $filename = $this->aspectForResize($image, $item->id, 450, 450, 'items/sm');
                     $image = new ItemImage();
-                    $image->unit_id = $item->id;
+                    $image->item_id = $item->id;
                     $image->img     = $filename;
                     $image->save();
                 }
