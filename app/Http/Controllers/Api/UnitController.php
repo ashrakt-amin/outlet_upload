@@ -42,11 +42,8 @@ class UnitController extends Controller
             if ($unit) {
                 if ($request->hasFile('img')) {
                     foreach ($request->file('img') as $image) {
-                        // $name            = $image->getClientOriginalName();
-                        // $ext             = $image->getClientOriginalExtension();
-                        // $filename        = rand(10, 100000).time().'.'.$ext;
-                        // $image->move('assets/images/uploads/units/', $filename);
-                        $filename = $this->aspectForResize($image, $unit->id, 450, 450, 'units');
+                        $originalFilename = $this->setImage($image, $unit->id, 'units/lg');
+                        $filename = $this->aspectForResize($image, $unit->id, 450, 450, 'units/sm');
                         $image = new UnitImage();
                         $image->unit_id = $unit->id;
                         $image->img     = $filename;
