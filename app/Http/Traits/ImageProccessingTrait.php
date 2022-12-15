@@ -2,11 +2,12 @@
 namespace App\Http\Traits;
 
 use App\Models\ItemImage;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 // use Image;
 // use Storage;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 Trait ImageProccessingTrait {
 
@@ -71,7 +72,7 @@ Trait ImageProccessingTrait {
     {
         $img = Image::make($image);
 
-        $name            = $image->getClientOriginalName();
+        $name = $image->getClientOriginalName();
 
         $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
@@ -150,9 +151,12 @@ Trait ImageProccessingTrait {
      */
     public function deleteImage($imgPath)
     {
-        // if (is_file(Storage::disk('imagesFb')->path($imgPath))) {
-        //     if (file_exists(Storage::disk('imagesFb')->path($imgPath))) {
-        //         unlink(Storage::disk('imagesFb')->path());
+        if(File::exists($imgPath)) {
+            File::delete($imgPath);
+        }
+        // if (is_file(Storage::disk('assets')->path($imgPath))) {
+        //     if (file_exists(Storage::disk('assets')->path($imgPath))) {
+        //         unlink(Storage::disk('assets')->path());
         //     }
         // }
     }
