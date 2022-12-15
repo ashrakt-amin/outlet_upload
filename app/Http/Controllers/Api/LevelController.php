@@ -52,17 +52,6 @@ class LevelController extends Controller
                         $image->img        = $filename;
                         $image->save();
                     }
-                    // foreach ($request->file('img') as $image) {
-                    //     $name            = $image->getClientOriginalName();
-                    //     $ext             = $image->getClientOriginalExtension();
-                    //     $filename        = rand(10, 100000).time().'.'.$ext;
-                    //     $image->move('assets/images/uploads/levels/', $filename);
-
-                    //     $image = new LevelImage();
-                    //     $image->level_id = $level->id;
-                    //     $image->img        = $filename;
-                    //     $image->save();
-                    // }
                 }
                 return response()->json([
                     "success" => true,

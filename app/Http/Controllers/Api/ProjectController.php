@@ -9,9 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ProjectController extends Controller
 {
+    use TraitsAuthGuardTrait;
+    use TraitImageProccessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -50,9 +54,9 @@ class ProjectController extends Controller
             $project = Project::create($request->all());
             if ($project) {
                 if ($request->hasFile('img')) {
-                    foreach ($request->file('img') as $image) {
-                        $originalFilename = $this->setImage($image, $project->id, 'projects/lg');
-                        $filename = $this->aspectForResize($image, $project->id, 450, 450, 'projects/sm');
+                    foreach ($request->file('img') as $img) {
+                        $originalFilename = $this->setImage($img, $project->id, 'project/lg');
+                        $filename = $this->aspectForResize($img, $project->id, 450, 450, 'project/sm');
                         $image = new ProjectImage();
                         $image->project_id = $project->id;
                         $image->img        = $filename;
