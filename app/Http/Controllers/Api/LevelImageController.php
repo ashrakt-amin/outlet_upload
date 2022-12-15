@@ -11,6 +11,38 @@ class LevelImageController extends Controller
 {
     use TraitImageProccessingTrait;
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if ($request->hasFile('img')) {
+            foreach ($request->file('img') as $img) {
+                $originalFilename = $this->setImage($img, $request->level_id, 'levels/lg');
+                $filename = $this->aspectForResize($img, $request->level_id, 450, 450, 'levels/sm');
+                $image = new LevelImage();
+                $image->level_id = $request->level_id;
+                $image->img     = $filename;
+                $image->save();
+            }
+        }
+        if ($image->save()) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم اضافة الصورة",
+                "data"    => ($image)
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل اضافة الصورة",
+            ], 422);
+        }
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -5,29 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\UnitImage;
 use Illuminate\Http\Request;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+
 
 class UnitImageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    use TraitImageProccessingTrait;
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +19,28 @@ class UnitImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('img')) {
+            foreach ($request->file('img') as $img) {
+                $originalFilename = $this->setImage($img, $request->unit_id, 'units/lg');
+                $filename = $this->aspectForResize($img, $request->unit_id, 450, 450, 'units/sm');
+                $image = new UnitImage();
+                $image->unit_id = $request->unit_id;
+                $image->img     = $filename;
+                $image->save();
+            }
+        }
+        if ($image->save()) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم اضافة الصورة",
+                "data"    => ($image)
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل اضافة الصورة",
+            ], 422);
+        }
     }
 
     /**

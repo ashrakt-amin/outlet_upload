@@ -46,6 +46,11 @@ class UserController extends Controller
      */
     protected function create(array $data)
     {
+
+        $this->validator->stopOnFirstFailure();
+        $this->validator->passes(); // false
+        $this->validator->errors()->all(); // returns ['age' => 'The age must be at least 31'].
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

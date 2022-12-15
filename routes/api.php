@@ -44,6 +44,10 @@ use App\Http\Controllers\Api\Auth\LoginTraderController;
 use App\Http\Controllers\Api\Auth\RegisterUserController;
 use App\Http\Controllers\Api\Auth\RegisterClientController;
 use App\Http\Controllers\Api\Auth\RegisterTraderController;
+use App\Http\Controllers\Api\LevelImageController;
+use App\Http\Controllers\Api\ProjectImageController;
+use App\Http\Controllers\Api\TraderImageController;
+use App\Http\Controllers\Api\UnitImageController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -204,6 +208,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('zones', ZoneController::class)->except('create', 'edit');
     //______________________________________________________________________________________________________________________
 
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('projectImages', ProjectImageController::class)->only('update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('levelImages', LevelImageController::class)->only('update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('unitImages', UnitImageController::class)->only('update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('traderImages', TraderImageController::class)->only('update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('itemImages', ItemImageController::class)->only('update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
 });
 //______________________________________________________________________________________________________________________
 //______________________________________________________________________________________________________________________
@@ -296,7 +320,6 @@ Route::prefix("itemImages")->group(function(){
         Route::post('/store2',             'store2');
     });
 });
-Route::resource('itemImages', ItemImageController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
