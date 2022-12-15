@@ -85,8 +85,16 @@ class ItemController extends Controller
         $item = new Item();
         $item->fill($request->input());
         if ($item->save()) {
-            $itemImage = new ItemImageController();
-            $itemImage->storei($request, $item->id);
+            if ($request->hasFile('img')) {
+                foreach ($request->file('img') as $image) {
+                    $originalFilename = $this->setImage($image, $item->id, 'items/lg');
+                    $filename = $this->aspectForResize($image, $item->id, 450, 450, 'items/sm');
+                    $image = new ItemImage();
+                    $image->unit_id = $item->id;
+                    $image->img     = $filename;
+                    $image->save();
+                }
+            }
             return response()->json([
                 "success"  => true,
                 "message"  => "تم تسجيل منتجا جديدا",
