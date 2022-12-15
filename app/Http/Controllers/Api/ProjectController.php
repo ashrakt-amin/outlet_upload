@@ -55,8 +55,8 @@ class ProjectController extends Controller
             if ($project) {
                 if ($request->hasFile('img')) {
                     foreach ($request->file('img') as $img) {
-                        $originalFilename = $this->setImage($img, $project->id, 'project/lg');
-                        $filename = $this->aspectForResize($img, $project->id, 450, 450, 'project/sm');
+                        $originalFilename = $this->setImage($img, $project->id, 'lg');
+                        $filename = $this->aspectForResize($img, $project->id, 450, 450, 'sm');
                         $image = new ProjectImage();
                         $image->project_id = $project->id;
                         $image->img        = $filename;
