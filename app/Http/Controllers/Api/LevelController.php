@@ -8,9 +8,14 @@ use App\Models\LevelImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LevelResource;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class LevelController extends Controller
 {
+    use TraitsAuthGuardTrait;
+    use TraitImageProccessingTrait;
+    
     /**
      * Display a listing of the resource.
      *

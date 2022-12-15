@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\ItemImageResource;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -155,12 +156,11 @@ class ItemImageController extends Controller
      */
     public function destroy(ItemImage $itemImage)
     {
-        $lg_image_path = "assets/images/uploads/items/lg/".$itemImage->img;  // Value is not URL but directory file path
-        $sm_image_path = "assets/images/uploads/items/sm/".$itemImage->img;  // Value is not URL but directory file path
+        $lg_image_path = "items/lg/".$itemImage->img;  // Value is not URL but directory file path
+        $sm_image_path = "items/sm/".$itemImage->img;  // Value is not URL but directory file path
 
         $this->deleteImage($lg_image_path);
         $this->deleteImage($sm_image_path);
-        dd($lg_image_path, $sm_image_path);
         if ($itemImage->delete()) {
             return response()->json([
                 "success" => true,

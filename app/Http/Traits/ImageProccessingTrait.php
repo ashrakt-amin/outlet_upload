@@ -151,14 +151,11 @@ Trait ImageProccessingTrait {
      */
     public function deleteImage($imgPath)
     {
-        if(File::exists($imgPath)) {
-            File::delete($imgPath);
+        if (is_file(Storage::disk('assets')->path($imgPath))) {
+            if (file_exists(Storage::disk('assets')->path($imgPath))) {
+                unlink(Storage::disk('assets')->path($imgPath));
+            }
         }
-        // if (is_file(Storage::disk('assets')->path($imgPath))) {
-        //     if (file_exists(Storage::disk('assets')->path($imgPath))) {
-        //         unlink(Storage::disk('assets')->path());
-        //     }
-        // }
     }
 
     /**
