@@ -81,6 +81,21 @@ class TraderImageController extends Controller
      */
     public function destroy(TraderImage $traderImage)
     {
-        //
+        $lg_image_path = "traders/lg/".$traderImage->img;  // Value is not URL but directory file path
+        $sm_image_path = "traders/sm/".$traderImage->img;  // Value is not URL but directory file path
+
+        $this->deleteImage($lg_image_path);
+        $this->deleteImage($sm_image_path);
+        if ($traderImage->delete()) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم حذف الصورة",
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل حذف الصورة",
+            ], 422);
+        }
     }
 }

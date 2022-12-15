@@ -40,58 +40,32 @@ class TraderController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'f_name'      => 'required',
-            'm_name'      => 'required',
-            'l_name'      => 'required',
-            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-            'code'        => 'unique:traders,code',
-            'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            'national_id' => 'unique:traders,national_id',
-        ], [
-            'phone.unique'       => 'الهاتف مسجل من قبل',
-            'code.unique'        => 'الكود مسجل من قبل',
-            'phone.regex'        => 'صيغة الهاتف غير صحيحة',
-            'national_id.unique' => 'الرقم القومي مسجل من قبل',
-            'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-            'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
-        ]);
-    }
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\StoreTraderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTraderRequest $request)
+    public function store(Request $request)
     {
         if ($this->getTokenId('user')) {
-            // if ($this->validator($request->all()) ) {
-            //     return $request->f_name;
-            // }
-            // return $validator;
-            // $request->validate([
-            // 'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-            // 'code'        => 'unique:traders,code',
-            // 'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            // 'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            // 'national_id' => 'unique:traders,national_id',
-            // ], [
-            //     'phone.unique'       => 'الهاتف مسجل من قبل',
-            //     'code.unique'        => 'الكود مسجل من قبل',
-            //     'phone.regex'        => 'صيغة الهاتف غير صحيحة',
-            //     'national_id.unique' => 'الرقم القومي مسجل من قبل',
-            //     'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-            //     'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
-            // ]);
+            $request->validate([
+                // 'f_name'      => [['required'], ['string']],
+                // 'm_name'      => 'required|string',
+                // 'l_name'      => 'required|string',
+                'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+                'code'        => 'unique:traders,code',
+                'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+                'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+                'national_id' => 'unique:traders,national_id',
+            ], [
+                'phone.required'       => 'الهاتف مسجل من قبل',
+                'phone.unique'       => 'الهاتف مسجل من قبل',
+                'code.unique'        => 'الكود مسجل من قبل',
+                'phone.regex'        => 'صيغة الهاتف غير صحيحة',
+                'national_id.unique' => 'الرقم القومي مسجل من قبل',
+                'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
+                'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
+            ]);
             $emailExist = Trader::where(['email'=>$request->email])->first();
             if (!empty($emailExist->email)) {
                 return response()->json([

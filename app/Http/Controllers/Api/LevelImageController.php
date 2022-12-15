@@ -5,70 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\LevelImage;
 use Illuminate\Http\Request;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class LevelImageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, $modelName, $relationColumnName, $relationColumnId)
-    {
-        if ($request->hasFile('img')) {
-            foreach ($request->file('img') as $image) {
-                    $name            = $image->getClientOriginalName();
-                    $ext             = $image->getClientOriginalExtension();
-                    $filename        = rand(10, 100000).time().'.'.$ext;
-                    $image->move('assets/images/uploads/items/', $filename);
-
-                    // $relationColumnName = $relationColumn.'_id';
-
-                    $relationColumnNameImage = new $modelName();
-                    $relationColumnNameImage->$relationColumnName = $relationColumnId;
-                    $relationColumnNameImage->img                = $filename;
-                    $relationColumnNameImage->save();
-                // $levelImage = new LevelImage();
-                // $levelImage->item_id = $item;
-                // $levelImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
-                // $levelImage->save();
-            }
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\LevelImage  $levelImage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(LevelImage $levelImage)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\LevelImage  $levelImage
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(LevelImage $levelImage)
-    {
-        //
-    }
-
+    use TraitImageProccessingTrait;
     /**
      * Update the specified resource in storage.
      *
@@ -89,6 +30,21 @@ class LevelImageController extends Controller
      */
     public function destroy(LevelImage $levelImage)
     {
-        //
+        $lg_image_path = "levels/lg/".$levelImage->img;  // Value is not URL but directory file path
+        $sm_image_path = "levels/sm/".$levelImage->img;  // Value is not URL but directory file path
+
+        $this->deleteImage($lg_image_path);
+        $this->deleteImage($sm_image_path);
+        if ($levelImage->delete()) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم حذف الصورة",
+            ], 200);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "فشل حذف الصورة",
+            ], 422);
+        }
     }
 }

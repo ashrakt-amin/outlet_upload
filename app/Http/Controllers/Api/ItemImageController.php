@@ -14,45 +14,6 @@ use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 class ItemImageController extends Controller
 {
     use TraitImageProccessingTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $itemImages = ItemImage::all();
-        return response()->json([
-                'data' => ItemImageResource::Collection($itemImages)
-        ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storei(Request $request ,$item)
-    {
-        if ($request->hasFile('img')) {
-            foreach ($request->file('img') as $image) {
-                    $name            = $image->getClientOriginalName();
-                    $ext             = $image->getClientOriginalExtension();
-                    $filename        = rand(10, 100000).time().'.'.$ext;
-                    $image->move('assets/images/uploads/items/', $filename);
-
-                    $itemImage = new ItemImage();
-                    $itemImage->item_id = $item;
-                    $itemImage->img     = $filename;
-                    $itemImage->save();
-                // $itemImage = new ItemImage();
-                // $itemImage->item_id = $item;
-                // $itemImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
-                // $itemImage->save();
-            }
-        }
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -62,26 +23,21 @@ class ItemImageController extends Controller
      */
     public function store(Request $request)
     {
-        $itemImage = new ItemImage();
-        $itemImage->fill($request->input());
         if ($request->hasFile('img')) {
-            foreach ($request->file('img') as $image) {
-                $name            = $image->getClientOriginalName();
-                $ext             = $image->getClientOriginalExtension();
-                $filename        = rand(10, 100000).time().'.'.$ext;
-                $image->move('assets/images/uploads/items/', $filename);
-
-                $itemImage = new ItemImage();
-                $itemImage->item_id = $request->item_id;
-                $itemImage->img     = $filename;
-                $itemImage->save();
+            foreach ($request->file('img') as $img) {
+                $originalFilename = $this->setImage($img, $request->item_id, 'items/lg');
+                $filename = $this->aspectForResize($img, $request->item_id, 450, 450, 'items/sm');
+                $image = new ItemImage();
+                $image->item_id = $request->item_id;
+                $image->img     = $filename;
+                $image->save();
             }
         }
-        if ($itemImage->save()) {
+        if ($image->save()) {
             return response()->json([
                 "success" => true,
                 "message" => "تم اضافة الصورة",
-                "data"    => ($itemImage)
+                "data"    => ($image)
             ], 200);
         } else {
             return response()->json([
@@ -91,28 +47,6 @@ class ItemImageController extends Controller
         }
     }
 
-    public function store2(Request $request) {
-        $data = $request->all();
-        if ($request->hasfile('img')){
-            $data['img'] = $this->aspectForResize($request->img, $request->item_id, 2000, 1800, 'items');
-        }
-        $create = ItemImage::create($data);
-        return $create;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ItemImage  $itemImage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ItemImage $itemImage)
-    {
-        $itemImages = ItemImage::where(['item_id'=>$itemImage->item_id])->get();
-        return response()->json([
-                'data' => ItemImageResource::Collection($itemImages)
-        ], 200);
-    }
 
     /**
      * Update the specified resource in storage.
