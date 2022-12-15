@@ -93,7 +93,6 @@ class ItemImageController extends Controller
     public function store2(Request $request) {
         $data = $request->all();
         if ($request->hasfile('img')){
-            // $this->setImage($request->img, 'items');
             $data['img'] = $this->aspectForResize($request->img, $request->item_id, 2000, 1800, 'items');
         }
         $create = ItemImage::create($data);
@@ -156,10 +155,12 @@ class ItemImageController extends Controller
      */
     public function destroy(ItemImage $itemImage)
     {
-        $image_path = "assets/images/uploads/items/".$itemImage->img;  // Value is not URL but directory file path
-        if(File::exists($image_path)) {
-            File::delete($image_path);
-        }
+        $lg_image_path = "assets/images/uploads/items/lg/".$itemImage->img;  // Value is not URL but directory file path
+        $sm_image_path = "assets/images/uploads/items/sm/".$itemImage->img;  // Value is not URL but directory file path
+
+        $this->deleteImage($lg_image_path);
+        $this->deleteImage($sm_image_path);
+        dd($lg_image_path, $sm_image_path);
         if ($itemImage->delete()) {
             return response()->json([
                 "success" => true,
