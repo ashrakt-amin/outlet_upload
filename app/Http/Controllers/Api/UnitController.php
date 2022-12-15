@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Unit;
 
-use App\Models\Level;
 use App\Models\Statu;
 use App\Models\Activity;
 use App\Models\UnitImage;
@@ -12,11 +11,11 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UnitResource;
 use App\Http\Resources\StatuResource;
-use App\Http\Resources\UnitCollection;
-use App\Http\Resources\ActivityResource;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class UnitController extends Controller
 {
+    use TraitImageProccessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -43,11 +42,11 @@ class UnitController extends Controller
             if ($unit) {
                 if ($request->hasFile('img')) {
                     foreach ($request->file('img') as $image) {
-                        $name            = $image->getClientOriginalName();
-                        $ext             = $image->getClientOriginalExtension();
-                        $filename        = rand(10, 100000).time().'.'.$ext;
-                        $image->move('assets/images/uploads/units/', $filename);
-
+                        // $name            = $image->getClientOriginalName();
+                        // $ext             = $image->getClientOriginalExtension();
+                        // $filename        = rand(10, 100000).time().'.'.$ext;
+                        // $image->move('assets/images/uploads/units/', $filename);
+                        $filename = $this->aspectForResize($image, $unit->id, 450, 450, 'units');
                         $image = new UnitImage();
                         $image->unit_id = $unit->id;
                         $image->img     = $filename;
