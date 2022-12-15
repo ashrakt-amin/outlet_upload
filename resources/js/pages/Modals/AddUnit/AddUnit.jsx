@@ -75,6 +75,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
         setUnitDescription("");
         setLevelID("");
         settraderId("");
+        setImgs(null);
         // setUnitSpace("");
         // setMeterPrice("");
         // setUnitPriceVal("");
@@ -82,7 +83,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
     //////////////////////////////////////////////////////// Add New Unit Function  ///////////////////////////////////////////////////////////
 
     const addNewUnit = async () => {
-        if (unitName != "" && traderId != "0") {
+        if (unitName != "" && traderId != "0" && imgs != null) {
             const fData = new FormData();
             fData.append("name", unitName);
             fData.append("level_id", levelInfo.id);
@@ -222,7 +223,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                                 </select>
 
                                 <div className="">
-                                    <span className="text-lg">
+                                    <span className="text-lg mx-3">
                                         إختر صور الدور
                                     </span>
                                     {/* <label

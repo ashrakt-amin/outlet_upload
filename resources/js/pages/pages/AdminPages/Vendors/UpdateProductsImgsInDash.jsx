@@ -57,7 +57,7 @@ const UpdateProductsImgsInDash = ({ oneImage, refetch }) => {
         >
             <img
                 className="w-full"
-                src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${oneImage.img}`}
+                src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${oneImage.img}`}
                 alt="لا يوجد صورة"
             />
 

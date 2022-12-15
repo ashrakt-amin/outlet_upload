@@ -27,6 +27,8 @@ export default function TraderRegister() {
     const checkInputs = (e) => {
         e.preventDefault();
 
+        const codeValidation = /^[0-9]/;
+
         if (
             userInfo.password.length < 8 ||
             userInfo.confirm_password.length < 8
@@ -46,6 +48,15 @@ export default function TraderRegister() {
             }, 4000);
             return;
         }
+
+        if (codeValidation.test(userInfo.code) == false) {
+            setErrorRegsiter("اكتب الكود");
+            setTimeout(() => {
+                setErrorRegsiter("");
+            }, 2000);
+            return;
+        }
+
         if (userInfo.password === userInfo.confirm_password) {
             setErrorRegsiter("");
             handleSub();

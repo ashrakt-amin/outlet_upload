@@ -18,6 +18,8 @@ const OneProject = () => {
 
     const [projectType, setprojectType] = useState("");
 
+    const [projectTypeName, setprojectTypeName] = useState("");
+
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getLevels = async () => {
@@ -27,7 +29,7 @@ const OneProject = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setOneProject(res.data.data);
-                console.log(res, "projoect 28");
+                console.log(res, "show project");
             } catch (error) {
                 console.log(error, "project");
                 console.log("error");
@@ -49,8 +51,34 @@ const OneProject = () => {
         setImgs([...e.target.files]);
     };
 
+    const validateInputs = () => {
+        if (levelName.length == 0) {
+            setSuccessMsg("اكتب اسم المشروع");
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
+            return;
+        }
+        if (imgs == null) {
+            setSuccessMsg("اختر صور المشروع");
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
+            return;
+        }
+        if (projectType == "") {
+            setSuccessMsg("اختر نوع المشروع");
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
+            return;
+        }
+        addLevelFunc();
+    };
+
     const addLevelFunc = () => {
         setIsAddLevel(!isAddLevel);
+
         if (levelName != "") {
             const fData = new FormData();
 
@@ -79,9 +107,13 @@ const OneProject = () => {
         }
     };
 
-    const handleProjectType = (e) => {
+    const handleProjectType = (e, prtypename) => {
         setprojectType(e);
-        console.log(e);
+        setprojectTypeName(prtypename);
+    };
+
+    const deleteImg = () => {
+        console.log("delte");
     };
 
     return (
@@ -93,7 +125,7 @@ const OneProject = () => {
                     {successMsg}
                 </div>
             )}
-            <div className="add-project-div my-4 flex items-start">
+            <div className="add-project-div my-4 flex flex-wrap items-start">
                 {!isAddLevel && (
                     <button
                         onClick={showConfirm}
@@ -105,7 +137,7 @@ const OneProject = () => {
 
                 {isAddLevel && (
                     <button
-                        onClick={addLevelFunc}
+                        onClick={validateInputs}
                         className="bg-blue-500 rounded-md p-2"
                     >
                         تأكيد إضافة الشوارع
@@ -119,15 +151,8 @@ const OneProject = () => {
                     value={levelName}
                 />
 
-                <div className="">
-                    <span className="text-lg">إختر صور الدور</span>
-                    {/* <label
-                        
-                        htmlFor="formId"
-                        className="text-center flex justify-center"
-                    >
-                        <FcCamera className="text-3xl cursor-pointer " />
-                    </label> */}
+                <div className="m-2">
+                    <span className="text-lg mx-2">إختر صور الدور</span>
                     <input
                         onChange={handleImg}
                         multiple
@@ -139,20 +164,47 @@ const OneProject = () => {
                 </div>
             </div>
             <div className="project-type">
+                {projectTypeName.length > 0 && (
+                    <h1 className="p-1 m-1">
+                        {" "}
+                        نوع المشروع الذى تم اختيارة:{" "}
+                        <span className="text-lg font-normal bg-slate-200 rounded-md p-1">
+                            {projectTypeName}
+                        </span>
+                    </h1>
+                )}
                 <h1>اختر نوع المشروع</h1>
                 <button
-                    onClick={() => handleProjectType(0)}
+                    onClick={() => handleProjectType(0, "مول")}
                     className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
                 >
                     مول
                 </button>
                 <button
-                    onClick={() => handleProjectType(1)}
+                    onClick={() => handleProjectType(1, "شوارع")}
                     className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
                 >
                     شوارع
                 </button>
             </div>
+
+            <details>
+                <summary className="cursor-pointer text-lg bg-slate-200 rounded-md">
+                    إظهار صور المشروع
+                </summary>
+                <div className="oneproject-imgs my-4">
+                    {oneProject.images &&
+                        oneProject.images.map((oneimg) => (
+                            <div style={{ width: "250px" }} key={oneimg.id}>
+                                <img
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/projects/sm/${oneimg.img}`}
+                                    alt=""
+                                />
+                                <button onClick={deleteImg}>مسح الصورة</button>
+                            </div>
+                        ))}
+                </div>
+            </details>
 
             <div className="levels-grid grid grid-cols-3 gap-3">
                 {oneProject.levels &&

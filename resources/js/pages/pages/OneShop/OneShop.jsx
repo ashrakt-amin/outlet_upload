@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import OneClintProduct from "../OneCliendProductComponent/OneClintProduct";
+import OneShopSlider from "../OneShopSlider/OneShopSlider";
 
 const OneShop = () => {
     const { id } = useParams();
@@ -39,6 +40,23 @@ const OneShop = () => {
                 {" "}
                 {oneshope.name}
             </h1>
+            {oneshope.images && <OneShopSlider imgs={oneshope.images} />}
+
+            {/* <div className="oneshop-imgs flex flex-wrap gap-5">
+
+                {oneshope.images &&
+                    oneshope.images.map((oneshopimg) => (
+                        <div
+                            key={oneshopimg.id}
+                            style={{ maxWidth: "250px", maxHight: "250px" }}
+                        >
+                            <img
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/sm/${oneshopimg.img}`}
+                                alt="لا يوجد صورة حتى الان"
+                            />
+                        </div>
+                    ))}
+            </div> */}
 
             <div className="shope-items flex flex-wrap gap-4">
                 {oneshope?.items &&

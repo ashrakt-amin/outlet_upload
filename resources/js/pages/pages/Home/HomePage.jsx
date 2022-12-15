@@ -22,7 +22,7 @@ import OneShop from "../OneShop/OneShop";
 
 const HomePage = () => {
     return (
-        <div className="heigh-padding-mob">
+        <div className="heigh-padding-mob" style={{ marginTop: "150px" }}>
             <HeaderOne />
             <Routes>
                 <Route path="/" element={<HomeContent />} />

@@ -270,6 +270,7 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
         fData.append("importer_id", importedCompId); // الشركة المستوردة
 
         try {
+            // setIsAddProduct(true);
             const res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/items`,
                 fData,
@@ -279,16 +280,18 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
                     },
                 }
             );
+            // setIsAddProduct(true);
             emptyInputs();
             setApiMessage(res.data.message);
             getInfoAgainFunc();
             setTimeout(() => {
                 setApiMessage("");
             }, 2000);
-            console.log(res.data.message);
+            console.log(res.data);
         } catch (er) {
             console.log(er.response);
             console.log(er);
+            // setIsAddProduct(false);
         }
     };
     // (------------------------ (End adding product Function) -----------------------------)
@@ -695,12 +698,14 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
                     <TextEditorFunction textEditorValue={textEditorValue} />
                 </div>
 
-                <button
-                    onClick={validFirst}
-                    className="bg-blue-600 mx-3 rounded-md p-2 my-3 text-white"
-                >
-                    إضافة هذا المنتج
-                </button>
+                {!isAddProduct && (
+                    <button
+                        onClick={validFirst}
+                        className="bg-blue-600 mx-3 rounded-md p-2 my-3 text-white"
+                    >
+                        إضافة هذا المنتج
+                    </button>
+                )}
             </div>
         </div>
     );
