@@ -209,23 +209,23 @@ Route::middleware('auth:sanctum')->group(function () {
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::resource('projectImages', ProjectImageController::class)->only('update', 'destroy');
+    Route::resource('projectImages', ProjectImageController::class)->only('store', 'update', 'destroy');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::resource('levelImages', LevelImageController::class)->only('update', 'destroy');
+    Route::resource('levelImages', LevelImageController::class)->only('store', 'update', 'destroy');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::resource('unitImages', UnitImageController::class)->only('update', 'destroy');
+    Route::resource('unitImages', UnitImageController::class)->only('store', 'update', 'destroy');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::resource('traderImages', TraderImageController::class)->only('update', 'destroy');
+    Route::resource('traderImages', TraderImageController::class)->only('store', 'update', 'destroy');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::resource('itemImages', ItemImageController::class)->only('update', 'destroy');
+    Route::resource('itemImages', ItemImageController::class)->only('store', 'update', 'destroy');
     //______________________________________________________________________________________________________________________
 
 });
