@@ -18,7 +18,10 @@ const VendorProducts = ({ vendorProductArray }) => {
                             dir="rtl"
                             style={{ width: "250px" }}
                         >
-                            <Link className="flex" to={`onevendorproduct/${product.id}`}>
+                            <Link
+                                className="flex"
+                                to={`onevendorproduct/${product.id}`}
+                            >
                                 <div
                                     className="product-img "
                                     style={{
@@ -27,14 +30,13 @@ const VendorProducts = ({ vendorProductArray }) => {
                                 >
                                     <img
                                         className="w-full h-full"
-                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product.itemImages[0]?.img}`}
+                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${product.itemImages[0]?.img}`}
                                         alt="image"
                                     />
                                 </div>
                                 <h5 className="mt-2 overflow-hidden text-ellipsis w-10/12">
                                     {product.name}
                                 </h5>
-
                             </Link>
                         </div>
                     ))}

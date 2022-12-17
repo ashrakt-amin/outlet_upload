@@ -8,15 +8,13 @@ import { Navigation, EffectFade, Autoplay } from "swiper";
 import img1 from "./1.jpg";
 import img2 from "./2.jpg";
 import img3 from "./3p.jpg";
-import outlet from "./Untitled-1.jpg";
+import second from "./second.jpg";
 
 import "./slideronestyle.scss";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
-// import outletImg from "./website.png";
-
-const sliderContent = [img1, img2, img3, outlet];
+const sliderContent = [img1, img2, img3, second];
 
 const SliderOne = () => {
     return (

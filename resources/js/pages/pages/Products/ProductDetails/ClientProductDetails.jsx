@@ -17,7 +17,10 @@ import imgsize from "./900-650.jpg";
 
 import cartAnimation from "./cartanimation.gif";
 
-import { productsInCartNumber } from "../../../Redux/countInCartSlice";
+import {
+    productsInCartNumber,
+    productsInWishlistNumber,
+} from "../../../Redux/countInCartSlice";
 
 import OneClintProduct from "../../OneCliendProductComponent/OneClintProduct";
 
@@ -136,6 +139,23 @@ const ClientProductDetails = () => {
     const refetch = () => {
         getMatchingProducts(singleProduct.category.id);
     };
+
+    const getWishlistProductsCount = async () => {
+        let getToken = JSON.parse(localStorage.getItem("clTk"));
+        try {
+            const res = await axios.get(
+                `${process.env.MIX_APP_URL}/api/wishlists/`,
+                {
+                    headers: { Authorization: `Bearer ${getToken}` },
+                }
+            );
+            let wishlistCount = res.data.data.length;
+            dispatch(productsInWishlistNumber(wishlistCount));
+        } catch (er) {
+            console.log(er);
+        }
+    };
+
     const saveToWishList = (id) => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
 
@@ -160,7 +180,7 @@ const ClientProductDetails = () => {
                             .then(async (resp) => {
                                 setWishlistBtn(false);
                                 setrelaodstate(!relaodstate);
-                                // getWishlistProductsCount();
+                                getWishlistProductsCount();
                                 console.log(resp);
                                 // refetchFn();
                             });
@@ -187,7 +207,7 @@ const ClientProductDetails = () => {
     return (
         <div>
             {/* <div className="prodcut-details-container flex gap-3 p-1 flex-wrap pb-24"> */}
-            <div className="prodcut-details-container relative p-1 pb-24">
+            <div className="prodcut-details-container flex flex-wrap gap-3 items-start relative p-1 pb-24">
                 {isbuyFromHome && (
                     <div
                         dir="rtl"
@@ -240,10 +260,10 @@ const ClientProductDetails = () => {
                     </div>
                 )}
 
-                <div className="product-name text-lg mt-3">
-                    {singleProduct?.name}
-                </div>
                 <div className="imgs-product-div mx-auto">
+                    <div className="product-name text-end text-lg mt-3 font-medium">
+                        {singleProduct?.name}
+                    </div>
                     <div
                         className="img-div mx-auto"
                         style={{ maxWidth: "650px" }}
@@ -251,42 +271,41 @@ const ClientProductDetails = () => {
                         <img
                             className=""
                             loading="lazy"
-                            // src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${productImgs[imgNum]?.img}`}
-                            src={imgsize}
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${productImgs[imgNum]?.img}`}
+                            // src={imgsize}
                         />
                     </div>
-                </div>
-
-                <div className="all-imgs flex flex-wrap gap-4 p-3">
-                    {productImgs &&
-                        productImgs.map((img, i) => (
-                            <div
-                                style={{
-                                    width: "60px",
-                                    height: "60px",
-                                }}
-                                onClick={() => nextImg(i)}
-                                key={img.id}
-                                className="cursor-pointer"
-                            >
-                                <img
-                                    loading="lazy"
-                                    className="w-full h-full"
-                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${img.img}`}
-                                    alt="لا يوجد صورة"
-                                />
-                            </div>
-                        ))}
+                    <div className="all-imgs flex flex-wrap gap-4 p-3">
+                        {productImgs &&
+                            productImgs.map((img, i) => (
+                                <div
+                                    style={{
+                                        width: "60px",
+                                        height: "60px",
+                                    }}
+                                    onClick={() => nextImg(i)}
+                                    key={img.id}
+                                    className="cursor-pointer"
+                                >
+                                    <img
+                                        loading="lazy"
+                                        className="w-full h-full"
+                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${img.img}`}
+                                        alt="لا يوجد صورة"
+                                    />
+                                </div>
+                            ))}
+                    </div>
                 </div>
 
                 {/* الاضافة للكارت  */}
                 <div
-                    className="product-details-div relative py-5 rounded-md px-2 gap-3 bg-slate-200 flex-1"
+                    className="product-details-div w-full relative pr-5 py-5 rounded-md px-2 gap-3 flex-1"
                     dir="rtl"
                 >
                     <div
                         onClick={() => saveToWishList(singleProduct.id)}
-                        className="wichlist-product w-fit rounded-md cursor-pointer bg-slate-100 opacity-4"
+                        className="wichlist-product p w-fit rounded-md cursor-pointer bg-slate-100 opacity-4"
                     >
                         <span className="mb-4  hover:text-red-600 flex items-center">
                             <span> اضف الى المفضلة</span>
@@ -302,10 +321,10 @@ const ClientProductDetails = () => {
                             )}
                         </span>
                     </div>
-                    <span className="my-3 py-3 ">
-                        {/* <span>اضف الى صفحة مقارنة المنتج</span> */}
+                    {/* <span>اضف الى صفحة مقارنة المنتج</span> */}
+                    {/* <span className="my-3 py-3 ">
                         <MdOutlineCompareArrows className="cursor-pointer text-lg mt-3 hover:text-orange-400" />
-                    </span>
+                    </span> */}
 
                     {singleProduct.discount > 0 ? (
                         <>
@@ -335,9 +354,6 @@ const ClientProductDetails = () => {
                         </small>
                     )}
 
-                    {/* <div className="units-count-div mt-3">
-                        <div>عدد القطع المتوفرة: {singleProduct?.stock} 30</div>
-                    </div> */}
                     {/* <div className="rate-div flex gap-2 my-3">
                         {Array.from(Array(singleProduct?.allRates).keys()).map(
                             (star) => (
@@ -349,48 +365,6 @@ const ClientProductDetails = () => {
                         )}
                     </div> */}
 
-                    {/* <div className="select-color-size-div">
-                        <div className="color-select-client mt-3">
-                            <h1>اختر اللون</h1>
-                            <select
-                                className="rounded-md cursor-pointer"
-                                onChange={whatColor}
-                                name="color"
-                                id="color"
-                            >
-                                <option value={"0"}>لم تختر بعد</option>
-                                {singleProduct.colors &&
-                                    singleProduct.colors.map((onecolor) => (
-                                        <option
-                                            value={onecolor.id}
-                                            key={onecolor.id}
-                                        >
-                                            {onecolor.name}
-                                        </option>
-                                    ))}
-                            </select>
-                        </div>
-                        <div className="size-select-client mt-3">
-                            <h1>اختر المقاس</h1>
-                            <select
-                                className="rounded-md cursor-pointer"
-                                onChange={whatSize}
-                                name="size"
-                                id="size"
-                            >
-                                <option value={"0"}>لم تختر بعد</option>
-                                {singleProduct.sizes &&
-                                    singleProduct.sizes.map((onesize) => (
-                                        <option
-                                            value={onesize.id}
-                                            key={onesize.id}
-                                        >
-                                            {onesize.name}
-                                        </option>
-                                    ))}
-                            </select>
-                        </div>
-                    </div> */}
                     <div className="product-decsription-container mt-3">
                         <div className="font-bold text-md">وصف المنتج</div>
                         <div className="description-container">
@@ -412,7 +386,8 @@ const ClientProductDetails = () => {
                             <FaWhatsapp />
                         </span>
                         <a
-                            href={`http://wa.me/+${singleProduct.trader?.phone}`}
+                            // href={`http://wa.me/+2001061670173`}
+                            href={`http://wa.me/+2${singleProduct.trader?.phone}`}
                             target="_blank"
                             className="font-bold text-md hover:text-green-500"
                         >
@@ -486,27 +461,6 @@ const ClientProductDetails = () => {
                         </div>
                     </div> */}
                 </div>
-
-                {/* معلومات التاجر */}
-                {/* <div
-                    dir="rtl"
-                    className="trader-info-for-client text-center shadow-lg m-3 rounded-lg p-2"
-                >
-                    <div
-                        className="trader-logo-for-client mx-auto"
-                        style={{ width: "300px" }}
-                    >
-                        <img
-                            // className="w-full"
-                            src={`${traderLogo}`}
-                            alt="لا يوجد صورة"
-                        />
-                    </div>
-                    <h1> اسم التاجر: {singleProduct?.trader?.f_name}</h1>
-                    <h1>هاتف التاجر: {singleProduct?.trader?.phone}</h1>
-                    <h1>عنوان التاجر: {"المشاية بجوار الصياد"}</h1>
-                </div> */}
-                {/* معلومات التاجر */}
             </div>
             {/* المنتجات المشابهة لهذا المنج */}
             <div

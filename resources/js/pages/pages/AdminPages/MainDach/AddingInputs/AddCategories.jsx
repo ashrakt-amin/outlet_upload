@@ -88,7 +88,7 @@ const AddCategories = () => {
             <input
                 type="text"
                 value={categorryVal}
-                placeholder="مثال : موضة - اجهزة إلكترونية"
+                placeholder="مثال : ملابس رجالى -  ملابس حريمى"
                 className="border-none rounded-lg shadow-md my-3"
                 onChange={(e) => setCategorryVal(e.target.value)}
             />

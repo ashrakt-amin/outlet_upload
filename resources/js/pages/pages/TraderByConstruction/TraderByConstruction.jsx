@@ -71,7 +71,7 @@ const TraderByConstruction = () => {
                 </div>
             )}
 
-            <div className="shops-container flex flex-wrap gap-5 p-2">
+            <div className="shops-container grid grid-cols-3 gap-3   p-2">
                 {oneLevel?.units &&
                     oneLevel?.units.map((oneUnit) => (
                         <Link
@@ -80,11 +80,11 @@ const TraderByConstruction = () => {
                             className="shadow-md rounded-md p-1"
                         >
                             <div
-                                style={{ maxWidth: "300px" }}
+                                // style={{ maxWidth: "300px" }}
                                 className="shope-img"
                             >
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/${oneUnit?.images[0]?.img}`}
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/sm/${oneUnit?.images[0]?.img}`}
                                     alt=""
                                 />
                             </div>
@@ -93,7 +93,7 @@ const TraderByConstruction = () => {
                     ))}
             </div>
 
-            <div className="trader-grid-div grid gap-3 lg:grid-cols-3 md:grid:cols-2  place-items-center p-3">
+            {/* <div className="trader-grid-div grid gap-3 lg:grid-cols-3 md:grid:cols-3 sm:grid-cols-3  place-items-center p-3">
                 {levelTraders &&
                     levelTraders.map((trader, i) => (
                         <Link key={i} to={`/leveltrader/${trader.id}`}>
@@ -120,7 +120,7 @@ const TraderByConstruction = () => {
                             </div>
                         </Link>
                     ))}
-            </div>
+            </div> */}
         </div>
     );
 };

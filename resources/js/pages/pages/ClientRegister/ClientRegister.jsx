@@ -44,7 +44,6 @@ export default function Register() {
         let regPhone = /^(01)[0-9]{9}$/;
 
         if (regPhone.test(userInfo.phone2) == false && userInfo.phone2 != "") {
-            console.log("not valid");
             setSuccessMsg("الهاتف الثانى غير صحيح");
             setTimeout(() => {
                 setSuccessMsg("");
@@ -123,12 +122,12 @@ export default function Register() {
                             `${process.env.MIX_APP_URL}/api/register/clients`,
                             {
                                 f_name: userInfo.fName,
-                                m_name: userInfo.mName,
-                                l_name: userInfo.lName,
+                                // m_name: userInfo.mName,
+                                // l_name: userInfo.lName,
                                 age: userInfo.age,
                                 phone: userInfo.phone,
-                                phone2: userInfo.phone2,
-                                email: userInfo.email,
+                                // phone2: userInfo.phone2,
+                                // email: userInfo.email,
                                 password: userInfo.password,
                                 confirm_password: userInfo.confirm_password,
                             }
@@ -182,11 +181,11 @@ export default function Register() {
                     )}
 
                     <form className="flex flex-col items-center gap-3 mt-6 w-full">
-                        {successMsg.length > 0 && (
+                        {/* {successMsg.length > 0 && (
                             <div className="msg fixed text-center top-56 left-0 w-full rounded-md p-2 bg-green-400">
                                 {successMsg}
                             </div>
-                        )}
+                        )} */}
 
                         <div className="api-errors-div-clientRegister bg-red-500 fixed text-center top-56 left-0 w-full rounded-md">
                             {phoneError.length > 0 && (
@@ -203,17 +202,17 @@ export default function Register() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 w-full lg:w-[75%] gap-6">
                             <span>
-                                <span className="text-xs">الاسم الاول</span>
+                                <span className="text-xs">الاسم </span>
                                 <input
                                     name="fName"
                                     type="text"
                                     className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                    placeholder="اسم المستخدم الاول"
+                                    placeholder="اسم المستخدم "
                                     onChange={handleChangeInputs}
                                     value={userInfo.fName}
                                 />
                             </span>
-                            <span>
+                            {/* <span>
                                 <span className="text-xs">الاسم الثانى</span>
                                 <input
                                     name="mName"
@@ -223,8 +222,8 @@ export default function Register() {
                                     onChange={handleChangeInputs}
                                     value={userInfo.mName}
                                 />
-                            </span>
-                            <span>
+                            </span> */}
+                            {/* <span>
                                 <span className="text-xs">الاسم الاخير</span>
                                 <input
                                     name="lName"
@@ -234,7 +233,7 @@ export default function Register() {
                                     onChange={handleChangeInputs}
                                     value={userInfo.lName}
                                 />
-                            </span>
+                            </span> */}
                             <span>
                                 <span className="text-xs">العمر</span>
                                 <input
@@ -246,7 +245,7 @@ export default function Register() {
                                     value={userInfo.age}
                                 />
                             </span>
-                            <span>
+                            {/* <span>
                                 <span className="text-xs">
                                     البريد الالكترونى
                                 </span>
@@ -258,7 +257,7 @@ export default function Register() {
                                     onChange={handleChangeInputs}
                                     value={userInfo.email}
                                 />
-                            </span>
+                            </span> */}
                             <span>
                                 <span className="text-xs">رقم الهاتف</span>
                                 <input
@@ -271,7 +270,7 @@ export default function Register() {
                                     value={userInfo.phone}
                                 />
                             </span>
-                            <span>
+                            {/* <span>
                                 <span className="text-xs">
                                     رقم الهاتف 2 (إختيارى)
                                 </span>
@@ -284,7 +283,7 @@ export default function Register() {
                                     onChange={handleChangeInputs}
                                     value={userInfo.phone2}
                                 />
-                            </span>
+                            </span> */}
                             <span className="relative">
                                 <span className="text-xs">الرقم السرى</span>
                                 <input

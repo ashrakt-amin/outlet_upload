@@ -240,11 +240,19 @@ const OneVendorProduct = () => {
         let userToken = JSON.parse(localStorage.getItem("uTk"));
         const { id, trader } = prodcutInf;
 
+        if (colorIdSelect == 0 || sizeIdSelect == 0) {
+            setAddToProductMsg("اختر اللون والمقاس اولا");
+            setTimeout(() => {
+                setAddToProductMsg("");
+            }, 2000);
+            return;
+        }
+
         if (stockCount < "1") {
             setAddToProductMsg("يجب ملئ البيانات بطريقة صحيحة");
             setTimeout(() => {
                 setAddToProductMsg("");
-            }, 3000);
+            }, 2000);
         } else {
             try {
                 const res = await axios.post(

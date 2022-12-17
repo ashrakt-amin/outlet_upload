@@ -100,7 +100,7 @@ const OneClintProduct = ({ product, refetch }) => {
                 >
                     <img
                         className="w-full h-full "
-                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${product?.itemImages[0]?.img}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
                         alt=""
                     />
                 </div>

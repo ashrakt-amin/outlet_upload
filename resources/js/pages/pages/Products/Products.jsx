@@ -72,7 +72,7 @@ const Products = () => {
     // (------------------------ handle type select ----------------------)
 
     return (
-        <div className="clients-products-div">
+        <div className="clients-products-div" style={{ marginTop: " 155px" }}>
             {/* <div dir="rtl" className="select-type-div p-2">
                 <div className="text-sm">إختر التصنيف</div>
 

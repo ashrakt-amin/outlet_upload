@@ -24,7 +24,7 @@ const AddSize = () => {
                         setIsAddSize(!isAddSize);
                         setTimeout(() => {
                             setSuccessMsg("");
-                        }, 5000);
+                        }, 2000);
                     });
             } catch (er) {
                 console.log(er);

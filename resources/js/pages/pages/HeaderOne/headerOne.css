@@ -2,6 +2,22 @@
   z-index: 400;
 }
 
+.shops-list-container:hover .units-into-level {
+  display: block;
+  min-width: 0px;
+  min-height: 0px;
+  top: 35px !important;
+  left: -80px !important;
+  background-color: #e4e4e4;
+  color: #ededed;
+}
+
+.shops-list-container:hover .units-into-level div {
+  background-color: #dc1a21;
+  margin: 5px;
+  padding: 5px;
+}
+
 .fixed-nav-one {
   position: fixed;
   top: 0px;
@@ -87,8 +103,8 @@
 }
 
 @media (max-width: 700px) {
-  .header-one .account-btn .account-list {
-    top: -150px !important;
+  .header-one .account-btn:hover .account-list {
+    top: -110px !important;
   }
 }
 

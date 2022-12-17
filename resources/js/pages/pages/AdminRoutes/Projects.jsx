@@ -44,7 +44,7 @@ const Projects = () => {
 
     const addProject = async () => {
         setIsAddproject(!isAddproject);
-        if (projectName != "") {
+        if (projectName != "" && imgs != null) {
             const fData = new FormData();
             fData.append("name", projectName);
             // fData.append("project_type", projectType);

@@ -33,7 +33,7 @@ const LevelSlider = ({ imgs }) => {
                     <img
                         className="object-cover h-full"
                         style={{ width: "100%" }}
-                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/levels/${el.img}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/levels/lg/${el.img}`}
                         alt=""
                     />
                 </SwiperSlide>

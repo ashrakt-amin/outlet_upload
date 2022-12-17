@@ -21,13 +21,14 @@ const AddVolume = () => {
                     .then((res) => {
                         setSuccessMsg(res.data.message);
                         setVolumeName("");
-                        setIsAddValume(!isAddValume);
+                        c;
                         setTimeout(() => {
                             setSuccessMsg("");
-                        }, 5000);
+                        }, 2000);
                     });
             } catch (er) {
                 console.log(er);
+                setIsAddValume(!isAddValume);
             }
         } else {
             console.log("not valid");

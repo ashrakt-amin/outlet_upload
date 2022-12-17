@@ -96,13 +96,13 @@ const Header = () => {
                     }
                 );
                 setCategoriesArr(res.data.data);
-                console.log(res.data);
+                // console.log(res.data.data);
             } catch (error) {
                 console.warn(error.message);
             }
         };
         getCategories();
-        const getLevels = async () => {
+        const getProjects = async () => {
             try {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/projects`
@@ -113,12 +113,12 @@ const Header = () => {
                     // }
                 );
                 setLevels(res.data.data);
-                console.log(res.data.data);
+                // console.log(res.data.data);
             } catch (error) {
                 console.warn(error.message);
             }
         };
-        getLevels();
+        getProjects();
         return () => {
             cancelRequest.cancel();
         };
@@ -140,12 +140,12 @@ const Header = () => {
     const traderByContstruction = (constructId) => {
         navigate(`/traderByConstruction/${constructId.id}`);
         // navigate(`/leveltrader/${constructId.id}`);
-        console.log(constructId);
+        // console.log(constructId);
     };
 
     const logoutFunc = async () => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         try {
             let res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/logout`,
@@ -199,7 +199,7 @@ const Header = () => {
         <>
             <nav
                 dir="rtl"
-                className={`flex flex-col ${fixedNav} header-one justify-between flex-wrap header`}
+                className={`flex flex-col fixed w-full top-0 header-one justify-between flex-wrap header`}
             >
                 <div
                     dir="rtl"
@@ -295,7 +295,19 @@ const Header = () => {
                     </div>
                 </div>
 
-                <div className="categories-div flex text-white justify-center gap-4 py-2 header-tow bg-white">
+                <div className="categories-div flex text-white justify-center relative gap-4 py-2 header-tow bg-white">
+                    {/* <div className="all-main-category-div absolute top-0 left-0">
+                        {categoriesArr &&
+                            categoriesArr.map((onemainCategory) => (
+                                <div
+                                    className="text-black bg-slate-200 rounded-md m-1 p-1 cursor-pointer"
+                                    key={onemainCategory.id}
+                                >
+                                    {onemainCategory.name}
+                                </div>
+                            ))}
+                    </div> */}
+
                     <div className="traders-container">
                         <div className="dropdown-tradres">
                             <button className="dropbtn-traders flex items-center border-b-2 p-2 rounded-md">
