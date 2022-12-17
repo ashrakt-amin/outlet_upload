@@ -18,7 +18,6 @@ class CouponController extends Controller
      */
     public function index()
     {
-
         $coupons = Coupon::all();
         return response()->json([
             'data' => $coupons
@@ -46,6 +45,7 @@ class CouponController extends Controller
         $coupon = new Coupon();
         $coupon->fill($request->input());
         $coupon->code = $code;
+        $coupon->expiring_date = $this->timeDiffInDays($request->expiring_date);
         if ($coupon->save()) {
             return response()->json([
                 "success" => true,

@@ -32,11 +32,17 @@ Trait TimeTricksTrait {
         $subYears            = $time->subYears(2);
         $subWeekDays         = $time->subWeekDays(4);
         $diffInHours         = $time->diffInHours($time);
-        $diffInDays          = now()->subDay()->diffInDays(now()->subMonths(2));
         $difInWeekDays       = now()->subDay()->diffInDays(now()->subMonths(2));
         $difInForHumans      = now()->subDay()->diffForHumans(now()->subMonths(2)->now()->subdays(2));
         $difInForHumansAdd   = now()->subDay()->diffForHumans(now()->addDays(2));
 
-        return $shortLocalDayOfWeek;
+        return $diffInHours;
+    }
+
+    public function timeDiffInDays($day)
+    {
+        $time = now();
+        $diffInDays = $time->addDays($day);
+        return $diffInDays;
     }
 }
