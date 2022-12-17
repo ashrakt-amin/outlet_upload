@@ -26,3 +26,25 @@ use Carbon\Carbon;
             return Carbon::createFromFormat('m-d-Y', $date)->format('Y-m-d');
         }
     }
+
+    /**
+     * create random 6 characters
+     */
+    if (! function_exists('randomCode')) {
+        function randomCode()
+        {
+        // Available alpha caracters
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // generate a pin based on 1 * 3 digits + a 3 random characters
+        $pin = mt_rand(100, 999)
+            . $characters[rand(0, strlen($characters) - 1)]
+            . $characters[rand(0, strlen($characters) - 1)]
+            . $characters[rand(0, strlen($characters) - 1)];
+        // shuffle the result
+        $code = str_shuffle($pin);
+        return $code;
+        }
+    }
+
+

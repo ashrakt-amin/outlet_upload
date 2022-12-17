@@ -81,6 +81,7 @@ class TraderController extends Controller
                 $file->move('assets/images/uploads/traders/', $filename);
                 $trader->logo = $filename;
             }
+            $trader->code = randomCode();
             if ($trader->save()) {
                 return response()->json([
                     "success" => true,
