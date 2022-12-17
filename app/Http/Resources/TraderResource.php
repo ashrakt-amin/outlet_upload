@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use App\Models\OrderDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +26,7 @@ class TraderResource extends JsonResource
             'm_name'       => $this->m_name,
             'l_name'       => $this->l_name,
             'logo'         => $this->logo,
-            'age'          => $this->age,
+            'age'          => Carbon::parse($this->age)->age,
             'phone'        => $this->phone,
             'phone2'       => $this->phone2,
             'phone3'       => $this->phone3,

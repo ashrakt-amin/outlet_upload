@@ -161,7 +161,7 @@ class TraderController extends Controller
             // $age = Carbon::parse($request->age)->format('Y-m-d');
             // $trader->age = Carbon::parse($age)->age;
             if (!empty($request->age)) {
-                $trader->age = Carbon::parse($request->age)->age;
+                $trader->age = $request->age;
             } else {
                 $trader->age = $trader->age;
             }
