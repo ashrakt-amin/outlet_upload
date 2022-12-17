@@ -162,6 +162,8 @@ class TraderController extends Controller
             // $trader->age = Carbon::parse($age)->age;
             if (!empty($request->age)) {
                 $trader->age = Carbon::parse($request->age)->age;
+            } else {
+                $trader->age = $trader->age;
             }
             if ($trader->update()) {
                 return response()->json([
