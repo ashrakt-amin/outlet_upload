@@ -81,9 +81,6 @@ class TraderController extends Controller
                 $file->move('assets/images/uploads/traders/', $filename);
                 $trader->logo = $filename;
             }
-            // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
-            // $age = Carbon::parse($request->age)->format('Y-m-d');
-            $trader->age = Carbon::parse($request->age)->age;
             if ($trader->save()) {
                 return response()->json([
                     "success" => true,
@@ -144,6 +141,7 @@ class TraderController extends Controller
      */
     public function update(Request $request, Trader $trader)
     {
+        $age = $trader->age;
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             $trader->fill($request->input());
             if ($request->hasFile('logo')) {
@@ -160,10 +158,10 @@ class TraderController extends Controller
             // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
             // $age = Carbon::parse($request->age)->format('Y-m-d');
             // $trader->age = Carbon::parse($age)->age;
-            if (!empty($request->age)) {
+            if ($request->age != null) {
                 $trader->age = $request->age;
             } else {
-                $trader->age = $trader->age;
+                $trader->age = $age;
             }
             if ($trader->update()) {
                 return response()->json([
