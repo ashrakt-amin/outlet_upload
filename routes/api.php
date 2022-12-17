@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\ItemController;
@@ -44,6 +42,7 @@ use App\Http\Controllers\Api\Auth\LoginTraderController;
 use App\Http\Controllers\Api\Auth\RegisterUserController;
 use App\Http\Controllers\Api\Auth\RegisterClientController;
 use App\Http\Controllers\Api\Auth\RegisterTraderController;
+use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\LevelImageController;
 use App\Http\Controllers\Api\ProjectImageController;
 use App\Http\Controllers\Api\TraderImageController;
@@ -226,6 +225,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //-----------------------------------------------------------------------------------------------------------
     Route::resource('itemImages', ItemImageController::class)->only('store', 'update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('coupons', CouponController::class)->except('create', 'edit');
     //______________________________________________________________________________________________________________________
 
 });

@@ -1,0 +1,42 @@
+<?php
+namespace App\Http\Traits;
+
+use Carbon\Carbon;
+
+Trait TimeTricksTrait {
+
+    public function timeFunction()
+    {
+        $time = now();
+        $seconds             = $time->seconds();
+        $minute              = $time->minute();
+        $hours               = $time->hours();
+        $month               = $time->month();
+        $monthName           = $time->monthName();
+        $dayOfWeek           = $time->dayOfWeek();
+        $weekNumberOfMonth   = $time->weekNumberOfMonth();
+        $weekOfYear          = $time->weekOfYear();
+        $shortLocalDayOfWeek = $time->shortLocalDayOfWeek();
+        $startOfHour         = $time->startOfHour();
+        $startOfHour2        = $time->copy()->startOfHour();
+        $endOfMonth          = $time->endOfMonth();
+        $endOfMonth2         = $time->copy()->endOfMonth();
+        $nextSunday          = $time->next('sunday');
+        $nextWeekDay         = $time->nextWeekday();
+        $nextWeekendDay      = $time->nextWeekendDay();
+        $secondSundayOfMonth = $time->nthOfMonth(2, Carbon::SUNDAY);
+        $endOfMonth          = $time->endOfMonth();
+        $average             = $time->average($endOfMonth);
+        $addMonth            = $time->addMonth();
+        $addHours            = $time->addHours(12);
+        $subYears            = $time->subYears(2);
+        $subWeekDays         = $time->subWeekDays(4);
+        $diffInHours         = $time->diffInHours($time);
+        $diffInDays          = now()->subDay()->diffInDays(now()->subMonths(2));
+        $difInWeekDays       = now()->subDay()->diffInDays(now()->subMonths(2));
+        $difInForHumans      = now()->subDay()->diffForHumans(now()->subMonths(2)->now()->subdays(2));
+        $difInForHumansAdd   = now()->subDay()->diffForHumans(now()->addDays(2));
+
+        return $shortLocalDayOfWeek;
+    }
+}
