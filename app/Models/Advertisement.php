@@ -28,7 +28,7 @@ class Advertisement extends Model
         return $this->belongsTo(Trader::class);
     }
 
-    public function advertisementimages()
+    public function advertisementImages()
     {
         return $this->hasMany(AdvertisementImage::class);
     }
