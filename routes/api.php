@@ -6,17 +6,14 @@ use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\RateController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\SizeController;
-use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\ZoneController;
 use App\Http\Controllers\Api\ColorController;
-use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\StatuController;
 use App\Http\Controllers\Api\StockController;
 use App\Http\Controllers\Api\ClientController;
-use App\Http\Controllers\Api\GenderController;
 use App\Http\Controllers\Api\TraderController;
 use App\Http\Controllers\Api\VolumeController;
 use App\Http\Controllers\Api\CompanyController;
@@ -25,19 +22,15 @@ use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ImporterController;
 use App\Http\Controllers\Api\ItemUnitController;
-use App\Http\Controllers\Api\MainPageController;
 use App\Http\Controllers\Api\WishlistController;
 use App\Http\Controllers\Api\ItemImageController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\ManufactoryController;
 use App\Http\Controllers\Api\OrderDetailController;
-use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Controllers\Api\EskanCompanyController;
 use App\Http\Controllers\Api\AdvertisementController;
-use App\Http\Controllers\Api\AdminDashboardController;
 use App\Http\Controllers\Api\AdvertisementImageController;
 use App\Http\Controllers\Api\Auth\LoginUserController;
-use App\Http\Controllers\Api\ColorSizeStockController;
 use App\Http\Controllers\Api\Auth\LoginClientController;
 use App\Http\Controllers\Api\Auth\LoginTraderController;
 use App\Http\Controllers\Api\Auth\RegisterUserController;
@@ -60,6 +53,11 @@ use App\Http\Controllers\Api\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/', function () {
+    return redirect('/api/projects');
+});
+
 // Route::get('/', (function() {
 //     return auth()->user()
 //         ? app()->make(\App\Http\Controllers\HomeController::class)->index()
@@ -92,7 +90,7 @@ Route::get('call-helper', function(){
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("register")->group(function(){
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post("users",    [RegisterUserController::class, "register"])->name("users.register");
+        Route::post("users",  [RegisterUserController::class, "register"])->name("users.register");
     });
     Route::post("traders",[RegisterTraderController::class, "register"])->name("traders.register");
     Route::post("clients",[RegisterClientController::class, "register"])->name("clients.register");
@@ -101,7 +99,7 @@ Route::prefix("register")->group(function(){
 
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("login")->group(function(){
-    Route::post("users",     [LoginUserController::class, "login"])->name("users.login");
+    Route::post("users",       [LoginUserController::class, "login"])->name("users.login");
     Route::post("traders", [LoginTraderController::class, "login"])->name("traders.login");
     Route::post("clients", [LoginClientController::class, "login"])->name("clients.login");
 });
@@ -114,7 +112,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 //______________________________________________________________________________________________________________________
-
 
 //-----------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------
@@ -246,14 +243,6 @@ Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit'
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::get("/",[MainPageController::class, "index"])->name("index");
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::get("/admin",[AdminDashboardController::class, "index"])->name("index");
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
 Route::resource('eskanCompanies', EskanCompanyController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
@@ -347,22 +336,6 @@ Route::resource('categories', CategoryController::class)->except('create', 'edit
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('genders', GenderController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('subCategories', SubCategoryController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('groups', GroupController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('types', TypeController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
 Route::resource('colors', ColorController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
@@ -372,10 +345,6 @@ Route::resource('sizes', SizeController::class)->except('create', 'edit');
 
 //-----------------------------------------------------------------------------------------------------------
 Route::resource('stocks', StockController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('colorSizeStocks', ColorSizeStockController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------

@@ -19,6 +19,9 @@ Route::get('/login', function () {
     ]);
 })->name('login');
 
+Route::get('/', function () {
+    return redirect('/api/projects');
+});
 //______________________________________________________________________________
 // Route::get('/react', function () {
 //     return view('welcome');

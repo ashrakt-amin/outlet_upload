@@ -24,7 +24,7 @@ class AdvertisementImageController extends Controller
             $filename                = $this->aspectForResize($img, $request->advertisement_id, 450, 450, 'advertisements/sm');
             $image                   = new AdvertisementImage();
             $image->advertisement_id = $request->advertisement_id;
-            $image->img       = $filename;
+            $image->img              = $filename;
             $image->save();
         }
         if ($image->save()) {

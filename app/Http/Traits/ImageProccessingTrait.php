@@ -60,7 +60,7 @@ Trait ImageProccessingTrait {
         $strRandom = Str::random(8);
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(public_path('assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -81,7 +81,7 @@ Trait ImageProccessingTrait {
         });
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(public_path('assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -101,7 +101,7 @@ Trait ImageProccessingTrait {
         $img->crop($width, $height, 0, 0);
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(public_path('assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -131,17 +131,17 @@ Trait ImageProccessingTrait {
             $dataArray['thumbnailSm'] = $img->resize(200, 200, function($constraint) {
                 $constraint->aspectRatio();
             });
-            $img->save(public_path('assets/images/uploads/'.$path.'/sm').'/'.$imgPath);
+            $img->save(storage_path('app/assets/images/uploads/'.$path.'/sm').'/'.$imgPath);
             // md image
             $dataArray['thumbnailSm'] = $img->resize(400, 400, function($constraint) {
                 $constraint->aspectRatio();
             });
-            $img->save(public_path('assets/images/uploads/'.$path.'/md').'/'.$imgPath);
+            $img->save(storage_path('app/assets/images/uploads/'.$path.'/md').'/'.$imgPath);
             // lg image
             $dataArray['thumbnailSm'] = $img->resize(600, 600, function($constraint) {
                 $constraint->aspectRatio();
             });
-            $img->save(public_path('assets/images/uploads/'.$path.'/lg').'/'.$imgPath);
+            $img->save(storage_path('app/assets/images/uploads/'.$path.'/lg').'/'.$imgPath);
         }
         return $dataArray;
     }
@@ -167,7 +167,7 @@ Trait ImageProccessingTrait {
         $name            = $image->getClientOriginalName();
         $ext             = $image->getClientOriginalExtension();
         $filename        = rand(10, 100000).time().'.'.$ext;
-        $image->save(public_path('assets/images/uploads/'.$path).'/'.$name);
+        $image->save(storage_path('app/assets/images/uploads/'.$path).'/'.$name);
 
 
         $relationColumnNameImage = $modelName;
