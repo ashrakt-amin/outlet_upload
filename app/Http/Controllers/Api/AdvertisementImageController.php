@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\AdvertisementImage;
 use Illuminate\Http\Request;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class AdvertisementImageController extends Controller
 {
+    use TraitImageProccessingTrait;
     /**
      * Store a newly created resource in storage.
      *
@@ -17,14 +19,13 @@ class AdvertisementImageController extends Controller
     public function store(Request $request)
     {
         if ($request->hasFile('img')) {
-            foreach ($request->file('img') as $img) {
-                $originalFilename = $this->setImage($img, $request->item_id, 'advertisements/lg');
-                $filename         = $this->aspectForResize($img, $request->item_id, 450, 450, 'advertisements/sm');
-                $image            = new AdvertisementImage();
-                $image->item_id   = $request->item_id;
-                $image->img       = $filename;
-                $image->save();
-            }
+            $img = $request->file('img');
+            $originalFilename        = $this->setImage($img, $request->advertisement_id, 'advertisements/lg');
+            $filename                = $this->aspectForResize($img, $request->advertisement_id, 450, 450, 'advertisements/sm');
+            $image                   = new AdvertisementImage();
+            $image->advertisement_id = $request->advertisement_id;
+            $image->img       = $filename;
+            $image->save();
         }
         if ($image->save()) {
             return response()->json([
