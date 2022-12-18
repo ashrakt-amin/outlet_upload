@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Controllers\Api\EskanCompanyController;
 use App\Http\Controllers\Api\AdvertisementController;
 use App\Http\Controllers\Api\AdminDashboardController;
+use App\Http\Controllers\Api\AdvertisementImageController;
 use App\Http\Controllers\Api\Auth\LoginUserController;
 use App\Http\Controllers\Api\ColorSizeStockController;
 use App\Http\Controllers\Api\Auth\LoginClientController;
@@ -225,6 +226,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //-----------------------------------------------------------------------------------------------------------
     Route::resource('itemImages', ItemImageController::class)->only('store', 'update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('advertisementimages', AdvertisementImageController::class)->only('store', 'update', 'destroy');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
