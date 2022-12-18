@@ -24,11 +24,11 @@ const TowAddvertisments = () => {
                 اعلانات
             </h1> */}
             {advertise.length > 0 && (
-                <div className="tow-advertisements-contaienr flex justify-center gap-5">
+                <div className="tow-advertisements-contaienr flex flex-wrap justify-center gap-5">
                     <a href={`${advertise?.link}`} target="_blanck">
                         <div
                             className="flex items-center"
-                            style={{ maxWidth: "400px" }}
+                            style={{ maxWidth: "600px" }}
                         >
                             <img
                                 src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise[1]?.img}`}
@@ -40,7 +40,7 @@ const TowAddvertisments = () => {
                     <a href={`${advertise?.link}`} target="_blanck">
                         <div
                             className="flex items-center"
-                            style={{ maxWidth: "400px" }}
+                            style={{ maxWidth: "600px" }}
                         >
                             <img
                                 src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise[2]?.img}`}

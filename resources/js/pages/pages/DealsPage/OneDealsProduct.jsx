@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
+    const [imgsize, setimgsize] = useState("sm");
+
     const [discountValue, setDiscountValue] = useState("");
 
     const [priceAfterdiscount, setpriceAfterdiscount] = useState("");
@@ -35,21 +37,26 @@ const OneDealsProduct = ({ product, refetchFn }) => {
 
     const navigate = useNavigate();
 
-    const getWishlistProductsCount = async () => {
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
-        try {
-            const res = await axios.get(
-                `${process.env.MIX_APP_URL}/api/wishlists/`,
-                {
-                    headers: { Authorization: `Bearer ${getToken}` },
-                }
-            );
-            let wishlistCount = res.data.data.length;
-            dispatch(productsInWishlistNumber(wishlistCount));
-        } catch (er) {
-            console.log(er);
-        }
-    };
+    // const getWishlistProductsCount = async () => {
+    //     let getToken = JSON.parse(localStorage.getItem("clTk"));
+    //     try {
+    //         const res = await axios.get(
+    //             `${process.env.MIX_APP_URL}/api/wishlists/`,
+    //             {
+    //                 headers: { Authorization: `Bearer ${getToken}` },
+    //             }
+    //         );
+    //         let wishlistCount = res.data.data.length;
+    //         dispatch(productsInWishlistNumber(wishlistCount));
+    //     } catch (er) {
+    //         console.log(er);
+    //     }
+    // };
+
+    // console.log(window.innerWidth);
+    // if (window.innerWidth < 500) {
+    //     setimgsize('sm')
+    // }
 
     return (
         <SwiperSlide
@@ -61,7 +68,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
             }}
         >
             <div
-                className="deals-porduct-container flex flex-col justify-between items-start"
+                className="deals-porduct-container flex flex-col justify-between items-center"
                 style={{ minHeight: "350px" }}
             >
                 <Link
@@ -78,7 +85,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         <img
                             className="w-full h-full "
                             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
-                            alt=""
+                            alt="لا يوجد صورة"
                         />
                     </div>
                 </Link>
@@ -89,7 +96,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                 )}
 
                 <h5
-                    className="overflow-hidden text-ellipsis text-xl"
+                    className="overflow-hidden text-center text-ellipsis text-xl"
                     style={{ width: "97%" }}
                 >
                     {product.name}

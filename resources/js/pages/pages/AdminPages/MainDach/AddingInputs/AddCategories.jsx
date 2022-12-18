@@ -23,7 +23,7 @@ const AddCategories = () => {
                         name: categorryVal,
                     })
                     .then((res) => {
-                        console.log(res.data.data);
+                        // console.log(res.data.data);
                         setCategoryId(res.data.data);
                     });
             } catch (er) {
@@ -72,7 +72,7 @@ const AddCategories = () => {
     };
 
     return (
-        <div className="addCategorry-div mx-3 flex gap-3 relative items-center border-2 my-5 p-3 rounded-md">
+        <div className="addCategorry-div mx-3relative items-center border-2 my-5 p-3 rounded-md">
             {categorryMsg.length > 0 && (
                 <div
                     className="category-msg w-full p-1 text-start text-lg
@@ -84,59 +84,61 @@ const AddCategories = () => {
                     </span>
                 </div>
             )}
-            <span>التصنيف الأساسى</span>
-            <input
-                type="text"
-                value={categorryVal}
-                placeholder="مثال : ملابس رجالى -  ملابس حريمى"
-                className="border-none rounded-lg shadow-md my-3"
-                onChange={(e) => setCategorryVal(e.target.value)}
-            />
-            {isAddCategory && (
-                <>
-                    <select
-                        className="rounded-md cursor-pointer"
-                        onChange={whatCategoryId}
-                        name="categoryId"
-                        id="categoryId"
-                        value={categoryIdVal}
-                    >
-                        <option value={"0"}>لم تختر بعد</option>
-                        {categoryId &&
-                            categoryId.map((oneCategId) => (
-                                <option
-                                    value={oneCategId.id}
-                                    key={oneCategId.id}
-                                >
-                                    {oneCategId.name}
-                                </option>
-                            ))}
-                    </select>
-                </>
-            )}
-            {!isAddCategory ? (
-                <button
-                    onClick={() => setIsAddCategory(!isAddCategory)}
-                    className="bg-blue-600 rounded-md p-2 my-3 text-white"
-                >
-                    إضافة التصنيف
-                </button>
-            ) : (
-                <span>
-                    <button
-                        onClick={addCategorry}
-                        className="bg-green-500 rounded-md p-2 my-3 text-white"
-                    >
-                        تأكيد إضافة التصنيف
-                    </button>
+            <h1>التصنيف الأساسى</h1>
+            <div className="add-category-container flex flex-wrap gap-3 ">
+                <input
+                    type="text"
+                    value={categorryVal}
+                    placeholder="مثال : ملابس رجالى -  ملابس حريمى"
+                    className="border-none rounded-lg shadow-md my-3"
+                    onChange={(e) => setCategorryVal(e.target.value)}
+                />
+                {isAddCategory && (
+                    <>
+                        <select
+                            className="rounded-md cursor-pointer"
+                            onChange={whatCategoryId}
+                            name="categoryId"
+                            id="categoryId"
+                            value={categoryIdVal}
+                        >
+                            <option value={"0"}>لم تختر بعد</option>
+                            {categoryId &&
+                                categoryId.map((oneCategId) => (
+                                    <option
+                                        value={oneCategId.id}
+                                        key={oneCategId.id}
+                                    >
+                                        {oneCategId.name}
+                                    </option>
+                                ))}
+                        </select>
+                    </>
+                )}
+                {!isAddCategory ? (
                     <button
                         onClick={() => setIsAddCategory(!isAddCategory)}
-                        className="bg-red-600 mx-1 rounded-md p-2 text-white"
+                        className="bg-blue-600 rounded-md p-2 my-3 text-white"
                     >
-                        إلغاء
+                        إضافة التصنيف
                     </button>
-                </span>
-            )}
+                ) : (
+                    <span>
+                        <button
+                            onClick={addCategorry}
+                            className="bg-green-500 rounded-md p-2 my-3 text-white"
+                        >
+                            تأكيد إضافة التصنيف
+                        </button>
+                        <button
+                            onClick={() => setIsAddCategory(!isAddCategory)}
+                            className="bg-red-600 mx-1 rounded-md p-2 text-white"
+                        >
+                            إلغاء
+                        </button>
+                    </span>
+                )}
+            </div>
         </div>
     );
 };

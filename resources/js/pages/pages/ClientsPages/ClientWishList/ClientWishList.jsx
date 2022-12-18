@@ -80,9 +80,9 @@ const ClientWichList = () => {
                 `${process.env.MIX_APP_URL}/api/wishlists/destroy`,
                 { headers: { Authorization: `Bearer ${getToken}` } }
             );
-            setDelAllBtn(true);
             getWishlistProductsCount();
             setRefetch(!refetch);
+            setDelAllBtn(true);
         } catch (er) {
             console.log(er);
         }

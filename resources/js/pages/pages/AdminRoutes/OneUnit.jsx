@@ -29,6 +29,8 @@ function OneUnit() {
 
     const [oneUnit, setOneUnit] = useState({});
 
+    const [unitImgs, setunitImgs] = useState(null);
+
     const [selectedActivites, setSelectedActivites] = useState([]);
 
     const [currentActive, setCurrentActive] = useState([]);
@@ -48,7 +50,7 @@ function OneUnit() {
                     }
                 );
                 setOneUnit(res.data.data);
-                console.log(res);
+                // console.log(res);
                 setNextStatus(res.data.next_Statu);
             } catch (er) {
                 console.log(er);
@@ -56,36 +58,36 @@ function OneUnit() {
         };
         getUnits();
 
-        const getTraders = async () => {
-            try {
-                const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/traders`
-                );
-                setTraders(res.data.data);
-            } catch (er) {
-                console.log(er);
-                console.warn(er.message);
-            }
-        };
-        getTraders();
+        // const getTraders = async () => {
+        //     try {
+        //         const res = await axios.get(
+        //             `${process.env.MIX_APP_URL}/api/traders`
+        //         );
+        //         setTraders(res.data.data);
+        //     } catch (er) {
+        //         console.log(er);
+        //         console.warn(er.message);
+        //     }
+        // };
+        // getTraders();
 
-        const getActivities = async () => {
-            try {
-                const res = await axios.get(
-                    `${process.env.MIX_APP_URL}/api/activities`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${tokenUser}`,
-                        },
-                    }
-                );
-                setActivityArray(res.data.data);
-                console.log(res.data);
-            } catch (er) {
-                console.log(er);
-            }
-        };
-        getActivities();
+        // const getActivities = async () => {
+        //     try {
+        //         const res = await axios.get(
+        //             `${process.env.MIX_APP_URL}/api/activities`,
+        //             {
+        //                 headers: {
+        //                     Authorization: `Bearer ${tokenUser}`,
+        //                 },
+        //             }
+        //         );
+        //         setActivityArray(res.data.data);
+        //         console.log(res.data);
+        //     } catch (er) {
+        //         console.log(er);
+        //     }
+        // };
+        // getActivities();
 
         return () => {
             cancelRequest.cancel();
@@ -199,69 +201,133 @@ function OneUnit() {
 
     // ----------------------------- (الغاء الحجز) ------------------------------------\\
 
-    const handleActivity = (oneActivity) => {
-        setActivityName(oneActivity.name);
-        setActivityId(oneActivity.id);
+    // const handleActivity = (oneActivity) => {
+    //     setActivityName(oneActivity.name);
+    //     setActivityId(oneActivity.id);
 
-        const currentActivityArray = selectedActivites;
+    //     const currentActivityArray = selectedActivites;
 
-        if (currentActivityArray.length == 0) {
-            setSelectedActivites([...selectedActivites, oneActivity]);
-        } else {
-            let trueOrFalse = selectedActivites.some((activity) => {
-                if (activity.id == oneActivity.id) {
-                    return true;
-                } else {
-                    return false;
+    //     if (currentActivityArray.length == 0) {
+    //         setSelectedActivites([...selectedActivites, oneActivity]);
+    //     } else {
+    //         let trueOrFalse = selectedActivites.some((activity) => {
+    //             if (activity.id == oneActivity.id) {
+    //                 return true;
+    //             } else {
+    //                 return false;
+    //             }
+    //         });
+    //         if (trueOrFalse == false) {
+    //             setSelectedActivites([...selectedActivites, oneActivity]);
+    //         }
+    //     }
+    // };
+
+    // const sendActivities = async () => {
+    //     if (activityId == "") {
+    //         setSuccessMsg("اختر");
+    //         return;
+    //     } else {
+    //         try {
+    //             axios
+    //                 .post(`${process.env.MIX_APP_URL}/api/units/activities`, {
+    //                     unit_id: oneUnit.id,
+    //                     trader_id: oneUnit.trader.id,
+    //                     activity_id: selectedActivites,
+    //                 })
+    //                 .then((res) => {
+    //                     setIsActivity(!isActivity);
+    //                     setSuccessMsg(res.data.message);
+    //                     setTimeout(() => {
+    //                         setSuccessMsg("");
+    //                     }, 3000);
+    //                     setFetchAgain(!fetchAgain);
+    //                 });
+    //         } catch (er) {
+    //             console.log(er);
+    //         }
+    //     }
+    // };
+
+    // const deleteCurrentAcitity = (deletCurrentActiv) => {
+    //     let currentActivityArray = selectedActivites;
+    //     let newCrruntActivityArray = currentActivityArray.filter(
+    //         (oneactive) => {
+    //             return oneactive.id !== deletCurrentActiv.id;
+    //         }
+    //     );
+    //     setSelectedActivites(newCrruntActivityArray);
+    // };
+
+    const deleteUnitImg = async (oneimg) => {
+        const userToken = JSON.parse(localStorage.getItem("uTk"));
+        try {
+            let res = await axios.delete(
+                `${process.env.MIX_APP_URL}/api/unitImages/${oneimg.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
                 }
-            });
-            if (trueOrFalse == false) {
-                setSelectedActivites([...selectedActivites, oneActivity]);
-            }
+            );
+            // console.log(res);
+            setSuccessMsg(res.data.message);
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
+            setFetchAgain(!fetchAgain);
+        } catch (er) {
+            console.log(er);
         }
     };
 
-    const sendActivities = async () => {
-        if (activityId == "") {
-            setSuccessMsg("اختر");
-            return;
+    const handleUnitImgs = (e) => {
+        setunitImgs([...e.target.files]);
+    };
+
+    const addUnitImgsFunc = async () => {
+        const userToken = JSON.parse(localStorage.getItem("uTk"));
+        if (unitImgs == null) {
+            setSuccessMsg("اختر صور اولا");
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
         } else {
+            const fData = new FormData();
+
+            fData.append("unit_id", oneUnit.id);
+
+            unitImgs.map((el) => {
+                fData.append("img[]", el);
+            });
+
             try {
-                axios
-                    .post(`${process.env.MIX_APP_URL}/api/units/activities`, {
-                        unit_id: oneUnit.id,
-                        trader_id: oneUnit.trader.id,
-                        activity_id: selectedActivites,
-                    })
-                    .then((res) => {
-                        setIsActivity(!isActivity);
-                        setSuccessMsg(res.data.message);
-                        setTimeout(() => {
-                            setSuccessMsg("");
-                        }, 3000);
-                        setFetchAgain(!fetchAgain);
-                    });
+                let res = await axios.post(
+                    `${process.env.MIX_APP_URL}/api/unitImages`,
+                    fData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${userToken}`,
+                        },
+                    }
+                );
+                setSuccessMsg(res.data.message);
+                setunitImgs(null);
+                setTimeout(() => {
+                    setSuccessMsg("");
+                }, 2000);
+
+                setFetchAgain(!fetchAgain);
             } catch (er) {
                 console.log(er);
             }
         }
     };
-
-    const deleteCurrentAcitity = (deletCurrentActiv) => {
-        let currentActivityArray = selectedActivites;
-        let newCrruntActivityArray = currentActivityArray.filter(
-            (oneactive) => {
-                return oneactive.id !== deletCurrentActiv.id;
-            }
-        );
-        setSelectedActivites(newCrruntActivityArray);
-    };
-
     return (
         <div className="p-2" dir="rtl">
             <div className="unit-operations">
                 {successMsg.length > 0 && (
-                    <div className="fixed top-32 z-50 text-center w-full left-0 bg-red-500">
+                    <div className="fixed top-32 z-50 text-center w-full left-0 bg-green-500 p-1 text-white">
                         {successMsg}
                     </div>
                 )}
@@ -363,6 +429,55 @@ function OneUnit() {
                 معلومات المحل
             </h1>
 
+            {/*إظهار صور المحل */}
+            <details className="unit-imgs">
+                <summary className="cursor-pointer text-lg bg-slate-200 rounded-md">
+                    اظهار صور المحل
+                </summary>
+                <div className="my-4 flex flex-wrap gap-4 bg-slate-300 p-3">
+                    {oneUnit.images &&
+                        oneUnit.images.map((oneimg) => (
+                            <div key={oneimg.id} style={{ width: "150px" }}>
+                                <img
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/sm/${oneimg.img}`}
+                                    alt=""
+                                />
+                                <button
+                                    onClick={() => deleteUnitImg(oneimg)}
+                                    className="bg-red-500 p-1 m-1 rounded-md"
+                                >
+                                    {" "}
+                                    مسح الصور
+                                </button>
+                            </div>
+                        ))}
+                </div>
+            </details>
+
+            {/* اضافة صور المحل */}
+            <details className="cursor-pointer text-lg bg-slate-200 rounded-md m-2">
+                <summary>اضافة صور للمحل</summary>
+                <div className="adding-projects-imgs">
+                    <div className="m-2">
+                        <input
+                            onChange={handleUnitImgs}
+                            multiple
+                            className=""
+                            name=""
+                            type="file"
+                            id="imgsprojects"
+                        />
+                        <div className="add-project-imgs-btn">
+                            <button
+                                onClick={addUnitImgsFunc}
+                                className="bg-green-500 p-1 m-1 rounded-md"
+                            >
+                                اضف الان
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </details>
             {/* <div className="deposit my-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                 حالة الوحدة : {oneUnit.statu != undefined && oneUnit.statu.name}
             </div> */}
@@ -381,7 +496,7 @@ function OneUnit() {
             <div className="unitname bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                 إسم المحل : {oneUnit.name}
             </div>
-            <div className="one-unit-info-div grid grid-cols-3 gap-4 mb-4">
+            <div className="one-unit-info-div mb-4">
                 {/* <div className="deposit bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                     عدد أشهر التأمين : {oneUnit.deposit} أشهر
                 </div>
@@ -400,7 +515,7 @@ function OneUnit() {
                 </div> */}
 
                 {oneUnit?.trader != null && (
-                    <div className="">
+                    <div className="flex flex-wrap items-start gap-4">
                         <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                             اسم التاجر :{" "}
                             {oneUnit?.trader != null &&
@@ -413,9 +528,6 @@ function OneUnit() {
                         </div>
                         <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
                             هاتف التاجر الثانى: {oneUnit.trader.phone2}
-                        </div>
-                        <div className="unit-price m-3 bg-blue-700 p-2 rounded-md text-center text-yellow-50">
-                            هاتف التاجر الثالث: {oneUnit.trader.phone3}
                         </div>
                         <div
                             className="trader-img-logo m-3"

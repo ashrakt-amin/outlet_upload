@@ -83,23 +83,20 @@ const OneClintProduct = ({ product, refetch }) => {
 
     return (
         <div
-            className="relative one-client-product flex flex-col justify-between items-start p-3 bg-white shadow-md rounded-md"
+            className="relative one-client-product flex flex-col justify-center items-center gap-2 p-3 bg-white shadow-md rounded-md"
             dir={`rtl`}
             style={{ maxWidth: "300px", minHeight: "360px" }}
         >
-            <Link
-                className="bg-slate-300 rounded-md"
-                to={`/products/product/${product.id}`}
-            >
+            <Link className="rounded-md" to={`/products/product/${product.id}`}>
                 <div
                     className="product-img"
                     style={{
                         width: "280",
-                        height: "200px",
+                        maHeight: "230px",
                     }}
                 >
                     <img
-                        className="w-full h-full "
+                        className="w-full"
                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
                         alt=""
                     />
@@ -112,7 +109,10 @@ const OneClintProduct = ({ product, refetch }) => {
                 </div>
             )}
 
-            <h5 className="overflow-hidden text-ellipsis text-xl w-full">
+            <h5
+                className="text-ellipsis text-center text-xl whitespace-nowrap"
+                style={{ width: "90%", overflow: "hidden" }}
+            >
                 {product.name}
             </h5>
 

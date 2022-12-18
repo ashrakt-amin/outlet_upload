@@ -46,7 +46,7 @@ const AddColors = () => {
                 className="border-none rounded-lg shadow-md my-3 mx-4"
                 onChange={(e) => setColorName(e.target.value)}
                 value={colorName}
-                placeholder="اضف لون"
+                placeholder="اخضر - اصفر"
             />
             {!isAddColor ? (
                 <button

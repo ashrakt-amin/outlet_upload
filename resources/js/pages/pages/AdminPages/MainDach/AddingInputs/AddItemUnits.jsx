@@ -55,7 +55,7 @@ const AddColors = () => {
                 className="border-none rounded-lg shadow-md my-3 mx-4"
                 onChange={(e) => setItemUnitName(e.target.value)}
                 value={itemUnitName}
-                placeholder="اضف وحدة للمنتج"
+                placeholder="مثال: علبة - دستة -كرتونة"
             />
             {!isAddItemUnits ? (
                 <button

@@ -224,7 +224,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
                                 <div className="">
                                     <span className="text-lg mx-3">
-                                        إختر صور الدور
+                                        إختر صور المحل
                                     </span>
                                     {/* <label
                                         

@@ -79,7 +79,7 @@ const Projects = () => {
                 {!isAddproject && (
                     <button
                         onClick={showConfirm}
-                        className="bg-blue-500 rounded-md p-2 my-3"
+                        className="bg-blue-500 rounded-md p-2 my-3 text-white"
                     >
                         إضافة مشروع
                     </button>
@@ -94,7 +94,7 @@ const Projects = () => {
                 {isAddproject && (
                     <button
                         onClick={addProject}
-                        className="bg-cyan-500 rounded-md p-2 my-3"
+                        className="bg-green-500 text-white rounded-md p-2 my-3"
                     >
                         تأكيد إضافة المشروع
                     </button>
@@ -125,11 +125,11 @@ const Projects = () => {
                 />
             </div>
 
-            <div className="projects-grid grid grid-cols-3 gap-3 rounded-md">
+            <div className="projects-grid flex flex-wrap justify-center gap-3 rounded-md mt-5">
                 {projects &&
                     projects.map((project) => (
                         <div
-                            className="h-60 bg-slate-50 rounded-md shadow-md  my-2"
+                            className="rounded-md shadow-md  my-2 p-3"
                             key={project.id}
                         >
                             <Link

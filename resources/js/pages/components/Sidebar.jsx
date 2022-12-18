@@ -186,6 +186,33 @@ export default function Sidebar() {
                                 </p>
                             </li>
                         </NavLink>
+
+                        <NavLink
+                            to="/dachboard/promocode"
+                            className={` hover:bg-slate-900 rounded-lg`}
+                        >
+                            <li
+                                className="flex gap-2 text-lg duration-200 h-full w-full hover:text-red-400 rounded-tl-xl  rounded-bl-xl cursor-pointer p-3"
+                                onClick={() => {
+                                    if (window.innerWidth < 600) {
+                                        toggleMenu();
+                                    }
+                                }}
+                            >
+                                <span>
+                                    <AiFillHome />
+                                </span>
+                                <p
+                                    className={
+                                        !isShow
+                                            ? `opacity-0 group-hover:opacity-100 duration-100`
+                                            : "opacity-100 duration-100"
+                                    }
+                                >
+                                    البرومو كود
+                                </p>
+                            </li>
+                        </NavLink>
                     </ul>
                 </div>
             </div>

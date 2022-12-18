@@ -7,7 +7,11 @@ import TextEditorFunction from "../../TraderDashboard/TextEditorClassComponent/T
 
 import "./addproducts.scss";
 
-const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
+const AddProductsToTraders = ({
+    traderInfo,
+    getInfoAgainFunc,
+    toggleAdding,
+}) => {
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
     const [allSubCategories, setallSubCategories] = useState([]);
@@ -210,6 +214,30 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
             }, 2000);
             return;
         }
+
+        if (productName == "") {
+            setValidationMsg("اكتب اسم المنتج");
+            setTimeout(() => {
+                setValidationMsg("");
+            }, 2000);
+            return;
+        }
+
+        if (salePrice == "") {
+            setValidationMsg("اكتب  سعر البيع");
+            setTimeout(() => {
+                setValidationMsg("");
+            }, 2000);
+            return;
+        }
+
+        if (categoryId == "") {
+            setValidationMsg("اختر التصنيف");
+            setTimeout(() => {
+                setValidationMsg("");
+            }, 2000);
+            return;
+        }
         addProductFunc();
     };
 
@@ -271,6 +299,7 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
 
         try {
             // setIsAddProduct(true);
+            toggleAdding();
             const res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/items`,
                 fData,
@@ -284,12 +313,13 @@ const AddProductsToTraders = ({ traderInfo, getInfoAgainFunc }) => {
             emptyInputs();
             setApiMessage(res.data.message);
             getInfoAgainFunc();
+            toggleAdding();
             setTimeout(() => {
                 setApiMessage("");
             }, 2000);
             console.log(res.data);
         } catch (er) {
-            console.log(er.response);
+            toggleAdding();
             console.log(er);
             // setIsAddProduct(false);
         }

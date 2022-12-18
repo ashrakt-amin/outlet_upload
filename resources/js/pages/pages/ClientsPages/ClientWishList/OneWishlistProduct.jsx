@@ -92,7 +92,7 @@ const OneWishlistProduct = ({ wishlistproduct, refetchFunc }) => {
             >
                 <img
                     className="w-full h-full "
-                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/${wishlistproduct.item?.itemImages[0]?.img}`}
+                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${wishlistproduct.item?.itemImages[0]?.img}`}
                     alt=""
                 />
             </div>

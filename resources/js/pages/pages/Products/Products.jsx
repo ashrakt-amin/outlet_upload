@@ -19,7 +19,7 @@ const Products = () => {
 
     const [groupsArray, setGroupsArray] = useState([]);
 
-    console.log(groupsArray);
+    // console.log(groupsArray);
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -39,7 +39,7 @@ const Products = () => {
                     }
                 );
                 setProducts(res.data.data.items);
-                console.log(res.data);
+                // console.log(res.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -105,7 +105,7 @@ const Products = () => {
             )}
 
             {products && (
-                <div className="gird-products flex flex-wrap justify-center pb-16 gap-4 my-4">
+                <div className="gird-products grid grid-cols-2 pb-16 gap-4 my-4 p-2">
                     {products &&
                         products.map((item) => (
                             <div key={item.id}>
