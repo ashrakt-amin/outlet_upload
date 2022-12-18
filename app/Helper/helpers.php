@@ -52,17 +52,15 @@ use Illuminate\Support\Facades\DB;
      * create random $any characters
      */
     if (! function_exists('existingRandomCode')) {
-        function existingRandomCode($model, $request)
+        function existingRandomCode($model)
         {
-            $code = '91MLR4';
-            $row  = DB::table($model)->where(['code'=>$request->code])->first();
-            if (empty($row)) {
+            $code = randomCode();
+            $row  = DB::table($model)->where(['code'=>$code])->first();
+            if ($row == null) {
                 return $code;
             } else {
-                return 'done';
-                $code = randomCode();
+                return randomCode();
             }
-            return $code;
         }
     }
 

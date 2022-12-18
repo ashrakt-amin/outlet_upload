@@ -32,8 +32,7 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        // $code = randomCode();
-        $code = existingRandomCode('coupons', $request);
+        $code = existingRandomCode('coupons');
         $coupon = new Coupon();
         $coupon->fill($request->input());
         $coupon->code = $code;
