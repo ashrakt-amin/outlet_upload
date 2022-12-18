@@ -82,6 +82,7 @@ class TraderController extends Controller
                 $trader->logo = $filename;
             }
             $trader->code = randomCode();
+            
             if ($trader->save()) {
                 return response()->json([
                     "success" => true,

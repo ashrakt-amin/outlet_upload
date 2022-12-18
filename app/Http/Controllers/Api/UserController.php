@@ -20,7 +20,7 @@ class UserController extends Controller
         if ($this->getTokenId('user')) {
             $users = User::all();
             return response()->json([
-                'data' => ($users)
+                'data' => $users
             ], 200);
         }
     }

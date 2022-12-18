@@ -32,20 +32,12 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        // Available alpha caracters
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        // generate a pin based on 2 * 7 digits + a random character
-        $pin = mt_rand(100, 999)
-            . $characters[rand(0, strlen($characters) - 1)]
-            . $characters[rand(0, strlen($characters) - 1)]
-            . $characters[rand(0, strlen($characters) - 1)];
-        // shuffle the result
-        $code = str_shuffle($pin);
+        // $code = randomCode();
+        $code = existingRandomCode('coupons', $request);
         $coupon = new Coupon();
         $coupon->fill($request->input());
         $coupon->code = $code;
-        $coupon->expiring_date = $this->timeDiffInDays($request->expiring_date);
+        $coupon->expiring_date = now()->addDays($request->expiring_date);
         if ($coupon->save()) {
             return response()->json([
                 "success" => true,

@@ -42,7 +42,7 @@ Trait TimeTricksTrait {
     public function timeDiffInDays($day)
     {
         $time = now();
-        $diffInDays = $time->addDays($day);
+        $diffInDays = now()->addDays($day);
         return $diffInDays;
     }
 }

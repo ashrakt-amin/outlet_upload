@@ -2,6 +2,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
     /**
     * Write code on Method
@@ -44,6 +45,24 @@ use Carbon\Carbon;
         // shuffle the result
         $code = str_shuffle($pin);
         return $code;
+        }
+    }
+
+    /**
+     * create random $any characters
+     */
+    if (! function_exists('existingRandomCode')) {
+        function existingRandomCode($model, $request)
+        {
+            $code = '91MLR4';
+            $row  = DB::table($model)->where(['code'=>$request->code])->first();
+            if (empty($row)) {
+                return $code;
+            } else {
+                return 'done';
+                $code = randomCode();
+            }
+            return $code;
         }
     }
 
