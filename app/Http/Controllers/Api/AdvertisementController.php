@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
-use App\Models\AdvertisementLink;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\AdvertisementResource;
 
 class AdvertisementController extends Controller
 {
+    use TraitImageProccessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -54,16 +55,16 @@ class AdvertisementController extends Controller
         $advertisement->advertisement_expire = Carbon::parse($contruct_date)->addDays(($expiry_days));
         $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
         if ($request->hasFile('img')) {
-            $file            = $request->file('img');
-            $ext             = $file->getClientOriginalExtension();
-            $filename        = time().'.'.$ext;
-            $file->move('assets/images/uploads/advertisements/', $filename);
+            $img = $request->file('img');
+            $originalFilename        = $this->setImage($img, $request->advertisement_id, 'advertisements/lg');
+            $filename                = $this->aspectForResize($img, $request->advertisement_id, 450, 450, 'advertisements/sm');
             if ($request->input('id')) {
                 $advertisement = Advertisement::where(['id'=>$request->input('id')])->first();
-                $image_path = "assets/images/uploads/advertisements/".$advertisement->img;  // Value is not URL but directory file path
-                if(File::exists($image_path)) {
-                    File::delete($image_path);
-                }
+                $lg_image_path = "advertisements/lg/".$advertisement->img;  // Value is not URL but directory file path
+                $sm_image_path = "advertisements/sm/".$advertisement->img;  // Value is not URL but directory file path
+
+                $this->deleteImage($lg_image_path);
+                $this->deleteImage($sm_image_path);
                 $advertisement->img = $filename;
                 if ($advertisement->update()) {
                     return response()->json([

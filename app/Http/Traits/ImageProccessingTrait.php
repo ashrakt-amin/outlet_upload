@@ -52,9 +52,9 @@ Trait ImageProccessingTrait {
      */
     public function setImage($image, $ownerId, $path)
     {
-        $img = Image::make($image);
+        $img  = Image::make($image);
 
-        $name            = $image->getClientOriginalName();
+        $name = $image->getClientOriginalName();
 
         $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
