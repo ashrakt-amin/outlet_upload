@@ -21,9 +21,9 @@ const AllAddingsData = () => {
             <AllColors />
             <AllSizes />
             <AllVolumes />
-            <AllDistributeCompanies />
+            {/* <AllDistributeCompanies />
             <AllImportedCompanies />
-            <AllManufactories />
+            <AllManufactories /> */}
             <AllUnitsItemId />
         </div>
     );

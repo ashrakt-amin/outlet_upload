@@ -244,6 +244,13 @@ const ClientProductDetails = () => {
                                 name="address"
                                 id="address"
                             />
+                            <h1 className="text-black">كود الخصم</h1>
+                            <input
+                                className="rounded-md "
+                                type="text"
+                                name="promocode"
+                                id="promocode"
+                            />
                             <button className="text-black mt-1 shadow-md p-1 bg-slate-200 rounded-md">
                                 طلب الان
                             </button>
@@ -261,7 +268,7 @@ const ClientProductDetails = () => {
                 )}
 
                 <div className="imgs-product-div mx-auto">
-                    <div className="product-name text-end text-lg mt-3 font-medium">
+                    <div className="product-name text-end text-xl mt-3 font-medium">
                         {singleProduct?.name}
                     </div>
                     <div
@@ -463,15 +470,12 @@ const ClientProductDetails = () => {
                 </div>
             </div>
             {/* المنتجات المشابهة لهذا المنج */}
-            <div
-                className="matched-products-button-div text-center text-white p-3 rounded-md"
-                style={{ backgroundColor: "rgb(220, 26, 33)" }}
-            >
+            <div className="matched-products-button-div text-end font-bold text-xl p-3 rounded-md">
                 منتجات مشابهة
             </div>
             {/* المنتجات المشابهة لهذا المنج */}
 
-            <div className="matched-products-div flex flex-wrap justify-center pb-16 gap-4 my-4">
+            <div className="matched-products-div grid grid-cols-2 p-2 pb-16 gap-4 my-4">
                 {matchingProducts &&
                     matchingProducts.map((oneMatchProduct) => (
                         <OneClintProduct

@@ -90,8 +90,6 @@ const OneAdvertisement = ({ advertise, refetch }) => {
 
     return (
         <div className="img-advertise-div rounded-md p-3 m-3 bg-green-300">
-            {successMsg && <h1>{successMsg}</h1>}
-
             <h1 className="text-center text-lg">{advertise.id}</h1>
             <div
                 className="img-advertise-container"
@@ -117,9 +115,14 @@ const OneAdvertisement = ({ advertise, refetch }) => {
                 مدة المتبقية للاعلان : {`${advertise.daysRemainig}`} يوم
             </div>
 
-            <div className="update-remaining-time">
+            <div className="update-remaining-time relative">
+                {successMsg && (
+                    <h1 className="bg-blue-500 absolute z-50 top-1 right-0 text-white p-1">
+                        {successMsg}
+                    </h1>
+                )}
                 {isRemaining && (
-                    <div>
+                    <div className="">
                         <h3>مدة الاعلان الجديدة</h3>
                         <input
                             className="py-2 px-3 border-2 border-slate-200 rounded-lg outline-none font-serif"

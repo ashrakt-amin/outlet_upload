@@ -20,6 +20,8 @@ const OneProject = () => {
 
     const [projectTypeName, setprojectTypeName] = useState("");
 
+    const [projectImgs, setprojectImgs] = useState(null);
+
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getLevels = async () => {
@@ -29,10 +31,8 @@ const OneProject = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setOneProject(res.data.data);
-                console.log(res, "show project");
             } catch (error) {
                 console.log(error, "project");
-                console.log("error");
             }
         };
         getLevels();
@@ -53,20 +53,20 @@ const OneProject = () => {
 
     const validateInputs = () => {
         if (levelName.length == 0) {
-            setSuccessMsg("اكتب اسم المشروع");
+            setSuccessMsg(" اكتب اسم الدور او الشارع");
             setTimeout(() => {
                 setSuccessMsg("");
             }, 2000);
             return;
         }
         if (imgs == null) {
-            setSuccessMsg("اختر صور المشروع");
+            setSuccessMsg("اختر صور الدور او الشارع");
             setTimeout(() => {
                 setSuccessMsg("");
             }, 2000);
             return;
         }
-        if (projectType == "") {
+        if (projectType === "") {
             setSuccessMsg("اختر نوع المشروع");
             setTimeout(() => {
                 setSuccessMsg("");
@@ -108,20 +108,83 @@ const OneProject = () => {
     };
 
     const handleProjectType = (e, prtypename) => {
+        console.log(e);
         setprojectType(e);
         setprojectTypeName(prtypename);
     };
 
-    const deleteImg = () => {
-        console.log("delte");
+    const deleteImg = async (projimg) => {
+        const userToken = JSON.parse(localStorage.getItem("uTk"));
+        // console.log(primg);
+        try {
+            let res = await axios.delete(
+                `${process.env.MIX_APP_URL}/api/projectImages/${projimg.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                }
+            );
+            console.log(res);
+            setSuccessMsg(res.data.message);
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
+            setFechAgain(!fetchAgain);
+        } catch (er) {
+            console.log(er);
+        }
+    };
+
+    const addingimgsProject = (e) => {
+        setprojectImgs([...e.target.files]);
+    };
+
+    const addProjectsImgsFunc = async () => {
+        const userToken = JSON.parse(localStorage.getItem("uTk"));
+        if (projectImgs == null) {
+            setSuccessMsg("اختر صور اولا");
+            setTimeout(() => {
+                setSuccessMsg("");
+            }, 2000);
+        } else {
+            const fData = new FormData();
+
+            fData.append("project_id", oneProject.id);
+
+            projectImgs.map((el) => {
+                fData.append("img[]", el);
+            });
+
+            try {
+                let res = await axios.post(
+                    `${process.env.MIX_APP_URL}/api/projectImages`,
+                    fData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${userToken}`,
+                        },
+                    }
+                );
+                setSuccessMsg(res.data.message);
+                setprojectImgs(null);
+                setTimeout(() => {
+                    setSuccessMsg("");
+                }, 2000);
+
+                setFechAgain(!fetchAgain);
+            } catch (er) {
+                console.log(er);
+            }
+        }
     };
 
     return (
         <div dir="rtl" className="p-2 text-center">
-            <h1 className="text-lg">الشوارع</h1>
+            <h1 className="text-lg">الشوارع او الادوار</h1>
 
             {successMsg.length > 0 && (
-                <div className="fixed top-32 z-50 text-center w-full left-0 bg-red-500">
+                <div className="fixed top-32 z-50 text-center w-full left-0 bg-green-500 p-2 text-white">
                     {successMsg}
                 </div>
             )}
@@ -131,16 +194,16 @@ const OneProject = () => {
                         onClick={showConfirm}
                         className="bg-green-500 rounded-md p-2 text-white"
                     >
-                        إضافة الشوارع
+                        إضافة شارع او دور
                     </button>
                 )}
 
                 {isAddLevel && (
                     <button
                         onClick={validateInputs}
-                        className="bg-blue-500 rounded-md p-2"
+                        className="bg-blue-500 rounded-md p-2 text-white"
                     >
-                        تأكيد إضافة الشوارع
+                        تأكيد الاضافة
                     </button>
                 )}
 
@@ -152,7 +215,9 @@ const OneProject = () => {
                 />
 
                 <div className="m-2">
-                    <span className="text-lg mx-2">إختر صور الدور</span>
+                    <span className="text-lg mx-2">
+                        إختر صور الدور او الشارع
+                    </span>
                     <input
                         onChange={handleImg}
                         multiple
@@ -189,10 +254,10 @@ const OneProject = () => {
             </div>
 
             <details>
-                <summary className="cursor-pointer text-lg bg-slate-200 rounded-md">
+                <summary className="cursor-pointer text-lg bg-slate-200 rounded-md mt-10">
                     إظهار صور المشروع
                 </summary>
-                <div className="oneproject-imgs my-4">
+                <div className="oneproject-imgs my-4 flex flex-wrap gap-4 bg-slate-300 p-3">
                     {oneProject.images &&
                         oneProject.images.map((oneimg) => (
                             <div style={{ width: "250px" }} key={oneimg.id}>
@@ -200,13 +265,42 @@ const OneProject = () => {
                                     src={`${process.env.MIX_APP_URL}/assets/images/uploads/projects/sm/${oneimg.img}`}
                                     alt=""
                                 />
-                                <button onClick={deleteImg}>مسح الصورة</button>
+                                <button
+                                    className="bg-red-500 text-white rounded-md m-2"
+                                    onClick={() => deleteImg(oneimg)}
+                                >
+                                    مسح الصورة
+                                </button>
                             </div>
                         ))}
                 </div>
             </details>
 
-            <div className="levels-grid grid grid-cols-3 gap-3">
+            <details className="cursor-pointer text-lg bg-slate-200 rounded-md m-2">
+                <summary>اضافة صور للمشروع</summary>
+                <div className="adding-projects-imgs">
+                    <div className="m-2">
+                        <input
+                            onChange={addingimgsProject}
+                            multiple
+                            className=""
+                            name=""
+                            type="file"
+                            id="imgsprojects"
+                        />
+                        <div className="add-project-imgs-btn">
+                            <button
+                                onClick={addProjectsImgsFunc}
+                                className="bg-green-500 p-1 m-1 rounded-md"
+                            >
+                                اضف الان
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div className="levels-grid grid grid-cols-3 gap-3 mt-10">
                 {oneProject.levels &&
                     oneProject.levels.map((levl) => (
                         <div

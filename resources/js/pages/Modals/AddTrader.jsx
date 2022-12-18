@@ -18,7 +18,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [imgVal, setImgVal] = useState("");
 
     const [email, setEmail] = useState("");
-    const [traderCode, setTraderCode] = useState("");
+    // const [traderCode, setTraderCode] = useState("");
 
     // (check state)
     const [checkFName, setcheckFName] = useState("");
@@ -28,7 +28,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
     const [checkPhone, setcheckPhone] = useState("");
     const [checkNationalId, setcheckNationalId] = useState("");
     const [checkEmail, setcheckEmail] = useState("");
-    const [checkTraderCode, setcheckTraderCode] = useState("");
+    // const [checkTraderCode, setcheckTraderCode] = useState("");
     // (check state)
 
     const inputsValid = () => {
@@ -84,11 +84,11 @@ function AddTrader({ closeModal, getTradersAgain }) {
             setcheckEmail("");
         }
 
-        if (traderCode == "") {
-            setcheckTraderCode("الكود مكون من ارقام فقط");
-            return;
-        }
-        setcheckTraderCode("");
+        // if (traderCode == "") {
+        //     setcheckTraderCode("الكود مكون من ارقام فقط");
+        //     return;
+        // }
+        // setcheckTraderCode("");
 
         if (imgVal == "") {
             setSuccessMsg("ادخل صورة المحل");
@@ -108,7 +108,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
         setNationalId("");
         setPhone2("");
         setEmail("");
-        setTraderCode("");
+        // setTraderCode("");
         setImgVal("");
     };
 
@@ -125,8 +125,12 @@ function AddTrader({ closeModal, getTradersAgain }) {
         fromData.append("phone2", phone2);
         fromData.append("national_id", nationalId);
         fromData.append("email", email);
-        fromData.append("code", traderCode);
+        // fromData.append("code", traderCode);
         fromData.append("logo", imgVal);
+        // axios
+        //     .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
+        //     .then(async (res) => {
+        //     });
         try {
             let res = await axios.post(
                 `${process.env.MIX_APP_URL}/api/traders`,
@@ -340,7 +344,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                     )}
                                 </div>
 
-                                <div className="relative ">
+                                {/* <div className="relative ">
                                     <h1>كود التاجر</h1>
                                     <input
                                         type="number"
@@ -356,7 +360,7 @@ function AddTrader({ closeModal, getTradersAgain }) {
                                             {checkTraderCode}
                                         </span>
                                     )}
-                                </div>
+                                </div> */}
 
                                 <div className="relative ">
                                     <h1>إختر صورة المحل</h1>

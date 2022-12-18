@@ -129,7 +129,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/show', 'show')->name('users.show');
         });
     });
-    // Route::resource('/users', UserController::class);
+    Route::resource('/users', UserController::class)->except('show');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------

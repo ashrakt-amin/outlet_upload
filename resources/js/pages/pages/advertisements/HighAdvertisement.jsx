@@ -25,9 +25,10 @@ const HighAdvertisement = () => {
                 <a href={`${advertise?.link}`} target="_blanck">
                     <div
                         className="flex items-center"
-                        style={{ maxWidth: "400px" }}
+                        style={{ maxWidth: "800px" }}
                     >
                         <img
+                            className="w-full"
                             src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise?.img}`}
                             alt=""
                         />

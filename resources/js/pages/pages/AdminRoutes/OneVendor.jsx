@@ -78,6 +78,9 @@ const OneVendor = () => {
                     الهاتف :{traderInfo.phone}
                 </h3>
                 <h3 className="bg-blue-500 p-2 rounded-md font-bold text-white">
+                    كود التاجر :{traderInfo.code}
+                </h3>
+                <h3 className="bg-blue-500 p-2 rounded-md font-bold text-white">
                     الايميل :{traderInfo.email}
                 </h3>
                 <h3 className="bg-blue-500 p-2 rounded-md font-bold flex gap-3 flex-wrap">

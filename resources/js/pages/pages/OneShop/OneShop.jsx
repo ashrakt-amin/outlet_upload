@@ -58,7 +58,7 @@ const OneShop = () => {
                     ))}
             </div> */}
 
-            <div className="shope-items flex flex-wrap gap-4">
+            <div className="shope-items grid grid-cols-2 gap-4">
                 {oneshope?.items &&
                     oneshope?.items.map((oneItem) => (
                         <div key={oneItem.id} className="one-items-div">

@@ -18,12 +18,13 @@ import UsersPage from "./AdminPages/UsersPage/UsersPage";
 import OneVendorProduct from "./AdminPages/Vendors/OneVendorProduct";
 import AddAdvertisement from "./AdminPages/AddAdvertisment/AddAdvertisement";
 import AllAddingsData from "./AdminRoutes/AllAddingsData";
+import PromoCodePage from "./AdminPages/PromoCodePage/PromoCodePage";
 
 function Dashboard() {
     const { isDark, isShow } = useContext(darkTheme);
     const navigate = useNavigate();
 
-    const [isAdmin, setIsAdmin] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         let adminTrue = JSON.parse(localStorage.getItem("uTk"));
@@ -36,6 +37,7 @@ function Dashboard() {
                             headers: { Authorization: `Bearer ${adminTrue}` },
                         }
                     );
+                    // console.log(res);
                     if (res.status == 200) {
                         setIsAdmin(true);
                     } else {
@@ -132,6 +134,11 @@ function Dashboard() {
                                             <Route
                                                 path={`/adjustAddings`}
                                                 element={<AllAddingsData />}
+                                            />
+
+                                            <Route
+                                                path={`/promocode`}
+                                                element={<PromoCodePage />}
                                             />
                                         </Routes>
                                     </div>

@@ -93,7 +93,7 @@ const OneLatestProduct = ({ product, refetchFn }) => {
             }}
         >
             <div
-                className="deals-porduct-container flex flex-col justify-between items-start"
+                className="flex flex-col justify-between items-start"
                 style={{ minHeight: "350px" }}
             >
                 <Link
@@ -120,12 +120,12 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                     </div>
                 )}
 
-                <h5
-                    className="overflow-hidden text-ellipsis text-xl"
-                    style={{ width: "97%" }}
+                <div
+                    className="text-xl text-ellipsis"
+                    style={{ overflow: "hidden", width: "75%" }}
                 >
                     {product.name}
-                </h5>
+                </div>
 
                 {product.discount > 0 ? (
                     <>

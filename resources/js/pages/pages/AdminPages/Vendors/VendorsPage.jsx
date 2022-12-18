@@ -42,7 +42,6 @@ const VendrosPage = () => {
                     .get(`${process.env.MIX_APP_URL}/api/traders`)
                     .then((res) => {
                         setTradersArr(res.data.data);
-                        // console.log(res.data.data);
                     });
             } catch (er) {
                 console.log(er);
@@ -70,7 +69,9 @@ const VendrosPage = () => {
                 .then((res) => {
                     console.log(res);
                 });
-        } catch (error) {}
+        } catch (er) {
+            console.log(er);
+        }
     };
 
     const refetchTraders = () => {
@@ -93,6 +94,7 @@ const VendrosPage = () => {
                 <UpdateTrader
                     traderInfo={traderInf}
                     closeModal={opnUpdtModal}
+                    getTradersAgain={refetchTraders}
                 />
             )}
 

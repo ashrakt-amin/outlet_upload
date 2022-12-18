@@ -2,48 +2,30 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function UpdateTrader({ closeModal, traderInfo }) {
+function UpdateTrader({ closeModal, traderInfo, getTradersAgain }) {
     const [fName, setfName] = useState("");
     const [mName, setmName] = useState("");
     const [lName, setlName] = useState("");
     const [age, setAge] = useState("");
     const [phone, setPhone] = useState("");
     const [phone2, setPhone2] = useState("");
-    const [phone3, setPhone3] = useState("");
-    const [phone4, setPhone4] = useState("");
-    const [phone5, setPhone5] = useState("");
     const [email, setEmail] = useState("");
     const [traderCode, setTraderCode] = useState("");
 
     useEffect(() => {
-        const {
-            f_name,
-            m_name,
-            l_name,
-            age,
-            phone,
-            phone2,
-            phone3,
-            phone4,
-            phone5,
-            email,
-            code,
-        } = traderInfo;
-
+        const { f_name, m_name, l_name, phone, phone2, email, code } =
+            traderInfo;
         setfName(f_name);
         setmName(m_name);
         setlName(l_name);
-        setAge(age);
         setPhone(phone);
         setPhone2(phone2 == null ? "" : phone2);
-        setPhone3(phone3 == null ? "" : phone3);
         setEmail(email == null ? "" : email);
-        console.log(email);
         setTraderCode(code);
     }, []);
 
     const updateTraderFunc = async () => {
-        console.log(traderInfo);
+        const userToken = JSON.parse(localStorage.getItem("uTk"));
         try {
             axios
                 .put(
@@ -55,15 +37,23 @@ function UpdateTrader({ closeModal, traderInfo }) {
                         age: age,
                         phone: phone,
                         phone2: phone2,
-                        phone3: phone3,
                         email: email,
                         code: traderCode,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${userToken}`,
+                        },
                     }
                 )
                 .then((res) => {
                     console.log(res);
+                    getTradersAgain();
+                    closeModal();
                 });
-        } catch (error) {}
+        } catch (er) {
+            console.log(er);
+        }
     };
 
     return (
@@ -204,19 +194,6 @@ function UpdateTrader({ closeModal, traderInfo }) {
                                 </div>
 
                                 <div className="relative ">
-                                    <h1>التليفون الثالث</h1>
-                                    <input
-                                        type="tel"
-                                        className="py-2 px-3 border-2 border-slate-200 rounded-lg w-full outline-none font-serif"
-                                        placeholder="التليفون الثالث"
-                                        value={phone3}
-                                        onChange={(e) =>
-                                            setPhone3(e.target.value)
-                                        }
-                                    />
-                                </div>
-
-                                <div className="relative ">
                                     <h1>الايميل</h1>
                                     <input
                                         type="text"
@@ -259,7 +236,7 @@ function UpdateTrader({ closeModal, traderInfo }) {
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             onClick={updateTraderFunc}
                         >
-                            إضافة
+                            تعديل
                         </button>
                     </div>
                 </div>

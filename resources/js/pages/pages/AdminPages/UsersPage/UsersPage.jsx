@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { MdWavingHand } from "react-icons/md";
+import UsersComponent from "./UsersComponent";
 
 const UsersPage = () => {
     const [allUsers, setAllUsers] = useState([]);
@@ -12,15 +13,17 @@ const UsersPage = () => {
     // ------------------------------- (get users) -------------------------------
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
+        const userToken = JSON.parse(localStorage.getItem("uTk"));
         const getAllUsers = async () => {
             try {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/users`,
                     {
-                        cancelRequest: cancelRequest.token,
+                        headers: { Authorization: `Bearer ${userToken}` },
                     }
                 );
-                console.log(res);
+                console.log(res.data);
+                setAllUsers(res.data.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -112,7 +115,6 @@ const UsersPage = () => {
                     confirm_password: userInfo.confrimePassword,
                 },
                 {
-                    // withCredentials: true,
                     headers: {
                         Authorization: `Bearer ${uToken}`,
                     },
@@ -226,13 +228,16 @@ const UsersPage = () => {
                         <input
                             type="submit"
                             value="إضافة مستخدم"
-                            className="bg-[#9155FD] py-2 px-4 w-full text-white text-lg font-semibold rounded-lg cursor-pointer"
+                            // className="bg-[#9155FD] bg-blue-500 py-2 px-4 w-full text-white text-lg font-semibold rounded-lg cursor-pointer"
+                            className="bg-blue-500 py-2 px-4 w-full text-white text-lg font-semibold rounded-lg cursor-pointer"
                         />
                     </div>
                 </form>
             </div>
 
             <h1>المستخدمين</h1>
+
+            {allUsers && <UsersComponent usersArray={allUsers} />}
         </div>
     );
 };

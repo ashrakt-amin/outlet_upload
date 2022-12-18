@@ -59,13 +59,13 @@ export default function Register() {
             return;
         }
 
-        if (regEmail.test(userInfo.email) == false) {
-            setSuccessMsg("يجب كتابة الايميل بطريقة صحيحة");
-            setTimeout(() => {
-                setSuccessMsg("");
-            }, 5000);
-            return;
-        }
+        // if (regEmail.test(userInfo.email) == false) {
+        //     setSuccessMsg("يجب كتابة الايميل بطريقة صحيحة");
+        //     setTimeout(() => {
+        //         setSuccessMsg("");
+        //     }, 5000);
+        //     return;
+        // }
 
         if (userInfo.password.length < 8) {
             setPasswordError("ادخل على الاقل 8 حروف او ارقام او خليط بينهما");
@@ -90,11 +90,7 @@ export default function Register() {
             }, 5000);
             return;
         }
-        if (
-            userInfo.fName.length < 3 ||
-            userInfo.mName.length < 3 ||
-            userInfo.lName.length < 3
-        ) {
+        if (userInfo.fName.length < 3) {
             setSuccessMsg("يجب ملئ البيانات");
             setTimeout(() => {
                 setSuccessMsg("");
@@ -122,8 +118,8 @@ export default function Register() {
                             `${process.env.MIX_APP_URL}/api/register/clients`,
                             {
                                 f_name: userInfo.fName,
-                                // m_name: userInfo.mName,
-                                // l_name: userInfo.lName,
+                                m_name: "userInfo.mName",
+                                l_name: " userInfo.lName",
                                 age: userInfo.age,
                                 phone: userInfo.phone,
                                 // phone2: userInfo.phone2,
@@ -330,7 +326,7 @@ export default function Register() {
                                     onClick={checkInputs}
                                     type="submit"
                                     value="تسجيل الدخول"
-                                    className="bg-[#9155FD] py-2 px-4 w-full text-white text-lg font-semibold rounded-lg cursor-pointer"
+                                    className="bg-blue-500 py-2 px-4 w-full text-white text-lg font-semibold rounded-lg cursor-pointer"
                                 />
                             ) : (
                                 "يتم تسجيل الدخول الان"
@@ -340,7 +336,7 @@ export default function Register() {
                     <div className="flex items-center justify-center my-4">
                         <p className="flex gap-2 items-center text-lg">
                             <span>لديك حساب بالفعل؟</span>
-                            <span className="text-[#9155FD]">
+                            <span className="text-blue-600">
                                 <Link to="/clientLogin">قم بتسجيل الدخول</Link>
                             </span>
                         </p>

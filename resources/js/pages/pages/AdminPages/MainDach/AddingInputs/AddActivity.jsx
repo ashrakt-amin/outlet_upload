@@ -46,7 +46,7 @@ const AddActivity = () => {
                 className="border-none rounded-lg shadow-md my-3 mx-4"
                 onChange={(e) => setActivityName(e.target.value)}
                 value={activityName}
-                placeholder="اضف نشاط"
+                placeholder="مثال: ملابس"
             />
             {!isAddActivity ? (
                 <button
