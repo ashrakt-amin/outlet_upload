@@ -23,6 +23,7 @@ class AdvertisementResource extends JsonResource
             'img'     => $this->img,
             'traders' => new TraderResource($trader),
             'link'    => $this->link,
+            'images'  => $this->advertisementimages,
             "daysRemainig" => $diff_day,
         ];
     }

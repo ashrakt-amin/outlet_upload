@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Advertisement extends Model
+class AdvertisementImage extends Model
 {
     use HasFactory;
 
     protected $appends = [
     ];
-
-    protected $guarded = [];
 
     protected $hidden = [
         'created_at',
@@ -22,15 +20,13 @@ class Advertisement extends Model
     protected $visible = [
     ];
 
+    protected $fillable  = [
+        'advertisement_id',
+        'img',
+        ];
 
-    public function trader()
+    public function advertisement()
     {
-        return $this->belongsTo(Trader::class);
+        return $this->hasOne(Advertisement::class);
     }
-
-    public function advertisementimages()
-    {
-        return $this->hasMany(AdvertisementImage::class);
-    }
-
 }

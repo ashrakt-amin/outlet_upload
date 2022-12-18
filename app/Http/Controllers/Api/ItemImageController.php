@@ -6,9 +6,6 @@ use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\ItemImageResource;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemImageController extends Controller
@@ -26,10 +23,10 @@ class ItemImageController extends Controller
         if ($request->hasFile('img')) {
             foreach ($request->file('img') as $img) {
                 $originalFilename = $this->setImage($img, $request->item_id, 'items/lg');
-                $filename = $this->aspectForResize($img, $request->item_id, 450, 450, 'items/sm');
-                $image = new ItemImage();
-                $image->item_id = $request->item_id;
-                $image->img     = $filename;
+                $filename         = $this->aspectForResize($img, $request->item_id, 450, 450, 'items/sm');
+                $image            = new ItemImage();
+                $image->item_id   = $request->item_id;
+                $image->img       = $filename;
                 $image->save();
             }
         }
