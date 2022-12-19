@@ -155,7 +155,7 @@ const OneLevel = () => {
                         levelInfo.images.map((img) => (
                             <div key={img.id} style={{ width: "150px" }}>
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/levels/sm/${img.img}`}
+                                    src={`${process.env.MIX_APP_URL}/assets/levels/sm/${img.img}`}
                                     alt=""
                                 />
                                 {!isDelete ? (
