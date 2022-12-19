@@ -78,13 +78,13 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     <div
                         className="product-img"
                         style={{
-                            width: "200px",
-                            height: "200px",
+                            width: "220px",
+                            maxHeight: "200px",
                         }}
                     >
                         <img
-                            className="w-full h-full "
-                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
+                            className="w-full"
+                            src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
                             alt="لا يوجد صورة"
                         />
                     </div>

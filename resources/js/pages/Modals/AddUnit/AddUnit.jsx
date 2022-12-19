@@ -15,6 +15,8 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
 
     const [validInputMsg, setValidInputMsg] = useState("");
 
+    const [isLaoding, setisLaoding] = useState(false);
+
     // const [meterPrice, setMeterPrice] = useState("");
     // const [unitPriceVal, setUnitPriceVal] = useState("");
     // const [unitSpace, setUnitSpace] = useState("");
@@ -37,7 +39,6 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                     `${process.env.MIX_APP_URL}/api/traders/`
                 );
                 settraders(res.data.data);
-                console.log(res.data.data);
             } catch (error) {
                 console.warn(error.message);
             }
@@ -94,6 +95,7 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
             });
 
             try {
+                setisLaoding(true);
                 await axios
                     .post(
                         `${process.env.MIX_APP_URL}/api/units`,
@@ -111,13 +113,14 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                         // }
                     )
                     .then((res) => {
-                        console.log(res.data.message);
                         setSuccessMsg(res.data.message);
+                        togglAddModal();
                         emptyValues();
                         fetchAgainFunc();
                         setTimeout(() => {
                             setSuccessMsg("");
                         }, 3000);
+                        setisLaoding(false);
                     });
             } catch (err) {
                 console.log(err);
@@ -318,14 +321,18 @@ const AddUnit = ({ fetchAgainFunc, togglAddModal, levelInfo }) => {
                         >
                             إلغاء
                         </button>
-                        <button
-                            onClick={addNewUnit}
-                            data-modal-toggle="defaultModal"
-                            type="button"
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                            إضافة
-                        </button>
+                        {!isLaoding ? (
+                            <button
+                                onClick={addNewUnit}
+                                data-modal-toggle="defaultModal"
+                                type="button"
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            >
+                                إضافة
+                            </button>
+                        ) : (
+                            "يتم الاضافة"
+                        )}
                     </div>
                 </div>
             </div>

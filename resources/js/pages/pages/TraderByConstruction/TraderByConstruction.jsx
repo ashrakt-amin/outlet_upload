@@ -84,7 +84,7 @@ const TraderByConstruction = () => {
                                 className="shope-img"
                             >
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/sm/${oneUnit?.images[0]?.img}`}
+                                    src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/units/sm/${oneUnit?.images[0]?.img}`}
                                     alt=""
                                 />
                             </div>
