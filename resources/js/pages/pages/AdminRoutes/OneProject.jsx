@@ -165,6 +165,8 @@ const OneProject = () => {
         }
     };
 
+    console.log("project ");
+
     const addingimgsProject = (e) => {
         setprojectImgs([...e.target.files]);
     };
