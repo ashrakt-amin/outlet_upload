@@ -134,7 +134,7 @@ const OneProject = () => {
         }
     };
 
-    console.log("log");
+    console.log("log 1");
 
     const handleProjectType = (e, prtypename) => {
         setprojectType(e);
