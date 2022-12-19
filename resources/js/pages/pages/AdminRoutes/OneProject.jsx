@@ -73,6 +73,8 @@ const OneProject = () => {
         setImgs([...e.target.files]);
     };
 
+    console.log("log");
+
     const validateInputs = () => {
         if (levelName.length == 0) {
             setSuccessMsg(" اكتب اسم الدور او الشارع");
