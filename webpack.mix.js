@@ -27,7 +27,7 @@ mix.browserSync({
       'route/*/.php',
     ],
     open: "http://127.0.0.1:8000/",
-    browser: "IE",
+    browser: "",
     reloadDelay: 100,
     proxy: {
       target: "http://127.0.0.1:8000/",

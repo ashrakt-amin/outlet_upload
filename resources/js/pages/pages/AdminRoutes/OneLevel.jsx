@@ -146,7 +146,7 @@ const OneLevel = () => {
 
             {/* صور الدور */}
 
-            <h1>صور الدور 9999999999999999999999999999999999999999999999999</h1>
+            <h1>صور الدور </h1>
 
             <details>
                 <summary className="cursor-pointer text-lg bg-slate-200 rounded-md mt-10">
@@ -157,7 +157,7 @@ const OneLevel = () => {
                         levelInfo.images.map((img) => (
                             <div key={img.id} style={{ width: "150px" }}>
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/assets/levels/sm/${img.img}`}
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/levels/sm/${img.img}`}
                                     alt=""
                                 />
                                 {!isDelete ? (
