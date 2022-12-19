@@ -73,7 +73,7 @@ const OneProject = () => {
         setImgs([...e.target.files]);
     };
 
-    console.log("log");
+    console.log("log 1");
 
     const validateInputs = () => {
         if (levelName.length == 0) {
@@ -133,6 +133,8 @@ const OneProject = () => {
             }
         }
     };
+
+    console.log("log");
 
     const handleProjectType = (e, prtypename) => {
         setprojectType(e);
