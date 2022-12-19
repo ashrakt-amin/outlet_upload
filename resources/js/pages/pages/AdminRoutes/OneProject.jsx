@@ -73,6 +73,8 @@ const OneProject = () => {
         setImgs([...e.target.files]);
     };
 
+    console.log("log");
+
     const validateInputs = () => {
         if (levelName.length == 0) {
             setSuccessMsg(" اكتب اسم الدور او الشارع");
@@ -298,7 +300,7 @@ const OneProject = () => {
                         oneProject.images.map((oneimg) => (
                             <div style={{ width: "250px" }} key={oneimg.id}>
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/assets/projects/sm/${oneimg.img}`}
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/projects/sm/${oneimg.img}`}
                                     alt=""
                                 />
                                 {!isDelete ? (

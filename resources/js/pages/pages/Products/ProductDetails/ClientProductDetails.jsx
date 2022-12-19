@@ -299,7 +299,7 @@ const ClientProductDetails = () => {
                         <img
                             className=""
                             loading="lazy"
-                            src={`${process.env.MIX_APP_URL}/storage/app/assets/images/uploads/items/lg/${productImgs[imgNum]?.img}`}
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${productImgs[imgNum]?.img}`}
                             alt="لا يوجد صورة"
                         />
                     </div>
@@ -318,7 +318,7 @@ const ClientProductDetails = () => {
                                     <img
                                         loading="lazy"
                                         className="w-full h-full"
-                                        src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/items/lg/${img.img}`}
+                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${img.img}`}
                                         alt="لا يوجد صورة"
                                     />
                                 </div>

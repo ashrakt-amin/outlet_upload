@@ -84,7 +84,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     >
                         <img
                             className="w-full"
-                            src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
                             alt="لا يوجد صورة"
                         />
                     </div>
