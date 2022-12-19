@@ -54,9 +54,9 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/api/projects');
-});
+// Route::get('/', function () {
+//     return redirect('/api/projects');
+// });
 
 // Route::get('/', (function() {
 //     return auth()->user()
