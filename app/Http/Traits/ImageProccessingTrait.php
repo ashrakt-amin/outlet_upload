@@ -57,7 +57,8 @@ Trait ImageProccessingTrait {
         $strRandom = Str::random(8);
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->move('assets/images/uploads/'.$path).'/'.$imgPath;
+        // $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -78,7 +79,8 @@ Trait ImageProccessingTrait {
         });
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->move('assets/images/uploads/'.$path).'/'.$imgPath;
+        // $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -96,7 +98,8 @@ Trait ImageProccessingTrait {
         $strRandom = Str::random(8);
         $img->crop($width, $height, 0, 0);
         $imgPath   = $ownerId.$name;
-        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->move('assets/images/uploads/'.$path).'/'.$imgPath;
+        // $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
