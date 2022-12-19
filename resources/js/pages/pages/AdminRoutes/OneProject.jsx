@@ -300,7 +300,7 @@ const OneProject = () => {
                         oneProject.images.map((oneimg) => (
                             <div style={{ width: "250px" }} key={oneimg.id}>
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/public/assets/images/uploads/projects/sm/${oneimg.img}`}
+                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/projects/sm/${oneimg.img}`}
                                     alt=""
                                 />
                                 {!isDelete ? (
