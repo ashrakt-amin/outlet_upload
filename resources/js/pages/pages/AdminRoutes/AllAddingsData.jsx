@@ -13,6 +13,7 @@ import AllUnitsItemId from "./AllAddingDataCompon.jsx/AllUnitsItemId";
 import AllVolumes from "./AllAddingDataCompon.jsx/AllVolumes";
 
 const AllAddingsData = () => {
+    console.log("log");
     return (
         <div>
             <AllCategories />
