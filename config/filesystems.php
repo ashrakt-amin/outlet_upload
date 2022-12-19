@@ -46,8 +46,8 @@ return [
 
         'assets' => [
             'driver' => 'local',
-            'root' => storage_path('app/assets/images/uploads'),
-            'url' => env('MIX_APP_URL').'storage/app/assets/images/uploads',
+            'root' => public_path('public_html'),
+            'url' => env('MIX_APP_URL').'public_html',
             'visibility' => 'public',
             'throw' => false,
         ],
