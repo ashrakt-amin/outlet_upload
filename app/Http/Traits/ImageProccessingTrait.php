@@ -57,7 +57,7 @@ Trait ImageProccessingTrait {
         $strRandom = Str::random(8);
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -78,7 +78,7 @@ Trait ImageProccessingTrait {
         });
         // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
-        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -96,7 +96,7 @@ Trait ImageProccessingTrait {
         $strRandom = Str::random(8);
         $img->crop($width, $height, 0, 0);
         $imgPath   = $ownerId.$name;
-        $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
     }
@@ -162,7 +162,7 @@ Trait ImageProccessingTrait {
         $name            = $image->getClientOriginalName();
         $ext             = $image->getClientOriginalExtension();
         $filename        = rand(10, 100000).time().'.'.$ext;
-        $image->save(storage_path('app/assets/images/uploads/'.$path).'/'.$name);
+        $image->save(public_path('../assets/images/uploads/'.$path).'/'.$name);
 
 
         $relationColumnNameImage = $modelName;
