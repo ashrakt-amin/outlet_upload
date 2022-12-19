@@ -47,7 +47,7 @@ return [
         'assets' => [
             'driver' => 'local',
             'root' => public_path('public_html'),
-            'url' => env('MIX_APP_URL').'public_html',
+            'url' => env('MIX_APP_URL'),
             'visibility' => 'public',
             'throw' => false,
         ],
