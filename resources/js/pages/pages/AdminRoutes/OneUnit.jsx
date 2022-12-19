@@ -447,7 +447,7 @@ function OneUnit() {
                         oneUnit.images.map((oneimg) => (
                             <div key={oneimg.id} style={{ width: "150px" }}>
                                 <img
-                                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/units/sm/${oneimg.img}`}
+                                    src={`${process.env.MIX_APP_URL}/../storage/assets/images/uploads/units/sm/${oneimg.img}`}
                                     alt=""
                                 />
                                 {!isDelete ? (

@@ -83,7 +83,7 @@ const OneClintProduct = ({ product, refetch }) => {
 
     return (
         <div
-            className="relative one-client-product flex flex-col justify-center items-center gap-2 p-3 bg-white shadow-md rounded-md"
+            className="relative one-client-product flex flex-col justify-start items-center gap-2 p-3 bg-white shadow-md rounded-md"
             dir={`rtl`}
             style={{ maxWidth: "300px", minHeight: "360px" }}
         >
@@ -97,7 +97,7 @@ const OneClintProduct = ({ product, refetch }) => {
                 >
                     <img
                         className="w-full"
-                        src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
                         alt=""
                     />
                 </div>
