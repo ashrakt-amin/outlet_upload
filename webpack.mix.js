@@ -26,11 +26,11 @@ mix.browserSync({
       'database/**/*/.php',
       'route/*/.php',
     ],
-    open: "http://localhost:8000/",
-    browser: "edge",
+    open: "http://127.0.0.1:8000/",
+    browser: "IE",
     reloadDelay: 100,
     proxy: {
-      target: "http://localhost:8000/",
+      target: "http://127.0.0.1:8000/",
       ws: true,
     },
   });

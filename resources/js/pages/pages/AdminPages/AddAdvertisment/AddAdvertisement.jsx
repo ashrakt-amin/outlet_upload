@@ -58,9 +58,18 @@ const AddAdvertisement = () => {
         getAdvertisements();
     }, [fetchAgain]);
 
+    const handleaddvImgs = (e) => {
+        setImgVal([...e.target.files]);
+    };
+
     const addAdvertisementFunc = async () => {
         let getToken = JSON.parse(localStorage.getItem("uTk"));
         const formData = new FormData();
+
+        // imgVal.map((el) => {
+        //     fData.append("img[]", el);
+        // });
+
         formData.append("img", imgVal);
         formData.append("link", linkUrl);
         formData.append("renew", renewNum);
@@ -92,7 +101,6 @@ const AddAdvertisement = () => {
 
     const handleImg = (e) => {
         setImgVal(e.target.files[0]);
-        console.log(e.target.files[0]);
         setIsAddAdvertise(!isAddAdvertise);
     };
 

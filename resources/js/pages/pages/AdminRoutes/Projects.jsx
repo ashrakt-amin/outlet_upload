@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 import { AiFillCamera } from "react-icons/ai";
 import { FcCamera } from "react-icons/fc";
+import { useRef } from "react";
+
+import loadicon from "./loadicon.gif";
 
 const Projects = () => {
     const [projects, setProjects] = useState([]);
@@ -12,6 +15,10 @@ const Projects = () => {
     const [sucessMsg, setSuccessMsg] = useState("");
     const [fetchAgain, setFechAgain] = useState(false);
     const [isAddproject, setIsAddproject] = useState(false);
+
+    const imgRef = useRef(null);
+
+    const [isLooding, setisLooding] = useState(true);
 
     const [imgs, setImgs] = useState(null);
 
@@ -24,6 +31,9 @@ const Projects = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setProjects(response.data.data);
+                if (isLooding == false) {
+                    setisLooding(true);
+                }
             } catch (er) {
                 console.warn(er);
             }
@@ -43,7 +53,6 @@ const Projects = () => {
     };
 
     const addProject = async () => {
-        setIsAddproject(!isAddproject);
         if (projectName != "" && imgs != null) {
             const fData = new FormData();
             fData.append("name", projectName);
@@ -53,17 +62,19 @@ const Projects = () => {
             });
 
             try {
+                setIsAddproject(!isAddproject);
+                setisLooding(false);
+                setProjectName("");
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/projects`, fData)
                     .then((res) => {
                         setSuccessMsg(res.data.message);
-                        console.log(res);
-                        setProjectName("");
                         setTimeout(() => {
                             setSuccessMsg("");
                         }, 3000);
                         setFechAgain(!fetchAgain);
                         setIsAddproject(!isAddproject);
+                        imgRef.current.value = null;
                     });
             } catch (er) {
                 console.log(er);
@@ -76,13 +87,23 @@ const Projects = () => {
             <h1> صفحة المشاريع</h1>
 
             <div className="add-project-div my-4 flex justify-center items-center flex-wrap mb-5">
-                {!isAddproject && (
-                    <button
-                        onClick={showConfirm}
-                        className="bg-blue-500 rounded-md p-2 my-3 text-white"
-                    >
-                        إضافة مشروع
-                    </button>
+                {!isLooding ? (
+                    <div className="" style={{ width: "50px" }}>
+                        <img src={loadicon} alt="" />
+                    </div>
+                ) : (
+                    <>
+                        {!isAddproject && (
+                            <>
+                                <button
+                                    onClick={showConfirm}
+                                    className="bg-blue-500 rounded-md p-2 my-3 text-white"
+                                >
+                                    إضافة مشروع
+                                </button>
+                            </>
+                        )}
+                    </>
                 )}
 
                 {sucessMsg.length > 0 && (
@@ -92,12 +113,18 @@ const Projects = () => {
                 )}
 
                 {isAddproject && (
-                    <button
-                        onClick={addProject}
-                        className="bg-green-500 text-white rounded-md p-2 my-3"
-                    >
-                        تأكيد إضافة المشروع
-                    </button>
+                    <>
+                        {/* {!isLooding ? ( */}
+                        <button
+                            onClick={addProject}
+                            className="bg-green-500 text-white rounded-md p-2 my-3"
+                        >
+                            تأكيد إضافة المشروع
+                        </button>
+                        {/* // ) : (
+                        //     "انتظر من فضلك"
+                        // )} */}
+                    </>
                 )}
 
                 <input
@@ -107,6 +134,7 @@ const Projects = () => {
                     className="rounded-md mx-1"
                 />
             </div>
+
             <div className="">
                 <span className="text-lg">إختر صور المشروع</span>
                 {/* <label
@@ -117,6 +145,7 @@ const Projects = () => {
                     <FcCamera className="text-3xl cursor-pointer " />
                 </label> */}
                 <input
+                    ref={imgRef}
                     onChange={handleImg}
                     multiple
                     name=""

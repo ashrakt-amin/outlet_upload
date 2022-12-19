@@ -20,7 +20,7 @@ const AllAddingsData = () => {
             <AllActivites />
             <AllColors />
             <AllSizes />
-            <AllVolumes />
+            {/* <AllVolumes /> */}
             {/* <AllDistributeCompanies />
             <AllImportedCompanies />
             <AllManufactories /> */}

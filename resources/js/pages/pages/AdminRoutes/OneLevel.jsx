@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import AddUnit from "../../Modals/AddUnit/AddUnit";
 
+import loadicon from "./loadicon.gif";
+import { useRef } from "react";
+
 const OneLevel = () => {
     const { id } = useParams();
     const [fetchAgain, setFetchAgain] = useState(false);
@@ -15,8 +18,14 @@ const OneLevel = () => {
 
     const [levelImgs, setLevelImgs] = useState(null);
 
-    const opnAddUnit = () => setIsAddUnit(!isAddUnit);
+    const [isLooding, setisLooding] = useState(true);
 
+    const [isDelete, setisDelete] = useState(false);
+
+    const imgRef = useRef(null);
+
+    const opnAddUnit = () => setIsAddUnit(!isAddUnit);
+    console.log(levelInfo);
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getUnits = async () => {
@@ -25,7 +34,12 @@ const OneLevel = () => {
                     `${process.env.MIX_APP_URL}/api/levels/${id}`
                 );
                 setLevelInfo(res.data.data);
-                // console.log(res);
+                if (isLooding == false) {
+                    setisLooding(true);
+                }
+                if (isDelete == true) {
+                    setisDelete(false);
+                }
             } catch (error) {
                 console.warn(error.message);
             }
@@ -43,6 +57,7 @@ const OneLevel = () => {
     const deleteLevelImg = async (levelimg) => {
         const userToken = JSON.parse(localStorage.getItem("uTk"));
         try {
+            setisDelete(true);
             let res = await axios.delete(
                 `${process.env.MIX_APP_URL}/api/levelImages/${levelimg.id}`,
                 {
@@ -82,6 +97,7 @@ const OneLevel = () => {
             });
 
             try {
+                setisLooding(false);
                 let res = await axios.post(
                     `${process.env.MIX_APP_URL}/api/levelImages`,
                     fData,
@@ -93,10 +109,10 @@ const OneLevel = () => {
                 );
                 setSuccessMsg(res.data.message);
                 setLevelImgs(null);
+                imgRef.current.value = "";
                 setTimeout(() => {
                     setSuccessMsg("");
                 }, 2000);
-
                 setFetchAgain(!fetchAgain);
             } catch (er) {
                 console.log(er);
@@ -142,12 +158,16 @@ const OneLevel = () => {
                                     src={`${process.env.MIX_APP_URL}/assets/images/uploads/levels/sm/${img.img}`}
                                     alt=""
                                 />
-                                <button
-                                    onClick={() => deleteLevelImg(img)}
-                                    className="bg-red-500 p-1 m-1 rounded-md"
-                                >
-                                    مسح الصور
-                                </button>
+                                {!isDelete ? (
+                                    <button
+                                        onClick={() => deleteLevelImg(img)}
+                                        className="bg-red-500 p-1 m-1 rounded-md"
+                                    >
+                                        مسح الصورة
+                                    </button>
+                                ) : (
+                                    "يتم المسح"
+                                )}
                             </div>
                         ))}
                 </div>
@@ -159,6 +179,7 @@ const OneLevel = () => {
                 <div className="adding-projects-imgs">
                     <div className="m-2">
                         <input
+                            ref={imgRef}
                             onChange={addLevelImgs}
                             multiple
                             className=""
@@ -166,14 +187,20 @@ const OneLevel = () => {
                             type="file"
                             id="imgsprojects"
                         />
-                        <div className="add-project-imgs-btn">
-                            <button
-                                onClick={addLevelImgsFunc}
-                                className="bg-green-500 p-1 m-1 rounded-md"
-                            >
-                                اضف الان
-                            </button>
-                        </div>
+                        {!isLooding ? (
+                            <div className="" style={{ width: "50px" }}>
+                                <img src={loadicon} alt="" />
+                            </div>
+                        ) : (
+                            <div className="add-project-imgs-btn">
+                                <button
+                                    onClick={addLevelImgsFunc}
+                                    className="bg-green-500 p-1 m-1 rounded-md text-white"
+                                >
+                                    اضف الان
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </details>

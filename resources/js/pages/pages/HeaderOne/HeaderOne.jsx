@@ -180,11 +180,11 @@ const Header = () => {
     // };
 
     const goToWishList = () => {
-        if (localStorage.getItem("clTk")) {
-            navigate("/client/wishList");
-        } else {
-            navigate("/clientLogin");
-        }
+        navigate("/client/wishList");
+        // if (localStorage.getItem("clTk")) {
+        // } else {
+        //     navigate("/clientLogin");
+        // }
     };
 
     const whatLevel = (e) => {

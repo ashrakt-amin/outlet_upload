@@ -30,7 +30,7 @@ const VendorProducts = ({ vendorProductArray }) => {
                                 >
                                     <img
                                         className="w-full h-full"
-                                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${product.itemImages[0]?.img}`}
+                                        src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/items/lg/${product.itemImages[0]?.img}`}
                                         alt="image"
                                     />
                                 </div>
