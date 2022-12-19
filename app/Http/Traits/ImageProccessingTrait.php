@@ -3,9 +3,6 @@ namespace App\Http\Traits;
 
 use App\Models\ItemImage;
 use Illuminate\Support\Str;
-// use Image;
-// use Storage;
-use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -91,7 +88,6 @@ Trait ImageProccessingTrait {
      */
     public function aspectForCrop($image, $ownerId, $width, $height, $path)
     {
-        // $this->imageName($image);
         $img = Image::make($image);
 
         $name            = $image->getClientOriginalName();
@@ -99,7 +95,6 @@ Trait ImageProccessingTrait {
         $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
         $img->crop($width, $height, 0, 0);
-        // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
         $img->save(storage_path('app/assets/images/uploads/'.$path).'/'.$imgPath);
 
