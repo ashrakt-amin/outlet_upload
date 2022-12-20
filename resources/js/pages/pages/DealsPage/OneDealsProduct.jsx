@@ -78,12 +78,16 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                     <div
                         className="product-img"
                         style={{
-                            width: "220px",
-                            maxHeight: "200px",
+                            width: "200px",
+                            height: "200px",
                         }}
                     >
                         <img
+<<<<<<< HEAD
                             className="w-full"
+=======
+                            className="w-full h-full "
+>>>>>>> parent of 333effc (push production 1. change imgs path in one projects)
                             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
                             alt="لا يوجد صورة"
                         />

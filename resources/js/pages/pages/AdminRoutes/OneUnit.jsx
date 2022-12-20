@@ -10,16 +10,16 @@ import Select from "@mui/material/Select";
 function OneUnit() {
     const { id } = useParams();
 
-    // const [traders, setTraders] = useState([]);
+    const [traders, setTraders] = useState([]);
 
-    // const [activityArray, setActivityArray] = useState([]);
-    // const [activityName, setActivityName] = useState("");
-    // const [activityId, setActivityId] = useState("");
+    const [activityArray, setActivityArray] = useState([]);
+    const [activityName, setActivityName] = useState("");
+    const [activityId, setActivityId] = useState("");
 
     const [fetchAgain, setFetchAgain] = useState(false);
     const [confirmBook, setConfrimBook] = useState(false);
 
-    // const [isActivity, setIsActivity] = useState(false);
+    const [isActivity, setIsActivity] = useState(false);
 
     const [successMsg, setSuccessMsg] = useState("");
 
@@ -31,15 +31,11 @@ function OneUnit() {
 
     const [unitImgs, setunitImgs] = useState(null);
 
-    const [isDelete, setisDelete] = useState(false);
+    const [selectedActivites, setSelectedActivites] = useState([]);
 
-    const [isAddImgs, setisAddImgs] = useState(false);
+    const [currentActive, setCurrentActive] = useState([]);
 
-    // const [selectedActivites, setSelectedActivites] = useState([]);
-
-    // const [currentActive, setCurrentActive] = useState([]);
-
-    // const [nextStatus, setNextStatus] = useState({});
+    const [nextStatus, setNextStatus] = useState({});
 
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
@@ -54,11 +50,8 @@ function OneUnit() {
                     }
                 );
                 setOneUnit(res.data.data);
-                if (isDelete == true) {
-                    setisDelete(false);
-                }
                 // console.log(res);
-                // setNextStatus(res.data.next_Statu);
+                setNextStatus(res.data.next_Statu);
             } catch (er) {
                 console.log(er);
             }
@@ -269,7 +262,6 @@ function OneUnit() {
     const deleteUnitImg = async (oneimg) => {
         const userToken = JSON.parse(localStorage.getItem("uTk"));
         try {
-            setisDelete(true);
             let res = await axios.delete(
                 `${process.env.MIX_APP_URL}/api/unitImages/${oneimg.id}`,
                 {
@@ -450,17 +442,13 @@ function OneUnit() {
                                     src={`${process.env.MIX_APP_URL}/../storage/assets/images/uploads/units/sm/${oneimg.img}`}
                                     alt=""
                                 />
-                                {!isDelete ? (
-                                    <button
-                                        onClick={() => deleteUnitImg(oneimg)}
-                                        className="bg-red-500 p-1 m-1 rounded-md"
-                                    >
-                                        {" "}
-                                        مسح الصور
-                                    </button>
-                                ) : (
-                                    "يتم المسح"
-                                )}
+                                <button
+                                    onClick={() => deleteUnitImg(oneimg)}
+                                    className="bg-red-500 p-1 m-1 rounded-md"
+                                >
+                                    {" "}
+                                    مسح الصور
+                                </button>
                             </div>
                         ))}
                 </div>
@@ -548,7 +536,7 @@ function OneUnit() {
                             <h1>صورة التاجر</h1>
                             <img
                                 className="w-full h-full"
-                                src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/traders/${oneUnit?.trader?.logo}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${oneUnit?.trader?.logo}`}
                                 alt=""
                             />
                         </div>

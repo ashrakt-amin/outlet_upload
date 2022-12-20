@@ -107,7 +107,7 @@ const LevelTrader = () => {
                 <div className="logo-div" style={{ width: "290px" }}>
                     <img
                         className="w-1/2 mx-auto"
-                        src={`${process.env.MIX_APP_URL}/app/assets/images/uploads/traders/${traderInfo.logo}`}
+                        src={`${process.env.MIX_APP_URL}/assets/images/uploads/traders/${traderInfo.logo}`}
                         alt="لا يوجد صورة"
                     />
                 </div>

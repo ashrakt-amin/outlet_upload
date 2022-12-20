@@ -156,7 +156,7 @@ const ClientProductDetails = () => {
         }
     };
 
-    const saveToWishList = (wishlistproduct) => {
+    const saveToWishList = (id) => {
         let getToken = JSON.parse(localStorage.getItem("clTk"));
 
         if (getToken) {
@@ -169,7 +169,7 @@ const ClientProductDetails = () => {
                             .post(
                                 `${process.env.MIX_APP_URL}/api/wishlists`,
                                 {
-                                    item_id: wishlistproduct.id,
+                                    item_id: id,
                                 },
                                 {
                                     headers: {
@@ -189,8 +189,7 @@ const ClientProductDetails = () => {
                     }
                 });
         } else {
-            // navigate("/clientLogin");
-            wichListLocalStrgFunc(wishlistproduct);
+            navigate("/clientLogin");
         }
     };
 
@@ -203,27 +202,7 @@ const ClientProductDetails = () => {
         document.cookie = "";
     };
 
-    // const getitFromShope = () => {};
-
-    const wichListLocalStrgFunc = (wishlistproduct) => {
-        const isLocStrg = localStorage.getItem("wichlist");
-        const wichlistProducts = [];
-        if (isLocStrg == null) {
-            wichlistProducts.push(wishlistproduct);
-            localStorage.setItem("wichlist", JSON.stringify(wichlistProducts));
-        } else {
-            let existWichlist = JSON.parse(localStorage.getItem("wichlist"));
-
-            let checkWichlist = existWichlist.filter((el) => {
-                return el.id == wishlistproduct.id;
-            });
-
-            if (checkWichlist.length == 0) {
-                let newWichlist = [...existWichlist, wishlistproduct];
-                localStorage.setItem("wichlist", JSON.stringify(newWichlist));
-            }
-        }
-    };
+    const getitFromShope = () => {};
 
     return (
         <div>
@@ -300,7 +279,11 @@ const ClientProductDetails = () => {
                             className=""
                             loading="lazy"
                             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${productImgs[imgNum]?.img}`}
+<<<<<<< HEAD
                             alt="لا يوجد صورة"
+=======
+                            // src={imgsize}
+>>>>>>> parent of 333effc (push production 1. change imgs path in one projects)
                         />
                     </div>
                     <div className="all-imgs flex flex-wrap gap-4 p-3">
@@ -332,7 +315,7 @@ const ClientProductDetails = () => {
                     dir="rtl"
                 >
                     <div
-                        onClick={() => saveToWishList(singleProduct)}
+                        onClick={() => saveToWishList(singleProduct.id)}
                         className="wichlist-product p w-fit rounded-md cursor-pointer bg-slate-100 opacity-4"
                     >
                         <span className="mb-4  hover:text-red-600 flex items-center">

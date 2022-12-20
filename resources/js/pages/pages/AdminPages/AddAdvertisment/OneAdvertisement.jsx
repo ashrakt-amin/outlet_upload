@@ -16,8 +16,6 @@ const OneAdvertisement = ({ advertise, refetch }) => {
 
     const [isRemaining, setIsRemaining] = useState(false);
 
-    const [isDeleteImg, setisDeleteImg] = useState(false);
-
     const handleImg = (e) => {
         setIsImgUpdate(true);
         setImgVal(e.target.files[0]);
@@ -54,19 +52,16 @@ const OneAdvertisement = ({ advertise, refetch }) => {
     };
 
     const updateImg = async (imgvalue) => {
-        console.log(imgvalue);
-        // return;
         const getToken = JSON.parse(localStorage.getItem("uTk"));
         const fData = new FormData();
         fData.append("img", imgVal);
-        fData.append("id", imgvalue.id);
+        console.log(fData);
         try {
-            let res = await axios.post(
-                `${process.env.MIX_APP_URL}/api/advertisements`,
-                fData
+            let res = await axios.put(
+                `${process.env.MIX_APP_URL}/api/advertisements/${imgvalue.id}`,
+                { img: imgVal }
             );
             console.log(res);
-            setIsImgUpdate(!isImgUpdate);
             refetch();
         } catch (er) {
             console.log(er);
@@ -93,82 +88,17 @@ const OneAdvertisement = ({ advertise, refetch }) => {
         }
     };
 
-    // const deleteAddvImg = async (imgid) => {
-    //     const userToken = JSON.parse(localStorage.getItem("uTk"));
-    //     try {
-    //         setisDeleteImg(!isDeleteImg);
-    //         let res = await axios.delete(
-    //             `${process.env.MIX_APP_URL}/api/advertisementImages/${imgid.id}`,
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${userToken}`,
-    //                 },
-    //             }
-    //         );
-    //         setsuccessMsg(res.data.message);
-    //         setisDeleteImg(!isDeleteImg);
-    //         setTimeout(() => {
-    //             setsuccessMsg("");
-    //         }, 3000);
-    //         refetch();
-    //     } catch (er) {
-    //         console.log(er);
-    //         setisDeleteImg(!isDeleteImg);
-    //     }
-    // };
-    // const [newimg, setnewimg] = useState(null);
-
-    // const addNewImg = async (imgid) => {
-    //     const formData = new FormData();
-    //     const userToken = JSON.parse(localStorage.getItem("uTk"));
-    //     formData.append("img", newimg);
-    //     // formData.append("id", newimg);
-
-    //     try {
-    //         let res = await axios.post(
-    //             `${process.env.MIX_APP_URL}/api/advertisementImages/${imgid.id}`,
-    //             formData,
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${userToken}`,
-    //                 },
-    //             }
-    //         );
-    //         setsuccessMsg(res.data.message);
-    //         setTimeout(() => {
-    //             setsuccessMsg("");
-    //         }, 2000);
-    //         refetch();
-    //     } catch (er) {
-    //         console.log(er);
-    //     }
-    // };
-
     return (
         <div className="img-advertise-div rounded-md p-3 m-3 bg-green-300">
             <h1 className="text-center text-lg">{advertise.id}</h1>
             <div
                 className="img-advertise-container"
-                style={{ maxWidth: "60%" }}
+                style={{ maxWidth: "100%" }}
             >
                 <img
-                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/sm/${advertise.img}`}
+                    src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise.img}`}
                     alt=""
                 />
-
-                <div className="adjust-img-advertise bg-slate-200 m-3 p-2 rounded-md">
-                    <h1>تعديل صورة الاعلان</h1>
-                    <input type="file" onChange={handleImg} />
-                </div>
-
-                {isImgUpdate && (
-                    <button
-                        className="bg-green-500 rounded-md p-2 mb-3 text-white"
-                        onClick={() => updateImg(advertise)}
-                    >
-                        تأكيد تعديل الصورة
-                    </button>
-                )}
             </div>
 
             <div className="trader-name shadow-md p-1 rounded-md m-2 bg-slate-300">
@@ -225,6 +155,20 @@ const OneAdvertisement = ({ advertise, refetch }) => {
                     </button>
                 )}
             </div>
+
+            {/* <div className="adjust-img-advertise bg-slate-200 m-3 p-2 rounded-md">
+                <h1>تعديل صورة الاعلان</h1>
+                <input type="file" onChange={handleImg} />
+            </div> */}
+
+            {/* {isImgUpdate && (
+                <button
+                    className="bg-green-500 rounded-md p-2 mb-3 text-white"
+                    onClick={() => updateImg(advertise)}
+                >
+                    تأكيد تعديل الصورة
+                </button>
+            )} */}
 
             {isUpdateLink && (
                 <div className="link-input-div">

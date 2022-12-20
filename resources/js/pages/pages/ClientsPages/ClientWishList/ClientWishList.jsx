@@ -66,10 +66,6 @@ const ClientWichList = () => {
                     });
             };
             getOneClient();
-        } else {
-            const localWichlist = JSON.parse(localStorage.getItem("wichlist"));
-            console.log(localWichlist);
-            setWishlistArray(localWichlist);
         }
         return () => {
             cancelRequest.cancel();
@@ -104,18 +100,18 @@ const ClientWichList = () => {
                 </div>
             )}
 
-            {/* {auth && ( */}
-            <div className="gird-products flex flex-wrap justify-center pb-16 gap-4 my-4">
-                {wishlistArray.length > 0 &&
-                    wishlistArray.map((wishlistproduct) => (
-                        <OneWishlistProduct
-                            key={wishlistproduct?.item?.id}
-                            wishlistproduct={wishlistproduct}
-                            refetchFunc={refetchFunc}
-                        />
-                    ))}
-            </div>
-            {/* )} */}
+            {auth && (
+                <div className="gird-products flex flex-wrap justify-center pb-16 gap-4 my-4">
+                    {wishlistArray.length > 0 &&
+                        wishlistArray.map((wishlistproduct) => (
+                            <OneWishlistProduct
+                                key={wishlistproduct?.item?.id}
+                                wishlistproduct={wishlistproduct}
+                                refetchFunc={refetchFunc}
+                            />
+                        ))}
+                </div>
+            )}
 
             {!wishlistArray.length > 0 && (
                 <div className="shadow-md p-2 rounded-md ">
