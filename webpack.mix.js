@@ -1,4 +1,3 @@
-// webpack.mix.js
 const mix = require('laravel-mix');
 
 
@@ -26,11 +25,11 @@ mix.browserSync({
       'database/**/*/.php',
       'route/*/.php',
     ],
-    open: "http://localhost:8000/",
-    browser: "edge",
-    reloadDelay: 100,
+    open: "http://127.0.0.1:8000/",
+    browser: "google chrome",
+    reloadDelay: 1000,
     proxy: {
-      target: "http://localhost:8000/",
+      target: "http://127.0.0.1:8000/",
       ws: true,
     },
   });
