@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('m_name');
             $table->string('l_name');
             $table->string('logo')                ->nullable();
-            $table->tinyInteger('age');
+            $table->date('age');
             $table->string('password')            ->nullable();
             $table->string('phone')                 ->unique();
             $table->string('national_id')           ->unique();
