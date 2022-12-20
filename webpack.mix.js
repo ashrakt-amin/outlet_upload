@@ -26,13 +26,8 @@ mix.browserSync({
       'database/**/*/.php',
       'route/*/.php',
     ],
-<<<<<<< HEAD
-    open: "http://127.0.0.1:8000/",
-    browser: "chrome",
-=======
     open: "http://localhost:8000/",
     browser: "edge",
->>>>>>> parent of 333effc (push production 1. change imgs path in one projects)
     reloadDelay: 100,
     proxy: {
       target: "http://localhost:8000/",
