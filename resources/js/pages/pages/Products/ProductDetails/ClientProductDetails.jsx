@@ -279,11 +279,7 @@ const ClientProductDetails = () => {
                             className=""
                             loading="lazy"
                             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/lg/${productImgs[imgNum]?.img}`}
-<<<<<<< HEAD
-                            alt="لا يوجد صورة"
-=======
                             // src={imgsize}
->>>>>>> parent of 333effc (push production 1. change imgs path in one projects)
                         />
                     </div>
                     <div className="all-imgs flex flex-wrap gap-4 p-3">

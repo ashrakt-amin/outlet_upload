@@ -131,6 +131,7 @@ const OneLevel = () => {
             {/* صور الدور */}
 
             <h1>صور الدور </h1>
+            <h1>صور الدور </h1>
 
             <details>
                 <summary className="cursor-pointer text-lg bg-slate-200 rounded-md mt-10">
