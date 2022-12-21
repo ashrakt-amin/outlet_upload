@@ -533,7 +533,7 @@ const AddProductsToTraders = ({
                     {/*-------------------- sub Category (Select list) ---------------------*/}
 
                     {/* ------------------------------- قطعة أو علبة ---------------------------------- */}
-                    <div className="item-units-select-div p-2 rounded-md flex items-start gap-1 flex-col">
+                    {/* <div className="item-units-select-div p-2 rounded-md flex items-start gap-1 flex-col">
                         <span>اختر وحدة المنتج</span>
                         <select
                             className="rounded-md cursor-pointer"
@@ -542,7 +542,6 @@ const AddProductsToTraders = ({
                             id="itemunit"
                             value={itemUnitId}
                         >
-                            {/* <option value={"0"}>لم تختر بعد</option> */}
                             {itemsUnitsArr &&
                                 itemsUnitsArr.map((oneItemUnit) => (
                                     <option
@@ -553,17 +552,17 @@ const AddProductsToTraders = ({
                                     </option>
                                 ))}
                         </select>
-                    </div>
+                    </div> */}
                     {/* ------------------------------- قطعة أو علبة ---------------------------------- */}
 
                     <div className="unit-parts-count-div">
-                        <div className="mt-3 mb-2"> إختر العدد داخل الوحدة</div>
+                        <div className="mt-3 mb-2"> الكمية</div>
                         <input
                             className="border-none shadow-md rounded-md"
                             type="number"
                             min={1}
                             value={unitPartsCount}
-                            placeholder="العدد داخل القطعة او الوحدة او العلبة"
+                            placeholder=" مثال: 10 "
                             onChange={(e) => setUnitPartsCount(e.target.value)}
                             title="Title"
                         />

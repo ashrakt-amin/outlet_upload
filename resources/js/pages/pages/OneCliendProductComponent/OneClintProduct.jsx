@@ -96,18 +96,19 @@ const OneClintProduct = ({ product, refetch }) => {
                     }}
                 >
                     <img
+                        loading="lazy"
                         className="w-full"
                         src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
-                        alt=""
+                        alt="لا يوجد صورة"
                     />
                 </div>
             </Link>
 
-            {product.discount > 0 && (
+            {/* {product.discount > 0 && (
                 <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
                     {product.discount}%
                 </div>
-            )}
+            )} */}
 
             <h5
                 className="text-ellipsis text-center text-xl whitespace-nowrap"

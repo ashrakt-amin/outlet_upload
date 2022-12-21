@@ -34,20 +34,32 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        background-color: #dc1a21;
+        background-color: gainsboro;
         width: 100%;
         justify-content: space-around;
         padding: 5px;
         z-index: 400;
+        color: black;
+        .inter-icon {
+            color: black!important;
+        }
+        .fv-icon {
+            color: black!important;
+        }
+        .dropdown-categories button span {
+        color: black!important;
     }
 
+    }
+    
     .hide-text-mob {
         display: none;
     }
 
+
     .crt-wich-num {
         left: -14px!important;
-        top: 5px;
+        top: -3px!important;
     }  
 }
 
@@ -56,6 +68,7 @@
 }
 
 @media (max-width: 500px) {
+
 
     .header-one  {
         .logo-div {

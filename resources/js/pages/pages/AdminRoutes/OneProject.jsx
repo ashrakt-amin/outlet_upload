@@ -1,7 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FcCamera } from "react-icons/fc";
+
+import loadicon from "./loadicon.gif";
+import { useRef } from "react";
+import axios from "axios";
 
 const OneProject = () => {
     const { id } = useParams();
@@ -22,6 +25,16 @@ const OneProject = () => {
 
     const [projectImgs, setprojectImgs] = useState(null);
 
+    const [isLooding, setisLooding] = useState(true);
+
+    const [isLooding2, setisLooding2] = useState(true);
+
+    const [isDelete, setisDelete] = useState(false);
+
+    const imgRef = useRef(null);
+    // const [first, setfirst] = useState(second)
+    const imgRef2 = useRef(null);
+
     useEffect(() => {
         const cancelRequest = axios.CancelToken.source();
         const getLevels = async () => {
@@ -31,6 +44,15 @@ const OneProject = () => {
                     { cancelRequest: cancelRequest.token }
                 );
                 setOneProject(res.data.data);
+                if (isLooding == false) {
+                    setisLooding(true);
+                }
+                if (isLooding2 == false) {
+                    setisLooding2(true);
+                }
+                if (isDelete == true) {
+                    setisDelete(false);
+                }
             } catch (error) {
                 console.log(error, "project");
             }
@@ -50,8 +72,6 @@ const OneProject = () => {
     const handleImg = (e) => {
         setImgs([...e.target.files]);
     };
-
-    console.log("log 1");
 
     const validateInputs = () => {
         if (levelName.length == 0) {
@@ -79,22 +99,25 @@ const OneProject = () => {
     };
 
     const addLevelFunc = () => {
-        setIsAddLevel(!isAddLevel);
-
         if (levelName != "") {
             const fData = new FormData();
-
+            setIsAddLevel(!isAddLevel);
             fData.append("name", levelName);
             fData.append("project_id", oneProject.id);
             fData.append("level_type", projectType);
             imgs.map((el) => {
                 fData.append("img[]", el);
             });
+
             try {
+                setisLooding(false);
                 axios
                     .post(`${process.env.MIX_APP_URL}/api/levels`, fData)
                     .then((res) => {
                         setLevelName("");
+                        imgRef.current.value = "";
+                        setprojectType("");
+                        setprojectTypeName("");
                         console.log(res);
                         setSuccessMsg(res.data.message);
                         setTimeout(() => {
@@ -109,10 +132,7 @@ const OneProject = () => {
         }
     };
 
-    console.log("log 1");
-
     const handleProjectType = (e, prtypename) => {
-        console.log(e);
         setprojectType(e);
         setprojectTypeName(prtypename);
     };
@@ -121,6 +141,7 @@ const OneProject = () => {
         const userToken = JSON.parse(localStorage.getItem("uTk"));
         // console.log(primg);
         try {
+            setisDelete(true);
             let res = await axios.delete(
                 `${process.env.MIX_APP_URL}/api/projectImages/${projimg.id}`,
                 {
@@ -139,8 +160,6 @@ const OneProject = () => {
             console.log(er);
         }
     };
-
-    console.log("project ");
 
     const addingimgsProject = (e) => {
         setprojectImgs([...e.target.files]);
@@ -163,6 +182,7 @@ const OneProject = () => {
             });
 
             try {
+                setisLooding2(false);
                 let res = await axios.post(
                     `${process.env.MIX_APP_URL}/api/projectImages`,
                     fData,
@@ -172,6 +192,7 @@ const OneProject = () => {
                         },
                     }
                 );
+                imgRef2.current.value = "";
                 setSuccessMsg(res.data.message);
                 setprojectImgs(null);
                 setTimeout(() => {
@@ -195,13 +216,21 @@ const OneProject = () => {
                 </div>
             )}
             <div className="add-project-div my-4 flex flex-wrap items-start">
-                {!isAddLevel && (
-                    <button
-                        onClick={showConfirm}
-                        className="bg-green-500 rounded-md p-2 text-white"
-                    >
-                        إضافة شارع او دور
-                    </button>
+                {!isLooding ? (
+                    <div className="" style={{ width: "50px" }}>
+                        <img src={loadicon} alt="" />
+                    </div>
+                ) : (
+                    <>
+                        {!isAddLevel && (
+                            <button
+                                onClick={showConfirm}
+                                className="bg-green-500 rounded-md p-2 text-white"
+                            >
+                                إضافة شارع او دور
+                            </button>
+                        )}
+                    </>
                 )}
 
                 {isAddLevel && (
@@ -213,9 +242,6 @@ const OneProject = () => {
                     </button>
                 )}
 
-                <h1>مشارييييييييييييييييييييييع</h1>
-                <h1>مشارييييييييييييييييييييييع</h1>
-
                 <input
                     onChange={(e) => setLevelName(e.target.value)}
                     type="text"
@@ -224,10 +250,9 @@ const OneProject = () => {
                 />
 
                 <div className="m-2">
-                    <span className="text-lg mx-2">
-                        إختر صور الدور او الشارع
-                    </span>
+                    <span className="text-lg mx-2">إختر الصور</span>
                     <input
+                        ref={imgRef}
                         onChange={handleImg}
                         multiple
                         className=""
@@ -247,7 +272,9 @@ const OneProject = () => {
                         </span>
                     </h1>
                 )}
-                <h1>اختر نوع المشروع</h1>
+                <h1 className="text-xl shadow-md rounded-md p-1 m-1">
+                    اختر نوع المشروع
+                </h1>
                 <button
                     onClick={() => handleProjectType(0, "مول")}
                     className="bg-green-400 text-white text-lg p-1 rounded-md m-1"
@@ -274,12 +301,16 @@ const OneProject = () => {
                                     src={`${process.env.MIX_APP_URL}/assets/images/uploads/projects/sm/${oneimg.img}`}
                                     alt=""
                                 />
-                                <button
-                                    className="bg-red-500 text-white rounded-md m-2"
-                                    onClick={() => deleteImg(oneimg)}
-                                >
-                                    مسح الصورة
-                                </button>
+                                {!isDelete ? (
+                                    <button
+                                        className="bg-red-500 text-white rounded-md m-2"
+                                        onClick={() => deleteImg(oneimg)}
+                                    >
+                                        مسح الصورة
+                                    </button>
+                                ) : (
+                                    "يتم المسح"
+                                )}
                             </div>
                         ))}
                 </div>
@@ -291,6 +322,7 @@ const OneProject = () => {
                     <div className="m-2">
                         <input
                             onChange={addingimgsProject}
+                            ref={imgRef2}
                             multiple
                             className=""
                             name=""
@@ -298,12 +330,18 @@ const OneProject = () => {
                             id="imgsprojects"
                         />
                         <div className="add-project-imgs-btn">
-                            <button
-                                onClick={addProjectsImgsFunc}
-                                className="bg-green-500 p-1 m-1 rounded-md"
-                            >
-                                اضف الان
-                            </button>
+                            {!isLooding2 ? (
+                                <div className="" style={{ width: "50px" }}>
+                                    <img src={loadicon} alt="" />
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={addProjectsImgsFunc}
+                                    className="bg-green-500 p-1 m-1 rounded-md text-white"
+                                >
+                                    اضف الان
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

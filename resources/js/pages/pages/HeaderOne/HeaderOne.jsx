@@ -24,6 +24,8 @@ const Header = () => {
 
     const [fixedNav, setFixedNav] = useState("");
 
+    const [displayNone, setdisplayNone] = useState("");
+
     const dispatch = useDispatch();
 
     const count = useSelector((state) => state.numberInCart.productsInCart);
@@ -74,13 +76,17 @@ const Header = () => {
                         `${process.env.MIX_APP_URL}/api/wishlists/`,
                         {
                             cancelRequest: cancelRequest.token,
-                            headers: { Authorization: `Bearer ${getToken}` },
+                            // mode: "no-cors",
+                            headers: {
+                                Authorization: `Bearer ${getToken}`,
+                                // "Content-Type": "application/json",
+                            },
                         }
                     );
                     let wishlistCount = res.data.data.length;
                     dispatch(productsInWishlistNumber(wishlistCount));
                 } catch (er) {
-                    console.log(err);
+                    console.log(er);
                 }
             };
             getWishlistProductsCount();
@@ -92,13 +98,15 @@ const Header = () => {
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,
+                            //     "Access-Control-Allow-Origin": "*",
+                            //     "Content-Type": "application/json",
                         },
                     }
                 );
                 setCategoriesArr(res.data.data);
-                // console.log(res.data.data);
-            } catch (error) {
-                console.warn(error.message);
+                console.log(res);
+            } catch (er) {
+                console.warn(er);
             }
         };
         getCategories();
@@ -107,15 +115,16 @@ const Header = () => {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/projects`
                     // {
-                    //     headers: {
-                    //         Authorization: `Bearer ${getToken}`,
-                    //     },
+                    // mode: "no-cors",
+                    // headers: {
+                    // "Access-Control-Allow-Origin": "*",
+                    // "Content-Type": "application/json",
+                    // },
                     // }
                 );
                 setLevels(res.data.data);
-                // console.log(res.data.data);
-            } catch (error) {
-                console.warn(error.message);
+            } catch (er) {
+                console.warn(er);
             }
         };
         getProjects();
@@ -139,6 +148,7 @@ const Header = () => {
 
     const traderByContstruction = (constructId) => {
         navigate(`/traderByConstruction/${constructId.id}`);
+        // setdisplayNone("hide-trader-list-onclick");
         // navigate(`/leveltrader/${constructId.id}`);
         // console.log(constructId);
     };
@@ -248,15 +258,15 @@ const Header = () => {
                     <div className="flex gap-5 nav-mobile">
                         <button
                             onClick={goToWishList}
-                            className="relative wichlist border-b-2 p-2 rounded-md flex items-center"
+                            className="relative wichlist bg-slate-100 p-2 rounded-md flex items-center"
                         >
-                            <span className="absolute crt-wich-num text-sm font-bold -top-2 left-3 bg-gray-100 rounded-xl w-7 ">
+                            <span className="absolute crt-wich-num text-sm font-bold -top-2 left-3 bg-gray-200 rounded-xl w-7 ">
                                 {wichlistCount}
                             </span>
-                            <span className="hide-text-mob text-white">
+                            <span className="hide-text-mob text-black">
                                 المفضلة
                             </span>
-                            <FiHeart className="text-lg mx-2 text-white" />
+                            <FiHeart className="text-lg fv-icon mx-2 text-black" />
                         </button>
 
                         {localStorage.getItem("clTk") && (
@@ -282,9 +292,9 @@ const Header = () => {
                         )}
                         {!localStorage.getItem("clTk") && (
                             <div className="dropdown-categories">
-                                <button className="dropbtn-categories text-white flex items-center  border-b-2 p-2 rounded-md">
-                                    <MdOutlineManageAccounts className=" text-white" />
-                                    <span className=" text-white">دخول</span>
+                                <button className="dropbtn-categories bg-slate-100 flex items-center p-2 rounded-md">
+                                    <MdOutlineManageAccounts className="inter-icon text-black" />
+                                    <span className=" text-black">دخول</span>
                                 </button>
                                 <div className="dropdown-content-categories">
                                     <Link to={"/clientLogin"}>دخول</Link>
@@ -314,7 +324,9 @@ const Header = () => {
                                 {/* <AiOutlineArrowDown /> */}
                                 <span> المحلات</span>
                             </button>
-                            <div className="dropdown-trader-list relative">
+                            <div
+                                className={`dropdown-trader-list ${displayNone} relative`}
+                            >
                                 {levels &&
                                     levels.map((level) => (
                                         <div
@@ -322,7 +334,7 @@ const Header = () => {
                                             key={level.id}
                                             onClick={() => whatLevel(level)}
                                         >
-                                            محلات {level.name}
+                                            {level.name}
                                             {level.levels && (
                                                 <div className="units-into-level rounded-md absolute z-50 hidden">
                                                     {level.levels &&
@@ -352,7 +364,8 @@ const Header = () => {
                     <div className="categories">
                         <div className="dropdown-categories">
                             <button className="dropbtn-categories flex items-center  border-b-2 p-2 rounded-md">
-                                <AiOutlineArrowDown /> <span>التصنيفات</span>
+                                {/* <AiOutlineArrowDown />  */}
+                                <span>التصنيفات</span>
                             </button>
                             <div
                                 dir="rtl"

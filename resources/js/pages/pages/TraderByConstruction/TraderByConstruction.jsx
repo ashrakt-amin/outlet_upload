@@ -71,7 +71,7 @@ const TraderByConstruction = () => {
                 </div>
             )}
 
-            <div className="shops-container grid grid-cols-3 gap-3   p-2">
+            <div className="shops-container grid grid-cols-2 gap-3   p-2">
                 {oneLevel?.units &&
                     oneLevel?.units.map((oneUnit) => (
                         <Link

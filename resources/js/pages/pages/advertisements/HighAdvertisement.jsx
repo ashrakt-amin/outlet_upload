@@ -29,7 +29,7 @@ const HighAdvertisement = () => {
                     >
                         <img
                             className="w-full"
-                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise?.img}`}
+                            src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/lg/${advertise?.img}`}
                             alt=""
                         />
                     </div>

@@ -31,7 +31,7 @@ const TowAddvertisments = () => {
                             style={{ maxWidth: "600px" }}
                         >
                             <img
-                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise[1]?.img}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/lg/${advertise[1]?.img}`}
                                 alt=""
                             />
                         </div>
@@ -43,7 +43,7 @@ const TowAddvertisments = () => {
                             style={{ maxWidth: "600px" }}
                         >
                             <img
-                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/${advertise[2]?.img}`}
+                                src={`${process.env.MIX_APP_URL}/assets/images/uploads/advertisements/lg/${advertise[2]?.img}`}
                                 alt=""
                             />
                         </div>

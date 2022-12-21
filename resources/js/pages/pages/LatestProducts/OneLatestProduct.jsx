@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { productsInWishlistNumber } from "../../Redux/countInCartSlice";
 
-import img1 from "./pr1.jpg";
+import { AiTwotoneHeart } from "react-icons/ai";
+import { MdOutlineCompareArrows } from "react-icons/md";
+import heart from "./heart.gif";
 
 // import "./dealsStyle.scss";
+
 import { SwiperSlide } from "swiper/react";
 
 import "swiper/swiper-bundle.min.css";
@@ -13,8 +16,10 @@ import "swiper/css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const OneLatestProduct = ({ product, refetchFn }) => {
+const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
+
+    const [imgsize, setimgsize] = useState("sm");
 
     const [discountValue, setDiscountValue] = useState("");
 
@@ -32,68 +37,38 @@ const OneLatestProduct = ({ product, refetchFn }) => {
 
     const navigate = useNavigate();
 
-    const getWishlistProductsCount = async () => {
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
-        try {
-            const res = await axios.get(
-                `${process.env.MIX_APP_URL}/api/wishlists/`,
-                {
-                    headers: { Authorization: `Bearer ${getToken}` },
-                }
-            );
-            let wishlistCount = res.data.data.length;
-            dispatch(productsInWishlistNumber(wishlistCount));
-        } catch (er) {
-            console.log(er);
-        }
-    };
+    // const getWishlistProductsCount = async () => {
+    //     let getToken = JSON.parse(localStorage.getItem("clTk"));
+    //     try {
+    //         const res = await axios.get(
+    //             `${process.env.MIX_APP_URL}/api/wishlists/`,
+    //             {
+    //                 headers: { Authorization: `Bearer ${getToken}` },
+    //             }
+    //         );
+    //         let wishlistCount = res.data.data.length;
+    //         dispatch(productsInWishlistNumber(wishlistCount));
+    //     } catch (er) {
+    //         console.log(er);
+    //     }
+    // };
 
-    const saveToWishList = (id) => {
-        let getToken = JSON.parse(localStorage.getItem("clTk"));
+    // console.log(window.innerWidth);
+    // if (window.innerWidth < 500) {
+    //     setimgsize('sm')
+    // }
 
-        if (getToken) {
-            setWishlistBtn(true);
-            axios
-                .get(`${process.env.MIX_APP_URL}/` + "sanctum/csrf-cookie")
-                .then(async (res) => {
-                    try {
-                        await axios
-                            .post(
-                                `${process.env.MIX_APP_URL}/api/wishlists`,
-                                {
-                                    item_id: id,
-                                },
-                                {
-                                    headers: {
-                                        Authorization: `Bearer ${getToken}`,
-                                    },
-                                }
-                            )
-                            .then(async (resp) => {
-                                setWishlistBtn(false);
-                                getWishlistProductsCount();
-                                console.log(resp);
-                                refetchFn();
-                            });
-                    } catch (er) {
-                        console.log(er);
-                    }
-                });
-        } else {
-            navigate("/clientLogin");
-        }
-    };
     return (
         <SwiperSlide
             key={product.id}
             dir={`rtl`}
-            className="swiper-slide relative p-1 rounded-md flex flex-col justify-between items-start"
+            className="swiper-slide swiper-deals p-1 rounded-md relative"
             style={{
                 backgroundColor: "#fff",
             }}
         >
             <div
-                className="flex flex-col justify-between items-start"
+                className="flex flex-col justify-between items-center"
                 style={{ minHeight: "350px" }}
             >
                 <Link
@@ -103,29 +78,29 @@ const OneLatestProduct = ({ product, refetchFn }) => {
                     <div
                         className="product-img"
                         style={{
-                            maxWidth: "200px",
-                            maxHeight: "200px",
+                            width: "200px",
+                            height: "200px",
                         }}
                     >
                         <img
                             className="w-full h-full "
                             src={`${process.env.MIX_APP_URL}/assets/images/uploads/items/sm/${product?.itemImages[0]?.img}`}
-                            alt=""
+                            alt="لا يوجد صورة"
                         />
                     </div>
                 </Link>
-                {product.discount > 0 && (
-                    <div className="discount-percent-div absolute top-0 left-0 p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
-                        {product.discount}%
-                    </div>
-                )}
+                {/* {product.discount > 0 && (
+          <div className="discount-percent-div absolute p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+            {product.discount}%
+          </div>
+        )} */}
 
-                <div
-                    className="text-xl text-ellipsis"
-                    style={{ overflow: "hidden", width: "75%" }}
+                <h5
+                    className="overflow-hidden text-center text-ellipsis text-xl"
+                    style={{ width: "97%" }}
                 >
                     {product.name}
-                </div>
+                </h5>
 
                 {product.discount > 0 ? (
                     <>
@@ -175,4 +150,4 @@ const OneLatestProduct = ({ product, refetchFn }) => {
     );
 };
 
-export default OneLatestProduct;
+export default OneDealsProduct;

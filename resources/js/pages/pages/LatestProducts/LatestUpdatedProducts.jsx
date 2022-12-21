@@ -56,7 +56,7 @@ const LatestUpdatedProducts = () => {
             </h1>
 
             {!products.length > 0 && (
-                <h1 className="p-4 bg-red-600 text-white text-lg">
+                <h1 className="p-4 bg-gray-200 text-black text-lg">
                     <marquee>Mansoura Outlet مرحبا بك فى </marquee>
                 </h1>
             )}

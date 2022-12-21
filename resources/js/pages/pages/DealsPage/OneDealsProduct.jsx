@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
+    console.log("log");
+
     const [imgsize, setimgsize] = useState("sm");
 
     const [discountValue, setDiscountValue] = useState("");
@@ -89,11 +91,11 @@ const OneDealsProduct = ({ product, refetchFn }) => {
                         />
                     </div>
                 </Link>
-                {product.discount > 0 && (
-                    <div className="discount-percent-div absolute p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
-                        {product.discount}%
-                    </div>
-                )}
+                {/* {product.discount > 0 && (
+          <div className="discount-percent-div absolute p-1 font-semibold rounded-md bg-slate-100 opacity-4 text-red-500">
+            {product.discount}%
+          </div>
+        )} */}
 
                 <h5
                     className="overflow-hidden text-center text-ellipsis text-xl"
