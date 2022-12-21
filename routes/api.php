@@ -254,7 +254,8 @@ Route::resource('projects', ProjectController::class)->except('create', 'edit');
 
 Route::prefix("levels")->group(function(){
     Route::controller(LevelController::class)->group(function () {
-        Route::get('/client/{level}',         'client')->name('levels.client');
+        Route::get('/latest',         'latest')->name('levels.latest');
+        Route::get('/client/{level}', 'client')->name('levels.client');
     });
 });
 Route::resource('levels', LevelController::class)->except('create', 'edit');

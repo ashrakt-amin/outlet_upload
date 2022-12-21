@@ -15,7 +15,7 @@ class LevelController extends Controller
 {
     use TraitsAuthGuardTrait;
     use TraitImageProccessingTrait;
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +26,19 @@ class LevelController extends Controller
         $levels = Level::all();
         return response()->json([
             "data" => LevelResource::collection($levels)
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function latest()
+    {
+        $levels = Level::latest()->take(10)->get();
+        return response()->json([
+            "data" => LevelResource::collection($levels),
         ]);
     }
 
