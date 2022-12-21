@@ -20,6 +20,7 @@ const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
     console.log("log");
+    console.log("log");
 
     const [imgsize, setimgsize] = useState("sm");
 
