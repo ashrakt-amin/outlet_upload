@@ -76,10 +76,8 @@ const Header = () => {
                         `${process.env.MIX_APP_URL}/api/wishlists/`,
                         {
                             cancelRequest: cancelRequest.token,
-                            // mode: "no-cors",
                             headers: {
                                 Authorization: `Bearer ${getToken}`,
-                                // "Content-Type": "application/json",
                             },
                         }
                     );
@@ -98,8 +96,6 @@ const Header = () => {
                     {
                         headers: {
                             Authorization: `Bearer ${getToken}`,
-                            //     "Access-Control-Allow-Origin": "*",
-                            //     "Content-Type": "application/json",
                         },
                     }
                 );
@@ -114,13 +110,6 @@ const Header = () => {
             try {
                 const res = await axios.get(
                     `${process.env.MIX_APP_URL}/api/projects`
-                    // {
-                    // mode: "no-cors",
-                    // headers: {
-                    // "Access-Control-Allow-Origin": "*",
-                    // "Content-Type": "application/json",
-                    // },
-                    // }
                 );
                 setLevels(res.data.data);
             } catch (er) {
