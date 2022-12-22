@@ -87,8 +87,8 @@ class ItemController extends Controller
         if ($item->save()) {
             if ($request->hasFile('img')) {
                 foreach ($request->file('img') as $img) {
-                    $originalFilename = $this->setImage($img, $request->item_id, 'items/lg');
-                    $filename = $this->aspectForResize($img, $request->item_id, 450, 450, 'items/sm');
+                    $originalFilename = $this->setImage($img, $item->id, 'items/lg');
+                    $filename         = $this->aspectForResize($img, $item->id, 450, 450, 'items/sm');
                     $image = new ItemImage();
                     $image->item_id = $item->id;
                     $image->img     = $filename;

@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AACI,iBADa,CACb,kBAAkB,CAAC;EACf,gBAAgB,EAAE,OAAkB;EACpC,aAAa,EAAE,eAAe;EAC9B,KAAK,EAAE,SAAS;CAInB;;AARL,AAKQ,iBALS,CACb,kBAAkB,AAIb,MAAM,CAAC;EACJ,gBAAgB,EAAE,QAAkB;CACvC",
-    "sources": [
-        "traderdashboardStyle.scss"
-    ],
-    "names": [],
-    "file": "traderdashboardStyle.css"
-}

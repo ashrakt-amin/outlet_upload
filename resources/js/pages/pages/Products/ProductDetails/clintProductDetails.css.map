@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AACA,MAAM,EAAE,SAAS,EAAE,KAAK;EACpB,AAAA,0BAA0B,CAAC;IACvB,cAAc,EAAE,MAAM;GACzB;;;AAIL,AAAA,EAAE,CAAC;EACC,UAAU,EAAE,IAAI;CACnB;;AAMD,AAAA,SAAS,CAAC;EACN,UAAU,EAAE,IAAI;EAChB,SAAS,EAAE,KAAK;EAChB,MAAM,EAAE,KAAK;CAChB",
-    "sources": [
-        "clintProductDetails.scss"
-    ],
-    "names": [],
-    "file": "clintProductDetails.css"
-}
