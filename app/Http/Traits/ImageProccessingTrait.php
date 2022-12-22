@@ -6,7 +6,9 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
-Trait ImageProccessingTrait {
+Trait ImageProccessingTrait
+{
+    private $path = 'images';
 
     /**
      * img extenstions
@@ -47,19 +49,15 @@ Trait ImageProccessingTrait {
     /**
      * Set Image
      */
-    public function setImage($image, $ownerId, $path)
+    public function setImage($image, $path, $width = null, $height = null)
     {
-        $img  = Image::make($image);
+        Image::make($image)
+                ->resize($width, $height, function($constraint) {
+                    $constraint->aspectRatio();
+                });
 
-        $name = $image->getClientOriginalName();
-
-        $extension = $this->getMime($img->mime());
-        $strRandom = Str::random(8);
-        // $imgPath   = $strRandom.time().$extension;
-        $imgPath   = $ownerId.$name;
-        $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
-
-        return $imgPath;
+        $image->store($this->path . '/' . $path, 'public');
+        return $image->hashName();
     }
 
     /**
