@@ -19,9 +19,6 @@ import { useDispatch } from "react-redux";
 const OneDealsProduct = ({ product, refetchFn }) => {
     const [wishlistBtn, setWishlistBtn] = useState(false);
 
-    console.log("log");
-    console.log("log");
-
     const [imgsize, setimgsize] = useState("sm");
 
     const [discountValue, setDiscountValue] = useState("");

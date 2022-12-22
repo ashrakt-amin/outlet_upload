@@ -282,7 +282,7 @@ const ClientProductDetails = () => {
                             // src={imgsize}
                         />
                     </div>
-                    <div className="all-imgs flex flex-wrap gap-4 p-3">
+                    <div className="all-imgs flex flex-wrap items-start h-fit gap-4 p-3">
                         {productImgs &&
                             productImgs.map((img, i) => (
                                 <div
