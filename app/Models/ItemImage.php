@@ -9,8 +9,7 @@ class ItemImage extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-    ];
+    protected $appends = ['path'];
 
     protected $hidden = [
         'created_at',
@@ -20,13 +19,16 @@ class ItemImage extends Model
     protected $visible = [
     ];
 
-    protected $fillable  = [
-        'item_id',
-        'img',
-        ];
+    protected $fillable  = ['item_id', 'img'];
 
     public function item()
     {
         return $this->hasOne(Item::class);
     }
+
+    public function getPathAttribute()
+    {
+        return asset('storage/images/items') . '/' . $this->img;
+    }
+
 }

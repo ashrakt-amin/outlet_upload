@@ -2,13 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Rate;
-use App\Models\Size;
-use App\Models\View;
-use App\Models\Color;
-use App\Models\Wishlist;
-use App\Models\ColorSizeStock;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource
@@ -26,7 +19,7 @@ class ItemResource extends JsonResource
             'id'               => $this->id,
             'name'             => $this->name,
             'itemUnit'         => $this->item_unit,
-            'itemImages'       => $this->item_images,
+            'itemImages'       => ItemImageResource::collection($this->itemImages),
             'unit_parts_count' => $this->unit_parts_count,
             'sale_price'       => (float)$this->sale_price,
             'code'             => $this->item_code,

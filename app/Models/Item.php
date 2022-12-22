@@ -184,9 +184,9 @@ class Item extends Model
         return $this->itemUnit;
     }
 
-    public function getItemImagesAttribute()
-    {
-        $itemImages = ItemImage::where(['item_id'=>$this->id])->get();
-        return   $itemImages ? $itemImages : false;
-    }
+    // public function getItemImagesAttribute()
+    // {
+    //     $itemImages = ItemImage::where(['item_id'=>$this->id])->get();
+    //     return   $itemImages ? $itemImages : false;
+    // }
 }

@@ -16,7 +16,7 @@ class ItemImageResource extends JsonResource
     {
         return [
             'id'  => $this->id,
-            'img' => $this->img,
+            'img' => $this->path,
         ];
     }
 }
