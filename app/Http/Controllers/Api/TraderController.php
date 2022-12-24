@@ -74,9 +74,9 @@ class TraderController extends Controller
             }
             $trader = new Trader();
             $trader->fill($request->input());
-            if ($request->hasFile('logo')) {
-                $img = $request->file('logo');
-                $trader->logo = $this->setImage($img, 'traders', 450, 450);
+            if ($request->hasFile('img')) {
+                $img = $request->file('img');
+                $trader->img = $this->setImage($img, 'traders', 450, 450);
             }
             $trader->code = randomCode();
 
@@ -143,16 +143,16 @@ class TraderController extends Controller
         $age = $trader->age;
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             $trader->fill($request->input());
-            if ($request->hasFile('logo')) {
-                $image_path = "assets/images/uploads/traders/".$trader->logo;  // Value is not URL but directory file path
+            if ($request->hasFile('img')) {
+                $image_path = "assets/images/uploads/traders/".$trader->img;  // Value is not URL but directory file path
                 if(File::exists($image_path)) {
                     File::delete($image_path);
                 }
-                $file            = $request->file('logo');
+                $file            = $request->file('img');
                 $ext             = $file->getClientOriginalExtension();
                 $filename        = time().'.'.$ext;
                 $file->move('assets/images/uploads/traders/', $filename);
-                $trader->logo = $filename;
+                $trader->img = $filename;
             }
             // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
             // $age = Carbon::parse($request->age)->format('Y-m-d');
