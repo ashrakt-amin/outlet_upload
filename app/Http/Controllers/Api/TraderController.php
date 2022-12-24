@@ -6,17 +6,15 @@ use Carbon\Carbon;
 use App\Models\Trader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\TraderResource;
-use App\Http\Resources\TraderCollection;
-use App\Http\Requests\StoreTraderRequest;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class TraderController extends Controller
 {
     use TraitsAuthGuardTrait;
+    use TraitImageProccessingTrait;
 
     public function __construct ()
     {
