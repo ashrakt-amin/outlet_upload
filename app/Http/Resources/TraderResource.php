@@ -23,9 +23,8 @@ class TraderResource extends JsonResource
         return [
             'id'           => $this->id,
             'f_name'       => $this->f_name,
-            'm_name'       => $this->m_name,
             'l_name'       => $this->l_name,
-            'logo'         => $this->logo,
+            'img'          => $this->path,
             'age'          => Carbon::parse($this->age)->age,
             'phone'        => $this->phone,
             'phone2'       => $this->phone2,

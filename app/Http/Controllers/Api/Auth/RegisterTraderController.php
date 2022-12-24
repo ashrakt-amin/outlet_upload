@@ -29,12 +29,12 @@ class RegisterTraderController extends BaseController
                             'message' => 'الرقم السري غير مطابق',
                         ], 422);
                     } else {
-                        if ($request->hasFile('logo')) {
-                            $file            = $request->file('logo');
+                        if ($request->hasFile('img')) {
+                            $file            = $request->file('img');
                             $ext             = $file->getClientOriginalExtension();
                             $filename        = time().'.'.$ext;
                             $file->move('assets/images/uploads/traders/', $filename);
-                            $user->logo = $filename;
+                            $user->img = $filename;
                         }
                         $input = $request->all();
                         $input['password'] = bcrypt($input['password']);
