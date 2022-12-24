@@ -131,11 +131,11 @@ Route::middleware('auth:sanctum')->group(function () {
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::prefix("traders")->group(function(){
-        Route::controller(TraderController::class)->group(function () {
-            Route::get('/trader', 'trader')->name('traders.trader');
-        });
-    });
+    // Route::prefix("traders")->group(function(){
+    //     Route::controller(TraderController::class)->group(function () {
+    //         Route::get('/trader', 'trader')->name('traders.trader');
+    //     });
+    // });
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
