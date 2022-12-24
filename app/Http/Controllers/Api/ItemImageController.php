@@ -20,7 +20,7 @@ class ItemImageController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('img')) {
+        if ($request->has('img')) {
             foreach ($request->file('img') as $img) {
                 $image            = new ItemImage();
                 $image->item_id   = $request->item_id;

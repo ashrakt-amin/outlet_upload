@@ -19,13 +19,11 @@ class UnitImageController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('img')) {
+        if ($request->has('img')) {
             foreach ($request->file('img') as $img) {
-                $originalFilename  = $this->setImage($img, $request->unit_id, 'units/lg');
-                $filename          = $this->aspectForResize($img, $request->unit_id, 450, 450, 'units/sm');
                 $image             = new UnitImage();
                 $image->unit_id    = $request->unit_id;
-                $image->img        = $filename;
+                $image->img        = $this->setImage($img, 'units', 450, 450);
                 $image->save();
             }
         }

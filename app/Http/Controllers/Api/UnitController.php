@@ -53,13 +53,11 @@ class UnitController extends Controller
     {
         $unit = Unit::create($request->all());
             if ($unit) {
-                if ($request->hasFile('img')) {
-                    foreach ($request->file('img') as $image) {
-                        $originalFilename = $this->setImage($image, $unit->id, 'units/lg');
-                        $filename = $this->aspectForResize($image, $unit->id, 450, 450, 'units/sm');
+                if ($request->has('img')) {
+                    foreach ($request->file('img') as $img) {
                         $image = new UnitImage();
                         $image->unit_id = $unit->id;
-                        $image->img     = $filename;
+                        $image->img = $this->setImage($img, 'units', 450, 450);
                         $image->save();
                     }
                 }
