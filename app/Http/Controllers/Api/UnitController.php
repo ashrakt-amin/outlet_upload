@@ -37,9 +37,9 @@ class UnitController extends Controller
      */
     public function latest()
     {
-        $levels = Unit::latest()->take(10)->get();
+        $units = Unit::latest()->take(10)->get();
         return response()->json([
-            "data" => UnitResource::collection($levels),
+            "data" => UnitResource::collection($units),
         ]);
     }
 
