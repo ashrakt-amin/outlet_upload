@@ -59,22 +59,20 @@ class LevelController extends Controller
                         ]
                     ]);
         if ($validate) {
-            $level = Level::create($request->all());
-            if ($level) {
-                if ($request->hasFile('img')) {
-                    foreach ($request->file('img') as $image) {
-                        $originalFilename = $this->setImage($image, $level->id, 'levels/lg');
-                        $filename = $this->aspectForResize($image, $level->id, 450, 450, 'levels/sm');
+
+            if ($level = Level::create($request->all())) {
+                if ($request->has('img')) {
+                    foreach ($request->file('img') as $img) {
                         $image = new LevelImage();
-                        $image->level_id   = $level->id;
-                        $image->img        = $filename;
+                        $image->level_id = $level->id;
+                        $image->img = $this->setImage($img, 'levels', 450, 450);
                         $image->save();
                     }
                 }
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل طابقا جديدا",
-                    "data" => $level
+                    "data" => new LevelResource($level)
                 ], 200);
             }
         } else {

@@ -9,10 +9,17 @@ class LevelImage extends Model
 {
     use HasFactory;
 
+    protected $appends = ['path'];
+
+
     protected $guarded = [];
 
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
+    public function getPathAttribute()
+    {
+        return asset('storage/images/levels') . '/' . $this->img;
+    }
 }

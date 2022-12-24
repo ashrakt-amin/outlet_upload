@@ -9,10 +9,7 @@ class Level extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'level_images_appended',
-        'level_units'
-    ];
+    protected $appends = ['level_units' ];
 
     protected $hidden = [
         'created_at',
@@ -63,11 +60,6 @@ class Level extends Model
             'id', // Local key on the this table...
             'trader_id' // Local key on the incoming table..
         );
-    }
-
-    public function getlevelImagesAppendedAttribute()
-    {
-        return $this->levelImages;
     }
 
     public function getLevelUnitsAttribute()

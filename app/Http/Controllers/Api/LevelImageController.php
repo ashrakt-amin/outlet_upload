@@ -18,13 +18,11 @@ class LevelImageController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('img')) {
+        if ($request->has('img')) {
             foreach ($request->file('img') as $img) {
-                $originalFilename = $this->setImage($img, $request->level_id, 'levels/lg');
-                $filename         = $this->aspectForResize($img, $request->level_id, 450, 450, 'levels/sm');
-                $image            = new LevelImage();
-                $image->level_id  = $request->level_id;
-                $image->img       = $filename;
+                $image = new LevelImage();
+                $image->level_id = $request->level_id;
+                $image->img = $this->setImage($img, 'levels', 450, 450);
                 $image->save();
             }
         }
