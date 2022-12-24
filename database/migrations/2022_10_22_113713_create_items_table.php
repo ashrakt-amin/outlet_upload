@@ -21,12 +21,11 @@ return new class extends Migration
             $table->integer('unit_parts_count');
             $table->decimal('sale_price', 16, 0);
             $table->decimal('buy_price', 16, 0)          ->nullable();
-            $table->tinyInteger('buy_discount')          ->nullable();
+            $table->decimal('buy_discount', 4, 0)        ->nullable();
             $table->unsignedBigInteger('trader_id')      ->nullable();
             $table->boolean('available')                 ->nullable();
             $table->boolean('approved')                  ->default(0);
             $table->string('item_code')                    ->unique();
-            $table->decimal('discount', 16)  ->nullable()->default(0);
             $table->text('description')                  ->nullable();
             $table->unsignedBigInteger('manufactory_id') ->nullable();
             $table->unsignedBigInteger('agent_id')       ->nullable();
