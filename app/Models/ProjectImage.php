@@ -9,11 +9,18 @@ class ProjectImage extends Model
 {
     use HasFactory;
 
+    protected $appends = ['path'];
+
     protected $guarded = [];
 
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
+
+    public function getPathAttribute()
+    {
+        return asset('storage/images/projects') . '/' . $this->img;
+    }
 
 }

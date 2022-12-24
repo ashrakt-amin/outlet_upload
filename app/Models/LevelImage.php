@@ -18,6 +18,7 @@ class LevelImage extends Model
         'created_at',
         'updated_at',
     ];
+    
     public function getPathAttribute()
     {
         return asset('storage/images/levels') . '/' . $this->img;

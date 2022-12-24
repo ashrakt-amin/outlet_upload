@@ -51,15 +51,12 @@ class ProjectController extends Controller
                         ],
                     ]);
         if ($validate) {
-            $project = Project::create($request->all());
-            if ($project) {
-                if ($request->hasFile('img')) {
+            if ($project = Project::create($request->all())) {
+                if ($request->has('img')) {
                     foreach ($request->file('img') as $img) {
-                        $originalFilename = $this->setImage($img, $project->id, 'projects/lg');
-                        $filename = $this->aspectForResize($img, $project->id, 450, 450, 'projects/sm');
                         $image = new ProjectImage();
                         $image->project_id = $project->id;
-                        $image->img        = $filename;
+                        $image->img = $this->setImage($img, 'projects', 450, 450);
                         $image->save();
                     }
                 }

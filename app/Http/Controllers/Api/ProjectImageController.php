@@ -18,13 +18,11 @@ class ProjectImageController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('img')) {
+        if ($request->has('img')) {
             foreach ($request->file('img') as $img) {
-                $originalFilename  = $this->setImage($img, $request->project_id, 'projects/lg');
-                $filename          = $this->aspectForResize($img, $request->project_id, 450, 450, 'projects/sm');
-                $image             = new ProjectImage();
+                $image = new ProjectImage();
                 $image->project_id = $request->project_id;
-                $image->img        = $filename;
+                $image->img = $this->setImage($img, 'projects', 450, 450);
                 $image->save();
             }
         }

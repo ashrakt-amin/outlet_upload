@@ -10,7 +10,6 @@ class Project extends Model
     use HasFactory;
 
     protected $appends = [
-        'project_images_appended',
         'project_levels',
         ];
 
@@ -62,11 +61,6 @@ class Project extends Model
     public function traders()
     {
         return $this->hasManyThrough(Trader::class, Unit::class);
-    }
-
-    public function getProjectImagesAppendedAttribute()
-    {
-        return $this->projectImages ?$this->projectImages : false;
     }
 
     public function getProjectLevelsAttribute()
