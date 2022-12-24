@@ -14,10 +14,7 @@ class Trader extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait;
 
-    protected $appends = [
-        // 'trader_activities',
-        // 'trader_levels'
-        ];
+    protected $appends = ['path'];
 
     protected $guard = 'trader';
 
@@ -90,17 +87,8 @@ class Trader extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(OrderDetail::class);
     }
 
-    /**
-     * getter && setter
-     */
-    // public function getTraderActivitiesAttribute()
-    // {
-    //     return $this->activities;
-    // }
-
-    // public function getTraderLevelsAttribute()
-    // {
-    //     return $this->levels;
-    // }
-
+    public function getPathAttribute()
+    {
+        return asset('storage/images/trders') . '/' . $this->img;
+    }
 }

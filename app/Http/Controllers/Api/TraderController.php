@@ -75,14 +75,11 @@ class TraderController extends Controller
             $trader = new Trader();
             $trader->fill($request->input());
             if ($request->hasFile('logo')) {
-                $file            = $request->file('logo');
-                $ext             = $file->getClientOriginalExtension();
-                $filename        = time().'.'.$ext;
-                $file->move('assets/images/uploads/traders/', $filename);
-                $trader->logo = $filename;
+                $img = $request->file('logo');
+                $trader->logo = $this->setImage($img, 'traders', 450, 450);
             }
             $trader->code = randomCode();
-            
+
             if ($trader->save()) {
                 return response()->json([
                     "success" => true,
