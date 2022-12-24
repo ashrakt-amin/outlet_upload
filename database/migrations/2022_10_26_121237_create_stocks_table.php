@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id');
             $table->bigInteger('stock');
-            $table->decimal('sale_price', 16, 0);
-            $table->decimal('buy_price', 16, 0)     ->nullable();
-            $table->tinyInteger('buy_discount')     ->nullable();
+            $table->decimal('sale_price', 16, 2);
+            $table->decimal('buy_price', 16, 2)     ->nullable();
+            $table->decimal('buy_discount', 4, 2)   ->nullable();
             $table->unsignedBigInteger('trader_id') ->nullable();
             $table->boolean('available')            ->nullable();
             $table->boolean('approved')             ->default(0);
@@ -34,7 +34,7 @@ return new class extends Migration
             $table->unsignedBigInteger('season_id') ->nullable();
             $table->date('manufacture_date')        ->nullable();
             $table->date('expire_date')             ->nullable();
-            $table->tinyInteger('stock_discount')   ->nullable();
+            $table->decimal('stock_discount', 4, 2) ->nullable();
             $table->date('discount_start_date')     ->nullable();
             $table->date('discount_end_date')       ->nullable();
             $table->timestamps();
