@@ -92,6 +92,6 @@ class Trader extends Authenticatable implements MustVerifyEmail
 
     public function getPathAttribute()
     {
-        return asset('storage/images/trders') . '/' . $this->img;
+        return asset('storage/images/traders') . '/' . $this->img;
     }
 }
