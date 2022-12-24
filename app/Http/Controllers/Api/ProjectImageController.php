@@ -60,11 +60,9 @@ class ProjectImageController extends Controller
      */
     public function destroy(ProjectImage $projectImage)
     {
-        $lg_image_path = "projects/lg/".$projectImage->img;  // Value is not URL but directory file path
-        $sm_image_path = "projects/sm/".$projectImage->img;  // Value is not URL but directory file path
+        $image_path = "projects".$projectImage->img;  // Value is not URL but directory file path
 
-        $this->deleteImage($lg_image_path);
-        $this->deleteImage($sm_image_path);
+        $this->deleteImage($image_path);
         if ($projectImage->delete()) {
             return response()->json([
                 "success" => true,
