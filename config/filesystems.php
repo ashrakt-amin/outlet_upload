@@ -44,14 +44,6 @@ return [
             'throw' => false,
         ],
 
-        'assets' => [
-            'driver' => 'local',
-            'root' => public_path('../assets/images/uploads'),
-            'url' => env('MIX_APP_URL').'/assets/images/uploads',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -79,7 +71,6 @@ return [
 
     'links' => [
         public_path('storage')  => storage_path('app/public'),
-        public_path('assets')   => storage_path('app/assets'),
     ],
 
 ];
