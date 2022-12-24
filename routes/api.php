@@ -264,12 +264,13 @@ Route::resource('levels', LevelController::class)->except('create', 'edit');
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
-        Route::put('/status/{unit}',         'status')->name('units.status');
-        Route::post('/activities',       'activities')->name('units.activities');
-        Route::put('/finance/{unit}',       'finance')->name('units.finance');
-        Route::put('/deposit/{unit}',       'deposit')->name('units.deposit');
-        Route::put('/rents/{unit}',           'rents')->name('units.rents');
-        Route::put('/discount/{unit}',     'discount')->name('units.discount');
+        Route::post('/latest',             'latest')->name('units.latest');
+        Route::put('/status/{unit}',       'status')->name('units.status');
+        Route::post('/activities', 'activities')->name('units.activities');
+        Route::put('/finance/{unit}',    'finance')->name('units.finance');
+        Route::put('/deposit/{unit}',    'deposit')->name('units.deposit');
+        Route::put('/rents/{unit}',          'rents')->name('units.rents');
+        Route::put('/discount/{unit}', 'discount')->name('units.discount');
     });
 });
 Route::resource('units', UnitController::class)->except('create', 'edit');

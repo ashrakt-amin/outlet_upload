@@ -31,6 +31,19 @@ class UnitController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function latest()
+    {
+        $levels = Unit::latest()->take(10)->get();
+        return response()->json([
+            "data" => UnitResource::collection($levels),
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
