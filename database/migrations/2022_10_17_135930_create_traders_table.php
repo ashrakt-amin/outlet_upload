@@ -15,21 +15,20 @@ return new class extends Migration
     {
         Schema::create('traders', function (Blueprint $table) {
             $table->id();
-            $table->string('f_name');
-            $table->string('m_name');
-            $table->string('l_name');
-            $table->string('logo')                ->nullable();
-            $table->date('age');
-            $table->string('password')            ->nullable();
-            $table->string('phone')                 ->unique();
-            $table->string('national_id')           ->unique();
-            $table->string('code')                  ->unique();
-            $table->string('email')               ->nullable();
-            $table->string('guard_name')   ->default('trader');
-            $table->string('phone2')    ->unique()->nullable();
-            $table->string('phone3')    ->unique()->nullable();
-            $table->string('phone4')    ->unique()->nullable();
-            $table->string('phone5')    ->unique()->nullable();
+            $table->string('f_name')->nullable();
+            $table->string('l_name')->nullable();
+            $table->string('img')->nullable();
+            $table->date('age')->nullable();
+            $table->string('password')->nullable();
+            $table->string('phone')->nullable()->unique();
+            $table->string('national_id')->nullable()->unique();
+            $table->string('code')->unique();
+            $table->string('email')->nullable()->unique();
+            $table->string('guard_name')->default('trader');
+            $table->string('phone2')->unique()->nullable();
+            $table->string('phone3')->unique()->nullable();
+            $table->string('phone4')->unique()->nullable();
+            $table->string('phone5')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->rememberToken();
