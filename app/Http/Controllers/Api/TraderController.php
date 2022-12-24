@@ -47,9 +47,6 @@ class TraderController extends Controller
     {
         if ($this->getTokenId('user')) {
             $request->validate([
-                // 'f_name'      => [['required'], ['string']],
-                // 'm_name'      => 'required|string',
-                // 'l_name'      => 'required|string',
                 'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
                 'code'        => 'unique:traders,code',
                 'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
@@ -72,7 +69,7 @@ class TraderController extends Controller
             }
             $trader = new Trader();
             $trader->fill($request->input());
-            if ($request->hasFile('img')) {
+            if ($request->has('img')) {
                 $img = $request->file('img');
                 $trader->img = $this->setImage($img, 'traders', 450, 450);
             }

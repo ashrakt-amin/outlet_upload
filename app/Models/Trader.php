@@ -20,7 +20,7 @@ class Trader extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'f_name',
-        'm_name',
+        'l_name',
         'age',
         'img',
         'national_id',
