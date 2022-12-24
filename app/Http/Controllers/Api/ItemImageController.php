@@ -22,8 +22,6 @@ class ItemImageController extends Controller
     {
         if ($request->hasFile('img')) {
             foreach ($request->file('img') as $img) {
-                // $originalFilename = $this->setImage($img, $request->item_id, 'items/lg');
-                // $filename         = $this->aspectForResize($img, $request->item_id, 450, 450, 'items/sm');
                 $image            = new ItemImage();
                 $image->item_id   = $request->item_id;
                 $image->img       = $this->setImage($img, 'items', 450, 450);
