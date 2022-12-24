@@ -29,7 +29,7 @@ class UnitResource extends JsonResource
             'discount'     => $this->discount,
             'rents_count'  => $this->rents_count,
             'description'  => $this->description,
-            'images'       => new UnitImageResource($this->unitImages),
+            'images'       => UnitImageResource::collection($this->unitImages),
             'level'        => new LevelResource($level),
             'statu'        => new StatuResource($this->unit_statu),
             'site'         => new SiteResource($this->site),
