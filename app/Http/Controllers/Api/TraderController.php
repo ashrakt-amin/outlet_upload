@@ -48,22 +48,22 @@ class TraderController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->getTokenId('user')) {
-            $request->validate([
-                'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-                'code'        => 'unique:traders,code',
-                'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-                'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-                'national_id' => 'unique:traders,national_id',
-            ], [
-                'phone.required'       => 'الهاتف مسجل من قبل',
-                'phone.unique'       => 'الهاتف مسجل من قبل',
-                'code.unique'        => 'الكود مسجل من قبل',
-                'phone.regex'        => 'صيغة الهاتف غير صحيحة',
-                'national_id.unique' => 'الرقم القومي مسجل من قبل',
-                'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-                'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
-            ]);
+        if ($request) {
+            // $request->validate([
+            //     'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            //     'code'        => 'unique:traders,code',
+            //     'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            //     'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
+            //     'national_id' => 'unique:traders,national_id',
+            // ], [
+            //     'phone.required'       => 'الهاتف مسجل من قبل',
+            //     'phone.unique'       => 'الهاتف مسجل من قبل',
+            //     'code.unique'        => 'الكود مسجل من قبل',
+            //     'phone.regex'        => 'صيغة الهاتف غير صحيحة',
+            //     'national_id.unique' => 'الرقم القومي مسجل من قبل',
+            //     'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
+            //     'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
+            // ]);
             $emailExist = Trader::where(['email'=>$request->email])->first();
             if (!empty($emailExist->email)) {
                 return response()->json([
@@ -72,10 +72,10 @@ class TraderController extends Controller
             }
             $trader = new Trader();
             $trader->fill($request->input());
-            if ($request->has('img')) {
-                $img = $request->file('img');
-                $trader->img = $this->setImage($img, 'traders', 450, 450);
-            }
+            // if ($request->has('img')) {
+            //     $img = $request->file('img');
+            //     $trader->img = $this->setImage($img, 'traders', 450, 450);
+            // }
             $trader->code = randomCode();
 
             if ($trader->save()) {
@@ -163,6 +163,11 @@ class TraderController extends Controller
                     "message" => "فشل تعديل التاجر",
                 ], 422);
             }
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "تسجيل الدخول ",
+            ], 422);
         }
     }
 
