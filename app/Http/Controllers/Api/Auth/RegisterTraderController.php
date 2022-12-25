@@ -21,16 +21,24 @@ class RegisterTraderController extends BaseController
      */
     public function register(Request $request)
     {
-        if ($request->input('code')) {
-            $user = Trader::where(['code'=>$request->input('code')])->first();
-            $age = $user->age;
-            if ($user) {
-                if ($user->phone == $request->input('phone')) {
+        $request->validate([
+            'phone' => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+        ], [
+            // 'phone.required' => 'الهاتف مسجل من قبل',
+            'phone.unique' => 'الهاتف مسجل من قبل',
+            'phone.regex' => 'صيغة الهاتف غير صحيحة',
+        ]);
+        // if ($request->input('code')) {
+        //     $user = Trader::where(['code'=>$request->input('code')])->first();
+        //     $age = $user->age;
+        //     if ($user) {
+        //         if ($user->phone == $request->input('phone')) {
                     if ($request->input('password') !== $request->input('confirm_password')) {
                         return response()->json([
                             'message' => 'الرقم السري غير مطابق',
                         ], 422);
                     } else {
+                        $user = new Trader();
                         $user->fill($request->input());
                         if ($request->has('img')) {
                             $img = $request->file('img');
@@ -38,34 +46,35 @@ class RegisterTraderController extends BaseController
                         }
 
                         $user->password = bcrypt($request->password);
+                        $user->code = randomCode();
 
-                        if ($request->age != null) {
-                            $user->age = $request->age;
-                        } else {
-                            $user->age = $age;
-                        }
-                        $input = $request->all();
-                        $input['password'] = bcrypt($input['password']);
-                        $user->password = $input['password'];
-                        $user->update();
-                        $success['token']     =  $user->createToken('trader')->plainTextToken;
-                        $success['tokenName'] =  "trader";
-                        $success['name']      =  new TraderResource($user);
-                        if ($user->update()) {
+                        // if ($request->age != null) {
+                        //     $user->age = $request->age;
+                        // } else {
+                        //     $user->age = $age;
+                        // }
+                        // $input = $request->all();
+                        // $input['password'] = bcrypt($input['password']);
+                        // $user->password = $input['password'];
+                        // $user->updatesa();
+                        if ($user->save()) {
+                            $success['token']     =  $user->createToken('trader')->plainTextToken;
+                            $success['tokenName'] =  "trader";
+                            $success['name']      =  new TraderResource($user);
                             return $this->sendResponse($success, 'تم التسجيل بنجاح.');
                         }
                     }
-                } else {
-                    return response()->json([
-                        'message' => 'الهاتف غير صحيح',
-                    ], 422);
-                }
-            } else {
-                return response()->json([
-                    'message' => 'لا يوجد تاجر بهذا الكود',
-                ], 422);
-            }
-        }
+            //     } else {
+            //         return response()->json([
+            //             'message' => 'الهاتف غير صحيح',
+            //         ], 422);
+            //     }
+            // } else {
+            //     return response()->json([
+            //         'message' => 'لا يوجد تاجر بهذا الكود',
+            //     ], 422);
+            // }
+        // }
     }
 
 }
