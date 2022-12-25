@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Models\Trader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Http\Resources\TraderResource;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -49,7 +50,7 @@ class RegisterTraderController extends BaseController
                         $user->update();
                         $success['token']     =  $user->createToken('trader')->plainTextToken;
                         $success['tokenName'] =  "trader";
-                        $success['name']      =  $user;
+                        $success['name']      =  new TraderResource($user);
                         if ($user->update()) {
                             return $this->sendResponse($success, 'تم التسجيل بنجاح.');
                         }
