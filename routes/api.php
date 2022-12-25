@@ -136,7 +136,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/trader', 'trader')->name('traders.trader');
         });
     });
-    Route::resource('newTraders', TraderController::class)->except('store', 'update', 'delete', 'create', 'edit');
+    Route::resource('newTraders', TraderController::class)->except('index', 'store', 'create', 'edit');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
