@@ -27,7 +27,7 @@ class ItemResource extends JsonResource
             'approved'         => $this->approved == 1 ? true : false,
             'description'      => $this->description ? $this->description : false,
             'discount'         => $this->discount ? (float)$this->discount : false,
-            'trader'           => $this->item_trader,
+            'trader'           => new TraderResource($this->item_trader),
             'clientViews'      => $this->client_views,
             'views'            => $this->all_views,
             'wishlist'         => $this->wishlist,
