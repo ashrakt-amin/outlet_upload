@@ -131,12 +131,12 @@ Route::middleware('auth:sanctum')->group(function () {
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::prefix("traders")->group(function(){
+    Route::prefix("newTraders")->group(function(){
         Route::controller(TraderController::class)->group(function () {
             Route::get('/trader', 'trader')->name('traders.trader');
         });
     });
-    Route::resource('traders', TraderController::class)->except('store', 'update', 'delete', 'create', 'edit');
+    Route::resource('newTraders', TraderController::class)->except('store', 'update', 'delete', 'create', 'edit');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
