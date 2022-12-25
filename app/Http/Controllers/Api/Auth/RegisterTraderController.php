@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Models\User;
-use App\Models\Client;
 use App\Models\Trader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+
 
 class RegisterTraderController extends BaseController
 {
+    use TraitsAuthGuardTrait;
+    use TraitImageProccessingTrait;
     /**
      * Register api
      *
@@ -22,6 +22,7 @@ class RegisterTraderController extends BaseController
     {
         if ($request->input('code')) {
             $user = Trader::where(['code'=>$request->input('code')])->first();
+            $age = $user->age;
             if ($user) {
                 if ($user->phone == $request->input('phone')) {
                     if ($request->input('password') !== $request->input('confirm_password')) {
@@ -29,12 +30,18 @@ class RegisterTraderController extends BaseController
                             'message' => 'الرقم السري غير مطابق',
                         ], 422);
                     } else {
-                        if ($request->hasFile('img')) {
-                            $file            = $request->file('img');
-                            $ext             = $file->getClientOriginalExtension();
-                            $filename        = time().'.'.$ext;
-                            $file->move('assets/images/uploads/traders/', $filename);
-                            $user->img = $filename;
+                        $user->fill($request->input());
+                        if ($request->has('img')) {
+                            $img = $request->file('img');
+                            $user->img = $this->setImage($img, 'traders', 450, 450);
+                        }
+
+                        $user->password = bcrypt($request->password);
+
+                        if ($request->age != null) {
+                            $user->age = $request->age;
+                        } else {
+                            $user->age = $age;
                         }
                         $input = $request->all();
                         $input['password'] = bcrypt($input['password']);
@@ -43,7 +50,9 @@ class RegisterTraderController extends BaseController
                         $success['token']     =  $user->createToken('trader')->plainTextToken;
                         $success['tokenName'] =  "trader";
                         $success['name']      =  $user;
-                        return $this->sendResponse($success, 'تم التسجيل بنجاح.');
+                        if ($user->update()) {
+                            return $this->sendResponse($success, 'تم التسجيل بنجاح.');
+                        }
                     }
                 } else {
                     return response()->json([

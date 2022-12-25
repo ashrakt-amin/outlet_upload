@@ -107,6 +107,7 @@ class TraderController extends Controller
     public function show(Trader $trader)
     {
         $trader = Trader::where(['id'=>$trader->id])->with(['units' ,'items'])->first();
+        // dd($trader);
         return response()->json([
             "data"=> new TraderResource($trader),
         ], 200);
@@ -121,10 +122,10 @@ class TraderController extends Controller
     public function trader()
     {
         $user = $this->getTokenId('trader');
-        $trader = Trader::where(['id'=>$this->getTokenId('trader')])->with(['items', 'orderDetails'])->get();
+        $trader = Trader::where(['id'=>$this->getTokenId('trader')])->with(['items'])->get();
         if ($user) {
             return response()->json([
-                'data' => TraderResource::collection($trader),
+                'data' => new TraderResource($trader),
             ]);
         }
     }
@@ -141,20 +142,10 @@ class TraderController extends Controller
         $age = $trader->age;
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             $trader->fill($request->input());
-            if ($request->hasFile('img')) {
-                $image_path = "assets/images/uploads/traders/".$trader->img;  // Value is not URL but directory file path
-                if(File::exists($image_path)) {
-                    File::delete($image_path);
-                }
-                $file            = $request->file('img');
-                $ext             = $file->getClientOriginalExtension();
-                $filename        = time().'.'.$ext;
-                $file->move('assets/images/uploads/traders/', $filename);
-                $trader->img = $filename;
+            if ($request->has('img')) {
+                $img = $request->file('img');
+                $trader->img = $this->setImage($img, 'traders', 450, 450);
             }
-            // $age = Carbon::createFromFormat('m/d/Y', $request->age)->format('Y-m-d');
-            // $age = Carbon::parse($request->age)->format('Y-m-d');
-            // $trader->age = Carbon::parse($age)->age;
             if ($request->age != null) {
                 $trader->age = $request->age;
             } else {
