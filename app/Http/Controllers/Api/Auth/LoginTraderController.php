@@ -20,25 +20,29 @@ class LoginTraderController extends Controller
      */
     public function login(Request $request)
     {
-        if (Auth::guard('trader')->attempt(['phone' => $request->phone, 'password' => $request->password, ])) {
-            $user = auth()->guard('trader')->user();
-            if ($request->code != null) {
-                $user = Trader::where(['code'=>$request->code, 'phone' => $request->phone])->first();
-                $user->approved = 1;
-                $user->update();
-                $success['token'] =  $user->createToken('trader')->plainTextToken;
-                $success['tokenName'] =  "trader";
-                $success['name']      =  $user;
-                return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
-            } elseif ($user->approved == true) {
-                $success['token'] =  $user->createToken('trader')->plainTextToken;
-                $success['tokenName'] =  "trader";
-                $success['name']      =  $user;
-                return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
-            } else {
-                $success['name']      =  $user;
-                return $this->sendResponse($success, 'يرجى ادخال كود تفعيل صحيح');
-            }
+        if (Auth::guard('trader')->attempt([
+            'phone' => $request->phone,
+            'password' => $request->password
+            ])) {
+                $user = Trader::where(['phone' => $request->phone])->first();
+                if ($user->approved == true) {
+                    $success['token'] =  $user->createToken('trader')->plainTextToken;
+                    $success['tokenName'] =  "trader";
+                    $success['name']      =  $user;
+                    return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
+                } elseif ($user->approved == false) {
+                    if ($request->code == $user->code) {
+                        $user->approved = 1;
+                        $user->update();
+                        $success['token'] =  $user->createToken('trader')->plainTextToken;
+                        $success['tokenName'] =  "trader";
+                        $success['name']      =  $user;
+                        return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
+                    } else {
+                        $success['message'] = false;
+                        return $this->sendResponse($success, 'يرجى ادخال كود صحيح');
+                    }
+                }
         }
         else{
             return $this->sendError('Unauthorised.', ['error'=>'بيانات غير صحيحة']);
