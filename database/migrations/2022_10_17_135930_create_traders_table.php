@@ -23,12 +23,10 @@ return new class extends Migration
             $table->string('phone')->nullable()->unique();
             $table->string('national_id')->nullable()->unique();
             $table->string('code')->unique();
+            $table->boolean('approved')->default(0);
             $table->string('email')->nullable()->unique();
             $table->string('guard_name')->default('trader');
             $table->string('phone2')->unique()->nullable();
-            $table->string('phone3')->unique()->nullable();
-            $table->string('phone4')->unique()->nullable();
-            $table->string('phone5')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->rememberToken();
