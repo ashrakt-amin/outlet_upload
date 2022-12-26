@@ -29,7 +29,7 @@ class RegisterTraderController extends BaseController
         //     'phone.regex' => 'صيغة الهاتف غير صحيحة',
         // ]);
         $trader = Trader::where(['phone'=>$request->input('phone')])->first();
-        if ($trader->phone) {
+        if ($trader != null) {
             return response()->json([
                 'message' => 'الهاتف مسجل من قبل',
             ], 422);
