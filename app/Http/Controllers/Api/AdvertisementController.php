@@ -142,16 +142,11 @@ class AdvertisementController extends Controller
                 $advertisement->update();
             }
         }
-        if ($request->hasFile('img')) {
-            $image_path = "assets/images/uploads/advertisements/".$advertisement->img;  // Value is not URL but directory file path
-            if(File::exists($image_path)) {
-                File::delete($image_path);
-            }
-            $file            = $request->file('img');
-            $ext             = $file->getClientOriginalExtension();
-            $filename        = time().'.'.$ext;
-            $file->move('assets/images/uploads/advertisements/', $filename);
-            $advertisement->img = $filename;
+
+        if ($request->has('img')) {
+            $img = $request->file('img');
+            $fileName = $this->setImage($img, 'advertisements', 900, 600);
+            $advertisement->img = $fileName;
         }
         $advertisement->renew = $newRenew + $oldRenew;
         if ($advertisement->update()) {
