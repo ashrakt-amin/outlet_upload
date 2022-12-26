@@ -21,13 +21,19 @@ class RegisterTraderController extends BaseController
      */
     public function register(Request $request)
     {
-        $request->validate([
-            'phone' => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-        ], [
-            // 'phone.required' => 'الهاتف مسجل من قبل',
-            'phone.unique' => 'الهاتف مسجل من قبل',
-            'phone.regex' => 'صيغة الهاتف غير صحيحة',
-        ]);
+        // $request->validate([
+        //     'phone' => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+        // ], [
+        //     // 'phone.required' => 'الهاتف مسجل من قبل',
+        //     'phone.unique' => 'الهاتف مسجل من قبل',
+        //     'phone.regex' => 'صيغة الهاتف غير صحيحة',
+        // ]);
+        $trader = Trader::where(['phone'=>$request->input('phone')])->first();
+        if ($trader->phone) {
+            return response()->json([
+                'message' => 'الهاتف مسجل من قبل',
+            ], 422);
+        }
         // if ($request->input('code')) {
         //     $user = Trader::where(['code'=>$request->input('code')])->first();
         //     $age = $user->age;

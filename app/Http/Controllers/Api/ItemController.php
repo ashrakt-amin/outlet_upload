@@ -34,7 +34,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = Item::with(['trader'])->get();
         return response()->json([
                 'data' => ItemResource::collection($items)
         ], 200);
@@ -47,7 +47,7 @@ class ItemController extends Controller
      */
     public function latest()
     {
-        $items = Item::latest()->take(10)->get();
+        $items = Item::with(['trader'])->latest()->take(10)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);
@@ -60,7 +60,7 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::inRandomOrder()->limit(5)->get();
+        $items = Item::with(['trader'])->inRandomOrder()->limit(5)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);

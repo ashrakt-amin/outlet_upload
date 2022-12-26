@@ -49,21 +49,21 @@ class TraderController extends Controller
     public function store(Request $request)
     {
         if ($request) {
-            // $request->validate([
-            //     'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-            //     'code'        => 'unique:traders,code',
-            //     'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            //     'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            //     'national_id' => 'unique:traders,national_id',
-            // ], [
-            //     'phone.required'       => 'الهاتف مسجل من قبل',
-            //     'phone.unique'       => 'الهاتف مسجل من قبل',
-            //     'code.unique'        => 'الكود مسجل من قبل',
-            //     'phone.regex'        => 'صيغة الهاتف غير صحيحة',
-            //     'national_id.unique' => 'الرقم القومي مسجل من قبل',
-            //     'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-            //     'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
-            // ]);
+            $request->validate([
+                'phone' => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+                // 'code' => 'unique:traders,code',
+                // 'phone1' => 'nullable|regex:/^(01)[0-9]{9}$/',
+                // 'phone2' => 'nullable|regex:/^(01)[0-9]{9}$/',
+                // 'national_id' => 'unique:traders,national_id',
+            ], [
+                'phone.required' => 'الهاتف مسجل من قبل',
+                'phone.unique' => 'الهاتف مسجل من قبل',
+                'phone.regex' => 'صيغة الهاتف غير صحيحة',
+                // 'code.unique'        => 'الكود مسجل من قبل',
+                // 'national_id.unique' => 'الرقم القومي مسجل من قبل',
+                // 'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
+                // 'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
+            ]);
             $emailExist = Trader::where(['email'=>$request->email])->first();
             if (!empty($emailExist->email)) {
                 return response()->json([
@@ -82,7 +82,7 @@ class TraderController extends Controller
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل تاجرا جديدا",
-                    "data" => new TraderResource($trader),
+                    "data" => ["code"=>$trader->code],
                 ], 200);
             } else {
                 return response()->json([
@@ -107,7 +107,6 @@ class TraderController extends Controller
     public function show(Trader $trader)
     {
         $trader = Trader::where(['id'=>$trader->id])->with(['units' ,'items'])->first();
-        // dd($trader);
         return response()->json([
             "data"=> new TraderResource($trader),
         ], 200);
@@ -122,8 +121,8 @@ class TraderController extends Controller
     public function trader()
     {
         $user = $this->getTokenId('trader');
-        $trader = Trader::where(['id'=>$this->getTokenId('trader')])->with(['items'])->get();
-        if ($user) {
+        $trader = Trader::where(['id'=>$user])->with(['items'])->first();
+        if ($trader) {
             return response()->json([
                 'data' => new TraderResource($trader),
             ]);

@@ -14,9 +14,16 @@ class Trader extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait;
 
-    protected $appends = ['path'];
+    protected $appends = ['path', 'trader_items'];
 
     protected $guard = 'trader';
+
+    protected $visible = [
+        'f_name',
+        'l_name',
+        'img',
+        'phone',
+    ];
 
     protected $fillable = [
         'f_name',
@@ -40,6 +47,11 @@ class Trader extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $hidden = [
+        'phone2',
+        'phone3',
+        'phone4',
+        'phone5',
+        'email',
         'password',
         'remember_token',
         'email_verified_at',
@@ -93,5 +105,11 @@ class Trader extends Authenticatable implements MustVerifyEmail
     public function getPathAttribute()
     {
         return asset('storage/images/traders') . '/' . $this->img;
+    }
+
+    public function getTraderItemsAttribute()
+    {
+        return Item::where(['trader_id'=>$this->id])->get();
+        // return $this->items ? $this->items : false;
     }
 }

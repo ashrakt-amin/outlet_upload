@@ -92,7 +92,7 @@ Route::prefix("register")->group(function(){
     Route::middleware('auth:sanctum')->group(function () {
         Route::post("users",  [RegisterUserController::class, "register"])->name("register.users");
     });
-    Route::put("traders",[RegisterTraderController::class, "register"])->name("register.traders");
+    Route::post("traders",[RegisterTraderController::class, "register"])->name("register.traders");
     Route::post("clients",[RegisterClientController::class, "register"])->name("register.clients");
 });
 //______________________________________________________________________________________________________________________
@@ -135,8 +135,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(TraderController::class)->group(function () {
             Route::get('/trader', 'trader')->name('newTraders.trader');
         });
+        Route::resource('/', TraderController::class)->only('destroy', 'update', 'create', 'edit');
     });
-    // Route::resource('newTraders', TraderController::class)->except('index', 'show', 'update', 'create', 'edit');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //______________________________________________________________________________________________________________________
 //______________________________________________________________________________________________________________________
 
-Route::resource('newTraders', TraderController::class);
+Route::resource('newTraders', TraderController::class)->only('index', 'show');
 //-----------------------------------------------------------------------------------------------------------
 Route::resource('traders', TraderController::class)->only('index', 'show', 'update');
 //______________________________________________________________________________________________________________________

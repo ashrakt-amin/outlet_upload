@@ -15,6 +15,7 @@ class ItemResource extends JsonResource
     public function toArray($request)
     {
         $stocks   = $this->whenLoaded('stocks');
+        $trader   = $this->whenLoaded('trader');
         return [
             'id'               => $this->id,
             'name'             => $this->name,
@@ -27,7 +28,7 @@ class ItemResource extends JsonResource
             'approved'         => $this->approved == 1 ? true : false,
             'description'      => $this->description ? $this->description : false,
             'discount'         => $this->discount ? (float)$this->discount : false,
-            'trader'           => new TraderResource($this->item_trader),
+            'trader'           => new TraderResource($trader),
             'clientViews'      => $this->client_views,
             'views'            => $this->all_views,
             'wishlist'         => $this->wishlist,
