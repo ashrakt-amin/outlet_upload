@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
-use App\Models\Client;
-
-use App\Models\Trader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Http\Controllers\Controller;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
-class LoginUserController extends BaseController
+class LoginUserController extends Controller
 {
+    use TraitImageProccessingTrait;
+    use TraitResponseTrait;
     /**
      * Login api
      *

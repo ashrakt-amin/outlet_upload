@@ -9,7 +9,6 @@ use App\Http\Resources\TraderResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
-use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 

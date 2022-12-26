@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Models\User;
-use App\Models\Client;
-
 use App\Models\Trader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
-class LoginTraderController extends BaseController
+class LoginTraderController extends Controller
 {
+    use TraitImageProccessingTrait;
+    use TraitResponseTrait;
     /**
      * Login api
      *
@@ -21,12 +20,25 @@ class LoginTraderController extends BaseController
      */
     public function login(Request $request)
     {
-        if (Auth::guard('trader')->attempt(['phone' => $request->phone, 'password' => $request->password])) {
+        if (Auth::guard('trader')->attempt(['phone' => $request->phone, 'password' => $request->password, ])) {
             $user = auth()->guard('trader')->user();
-            $success['token'] =  $user->createToken('trader')->plainTextToken;
-            $success['tokenName'] =  "trader";
-            $success['name']      =  $user;
-            return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
+            if ($request->code != null) {
+                $user = Trader::where(['code'=>$request->code, 'phone' => $request->phone])->first();
+                $user->approved = 1;
+                $user->update();
+                $success['token'] =  $user->createToken('trader')->plainTextToken;
+                $success['tokenName'] =  "trader";
+                $success['name']      =  $user;
+                return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
+            } elseif ($user->approved == true) {
+                $success['token'] =  $user->createToken('trader')->plainTextToken;
+                $success['tokenName'] =  "trader";
+                $success['name']      =  $user;
+                return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
+            } else {
+                $success['name']      =  $user;
+                return $this->sendResponse($success, 'يرجى ادخال كود تفعيل صحيح');
+            }
         }
         else{
             return $this->sendError('Unauthorised.', ['error'=>'بيانات غير صحيحة']);

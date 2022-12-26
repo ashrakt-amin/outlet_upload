@@ -9,10 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Http\Controllers\Controller;
+use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
-class RegisterClientController extends BaseController
+class RegisterClientController extends Controller
 {
+    use TraitResponseTrait;
+    use TraitImageProccessingTrait;
     /**
      * Register api
      *
