@@ -39,12 +39,12 @@ class LoginTraderController extends Controller
                         $success['name']      =  $user;
                         return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
                     } else {
-                        return $this->sendError('Unauthorised', 'يرجى ادخال كود صحيح');
+                        return $this->sendError(['error' => 'يرجى ادخال كود صحيح']);
                     }
                 }
         }
         else{
-            return $this->sendError('Unauthorised.', ['error'=>'بيانات غير صحيحة']);
+            return $this->sendError(['error'=>'بيانات غير صحيحة']);
         }
     }
 }
