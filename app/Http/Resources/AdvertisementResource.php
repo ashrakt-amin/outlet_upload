@@ -19,11 +19,11 @@ class AdvertisementResource extends JsonResource
         $expiry_date =  $this->renew > 0 ? $this->renew * 30 : 30;
         $diff_day = Carbon::now()->diffInDays($this->advertisement_expire, false);
         return [
-            'id'      => $this->id,
-            'img'     => $this->img,
-            'traders' => new TraderResource($trader),
-            'link'    => $this->link,
-            'images'  => $this->advertisementImages,
+            'id' => $this->id,
+            'img' => $this->path,
+            'trader' => new TraderResource($trader),
+            'link' => $this->link,
+            'images' => $this->advertisementImages,
             "daysRemainig" => $diff_day,
         ];
     }

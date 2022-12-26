@@ -54,19 +54,17 @@ class AdvertisementController extends Controller
         $expiry_days =  $request->input('renew') > 0 ? $request->input('renew') * 30 : 30;
         $advertisement->advertisement_expire = Carbon::parse($contruct_date)->addDays(($expiry_days));
         $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
-        if ($request->hasFile('img')) {
+        if ($request->has('img')) {
             $img = $request->file('img');
-            $originalFilename        = $this->setImage($img, $request->advertisement_id, 'advertisements/lg');
-            $filename                = $this->aspectForResize($img, $request->advertisement_id, 450, 450, 'advertisements/sm');
+            $fileName = $this->setImage($img, 'advertisements', 900, 600);
+            $advertisement->img = $fileName;
             if ($request->input('id')) {
                 $advertisement = Advertisement::where(['id'=>$request->input('id')])->first();
-                $lg_image_path = "advertisements/lg/".$advertisement->img;  // Value is not URL but directory file path
-                $sm_image_path = "advertisements/sm/".$advertisement->img;  // Value is not URL but directory file path
-                if ($advertisement->img != $filename) {
+                $lg_image_path = "advertisements".$advertisement->img;  // Value is not URL but directory file path
+                if ($advertisement->img != $fileName) {
                     $this->deleteImage($lg_image_path);
-                    $this->deleteImage($sm_image_path);
                 }
-                $advertisement->img = $filename;
+                $advertisement->img = $fileName;
                 if ($advertisement->update()) {
                     return response()->json([
                         "success" => true,
@@ -75,7 +73,7 @@ class AdvertisementController extends Controller
                     ], 200);
                 }
             }
-            $advertisement->img = $filename;
+            $advertisement->img = $fileName;
         }
 
         if ($advertisement->save()) {

@@ -9,18 +9,13 @@ class Advertisement extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-    ];
+    protected $appends = ['path'];
 
     protected $guarded = [];
 
-    protected $hidden = [
-        'created_at',
-        'updated_at'
-    ];
+    protected $hidden = ['created_at', 'updated_at'];
 
-    protected $visible = [
-    ];
+    protected $visible = [];
 
 
     public function trader()
@@ -31,6 +26,11 @@ class Advertisement extends Model
     public function advertisementImages()
     {
         return $this->hasMany(AdvertisementImage::class);
+    }
+
+    public function getPathAttribute()
+    {
+        return asset('storage/images/advertisements') . '/' . $this->img;
     }
 
 }

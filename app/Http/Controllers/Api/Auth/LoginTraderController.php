@@ -44,7 +44,7 @@ class LoginTraderController extends Controller
                 }
         }
         else{
-            return $this->sendError('مصادقة غير مكتملة', ['error'=>'بيانات غير صحيحة']);
+            return $this->sendError('مصادقة غير مكتملة', ['error' => 'بيانات غير صحيحة']);
         }
     }
 }
