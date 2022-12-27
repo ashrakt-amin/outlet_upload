@@ -20,10 +20,10 @@ class LoginTraderController extends Controller
      */
     public function login(Request $request)
     {
+        $user = Trader::where(['phone' => $request->phone])->first();
         if (Auth::guard('trader')->attempt([
             'phone' => $request->phone,
-            'password' => $request->password
-            ])) {
+            'password' => $request->password ]) || ($user != null & $user->code == $request->input('code'))) {
                 $user = Trader::where(['phone' => $request->phone])->first();
                 if ($user->approved == true) {
                     $success['token'] =  $user->createToken('trader')->plainTextToken;
@@ -42,8 +42,7 @@ class LoginTraderController extends Controller
                         return $this->sendError('مصادقة غير مكتملة', ['error' => 'يرجى ادخال كود صحيح']);
                     }
                 }
-        }
-        else{
+        } else{
             return $this->sendError('مصادقة غير مكتملة', ['error' => 'بيانات غير صحيحة']);
         }
     }
