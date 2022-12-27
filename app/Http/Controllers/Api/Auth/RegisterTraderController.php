@@ -77,7 +77,7 @@ class RegisterTraderController extends Controller
                         if ($user->save()) {
                             // $success['token']     =  $user->createToken('trader')->plainTextToken;
                             // $success['tokenName'] =  "trader";
-                            $success['name']      =  new TraderResource($user);
+                            $success['data']      =  new TraderResource($user);
                             return $this->sendResponse($success, 'تم التسجيل بنجاح.');
                         }
                     }
