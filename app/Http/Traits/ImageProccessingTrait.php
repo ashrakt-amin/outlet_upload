@@ -142,13 +142,9 @@ Trait ImageProccessingTrait
     /**
      * Delete image
      */
-    public function deleteImage($imgPath)
+    public function deleteImage($location, $filename)
     {
-        if (is_file(Storage::disk('public')->path($this->path . '/' . $imgPath, 'public'))) {
-            if (file_exists(Storage::disk('public')->path($this->path . '/' . $imgPath, 'public'))) {
-                unlink(Storage::disk('public')->path($this->path . '/' . $imgPath, 'public'));
-            }
-        }
+        return Storage::disk('public')->delete($this->path . '/' . $location . '/' . $filename);
     }
 
     /**

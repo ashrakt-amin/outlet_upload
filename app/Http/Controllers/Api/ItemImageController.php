@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\ItemImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemImageController extends Controller
@@ -84,21 +86,32 @@ class ItemImageController extends Controller
      */
     public function destroy(ItemImage $itemImage)
     {
-        $lg_image_path = "items/lg/".$itemImage->img;  // Value is not URL but directory file path
-        $sm_image_path = "items/sm/".$itemImage->img;  // Value is not URL but directory file path
-
-        $this->deleteImage($lg_image_path);
-        $this->deleteImage($sm_image_path);
-        if ($itemImage->delete()) {
+        return DB::transaction(function() use($itemImage){
+            $this->deleteImage(ItemImage::IMAGE_PATH, $itemImage->img);
+            $itemImage->delete();
             return response()->json([
                 "success" => true,
                 "message" => "تم حذف الصورة",
             ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف الصورة",
-            ], 422);
-        }
+        });
+
+
+        // try {
+        //     DB::beginTransaction();
+        //     $this->deleteImage(ItemImage::IMAGE_PATH, $itemImage->img);
+        //     $itemImage->delete();
+        //     return response()->json([
+        //         "success" => true,
+        //         "message" => "تم حذف الصورة",
+        //     ], 200);
+        //     DB::commit();
+        // } catch(\Exception $e) {
+        //     DB::rollback();
+        //     throw $e;
+        //     return response()->json([
+        //         "success" => false,
+        //         "message" => "فشل حذف الصورة",
+        //     ], 422);
+        // }
     }
 }

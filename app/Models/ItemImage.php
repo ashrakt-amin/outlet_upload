@@ -9,6 +9,7 @@ class ItemImage extends Model
 {
     use HasFactory;
 
+    const IMAGE_PATH = 'items';
     protected $appends = ['path'];
 
     protected $hidden = [
