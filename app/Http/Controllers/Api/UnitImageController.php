@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\UnitImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 
@@ -83,21 +84,13 @@ class UnitImageController extends Controller
      */
     public function destroy(UnitImage $unitImage)
     {
-        $lg_image_path = "units/lg/".$unitImage->img;  // Value is not URL but directory file path
-        $sm_image_path = "units/sm/".$unitImage->img;  // Value is not URL but directory file path
-
-        $this->deleteImage($lg_image_path);
-        $this->deleteImage($sm_image_path);
-        if ($unitImage->delete()) {
+        return DB::transaction(function() use($unitImage){
+            $this->deleteImage(UnitImage::IMAGE_PATH, $unitImage->img);
+            $unitImage->delete();
             return response()->json([
                 "success" => true,
                 "message" => "تم حذف الصورة",
             ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف الصورة",
-            ], 422);
-        }
+        });
     }
 }

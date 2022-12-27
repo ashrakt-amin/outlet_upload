@@ -74,7 +74,6 @@ Trait ImageProccessingTrait
         $img->resize($width, $height, function($constraint) {
             $constraint->aspectRatio();
         });
-        // $imgPath   = $strRandom.time().$extension;
         $imgPath   = $ownerId.$name;
         $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
 
@@ -88,12 +87,12 @@ Trait ImageProccessingTrait
     {
         $img = Image::make($image);
 
-        $name            = $image->getClientOriginalName();
+        $name = $image->getClientOriginalName();
 
         $extension = $this->getMime($img->mime());
         $strRandom = Str::random(8);
         $img->crop($width, $height, 0, 0);
-        $imgPath   = $ownerId.$name;
+        $imgPath = $ownerId.$name;
         $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
 
         return $imgPath;
@@ -104,15 +103,6 @@ Trait ImageProccessingTrait
      */
     public function ImageThumbnail($image, $ownerId, $path, $thumb = false)
     {
-        // $dataArray = array();
-        // $dataArray['image'] = $this->setImage($image, $ownerId, $path);
-        // if ($thumb) {
-        //     $dataArray['thumbnailSm'] = $this->aspectForResize($image, $ownerId, $path, 200, 200);
-        //     $dataArray['thumbnailMd'] = $this->aspectForResize($image, $ownerId, $path, 400, 400);
-        //     $dataArray['thumbnailLg'] = $this->aspectForResize($image, $ownerId, $path, 600, 600);
-        // }
-        // return $dataArray;
-
         $dataArray = array();
         $img = Image::make($image);
 
@@ -145,30 +135,6 @@ Trait ImageProccessingTrait
     public function deleteImage($location, $filename)
     {
         return Storage::disk('public')->delete($this->path . '/' . $location . '/' . $filename);
-    }
-
-    /**
-     * store multi images for all models
-     */
-    public function storeMultiModelImages($image, $modelName, $relationColumnName, $relationColumnValue, $path)
-    {
-        $img = Image::make($image);
-        $name            = $image->getClientOriginalName();
-        $ext             = $image->getClientOriginalExtension();
-        $filename        = rand(10, 100000).time().'.'.$ext;
-        $image->save(public_path('../assets/images/uploads/'.$path).'/'.$name);
-
-
-        $relationColumnNameImage = $modelName;
-        $relationColumnNameImage->$relationColumnName = $relationColumnValue;
-        $relationColumnNameImage->img                 = $name;
-        $relationColumnNameImage->save();
-        return $image;
-
-        // $levelImage = new LevelImage();
-        // $levelImage->item_id = $item;
-        // $levelImage->img     = $this->aspectForResize($image, $item, 600, 450, 'items');
-        // $levelImage->save();
     }
 
 }

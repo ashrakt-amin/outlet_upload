@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\ProjectImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ProjectImageController extends Controller
@@ -60,19 +61,13 @@ class ProjectImageController extends Controller
      */
     public function destroy(ProjectImage $projectImage)
     {
-        $image_path = "projects".$projectImage->img;  // Value is not URL but directory file path
-
-        $this->deleteImage($image_path);
-        if ($projectImage->delete()) {
+        return DB::transaction(function() use($projectImage){
+            $this->deleteImage(ProjectImage::IMAGE_PATH, $projectImage->img);
+            $projectImage->delete();
             return response()->json([
                 "success" => true,
                 "message" => "تم حذف الصورة",
             ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف الصورة",
-            ], 422);
-        }
+        });
     }
 }

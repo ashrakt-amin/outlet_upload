@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnitImage extends Model
 {
+
+    const IMAGE_PATH = 'units';
     use HasFactory;
 
     protected $appends = ['path'];
