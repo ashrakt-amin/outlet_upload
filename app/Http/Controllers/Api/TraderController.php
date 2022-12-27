@@ -5,6 +5,7 @@ use Carbon\Carbon;
 
 use App\Models\Trader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\TraderResource;
@@ -138,30 +139,33 @@ class TraderController extends Controller
      */
     public function update(Request $request, Trader $trader)
     {
-        $age = $trader->age;
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
-            $trader->fill($request->input());
-            if ($request->has('img')) {
-                $img = $request->file('img');
-                $trader->img = $this->setImage($img, 'traders', 450, 450);
-            }
-            if ($request->age != null) {
-                $trader->age = $request->age;
-            } else {
-                $trader->age = $age;
-            }
-            if ($trader->update()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تعديل التاجر",
-                    "data" => new TraderResource($trader),
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل تعديل التاجر",
-                ], 422);
-            }
+            return DB::transaction(function() use($trader, $request){
+                $age = $trader->age;
+                $trader->fill($request->input());
+                if ($request->hasFile('img')) {
+                    $this->deleteImage(Trader::IMAGE_PATH, $trader->img);
+                    $img = $request->file('img');
+                    $trader->img = $this->setImage($img, 'traders', 450, 450);
+                }
+                if ($request->age != null) {
+                    $trader->age = $request->age;
+                } else {
+                    $trader->age = $age;
+                }
+                if ($trader->update()) {
+                    return response()->json([
+                        "success" => true,
+                        "message" => "تم تعديل التاجر",
+                        "data" => new TraderResource($trader),
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "success" => false,
+                        "message" => "فشل تعديل التاجر",
+                    ], 422);
+                }
+            });
         } else {
             return response()->json([
                 "success" => false,

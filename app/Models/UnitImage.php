@@ -8,17 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class UnitImage extends Model
 {
 
-    const IMAGE_PATH = 'units';
     use HasFactory;
 
+    const IMAGE_PATH = 'units';
     protected $appends = ['path'];
-
     protected $guarded = [];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function getPathAttribute()
     {

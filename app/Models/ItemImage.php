@@ -11,16 +11,9 @@ class ItemImage extends Model
 
     const IMAGE_PATH = 'items';
     protected $appends = ['path'];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at'
-    ];
-
-    protected $visible = [
-    ];
-
-    protected $fillable  = ['item_id', 'img'];
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $visible = [];
+    protected $fillable = ['item_id', 'img'];
 
     public function item()
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\AdvertisementResource;
@@ -51,20 +52,19 @@ class AdvertisementController extends Controller
 
         // Expire of advertisement
         $contruct_date = Carbon::now();
-        $expiry_days =  $request->input('renew') > 0 ? $request->input('renew') * 30 : 30;
+        $expiry_days = $request->input('renew') > 0 ? $request->input('renew') * 30 : 30;
         $advertisement->advertisement_expire = Carbon::parse($contruct_date)->addDays(($expiry_days));
         $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
         if ($request->has('img')) {
             $img = $request->file('img');
-            $fileName = $this->setImage($img, 'advertisements', 900, 600);
-            $advertisement->img = $fileName;
+            $filename = $this->setImage($img, 'advertisements', 900, 600);
+            $advertisement->img = $filename;
             if ($request->input('id')) {
                 $advertisement = Advertisement::where(['id'=>$request->input('id')])->first();
-                $lg_image_path = "advertisements".$advertisement->img;  // Value is not URL but directory file path
-                if ($advertisement->img != $fileName) {
-                    $this->deleteImage($lg_image_path);
+                if ($advertisement->img != $filename) {
+                    $this->deleteImage(Advertisement::IMAGE_PATH, $advertisement->img);
                 }
-                $advertisement->img = $fileName;
+                $advertisement->img = $filename;
                 if ($advertisement->update()) {
                     return response()->json([
                         "success" => true,
@@ -73,14 +73,14 @@ class AdvertisementController extends Controller
                     ], 200);
                 }
             }
-            $advertisement->img = $fileName;
+            $advertisement->img = $filename;
         }
 
         if ($advertisement->save()) {
             return response()->json([
-                "success"  => true,
-                "message"  => "تم تسجيل اعلانا تجاريا جديدا",
-                "data"     => new AdvertisementResource($advertisement),
+                "success" => true,
+                "message" => "تم تسجيل اعلانا تجاريا جديدا",
+                "data" => new AdvertisementResource($advertisement),
                 "daysRemainig" => $diff_day,
             ], 200);
         } else {
@@ -119,6 +119,7 @@ class AdvertisementController extends Controller
     {
         // $current_expire = strtotime($advertisement->advertisement_expire);
         // Expire of advertisement
+    return DB::transaction(function() use($advertisement, $request){
 
         $oldExpiryDate   = $advertisement->advertisement_expire;
         $oldExpiryDate   = $oldExpiryDate[5].$oldExpiryDate[6];
@@ -142,11 +143,10 @@ class AdvertisementController extends Controller
                 $advertisement->update();
             }
         }
-
-        if ($request->has('img')) {
+        if ($request->hasFile('img')) {
+            $this->deleteImage(Advertisement::IMAGE_PATH, $advertisement->img);
             $img = $request->file('img');
-            $fileName = $this->setImage($img, 'advertisements', 900, 600);
-            $advertisement->img = $fileName;
+            $advertisement->img = $this->setImage($img, 'advertisements', 450, 450);
         }
         $advertisement->renew = $newRenew + $oldRenew;
         if ($advertisement->update()) {
@@ -161,6 +161,7 @@ class AdvertisementController extends Controller
                 "message" => "فشل تعديل الاعلان",
             ], 422);
         }
+    });
     }
 
     /**

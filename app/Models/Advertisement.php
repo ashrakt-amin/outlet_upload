@@ -7,25 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Advertisement extends Model
 {
+
     use HasFactory;
 
+    const IMAGE_PATH = 'advertisements';
     protected $appends = ['path'];
-
     protected $guarded = [];
-
     protected $hidden = ['created_at', 'updated_at'];
-
     protected $visible = [];
-
 
     public function trader()
     {
         return $this->belongsTo(Trader::class);
-    }
-
-    public function advertisementImages()
-    {
-        return $this->hasMany(AdvertisementImage::class);
     }
 
     public function getPathAttribute()

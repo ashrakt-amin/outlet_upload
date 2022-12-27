@@ -12,19 +12,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Trader extends Authenticatable implements MustVerifyEmail
 {
+
     use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait;
 
+    const IMAGE_PATH = 'traders';
     protected $appends = ['path', 'trader_items'];
-
-    protected $guard = 'trader';
-
-    protected $visible = [
-        'f_name',
-        'l_name',
-        'img',
-        'phone',
-    ];
-
+    protected $visible = [ 'f_name', 'l_name', 'img', 'phone'];
     protected $fillable = [
         'f_name',
         'l_name',
