@@ -14,6 +14,7 @@ class Project extends Model
         ];
 
     protected $hidden = [
+        'eskan_company_id',
         'pivot',
         'created_at',
         'updated_at'
@@ -22,12 +23,14 @@ class Project extends Model
     protected $visible = [
         'id',
         'name',
-        'levels'
+        'project_type',
+        'project_levels'
     ];
 
 
     protected $fillable = [
         'name',
+        'project_type',
     ];
 
     public function eskanCompany()

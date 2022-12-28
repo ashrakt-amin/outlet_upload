@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\Unit;
 
 use App\Models\Level;
 use App\Models\LevelImage;
@@ -50,31 +49,26 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
-                        'name' => [
-                            'required'
-                        ],
-                        'project_id' => [
-                            'required'
-                        ]
-                    ]);
-        if ($validate) {
-
-            if ($level = Level::create($request->all())) {
-                if ($request->has('img')) {
-                    foreach ($request->file('img') as $img) {
-                        $image = new LevelImage();
-                        $image->level_id = $level->id;
-                        $image->img = $this->setImage($img, 'levels', 450, 450);
-                        $image->save();
-                    }
+        $level_type = $request->project_type;
+        if ($level = Level::create([
+            'name' => $request->name,
+            'project_id' => $request->project_id,
+            'level_type' => $level_type,
+            'zone_id' => $request->zone_id
+            ])) {
+            if ($request->has('img')) {
+                foreach ($request->file('img') as $img) {
+                    $image = new LevelImage();
+                    $image->level_id = $level->id;
+                    $image->img = $this->setImage($img, 'levels', 450, 450);
+                    $image->save();
                 }
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تسجيل طابقا جديدا",
-                    "data" => new LevelResource($level)
-                ], 200);
             }
+            return response()->json([
+                "success" => true,
+                "message" => "تم تسجيل طابقا جديدا",
+                "data" => new LevelResource($level)
+            ], 200);
         } else {
             return response()->json([
                 "success" => false,
