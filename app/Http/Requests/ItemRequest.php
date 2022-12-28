@@ -16,7 +16,8 @@ class ItemRequest extends FormRequest
             'category_id' => 'required',
             'item_unit_id' => 'required',
             'unit_parts_count' => 'required',
-            'sale_price' => 'required'
+            'sale_price' => 'required',
+            'item_code' => 'unique:items,item_code',
         ];
     }
 
@@ -60,7 +61,8 @@ class ItemRequest extends FormRequest
             'category_id.required' => 'التصنيف مطلوب',
             'item_unit_id' => 'مطلوب',
             'unit_parts_count' => 'مطلوب',
-            'sale_price' => 'مطلوب'
+            'sale_price' => 'مطلوب',
+            'item_code' => 'موجود من قبل',
         ];
     }
 }
