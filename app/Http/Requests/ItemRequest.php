@@ -6,17 +6,27 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ItemRequest extends FormRequest
 {
+    /**
+     * store validations
+     */
     private function storeRequest()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'category_id' => 'required',
+            'item_unit_id' => 'required',
+            'unit_parts_count' => 'required',
+            'sale_price' => 'required'
         ];
     }
 
+    /**
+     * update validations
+     */
     private function updateRequest()
     {
         return [
-            'name' => 'nullable'
+            'name' => 'nullable',
         ];
     }
 
@@ -38,5 +48,19 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return request()->method() == 'PUT' ? $this->updateRequest() : $this->storeRequest();
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'يجب ادخال اسم',
+            'category_id.required' => 'التصنيف مطلوب',
+            'item_unit_id' => 'مطلوب',
+            'unit_parts_count' => 'مطلوب',
+            'sale_price' => 'مطلوب'
+        ];
     }
 }
