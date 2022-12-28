@@ -1,47 +1,15 @@
 <?php
 
+namespace App\Http\Controllers\Api;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\CartController;
-use App\Http\Controllers\Api\ItemController;
-use App\Http\Controllers\Api\RateController;
-use App\Http\Controllers\Api\SiteController;
-use App\Http\Controllers\Api\SizeController;
-use App\Http\Controllers\Api\UnitController;
-use App\Http\Controllers\Api\ZoneController;
-use App\Http\Controllers\Api\ColorController;
-use App\Http\Controllers\Api\LevelController;
-use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\StatuController;
-use App\Http\Controllers\Api\StockController;
-use App\Http\Controllers\Api\ClientController;
-use App\Http\Controllers\Api\TraderController;
-use App\Http\Controllers\Api\VolumeController;
-use App\Http\Controllers\Api\CompanyController;
-use App\Http\Controllers\Api\ProjectController;
-use App\Http\Controllers\Api\ActivityController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\ImporterController;
-use App\Http\Controllers\Api\ItemUnitController;
-use App\Http\Controllers\Api\WishlistController;
-use App\Http\Controllers\Api\ItemImageController;
 use App\Http\Controllers\Api\Auth\LogoutController;
-use App\Http\Controllers\Api\ManufactoryController;
-use App\Http\Controllers\Api\OrderDetailController;
-use App\Http\Controllers\Api\EskanCompanyController;
-use App\Http\Controllers\Api\AdvertisementController;
-use App\Http\Controllers\Api\AdvertisementImageController;
 use App\Http\Controllers\Api\Auth\LoginUserController;
 use App\Http\Controllers\Api\Auth\LoginClientController;
 use App\Http\Controllers\Api\Auth\LoginTraderController;
 use App\Http\Controllers\Api\Auth\RegisterUserController;
 use App\Http\Controllers\Api\Auth\RegisterClientController;
 use App\Http\Controllers\Api\Auth\RegisterTraderController;
-use App\Http\Controllers\Api\CouponController;
-use App\Http\Controllers\Api\LevelImageController;
-use App\Http\Controllers\Api\ProjectImageController;
-use App\Http\Controllers\Api\TraderImageController;
-use App\Http\Controllers\Api\UnitImageController;
-use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -240,7 +208,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::resource('newTraders', TraderController::class)->only('index', 'show');
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('traders', TraderController::class)->only('index', 'show', 'update');
+Route::resource('traders', TraderController::class)->only('index', 'show', 'update', 'store');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
@@ -308,7 +276,6 @@ Route::prefix("items")->group(function(){
         Route::get('/',             'index')->name('items.index');
         Route::get('/latest',      'latest')->name('items.latest');
         Route::get('/{item}',        'show')->name('items.show');
-        Route::post('/{item}', 'updateItem')->name('items.updateItem');
         Route::get('/random',      'random')->name('items.random');
     });
 });

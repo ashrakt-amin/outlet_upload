@@ -7,6 +7,7 @@ use App\Models\View;
 use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ItemRequest;
 use App\Http\Resources\ItemResource;
 use Illuminate\Support\Facades\File;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
@@ -72,7 +73,7 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
         $itemExist = Item::where(['item_code'=>$request->item_code])->first();
         if ($itemExist) {
@@ -149,7 +150,7 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(ItemRequest $request, Item $item)
     {
         if ($this->getTokenId('user')) {
             if ($item->update($request->all())) {
