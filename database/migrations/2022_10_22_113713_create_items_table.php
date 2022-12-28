@@ -31,7 +31,6 @@ return new class extends Migration
             $table->unsignedBigInteger('manufactory_id') ->nullable();
             $table->unsignedBigInteger('agent_id')       ->nullable();
             $table->unsignedBigInteger('company_id')     ->nullable();
-            $table->boolean('import')                    ->nullable();
             $table->unsignedBigInteger('importer_id')    ->nullable();
             $table->timestamps();
         });

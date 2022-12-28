@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->boolean('approved')->default(0);
             $table->string('email')->nullable()->unique();
-            $table->string('guard_name')->default('trader');
-            $table->string('phone2')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->rememberToken();
