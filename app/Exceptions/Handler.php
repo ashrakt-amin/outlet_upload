@@ -7,6 +7,7 @@ use Throwable;
 use Illuminate\Auth\AuthenticationException;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -80,12 +81,21 @@ class Handler extends ExceptionHandler
     //     return parent::render($request, $exception);
     // }
 
-    // public function render($request, $exception)
-    // {
-    //     if ($exception instanceof NotFoundHttpException) {
-    //         return redirect('/');
-    //     }
+    public function render($request, $exception)
+    {
+        if ($request->expectsJson()) {
+            return match (true) {
 
-    //     return parent::render($request, $exception);
-    // }
+                $exception instanceof ValidationException =>  $this->invalidJson($request, $exception),
+                // default => $this->apiResource(code: 500, status: false, message: $exception->getMessage() . " in " . $exception->getFile() . " at line " . $exception->getLine()),
+                default =>  response()->json([
+                    "success" => false,
+                    "message" => $exception->getMessage(),
+                    "data" => null
+                ], 500)
+            };
+        }
+
+        return parent::render($request, $exception);
+    }
 }
