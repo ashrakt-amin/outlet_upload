@@ -22,7 +22,7 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = Level::all();
+        $levels = Level::where(['level_type' => 1])->get();
         return response()->json([
             "data" => LevelResource::collection($levels)
         ]);
