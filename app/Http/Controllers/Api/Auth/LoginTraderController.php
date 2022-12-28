@@ -20,10 +20,9 @@ class LoginTraderController extends Controller
      */
     public function login(Request $request)
     {
-        $user = Trader::where(['phone' => $request->phone])->first();
-        if (Auth::guard('trader')->attempt([
-            'phone' => $request->phone,
-            'password' => $request->password ]) || ($user != null & $user->code == $request->input('code'))) {
+        $auth = Auth::guard('trader')->attempt(['phone' => $request->phone, 'password' => $request->password ]);
+        $user = Trader::where(['phone' => $request->phone, 'code' => $request->input('code')])->first();
+        if ($auth == true || $user) {
                 $user = Trader::where(['phone' => $request->phone])->first();
                 if ($user->approved == true) {
                     $success['token'] =  $user->createToken('trader')->plainTextToken;
