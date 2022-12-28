@@ -73,7 +73,7 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemRequest $request)
+    public function store(Request $request)
     {
         $itemExist = Item::where(['item_code'=>$request->item_code])->first();
         if ($itemExist) {
@@ -150,7 +150,7 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemRequest $request, Item $item)
+    public function update(Request $request, Item $item)
     {
         if ($this->getTokenId('user')) {
             if ($item->update($request->all())) {
