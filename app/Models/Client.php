@@ -16,7 +16,6 @@ class Client extends  Authenticatable implements MustVerifyEmail
 
 
     protected $guard = 'client';
-
     protected $fillable = [
         'f_name',
         'm_name',

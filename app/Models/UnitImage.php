@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnitImage extends Model
 {
-
     use HasFactory;
 
     const IMAGE_PATH = 'units';

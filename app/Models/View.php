@@ -10,11 +10,7 @@ class View extends Model
 {
     use HasFactory, TraitsAuthGuardTrait;
 
-    protected $fillable = [
-        'item_id',
-        'client_id',
-        'view_count',
-    ];
+    protected $fillable = ['item_id', 'client_id', 'view_count'];
 
 
     public function scopeViewWhereAuth($query, $itemId)

@@ -9,30 +9,14 @@ class Activity extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        ];
-
-        protected $hidden = [
-            'created_at',
-            'updated_at',
-            'pivot',
-        ];
-
-        protected $visible = [
-        ];
-
-
     protected $guarded = [];
+    protected $appends = [];
+    protected $hidden = ['created_at',  'updated_at', 'pivot',];
+    protected $visible = [];
 
 
     public function traders()
     {
         return $this->belongsToMany(Trader::class, 'activity_trader');
     }
-
-    // public function units()
-    // {
-    //     return $this->hasMany(unit::class);
-    // }
-
 }

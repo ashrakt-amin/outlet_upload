@@ -9,19 +9,10 @@ class Color extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        ];
-
-    protected $hidden = [
-        'pivot',
-        'created_at',
-        'updated_at'
-    ];
-
-    protected $visible = [
-    ];
-
     protected $guarded = [];
+    protected $appends = [];
+    protected $hidden = ['pivot',  'created_at',  'updated_at'];
+    protected $visible = [];
 
     public function colorSizeStocks()
     {

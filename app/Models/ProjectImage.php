@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectImage extends Model
 {
-
     use HasFactory;
 
     const IMAGE_PATH = 'projects';

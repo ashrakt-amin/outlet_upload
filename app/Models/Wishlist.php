@@ -18,12 +18,6 @@ class Wishlist extends Model
         return $this->belongsTo(Item::class);
     }
 
-    // public function getClient():Attribute {
-    //     return new Attribute{
-    //         get: fn($client)=>Wishlist::where(['client_id'=>$this->getTokenId('client'))->first(),
-    //     }
-    // }
-
     public function scopeWishlistWhereAuth($query, $itemId)
     {
 

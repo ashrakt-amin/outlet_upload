@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,27 +23,23 @@ class Item extends Model
         'item_category',
         'item_unit',
         'item_stocks'
-        ];
-
-        protected $hidden = [
-            'type_id',
-            'item_unit_id',
-            'season_id',
-            'volume_id',
-            'manufactory_id', // 'الشركة المنتجة'
-            'agent_id', // 'الشركة الوكيلة'
-            'company_id', // 'الشركة الموزعة'
-            'importer_id',
-            'offer_id',
-            'colors',
-            'sizes',
-            'created_at',
-            'updated_at'
-        ];
-
-        protected $visible = [
-        ];
-
+    ];
+    protected $hidden = [
+        'type_id',
+        'item_unit_id',
+        'season_id',
+        'volume_id',
+        'manufactory_id', // 'الشركة المنتجة'
+        'agent_id', // 'الشركة الوكيلة'
+        'company_id', // 'الشركة الموزعة'
+        'importer_id',
+        'offer_id',
+        'colors',
+        'sizes',
+        'created_at',
+        'updated_at'
+    ];
+    protected $visible = [];
     protected $fillable  = [
         'name',
         'buy_price',

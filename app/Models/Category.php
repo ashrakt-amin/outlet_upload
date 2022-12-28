@@ -9,21 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'parent_category',
-        'category_sub_categories',
-        'category_items'
-    ];
-
-    protected $hidden = [
-    ];
-
-    protected $visible = [
-        'id',
-        'name',
-    ];
-
     protected $guarded = [];
+    protected $appends = ['parent_category', 'category_sub_categories', 'category_items'];
+    protected $hidden = [];
+    protected $visible = ['id', 'name'];
 
     public function items()
     {
@@ -37,14 +26,12 @@ class Category extends Model
 
     public function getParentCategoryAttribute()
     {
-        // if ($this->category_id < 1) return false;
         $parentCategory = Category::where(['id'=>$this->category_id])->first();
         return $parentCategory;
     }
 
     public function getCategorySubCategoriesAttribute()
     {
-        // if ($this->category_id < 1) return false;
         $subCategories = Category::where(['category_id'=>$this->id])->get();
         return $subCategories;
     }

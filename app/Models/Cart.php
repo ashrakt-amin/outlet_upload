@@ -9,25 +9,10 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'item'
-    ];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at'
-    ];
-
-    protected $visible = [
-    ];
-
-
-    protected $fillable  = [
-        'color_size_stock_id',
-        'trader_id',
-        'client_id',
-        'quantity',
-        ];
+    protected $appends = [ 'item'];
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $visible = [];
+    protected $fillable  = ['color_size_stock_id', 'trader_id', 'client_id', 'quantity'];
 
     public function item()
     {
@@ -56,7 +41,10 @@ class Cart extends Model
         return $this->belongsTo(Trader::class);
     }
 
-
+    
+    /**
+     * @return Get attribute value
+     */
     public function getItemAttribute()
     {
         return Item::where(['id'=>$this->colorSizeStock->item_id])->first();
