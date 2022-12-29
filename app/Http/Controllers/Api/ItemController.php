@@ -116,7 +116,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $item = Item::where(['id'=>$item->id])->with('stocks')->first();
+        $item = Item::where(['id'=>$item->id])->with(['stocks', 'trader'])->first();
         $user = $item->getTokenName('user');
         $trader = $item->getTokenName('trader');
         if (!$user && !$trader) {

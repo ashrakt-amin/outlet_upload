@@ -29,8 +29,6 @@ class StoreTraderRequest extends FormRequest
             'l_name'      => 'required',
             'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
             'code'        => 'unique:traders,code',
-            'phone1'      => 'nullable|regex:/^(01)[0-9]{9}$/',
-            'phone2'      => 'nullable|regex:/^(01)[0-9]{9}$/',
             'national_id' => 'unique:traders,national_id',
             ];
     }
@@ -46,8 +44,6 @@ class StoreTraderRequest extends FormRequest
             'code.unique'        => 'الكود مسجل من قبل',
             'phone.regex'        => 'صيغة الهاتف غير صحيحة',
             'national_id.unique' => 'الرقم القومي مسجل من قبل',
-            'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-            'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
         ];
     }
 }

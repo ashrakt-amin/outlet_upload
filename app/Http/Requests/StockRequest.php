@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ItemRequest extends FormRequest
+class StockRequest extends FormRequest
 {
     /**
      * store validations
@@ -12,13 +12,15 @@ class ItemRequest extends FormRequest
     private function storeRequest()
     {
         return [
-            'name' => 'required',
-            'category_id' => 'required',
-            'item_unit_id' => 'nullable',
-            'unit_parts_count' => 'nullable',
-            'sale_price' => 'nullable',
-            'description' => 'required',
-            'item_code' => 'unique:items,item_code',
+            // 'initial_page' => 'required_with:end_page|integer|min:1|digits_between: 1,5',
+            // 'end_page' => 'required_with:initial_page|integer|greater_than_field:initial_page|digits_between:1,5',
+            'item_id' => 'required',
+            'stock' => 'required|integer|min:1|digits_between: 1,5',
+            'sale_price' => 'required',
+            'trader_id' => 'required|integer',
+            'barcode' => 'nullable|integer',
+            'spare_barcode' => 'nullable|integer',
+            'stock_code' => 'unique:stocks,stock_code',
         ];
     }
 
@@ -58,12 +60,15 @@ class ItemRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'يجب ادخال اسم',
-            'category_id.required' => 'التصنيف مطلوب',
-            'item_unit_id.required' => 'مطلوب',
+            'item_id.required' => 'يجب استخدام منتج',
+            'stock.required' => 'الرصيد مطلوب',
+            'trader_id.required' => 'مطلوب',
+            'trader_id.integer' => 'ارقام فقط',
             'unit_parts_count.required' => 'مطلوب',
             'sale_price.required' => 'مطلوب',
-            'item_code.required' => 'موجود من قبل',
+            'spare_barcode.integer' => 'ارقام فقط',
+            'barcode.integer' => 'ارقام فقط',
+            'stock_code' => 'موجود من قبل',
         ];
     }
 }

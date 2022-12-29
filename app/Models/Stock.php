@@ -45,7 +45,7 @@ class Stock extends Model
         'min_quantity',
         'barcode',
         'spare_barcode',
-        'discount',
+        'stock_discount',
         'discount_start_date',
         'discount_end_date',
         'stock',
