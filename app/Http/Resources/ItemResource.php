@@ -22,7 +22,6 @@ class ItemResource extends JsonResource
             'itemUnit'         => $this->item_unit,
             'itemImages'       => ItemImageResource::collection($this->itemImages),
             'unit_parts_count' => $this->unit_parts_count,
-            'sale_price'       => (float)$this->sale_price,
             'code'             => $this->item_code,
             'available'        => $this->available ? true : false,
             'approved'         => $this->approved == 1 ? true : false,
@@ -40,7 +39,6 @@ class ItemResource extends JsonResource
             'volume'           => new VolumeResource($this->wieght),
             'stocks'           => StockResource::collection($stocks),
             'company'          => $this->company ? new CompanyResource($this->company) : false,
-            'import'           => $this->import ? true : false,
             'importer'         => $this->importer ? new ImporterResource($this->importer) : false,
             'manufactory'      => $this->manufactory ? new ManufactoryResource($this->manufactory) : false,
         ];
