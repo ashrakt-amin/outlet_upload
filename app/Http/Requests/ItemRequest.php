@@ -14,9 +14,10 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'required',
             'category_id' => 'required',
-            'item_unit_id' => 'required',
-            'unit_parts_count' => 'required',
-            'sale_price' => 'required',
+            'item_unit_id' => 'nullable',
+            'unit_parts_count' => 'nullable',
+            'sale_price' => 'nullable',
+            'description' => 'required',
             'item_code' => 'unique:items,item_code',
         ];
     }
