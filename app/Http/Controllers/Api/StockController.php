@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StockRequest;
 use App\Http\Resources\StockResource;
 
 class StockController extends Controller
@@ -29,7 +30,7 @@ class StockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StockRequest $request)
     {
         $item = Item::find($request->item_id);
         $stock = Stock::where([
@@ -40,7 +41,6 @@ class StockController extends Controller
             'volume_id' =>$request->volume_id,
             'season_id' =>$request->season_id,
             ])->first();
-
         if ($stock) {
             $stock->stock = $stock->stock + $request->stock;
             $stock->update();
@@ -58,7 +58,12 @@ class StockController extends Controller
             } else {
                 $stock->buy_price = $request->buy_price;
             }
-            $stock->stock_code = $item->item_code.$request->color_id.$request->size_id.$request->trader_id;
+            $stock->stock_code = $item->item_code
+            .$request->color_id
+            .$request->size_id
+            .$request->volume_id
+            .$request->season_id
+            .$request->trader_id;
             if ($stock->save()) {
                 return response()->json([
                     "success" => true,
@@ -95,7 +100,7 @@ class StockController extends Controller
      * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stock $stock)
+    public function update(StockRequest $request, Stock $stock)
     {
         $existStock = Stock::where('id', '!=', $stock->id)->where([
             'item_id'   =>$request->item_id,
