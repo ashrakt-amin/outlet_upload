@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TraderRequest extends FormRequest
+class ClientRequest extends FormRequest
 {
     /**
      * store validations
@@ -74,5 +74,4 @@ class TraderRequest extends FormRequest
             'password_confirmation.required' => 'يرجى تأكيدالرقم السري',
         ];
     }
-
 }
