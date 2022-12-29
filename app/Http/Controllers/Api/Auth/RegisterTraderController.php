@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Models\Trader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TraderRequest;
 use App\Http\Resources\TraderResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
@@ -22,26 +23,26 @@ class RegisterTraderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(TraderRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone'            => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-            'email'            => 'unique:traders,email',
-            'password'         => 'required:traders,email',
-            'f_name'           => 'required',
-        ], [
-            'email.unique'     => 'البريد الالكتروني مسجل من قبل',
-            'phone.unique'     => 'الهاتف مسجل من قبل',
-            'phone.required'   => 'الهاتف مطلوب',
-            'phone.regex'      => 'يرجى التاكد ان الهاتف صحيحا',
-            'f_name.required'  => 'الاسم الاول مطلوب',
-            'password.required'=> 'الرقم السري مطلوب',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'phone'            => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+        //     'email'            => 'unique:traders,email',
+        //     'password'         => 'required:traders,email',
+        //     'f_name'           => 'required',
+        // ], [
+        //     'email.unique'     => 'البريد الالكتروني مسجل من قبل',
+        //     'phone.unique'     => 'الهاتف مسجل من قبل',
+        //     'phone.required'   => 'الهاتف مطلوب',
+        //     'phone.regex'      => 'يرجى التاكد ان الهاتف صحيحا',
+        //     'f_name.required'  => 'الاسم الاول مطلوب',
+        //     'password.required'=> 'الرقم السري مطلوب',
+        // ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-        
+        // if($validator->fails()){
+        //     return $this->sendError('Validation Error.', $validator->errors());
+        // }
+
         if ($request->input('password') !== $request->input('confirm_password')) {
             return response()->json([
                 'message' => 'الرقم السري غير مطابق',
