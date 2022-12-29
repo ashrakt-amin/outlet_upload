@@ -20,7 +20,6 @@ class StockRequest extends FormRequest
             'trader_id' => 'required|integer',
             'barcode' => 'nullable|integer',
             'spare_barcode' => 'nullable|integer',
-            'description' => 'required',
             'stock_code' => 'unique:stocks,stock_code',
         ];
     }
@@ -69,7 +68,6 @@ class StockRequest extends FormRequest
             'sale_price.required' => 'مطلوب',
             'spare_barcode.integer' => 'ارقام فقط',
             'barcode.integer' => 'ارقام فقط',
-            'description.required' => 'مطلوب',
             'stock_code' => 'موجود من قبل',
         ];
     }
