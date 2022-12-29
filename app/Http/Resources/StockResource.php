@@ -35,7 +35,7 @@ class StockResource extends JsonResource
             'season'              => $this->stock_season,
             'barcode'             => $this->barcode,
             'spare_barcode'       => $this->spare_barcode,
-            'discount'            => $this->discount,
+            'stock_discount'      => $this->stock_discount,
             'discount_start_date' => $this->discount_start_date,
             'discount_end_date'   => $this->discount_end_date,
         ];
