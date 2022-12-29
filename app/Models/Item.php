@@ -27,13 +27,10 @@ class Item extends Model
     protected $hidden = [
         'type_id',
         'item_unit_id',
-        'season_id',
-        'volume_id',
         'manufactory_id', // 'الشركة المنتجة'
         'agent_id', // 'الشركة الوكيلة'
         'company_id', // 'الشركة الموزعة'
         'importer_id',
-        'offer_id',
         'colors',
         'sizes',
         'created_at',
@@ -42,9 +39,6 @@ class Item extends Model
     protected $visible = [];
     protected $fillable  = [
         'name',
-        'buy_price',
-        'buy_discount',
-        'sale_price',
         'category_id',
         'trader_id',
         'item_unit_id',
@@ -56,7 +50,6 @@ class Item extends Model
         'manufactory_id', // 'الشركة المنتجة'
         'agent_id', // 'الشركة الوكيلة'
         'company_id', // 'الشركة الموزعة'
-        'import', // ->boolean
         'importer_id',
         ];
 
