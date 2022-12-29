@@ -31,11 +31,12 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
+        $item = Item::find($request->item_id);
         $stock = Stock::where([
-            'item_id'   =>$request->item_id,
+            'item_id' =>$request->item_id,
             'trader_id' =>$request->trader_id,
-            'color_id'  =>$request->color_id,
-            'size_id'   =>$request->size_id,
+            'color_id' =>$request->color_id,
+            'size_id' =>$request->size_id,
             'volume_id' =>$request->volume_id,
             'season_id' =>$request->season_id,
             ])->first();
@@ -50,10 +51,14 @@ class StockController extends Controller
                 "data" => new StockResource($stock)
             ], 200);
         } else {
-            $item = Item::find($request->item_id);
             $stock = new Stock();
             $stock->fill($request->input());
-            $stock->stock_code = $item->item_code.$request->color_id.$request->size_id;
+            if ($request->buy_discount > 0) {
+                $stock->buy_price = $request->sale_price - ($request->sale_price * $request->buy_discount / 100);
+            } else {
+                $stock->buy_price = $request->buy_price;
+            }
+            $stock->stock_code = $item->item_code.$request->color_id.$request->size_id.$request->trader_id;
             if ($stock->save()) {
                 return response()->json([
                     "success" => true,

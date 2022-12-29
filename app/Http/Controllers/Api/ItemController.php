@@ -85,11 +85,6 @@ class ItemController extends Controller
         }
         $item = new Item();
         $item->fill($request->input());
-        if ($request->buy_discount > 0) {
-            $item->buy_price = $request->sale_price - ($request->sale_price * $request->buy_discount / 100);
-        } else {
-            $item->buy_price = $request->buy_price;
-        }
         if ($item->save()) {
             if ($request->has('img')) {
                 foreach ($request->file('img') as $img) {
