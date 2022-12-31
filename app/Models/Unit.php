@@ -15,6 +15,20 @@ class Unit extends Model
         'unit_statu',
         'unit_trader',
         'unit_items',
+        'images',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'laravel_through_key',
+        'pivot',
+    ];
+
+    protected $visible = [
+        'id',
+        'name',
+        'images',
     ];
 
     protected $fillable = [
@@ -97,8 +111,8 @@ class Unit extends Model
         return $this->trader->items;
     }
 
-    // public function getUnitImagesAppendedAttribute()
-    // {
-    //     return $this->unitImages;
-    // }
+    public function getImagesAttribute()
+    {
+        return $this->unitImages;
+    }
 }

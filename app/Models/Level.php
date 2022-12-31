@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\UnitResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,7 @@ class Level extends Model
     protected $visible = [
         'id',
         'name',
+        'level_units',
     ];
 
     protected $fillable = [
@@ -64,7 +66,8 @@ class Level extends Model
 
     public function getLevelUnitsAttribute()
     {
-        return Unit::where(['level_id'=>$this->id])->get();
+        return $this->units;
+        // return Unit::where(['level_id'=>$this->id])->get();
     }
 }
 

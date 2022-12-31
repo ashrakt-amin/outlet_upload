@@ -19,14 +19,14 @@ class ProjectResource extends JsonResource
         $units         = $this->whenLoaded('units');
 
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id'           => $this->id,
+            'name'         => $this->name,
             'eskanCompany' => new EskanCompanyResource($eskanCompany),
             'project_type' => $this->project_type,
-            'levels' => LevelResource::collection($levels),
-            // 'males' => LevelResource::collection($this->project_levels),
-            'units' => UnitResource::collection($units),
-            'images' => ProjectImageResource::collection($this->projectImages),
+            'levels'       => ($levels),
+            'units'        => UnitResource::collection($units),
+            'images'       => ProjectImageResource::collection($this->projectImages),
+            // 'malls' => LevelResource::collection($this->project_levels),
         ];
     }
 }
