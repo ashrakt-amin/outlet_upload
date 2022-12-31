@@ -19,9 +19,10 @@ class ActivityResource extends JsonResource
         // });
 
         return [
-            'id'        => $this->id,
-            'name'      => $this->name,
-            // 'traders'   => TraderResource::collection($traders),
+            'id'      => $this->id,
+            'name'    => $this->name,
+            'units'   => ($this->units),
+            'traders' => ($this->traders),
         ];
     }
 }

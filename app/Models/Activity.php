@@ -11,9 +11,14 @@ class Activity extends Model
 
     protected $guarded = [];
     protected $appends = [];
-    protected $hidden = ['created_at',  'updated_at', 'pivot',];
+    protected $hidden  = ['created_at',  'updated_at', 'pivot',];
     protected $visible = [];
 
+
+    public function units()
+    {
+        return $this->belongsToMany(Unit::class, 'activity_trader');
+    }
 
     public function traders()
     {

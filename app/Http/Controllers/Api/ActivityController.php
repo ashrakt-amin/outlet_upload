@@ -54,10 +54,9 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        $activity = Activity::where(['id'=>$activity->id])->with('traders')->get();
-        // dd($activity);
+        $activity = Activity::where(['id'=>$activity->id])->with(['units','traders'])->first();
         return response()->json([
-            "data" => ActivityResource::collection($activity)
+            "data" => new ActivityResource($activity)
         ], 200);
     }
 
