@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UnitResource;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Level extends Model
 {
     use HasFactory;
 
-    protected $appends = ['level_units' ];
+    protected $appends = ['level_units'];
 
     protected $hidden = [
         'created_at',
@@ -66,8 +67,17 @@ class Level extends Model
 
     public function getLevelUnitsAttribute()
     {
-        return $this->units;
-        // return Unit::where(['level_id'=>$this->id])->get();
+        // return $this->units;
+        return Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get();
     }
+
+    // public function getActivitiesAttribute()
+    // {
+    //     $units = $this->units;
+    //     foreach ($units as $unit) {
+    //         $pivot = DB::table('activity_trader')->where(['unit_id'=>$unit->id])->first();
+    //         $array = [];
+    //     }
+    // }
 }
 
