@@ -24,7 +24,7 @@ class Project extends Model
         'id',
         'name',
         'project_type',
-        'project_levels'
+        'levels'
     ];
 
 

@@ -82,9 +82,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project = Project::where(['id'=>$project->id])->with('projectImages')->first();
+        $project = Project::where(['id'=>$project->id])->with(['levels', 'projectImages'])->first();
         return response()->json([
-            "data"=> ($project),
+            "data"=> $project,
         ], 200);
     }
 
