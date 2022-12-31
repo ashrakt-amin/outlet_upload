@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\UnitImageResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Unit extends Model
 {
@@ -113,6 +114,6 @@ class Unit extends Model
 
     public function getImagesAttribute()
     {
-        return $this->unitImages;
+        return UnitImageResource::collection($this->unitImages);
     }
 }
