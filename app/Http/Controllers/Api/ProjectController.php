@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Project;
 
-use App\Models\EskanCompany;
+use App\Models\MainProject;
 use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -37,11 +37,11 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $eskanCompanies = EskanCompany::all();
-        if (count($eskanCompanies) < 1 ) {
-            $eskanCompany = new EskanCompany();
-            $eskanCompany->name = "شركة اسكان المنصورة";
-            $eskanCompany->save();
+        $mainProjects = MainProject::all();
+        if (count($mainProjects) < 1 ) {
+            $mainProject = new MainProject();
+            $mainProject->name = "شركة اسكان المنصورة";
+            $mainProject->save();
         }
         $validate = $request->validate([
                         'name' => [
@@ -99,7 +99,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name'             => 'required',
-            'eskan_company_id' => 'required',
+            'main_project_id' => 'required',
         ]);
         if ($project->update($request->all())) {
             return response()->json([

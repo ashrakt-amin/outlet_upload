@@ -33,9 +33,9 @@ class Project extends Model
         'project_type',
     ];
 
-    public function eskanCompany()
+    public function mainProject()
     {
-        return $this->belongsTo(EskanCompany::class);
+        return $this->belongsTo(MainProject::class);
     }
 
     public function projectImages()

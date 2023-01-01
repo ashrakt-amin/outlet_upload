@@ -14,14 +14,14 @@ class ProjectResource extends JsonResource
      */
     public function toArray($request)
     {
-        $eskanCompany  = $this->whenLoaded('eskanCompany');
+        $mainProject  = $this->whenLoaded('mainProject');
         $levels        = $this->whenLoaded('levels');
         $units         = $this->whenLoaded('units');
 
         return [
             'id'           => $this->id,
             'name'         => $this->name,
-            'eskanCompany' => new EskanCompanyResource($eskanCompany),
+            'mainProject' => new MainProjectResource($mainProject),
             'project_type' => $this->project_type,
             'levels'       => LevelResource::collection($levels),
             'units'        => UnitResource::collection($units),

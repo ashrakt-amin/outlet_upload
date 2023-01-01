@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('eskan_companies', function (Blueprint $table) {
+        Schema::create('main_projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eskan_companies');
+        Schema::dropIfExists('main_projects');
     }
 };
