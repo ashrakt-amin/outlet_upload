@@ -34,7 +34,7 @@ class LevelController extends Controller
             ]);
         }
         return response()->json([
-            "data" => [],
+            "data" => LevelResource::collection($levels),
         ]);
     }
 
