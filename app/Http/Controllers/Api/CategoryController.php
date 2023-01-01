@@ -6,19 +6,34 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
-use App\Models\SubCategory;
+use App\Repository\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
-    public function __construct ()
+    private $categoryRepository;
+    // public function __construct ()
+    // {
+    //     $authorizationHeader = \request()->header('Authorization');
+    //     if(request()->bearerToken() != null) {
+    //         $this->middleware('auth:sanctum');
+    //     };
+    //     // if(isset($authorizationHeader)) {
+    //     //     $this->middleware('auth:sanctum');
+    //     // };
+    // }
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $authorizationHeader = \request()->header('Authorization');
-        if(request()->bearerToken() != null) {
-            $this->middleware('auth:sanctum');
-        };
-        // if(isset($authorizationHeader)) {
-        //     $this->middleware('auth:sanctum');
-        // };
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    public function index()
+    {
+        $categories = $this->categoryRepository->all();
+
+        return response()->json([
+                'data' => CategoryResource::collection($categories)
+        ], 200);
     }
 
     /**
@@ -26,14 +41,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $categories = Category::all();
-        $categories = Category::where('category_id', '<', 1)->get();
-        return response()->json([
-                'data' => CategoryResource::collection($categories)
-        ], 200);
-    }
+    // public function index()
+    // {
+    //     $categories = Category::all();
+    //     $categories = Category::where('category_id', '<', 1)->get();
+    //     return response()->json([
+    //             'data' => CategoryResource::collection($categories)
+    //     ], 200);
+    // }
 
     /**
      * Store a newly created resource in storage.
