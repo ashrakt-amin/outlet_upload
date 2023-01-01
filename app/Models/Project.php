@@ -14,7 +14,6 @@ class Project extends Model
         ];
 
     protected $hidden = [
-        'eskan_company_id',
         'pivot',
         'created_at',
         'updated_at'
