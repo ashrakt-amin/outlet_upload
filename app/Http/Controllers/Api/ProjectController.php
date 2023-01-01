@@ -40,7 +40,10 @@ class ProjectController extends Controller
         $mainProjects = MainProject::all();
         if (count($mainProjects) < 1 ) {
             $mainProject = new MainProject();
-            $mainProject->name = "شركة اسكان المنصورة";
+            $mainProject->name = "مولات";
+            $mainProject->save();
+            $mainProject = new MainProject();
+            $mainProject->name = "مناطق";
             $mainProject->save();
         }
         $validate = $request->validate([
