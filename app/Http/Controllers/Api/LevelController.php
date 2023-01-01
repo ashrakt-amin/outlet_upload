@@ -22,7 +22,7 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = Level::where(['level_type' => 1])->get();
+        $levels = Level::all();
         return response()->json([
             "data" => LevelResource::collection($levels)
         ]);
@@ -49,11 +49,9 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        $level_type = $request->project_type;
         if ($level = Level::create([
             'name' => $request->name,
             'project_id' => $request->project_id,
-            'level_type' => $level_type,
             'zone_id' => $request->zone_id
             ])) {
             if ($request->has('img')) {
@@ -87,6 +85,7 @@ class LevelController extends Controller
     {
         $level = Level::where('id', $level->id)->with(['units'])->first();
         return response()->json([
+            // "data"=> ($level),
             "data"=> new LevelResource($level),
         ], 200);
     }
@@ -99,7 +98,7 @@ class LevelController extends Controller
      */
     public function client(Level $level)
     {
-        $level = Level::where('id', $level->id)->with(['traders'])->get();
+        $level = Level::where('id', $level->id)->with(['traders', 'activities'])->get();
         return response()->json([
             "data"=> LevelResource::collection($level),
         ], 200);

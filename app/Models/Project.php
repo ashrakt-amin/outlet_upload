@@ -22,14 +22,13 @@ class Project extends Model
     protected $visible = [
         'id',
         'name',
-        'project_type',
         'levels'
     ];
 
 
     protected $fillable = [
         'name',
-        'project_type',
+        'main_project_id',
     ];
 
     public function mainProject()
@@ -67,7 +66,7 @@ class Project extends Model
 
     public function getProjectLevelsAttribute()
     {
-        return Level::where(['project_id'=>$this->id, 'level_type'=> 0 ])->get();
+        return Level::where(['project_id'=>$this->id])->get();
     }
 
 }
