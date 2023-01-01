@@ -23,6 +23,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $mainProjects = MainProject::all();
+        if (count($mainProjects) < 1 ) {
+            $mainProject = new MainProject();
+            $mainProject->name = "مولات";
+            $mainProject->save();
+            $mainProject = new MainProject();
+            $mainProject->name = "مناطق";
+            $mainProject->save();
+        }
         $projects = Project::all();
         return response()->json([
             "data" => ($projects)
@@ -37,15 +46,6 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $mainProjects = MainProject::all();
-        if (count($mainProjects) < 1 ) {
-            $mainProject = new MainProject();
-            $mainProject->name = "مولات";
-            $mainProject->save();
-            $mainProject = new MainProject();
-            $mainProject->name = "مناطق";
-            $mainProject->save();
-        }
         $validate = $request->validate([
                         'name' => [
                             'required',
