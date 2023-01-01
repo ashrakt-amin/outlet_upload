@@ -23,8 +23,13 @@ class LevelController extends Controller
     public function index()
     {
         $levels = Level::all();
+        foreach ($levels as $level) {
+            if ($level->project->main_project_id == 1) {
+                $data = LevelResource::collection($level);
+            }
+        }
         return response()->json([
-            "data" => LevelResource::collection($levels)
+            "data" => $data
         ]);
     }
 

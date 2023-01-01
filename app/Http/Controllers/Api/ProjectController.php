@@ -87,7 +87,7 @@ class ProjectController extends Controller
     {
         $project = Project::where(['id'=>$project->id])->with(['levels', 'projectImages'])->first();
         return response()->json([
-            "data"=> $project,
+            "data"=> new ProjectResource($project),
         ], 200);
     }
 
