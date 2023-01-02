@@ -28,6 +28,7 @@ class NdProjectResource extends JsonResource
             'name'        => $this->name,
             'mainProject' => new MainProjectResource($mainProject),
             'levels'      => $this->levels,
+            'units'       => $this->units,
             'images'      => ProjectImageResource::collection($this->projectImages),
         ];
     }

@@ -29,7 +29,7 @@ class ItemResource extends JsonResource
             'description'      => $this->description ? $this->description : false,
             'discount'         => $this->discount ? (float)$this->discount : false,
             'unit'             => ($unit),
-            'trader'           => new TraderResource($trader),
+            'trader'           => new TraderResource($this->unit->trader),
             'clientViews'      => $this->client_views,
             'views'            => $this->all_views,
             'wishlist'         => $this->wishlist,

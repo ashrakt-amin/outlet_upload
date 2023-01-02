@@ -32,7 +32,6 @@ class Item extends Model
         'all_rates',
         'client_views',
         'all_views',
-        'item_trader',
         'item_colors',
         'item_sizes',
         'item_images',
@@ -63,18 +62,6 @@ class Item extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
-    }
-
-    public function trader()
-    {
-        return $this->hasOneThrough(
-            Trader::class,
-            Unit::class,
-            'id',
-            'unit_id',
-            'id',
-            'trader_id',
-        );
     }
 
     public function manufactory()
@@ -124,11 +111,6 @@ class Item extends Model
 
 
     // GETTER/SETTER
-
-    public function getItemTraderAttribute()
-    {
-        return $this->trader;
-    }
 
     public function getWishlistAttribute()
     {

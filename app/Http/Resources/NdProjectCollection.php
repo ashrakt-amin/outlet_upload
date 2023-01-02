@@ -14,6 +14,16 @@ class NdProjectCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return NdProjectResource::collection($this->collection);
+        // return NdProjectResource::collection($this->collection);
+        return [
+
+            'data' => $this->collection,
+
+            'links' => [
+
+                'self' => 'link-value',
+
+            ],
+        ];
     }
 }

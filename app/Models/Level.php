@@ -62,10 +62,10 @@ class Level extends Model
         return $this->hasManyThrough(
             trader::class,
             Unit::class,
-            'trader_id', // Foreign key on the incoming table...
-            'id', // Foreign key on the throwing table...
-            'id', // Local key on the this table...
-            'trader_id' // Local key on the incoming table..
+            'trader_id', // Foreign key on the relation table...(unit.trader_id)
+            'id', // Local key on the this table...(trader.id)
+            'id', // Local key on the incoming table..()
+            'trader_id', // Foreign key on the throwing table...(unit.trader_id)
         );
     }
 

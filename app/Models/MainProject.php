@@ -9,10 +9,10 @@ class MainProject extends Model
 {
     use HasFactory;
 
-    protected $appends = [];
+    protected $appends  = [];
     protected $fillable = ['name'];
-    protected $hidden = ['created_at', 'updated_at'];
-    protected $visible = [];
+    protected $hidden   = ['created_at', 'updated_at'];
+    protected $visible  = [];
 
     public function projects()
     {

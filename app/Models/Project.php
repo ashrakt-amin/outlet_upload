@@ -43,20 +43,19 @@ class Project extends Model
 
     public function units()
     {
-        return $this->hasManyThrough(Unit::class, Level::class);
+        return $this->hasManyThrough(
+            Unit::class,
+            Level::class,
+            'project_id', // Foreign key on the projects table...
+            'level_id', // Foreign key on the units table...
+            'id', // Local key on the projects  table...
+            'id' // Local key on the levele table...
+        );
     }
 
     public function levels()
     {
         return $this->hasMany(Level::class);
-        // return $this->hasManyThrough(
-        //     Level::class,
-        //     Unit::class,
-        //     'level_id', // Foreign key on the incoming table...
-        //     'id', // Foreign key on the throwing table...
-        //     'id', // Local key on the this table...
-        //     'level_id', // Local key on the incoming table..
-        // );
     }
 
     public function traders()

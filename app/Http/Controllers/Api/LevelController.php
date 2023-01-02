@@ -22,7 +22,7 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = Level::all();
+        $levels = Level::with(['units', 'traders'])->paginate();
         if (count($levels) > 0) {
             foreach ($levels as $level) {
                 if ($level->project->main_project_id == 1) {
@@ -93,7 +93,7 @@ class LevelController extends Controller
      */
     public function show(Level $level)
     {
-        $level = Level::where('id', $level->id)->with(['units'])->first();
+        $level = Level::where('id', $level->id)->with(['units', 'traders'])->first();
         return response()->json([
             // "data"=> ($level),
             "data"=> new LevelResource($level),
