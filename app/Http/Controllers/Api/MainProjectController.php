@@ -53,6 +53,7 @@ class MainProjectController extends Controller
      */
     public function show(MainProject $mainProject)
     {
+        $mainProject = MainProject::where(['id'=>$mainProject->id])->with(['projects'])->first();
         return response()->json([
         "data"=> new MainProjectResource($mainProject),
         ], 200);

@@ -9,8 +9,8 @@ class MainProject extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
     protected $appends = [];
+    protected $fillable = ['name'];
     protected $hidden = ['created_at', 'updated_at'];
     protected $visible = [];
 

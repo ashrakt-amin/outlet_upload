@@ -20,9 +20,9 @@ class Project extends Model
     ];
 
     protected $visible = [
-        'id',
-        'name',
-        'levels'
+        // 'id',
+        // 'name',
+        // 'levels'
     ];
 
 
@@ -66,7 +66,7 @@ class Project extends Model
 
     public function getProjectLevelsAttribute()
     {
-        return Level::where(['project_id'=>$this->id])->get();
+        return $this->levels;
     }
 
 }

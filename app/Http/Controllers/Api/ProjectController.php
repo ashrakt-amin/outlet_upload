@@ -32,7 +32,7 @@ class ProjectController extends Controller
             $mainProject->name = "مناطق";
             $mainProject->save();
         }
-        $projects = Project::where(['main_project_id'=>2])->get();
+        $projects = Project::paginate();
         return response()->json([
             "data" => ($projects)
         ]);
