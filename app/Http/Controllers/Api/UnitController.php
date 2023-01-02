@@ -151,7 +151,7 @@ class UnitController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * store the activities of the unit.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Unit  $unit
@@ -182,6 +182,22 @@ class UnitController extends Controller
         }
         // update pivot table
         Activity::find($value['activity_id'])->traders()->updateExistingPivot($request->trader_id, ['unit_id'=>$value['unit_id']]);
+    }
+
+    /**
+     * show Unit Activities the specified resource.
+     *
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function showUnitActivities(Unit $unit)
+    {
+        $unit = Unit::where(['id'=>$unit->id])->with(['trader'])->first();
+        $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
+        return response()->json([
+            "data"       => new UnitResource($unit),
+            "next_Statu" => $next_Statu ? new StatuResource($next_Statu) : false,
+        ], 200);
     }
 
     /**

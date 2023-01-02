@@ -19,7 +19,7 @@ class ActivityController extends Controller
     {
         $activities = Activity::all();
         return response()->json([
-            "data" => ($activities)
+            "data" => $activities
         ]);
     }
 

@@ -72,10 +72,7 @@ class Level extends Model
      */
     public function getLevelUnitsAttribute()
     {
-        if ($this->project->main_project_id == 1) {
-            return Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get();
-        }
-        return false;
+        return Unit::inRandomOrder()->limit(10)->get();
     }
 }
 
