@@ -8,6 +8,7 @@ use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NdProjectResource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
@@ -23,7 +24,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $mainProjects = MainProject::all();
+        $mainProjects = MainProject::paginate();
         if (count($mainProjects) < 1 ) {
             $mainProject = new MainProject();
             $mainProject->name = "مولات";
@@ -34,7 +35,7 @@ class ProjectController extends Controller
         }
         $projects = Project::paginate();
         return response()->json([
-            "data" => ($projects)
+            "data" => NdProjectResource::collection($projects)
         ]);
     }
 

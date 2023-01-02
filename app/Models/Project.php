@@ -20,9 +20,9 @@ class Project extends Model
     ];
 
     protected $visible = [
-        // 'id',
-        // 'name',
-        // 'levels'
+        'id',
+        'name',
+        'levels',
     ];
 
 
