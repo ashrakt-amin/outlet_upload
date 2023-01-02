@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UnitResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\LevelImageResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Level extends Model
 {
     use HasFactory;
 
-    protected $appends = ['level_units'];
+    protected $appends = ['level_units', 'images'];
 
     protected $hidden = [
         'created_at',
@@ -28,6 +29,7 @@ class Level extends Model
         'name',
         'level_units',
         'activity',
+        'images',
     ];
 
     protected $fillable = [
@@ -73,6 +75,14 @@ class Level extends Model
     public function getLevelUnitsAttribute()
     {
         return Unit::inRandomOrder()->limit(10)->get();
+    }
+
+    /**
+     * get attributes
+     */
+    public function getImagesAttribute()
+    {
+        return LevelImageResource::collection($this->levelImages);
     }
 }
 
