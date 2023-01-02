@@ -103,7 +103,7 @@ class UnitController extends Controller
             return response()->json([
                 "success" => true,
                 "message" => "تم تعديل الوحدة",
-                "data" => UnitResource::collection($unit)
+                "data" => new UnitResource($unit)
             ], 200);
         } else {
             return response()->json([

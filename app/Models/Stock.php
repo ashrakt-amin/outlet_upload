@@ -9,27 +9,9 @@ class Stock extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'stock_item',
-        'stock_trader',
-        'stock_color',
-        'stock_size',
-        'stock_volume',
-        'stock_season',
-        ];
-
-        protected $hidden = [
-            'created_at',
-            'updated_at'
-        ];
-
-        protected $visible = [
-        ];
-
-
     protected $fillable  = [
         'item_id',
-        'trader_id',
+        'unit_id',
         'buy_price',
         'buy_discount',
         'sale_price',
@@ -51,14 +33,43 @@ class Stock extends Model
         'stock',
         ];
 
+    protected $appends = [
+        'stock_item',
+        'stock_trader',
+        'stock_color',
+        'stock_size',
+        'stock_volume',
+        'stock_season',
+        ];
+
+        protected $hidden = [
+            'created_at',
+            'updated_at'
+        ];
+
+        protected $visible = [
+        ];
+
     public function item()
     {
         return $this->belongsTo(Item::class);
     }
 
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
     public function trader()
     {
-        return $this->belongsTo(Trader::class);
+        return $this->hasOneThrough(
+            Trader::class,
+            Unit::class,
+            'trader_id',
+            'id',
+            'unit_id',
+            'id',
+        );
     }
 
     public function color()

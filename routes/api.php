@@ -216,6 +216,11 @@ Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit'
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
+Route::prefix("mainProjects")->group(function(){
+    Route::controller(MainProjectController::class)->group(function () {
+        Route::get('/offers',         'offers')->name('mainProjects.offers');
+    });
+});
 Route::resource('mainProjects', MainProjectController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
@@ -224,7 +229,6 @@ Route::resource('projects', ProjectController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-
 Route::prefix("levels")->group(function(){
     Route::controller(LevelController::class)->group(function () {
         Route::get('/latest',         'latest')->name('levels.latest');

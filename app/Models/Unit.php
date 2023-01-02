@@ -49,6 +49,11 @@ class Unit extends Model
         'description',
     ];
 
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
     public function unitImages()
     {
         return $this->hasMany(UnitImage::class);
@@ -109,7 +114,7 @@ class Unit extends Model
 
     public function getUnitItemsAttribute()
     {
-        return $this->trader->items;
+        return $this->items;
     }
 
     public function getImagesAttribute()

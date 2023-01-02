@@ -10,6 +10,22 @@ class Item extends Model
 {
     use HasFactory, TraitsAuthGuardTrait;
 
+    protected $fillable  = [
+        'name',
+        'category_id',
+        'unit_id',
+        'item_unit_id',
+        'item_code',
+        'unit_parts_count',
+        'available',
+        'discount',
+        'description',
+        'manufactory_id', // 'الشركة المنتجة'
+        'agent_id', // 'الشركة الوكيلة'
+        'company_id', // 'الشركة الموزعة'
+        'importer_id',
+        ];
+
     protected $appends = [
         'wishlist',
         'client_rate',
@@ -24,6 +40,7 @@ class Item extends Model
         'item_unit',
         'item_stocks'
     ];
+
     protected $hidden = [
         'type_id',
         'item_unit_id',
@@ -37,30 +54,27 @@ class Item extends Model
         'updated_at'
     ];
     protected $visible = [];
-    protected $fillable  = [
-        'name',
-        'category_id',
-        'trader_id',
-        'item_unit_id',
-        'item_code',
-        'unit_parts_count',
-        'available',
-        'discount',
-        'description',
-        'manufactory_id', // 'الشركة المنتجة'
-        'agent_id', // 'الشركة الوكيلة'
-        'company_id', // 'الشركة الموزعة'
-        'importer_id',
-        ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
     public function trader()
     {
-        return $this->belongsTo(Trader::class);
+        return $this->hasOneThrough(
+            Trader::class,
+            Unit::class,
+            'id',
+            'unit_id',
+            'id',
+            'trader_id',
+        );
     }
 
     public function manufactory()
