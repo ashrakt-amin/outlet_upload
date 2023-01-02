@@ -11,6 +11,7 @@ use App\Repository\CategoryRepositoryInterface;
 class CategoryController extends Controller
 {
     private $categoryRepository;
+    
     // public function __construct ()
     // {
     //     $authorizationHeader = \request()->header('Authorization');
