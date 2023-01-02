@@ -5,13 +5,14 @@ use App\Models\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Repository\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
     private $categoryRepository;
-    
+
     // public function __construct ()
     // {
     //     $authorizationHeader = \request()->header('Authorization');
@@ -57,12 +58,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category = new Category();
         $category->fill($request->input());
-        if ($category->category_id == null)  {
-            $category->category_id = 0;
+        if ($category->parent_id == null)  {
+            $category->parent_id = 0;
         }
         $category->save();
         // $category = Category::create($request->all());
@@ -103,8 +104,8 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->fill($request->input());
-        if ($category->category_id == null)  {
-            $category->category_id = 0;
+        if ($category->parent_id == null)  {
+            $category->parent_id = 0;
         }
         if ($category->update()) {
             return response()->json([
