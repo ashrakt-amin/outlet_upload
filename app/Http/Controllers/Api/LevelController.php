@@ -93,9 +93,8 @@ class LevelController extends Controller
      */
     public function show(Level $level)
     {
-        $level = Level::where('id', $level->id)->with(['units', 'traders'])->first();
+        $level = Level::where('id', $level->id)->with(['units'])->first();
         return response()->json([
-            // "data"=> ($level),
             "data"=> new LevelResource($level),
         ], 200);
     }
