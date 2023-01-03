@@ -35,7 +35,6 @@ class TraderResource extends JsonResource
             'code'         => $this->code,
             'levels'       => LevelResource::collection($levels),
             'units'        => UnitResource::collection($units),
-            'items'        => ItemResource::collection($items),
             // 'orderDetails' => OrderDetailResource::collection($orderDetails),
             // 'activities'   => $this->trader_activities,
         ];

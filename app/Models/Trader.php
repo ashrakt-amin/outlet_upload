@@ -85,11 +85,6 @@ class Trader extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Unit::class);
     }
 
-    public function items()
-    {
-        return $this->hasMany(Item::class);
-    }
-
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
