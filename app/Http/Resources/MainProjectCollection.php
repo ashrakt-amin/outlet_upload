@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class EskanCompanyCollection extends ResourceCollection
+class MainProjectCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +14,6 @@ class EskanCompanyCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return EskanCompanyResource::collection($this->collection);
+        return MainProjectResource::collection($this->collection);
     }
 }

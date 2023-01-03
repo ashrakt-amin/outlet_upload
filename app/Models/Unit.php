@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\UnitImageResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Unit extends Model
 {
@@ -15,6 +16,20 @@ class Unit extends Model
         'unit_statu',
         'unit_trader',
         'unit_items',
+        'images',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'laravel_through_key',
+        'pivot',
+    ];
+
+    protected $visible = [
+        'id',
+        'name',
+        'images',
     ];
 
     protected $fillable = [
@@ -33,6 +48,11 @@ class Unit extends Model
         'discount',
         'description',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 
     public function unitImages()
     {
@@ -94,11 +114,11 @@ class Unit extends Model
 
     public function getUnitItemsAttribute()
     {
-        return $this->trader->items;
+        return $this->items;
     }
 
-    // public function getUnitImagesAppendedAttribute()
-    // {
-    //     return $this->unitImages;
-    // }
+    public function getImagesAttribute()
+    {
+        return UnitImageResource::collection($this->unitImages);
+    }
 }

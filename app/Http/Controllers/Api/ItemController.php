@@ -35,7 +35,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with(['trader'])->get();
+        $items = Item::with(['unit'])->get();
         return response()->json([
                 'data' => ItemResource::collection($items)
         ], 200);
@@ -48,7 +48,7 @@ class ItemController extends Controller
      */
     public function latest()
     {
-        $items = Item::with(['trader'])->latest()->take(10)->get();
+        $items = Item::with(['unit'])->latest()->take(10)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);
@@ -61,7 +61,7 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::with(['trader'])->inRandomOrder()->limit(5)->get();
+        $items = Item::with(['unit'])->inRandomOrder()->limit(5)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);
@@ -116,7 +116,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $item = Item::where(['id'=>$item->id])->with(['stocks', 'trader'])->first();
+        $item = Item::where(['id'=>$item->id])->with(['stocks', 'unit'])->first();
         $user = $item->getTokenName('user');
         $trader = $item->getTokenName('trader');
         if (!$user && !$trader) {

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Project;
 
-use App\Models\EskanCompany;
+use App\Models\MainProject;
 use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NdProjectResource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
@@ -23,9 +24,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $mainProjects = MainProject::paginate();
+        if (count($mainProjects) < 1 ) {
+            $mainProject = new MainProject();
+            $mainProject->name = "مولات";
+            $mainProject->save();
+            $mainProject = new MainProject();
+            $mainProject->name = "مناطق";
+            $mainProject->save();
+        }
+        $projects = Project::paginate();
         return response()->json([
-            "data" => ($projects)
+            "data" => NdProjectResource::collection($projects)
         ]);
     }
 
@@ -37,12 +47,6 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $eskanCompanies = EskanCompany::all();
-        if (count($eskanCompanies) < 1 ) {
-            $eskanCompany = new EskanCompany();
-            $eskanCompany->name = "شركة اسكان المنصورة";
-            $eskanCompany->save();
-        }
         $validate = $request->validate([
                         'name' => [
                             'required',
@@ -82,9 +86,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project = Project::where(['id'=>$project->id])->with('levels', 'projectImages')->first();
+        $project = Project::where(['id'=>$project->id])->with(['levels', 'projectImages'])->first();
         return response()->json([
-            "data"=> new ProjectResource($project),
+            "data"=> new NdProjectResource($project),
         ], 200);
     }
 
@@ -99,7 +103,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name'             => 'required',
-            'eskan_company_id' => 'required',
+            'main_project_id' => 'required',
         ]);
         if ($project->update($request->all())) {
             return response()->json([

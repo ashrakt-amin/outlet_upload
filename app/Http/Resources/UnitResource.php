@@ -34,7 +34,7 @@ class UnitResource extends JsonResource
             'statu'        => new StatuResource($this->unit_statu),
             'site'         => new SiteResource($this->site),
             'trader'       => new TraderResource($trader),
-            'items'        => $this->trader ? ItemResource::collection($this->unit_items) : null,
+            'items'        => ItemResource::collection($this->unit_items),
             'activities'   => ActivityResource::collection($this->unit_activities),
         ];
     }

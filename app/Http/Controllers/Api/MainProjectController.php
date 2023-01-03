@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\EskanCompany;
+use App\Models\MainProject;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\EskanCompanyResource;
+use App\Http\Resources\MainProjectResource;
 
-class EskanCompanyController extends Controller
+class MainProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class EskanCompanyController extends Controller
      */
     public function index()
     {
-        $eskanCompanys = EskanCompany::all();
+        $mainProjects = MainProject::all();
         return response()->json([
-            "data" => EskanCompanyResource::collection($eskanCompanys)
+            "data" => MainProjectResource::collection($mainProjects)
         ]);
     }
 
@@ -30,12 +30,12 @@ class EskanCompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $eskanCompany = EskanCompany::create($request->all());
-        if ($eskanCompany) {
+        $mainProject = MainProject::create($request->all());
+        if ($mainProject) {
             return response()->json([
                 "success" => true,
                 "message" => "تم تسجيل مبنا جديدا",
-                "data" => new EskanCompanyResource($eskanCompany)
+                "data" => new MainProjectResource($mainProject)
             ], 200);
         } else {
             return response()->json([
@@ -48,13 +48,14 @@ class EskanCompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EskanCompany  $eskanCompany
+     * @param  \App\Models\MainProject  $mainProject
      * @return \Illuminate\Http\Response
      */
-    public function show(EskanCompany $eskanCompany)
+    public function show(MainProject $mainProject)
     {
+        $mainProject = MainProject::where(['id'=>$mainProject->id])->with(['projects'])->first();
         return response()->json([
-        "data"=> new EskanCompanyResource($eskanCompany),
+        "data"=> new MainProjectResource($mainProject),
         ], 200);
     }
 
@@ -62,16 +63,16 @@ class EskanCompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EskanCompany  $eskanCompany
+     * @param  \App\Models\MainProject  $mainProject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,EskanCompany $eskanCompany)
+    public function update(Request $request,MainProject $mainProject)
     {
-        if ($eskanCompany->update($request->all())) {
+        if ($mainProject->update($request->all())) {
             return response()->json([
                 "success" => true,
                 "message" => "تم تعديل المبنى",
-                "data" => new EskanCompanyResource($eskanCompany)
+                "data" => new MainProjectResource($mainProject)
             ], 200);
         } else {
             return response()->json([
@@ -84,13 +85,13 @@ class EskanCompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EskanCompany  $eskanCompany
+     * @param  \App\Models\MainProject  $mainProject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EskanCompany $eskanCompany)
+    public function destroy(MainProject $mainProject)
     {
-        if ($eskanCompany->levels->count() == 0) {
-            if ($eskanCompany->delete()) {
+        if ($mainProject->levels->count() == 0) {
+            if ($mainProject->delete()) {
                 return response()->json([
                     "success" => true,
                     "message" => "تم حذف المبنى ",

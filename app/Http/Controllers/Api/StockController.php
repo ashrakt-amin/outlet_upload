@@ -34,10 +34,10 @@ class StockController extends Controller
     {
         $item = Item::find($request->item_id);
         $stock = Stock::where([
-            'item_id' =>$request->item_id,
-            'trader_id' =>$request->trader_id,
-            'color_id' =>$request->color_id,
-            'size_id' =>$request->size_id,
+            'item_id'   =>$request->item_id,
+            'unit_id'   =>$request->unit_id,
+            'color_id'  =>$request->color_id,
+            'size_id'   =>$request->size_id,
             'volume_id' =>$request->volume_id,
             'season_id' =>$request->season_id,
             ])->first();
@@ -63,7 +63,7 @@ class StockController extends Controller
             .$request->size_id
             .$request->volume_id
             .$request->season_id
-            .$request->trader_id;
+            .$request->unit_id;
             if ($stock->save()) {
                 return response()->json([
                     "success" => true,
@@ -104,7 +104,7 @@ class StockController extends Controller
     {
         $existStock = Stock::where('id', '!=', $stock->id)->where([
             'item_id'   =>$request->item_id,
-            'trader_id' =>$request->trader_id,
+            'unit_id'   =>$request->unit_id,
             'color_id'  =>$request->color_id,
             'size_id'   =>$request->size_id,
             'volume_id' =>$request->volume_id,
