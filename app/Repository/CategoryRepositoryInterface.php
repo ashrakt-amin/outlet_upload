@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 interface CategoryRepositoryInterface
 {
-   public function all(): Collection;
+//    public function all(): Collection;
 
    public function checkAuth();
 

@@ -53,7 +53,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        if ($category) return $this->sendResponse(new CategoryResource($category), "تم تسجيل تصنيفا جديدا", 200);
+        if ($category) return $this->sendResponse(new CategoryResource($category), "", 200);
     }
 
     /**
@@ -63,10 +63,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category = $this->categoryRepository->edit($category->id, ['name' => $request->name, 'parent_id' => $request->parent_id != null ? $request->parent_id : 0]);
-        if (!$category) return $this->sendResponse(new CategoryResource($category), "تم تعديل التصنيف");
+        if ($category) return $this->sendResponse(new CategoryResource($category), "تم تعديل التصنيف");
         return $this->sendError("فشل تعديل التصنيف", [], 404);
     }
 

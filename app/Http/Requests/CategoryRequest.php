@@ -23,8 +23,8 @@ class CategoryRequest extends FormRequest
     private function updateRequest()
     {
         return [
-            'name' => 'nullable',
-            'parent_id'  => 'nullable|integer',
+            'name'      => 'required',
+            'parent_id' => 'nullable|integer',
         ];
     }
 
