@@ -74,7 +74,7 @@ class Level extends Model
      */
     public function getLevelUnitsAttribute()
     {
-        return Unit::inRandomOrder()->limit(10)->get();
+        return Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get();
     }
 
     /**
