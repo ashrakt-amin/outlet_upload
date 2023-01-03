@@ -2,16 +2,20 @@
 
 namespace App\Exceptions;
 
+use App\Http\Traits\ResponseTrait;
 use Exception;
 use Throwable;
 use Illuminate\Auth\AuthenticationException;
-use Spatie\Permission\Exceptions\UnauthorizedException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use ResponseTrait;
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -86,13 +90,13 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return match (true) {
 
+                $exception instanceof AuthenticationException => $this->sendError($exception->getMessage(), [],  401),
+                $exception instanceof UnauthorizedException => $this->sendError($exception->getMessage(), [],  403),
+                $exception instanceof ThrottleRequestsException => $this->sendError($exception->getMessage(), [],  429),
+                $exception instanceof ModelNotFoundException ||
+                $exception instanceof NotFoundHttpException  => $this->sendError($exception->getMessage(), [],  404),
                 $exception instanceof ValidationException =>  $this->invalidJson($request, $exception),
-                // default => $this->apiResource(code: 500, status: false, message: $exception->getMessage() . " in " . $exception->getFile() . " at line " . $exception->getLine()),
-                default =>  response()->json([
-                    "success" => false,
-                    "message" => $exception->getMessage(),
-                    "data" => null
-                ], 500)
+                default => $this->sendError($exception->getMessage(), [],  500)
             };
         }
 

@@ -40,9 +40,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = $this->categoryRepository->create(['name' => $request->name, 'parent_id' => $request->parent_id != null ? $request->parent_id : 0 ]);
-        if ($category)  return $this->sendResponse(new CategoryResource($category), "تم تسجيل تصنيفا جديدا", 201);
-        return $this->sendError("فشل تسجيل تصنيفا جديدا", [], 405);
+        $category = $this->categoryRepository->create($request->validated());
+        return $this->sendResponse(new CategoryResource($category), "تم تسجيل تصنيفا جديدا", 201);
     }
 
     /**
@@ -53,7 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        if ($category) return $this->sendResponse(new CategoryResource($category), "", 200);
+        return $this->sendResponse(new CategoryResource($category), "", 200);
     }
 
     /**
@@ -65,9 +64,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $category = $this->categoryRepository->edit($category->id, ['name' => $request->name, 'parent_id' => $request->parent_id != null ? $request->parent_id : 0]);
-        if ($category) return $this->sendResponse(new CategoryResource($category), "تم تعديل التصنيف");
-        return $this->sendError("فشل تعديل التصنيف", [], 404);
+        $category = $this->categoryRepository->edit($category->id, $request->validated());
+        return $this->sendResponse(new CategoryResource($category), "تم تعديل التصنيف");
     }
 
     /**
@@ -83,7 +81,6 @@ class CategoryController extends Controller
             $errorMessages = ['1', '2', '3', '4', '5', '6'];
             return $this->sendError("فشل حذف التصنيف", $errorMessages, 404);
         }
-        $errorMessages = [];
-        return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", $errorMessages, 405);
+        return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", [], 405);
     }
 }

@@ -30,11 +30,4 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         // };
     }
 
-//    /**
-//     * @return Collection
-//     */
-//    public function all(): Collection
-//    {
-//        return $this->model->all();
-//    }
 }
