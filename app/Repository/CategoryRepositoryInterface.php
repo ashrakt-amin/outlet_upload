@@ -8,9 +8,9 @@ interface CategoryRepositoryInterface
 {
    public function all(): Collection;
 
-//    public function checkAuth($data);
+   public function checkAuth();
 
 //    public function delete($id);
 
-//    public function update($id, array $data);
+//    public function update($id, array $array);
 }

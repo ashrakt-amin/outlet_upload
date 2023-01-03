@@ -3,6 +3,7 @@
 namespace App\Repository\Eloquent;
 
 use App\Repository\EloquentRepositoryInterface;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository implements EloquentRepositoryInterface
@@ -22,6 +23,14 @@ class BaseRepository implements EloquentRepositoryInterface
         $this->model = $model;
     }
 
+   /**
+    * @return Collection
+    */
+    public function all(): Collection
+    {
+        return $this->model->all();
+    }
+
     /**
     * @param array $attributes
     *
@@ -39,5 +48,26 @@ class BaseRepository implements EloquentRepositoryInterface
     public function find($id): ?Model
     {
         return $this->model->find($id);
+    }
+
+   /**
+    * @param id $attributes
+    * @return Model
+    */
+    public function edit($id, array $attributes) {
+        $data = $this->model->findOrFail($id);
+        $data->update($attributes);
+        return $data;
+    }
+
+    /**
+    * @param $id
+    * @return response
+    */
+    public function delete($id): ?Model
+    {
+        $data = $this->model->findOrFail($id);
+        $data->delete();
+        return $data;
     }
 }

@@ -22,19 +22,19 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     * Auth checking.
     *
     */
-    // public function authCheching()
-    // {
-    //     $authorizationHeader = \request()->header('Authorization');
-    //     if(request()->bearerToken() != null) {
-    //         return $this->middleware('auth:sanctum');
-    //     };
-    // }
+    public function checkAuth()
+    {
+        // $authorizationHeader = \request()->header('Authorization');
+        // if(request()->bearerToken() != null) {
+        //     return $this->middleware('auth:sanctum');
+        // };
+    }
 
-   /**
-    * @return Collection
-    */
-   public function all(): Collection
-   {
-       return $this->model->all();
-   }
+//    /**
+//     * @return Collection
+//     */
+//    public function all(): Collection
+//    {
+//        return $this->model->all();
+//    }
 }
