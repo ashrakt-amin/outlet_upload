@@ -8,7 +8,6 @@ use App\Repository\CategoryRepositoryInterface;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
-
    /**
     * CategoryRepository constructor.
     *
@@ -18,6 +17,18 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
    {
        parent::__construct($model);
    }
+
+   /**
+    * Auth checking.
+    *
+    */
+    // public function authCheching()
+    // {
+    //     $authorizationHeader = \request()->header('Authorization');
+    //     if(request()->bearerToken() != null) {
+    //         return $this->middleware('auth:sanctum');
+    //     };
+    // }
 
    /**
     * @return Collection

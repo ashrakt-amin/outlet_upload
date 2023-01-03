@@ -29,6 +29,11 @@ class CategoryController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function authChecking()
+    {
+        $this->categoryRepository->authChecking();
+    }
+
     public function index()
     {
         $categories = $this->categoryRepository->all();
@@ -60,25 +65,36 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->fill($request->input());
-        if ($category->parent_id == null)  {
-            $category->parent_id = 0;
-        }
-        $category->save();
-        // $category = Category::create($request->all());
-        if ($category) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل تصنيفا جديدا",
-                "data" => new CategoryResource($category)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل التصنيف",
-            ], 422);
-        }
+        $category = $this->categoryRepository->create([
+            'name' => $request->name,
+            'parent_id' => $request->parent_id != null ? $request->parent_id : 0 ,
+        ]);
+
+        // return response()->json(new CategoryResource($category), 201);
+        return response()->json([
+            "success" => true,
+            "message" => "تم تسجيل تصنيفا جديدا",
+            "data" => new CategoryResource($category)
+        ], 201);
+        // $category = new Category();
+        // $category->fill($request->input());
+        // if ($category->parent_id == null)  {
+        //     $category->parent_id = 0;
+        // }
+        // $category->save();
+        // // $category = Category::create($request->all());
+        // if ($category) {
+        //     return response()->json([
+        //         "success" => true,
+        //         "message" => "تم تسجيل تصنيفا جديدا",
+        //         "data" => new CategoryResource($category)
+        //     ], 200);
+        // } else {
+        //     return response()->json([
+        //         "success" => false,
+        //         "message" => "فشل تسجيل التصنيف",
+        //     ], 422);
+        // }
     }
 
     /**

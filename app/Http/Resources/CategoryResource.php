@@ -16,10 +16,11 @@ class CategoryResource extends JsonResource
     {
         $items = $this->whenLoaded('items');
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'subCategories' => CategoryResource::collection($this->category_sub_categories),
-            'items'         => ItemResource::collection($this->category_items),
+            'id'             => $this->id,
+            'name'           => $this->name,
+            'subCategories'  => CategoryResource::collection($this->category_sub_categories),
+            'parentCategory' => $this->parent_category,
+            'items'          => ItemResource::collection($this->category_items),
         ];
     }
 }
