@@ -17,7 +17,7 @@ class CompanyResource extends JsonResource
         return [
             'id'              => $this->id,
             'name'            => $this->name,
-            'eskanCompany'    => new EskanCompanyResource($this->eskanCompany),
+            'mainProject'    => new MainProjectResource($this->mainProject),
         ];
     }
 }

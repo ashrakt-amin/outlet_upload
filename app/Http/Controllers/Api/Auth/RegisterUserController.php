@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
@@ -20,31 +21,8 @@ class RegisterUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone'            => 'unique:users,phone|regex:/^(01)[0-9]{9}$/',
-            'email'            => 'unique:users,email',
-            'password'         => 'required:users,email',
-            'f_name'           => 'required',
-        ], [
-            'email.unique'     => 'البريد الالكتروني مسجل من قبل',
-            'phone.unique'     => 'الهاتف مسجل من قبل',
-            'phone.required'   => 'الهاتف مطلوب',
-            'phone.regex'      => 'يرجى التاكد ان الهاتف صحيحا',
-            'f_name.required'  => 'الاسم الاول مطلوب',
-            'password.required'=> 'الرقم السري مطلوب',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
-        if ($request->input('password') !== $request->input('confirm_password')) {
-            return response()->json([
-                'message' => 'الرقم السري غير مطابق',
-            ], 422);
-        }
-
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         if (Auth::check()) {

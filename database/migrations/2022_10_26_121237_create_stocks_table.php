@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->bigInteger('stock');
             $table->decimal('sale_price', 16, 2);
-            $table->unsignedBigInteger('trader_id');
+            $table->unsignedBigInteger('unit_id');
             $table->decimal('buy_price', 16, 2)->nullable();
             $table->decimal('buy_discount', 4, 2)->nullable();
             $table->boolean('available')->nullable()->default(1);

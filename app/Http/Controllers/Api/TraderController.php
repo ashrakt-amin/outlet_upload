@@ -44,7 +44,7 @@ class TraderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreTraderRequest  $request
+     * @param  \Illuminate\Http\TraderRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,18 +52,10 @@ class TraderController extends Controller
         if ($request) {
             $request->validate([
                 'phone' => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-                // 'code' => 'unique:traders,code',
-                // 'phone1' => 'nullable|regex:/^(01)[0-9]{9}$/',
-                // 'phone2' => 'nullable|regex:/^(01)[0-9]{9}$/',
-                // 'national_id' => 'unique:traders,national_id',
             ], [
                 'phone.required' => 'الهاتف مسجل من قبل',
                 'phone.unique' => 'الهاتف مسجل من قبل',
                 'phone.regex' => 'صيغة الهاتف غير صحيحة',
-                // 'code.unique'        => 'الكود مسجل من قبل',
-                // 'national_id.unique' => 'الرقم القومي مسجل من قبل',
-                // 'phone1.regex'       => 'صيغة الهاتف غير صحيحة',
-                // 'phone2.regex'       => 'صيغة الهاتف غير صحيحة',
             ]);
             $emailExist = Trader::where(['email'=>$request->email])->first();
             if (!empty($emailExist->email)) {
@@ -73,10 +65,10 @@ class TraderController extends Controller
             }
             $trader = new Trader();
             $trader->fill($request->input());
-            // if ($request->has('img')) {
-            //     $img = $request->file('img');
-            //     $trader->img = $this->setImage($img, 'traders', 450, 450);
-            // }
+            if ($request->has('img')) {
+                $img = $request->file('img');
+                $trader->img = $this->setImage($img, 'traders', 450, 450);
+            }
             $trader->code = randomCode();
 
             if ($trader->save()) {

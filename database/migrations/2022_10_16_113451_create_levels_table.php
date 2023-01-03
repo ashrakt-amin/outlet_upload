@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('zone_id')->default(0);
             $table->unsignedBigInteger('project_id')->nullable();
-            $table->boolean('level_type')->default(0);
             $table->timestamps();
         });
     }

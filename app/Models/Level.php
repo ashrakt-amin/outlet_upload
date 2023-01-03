@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Activity;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\UnitResource;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\LevelImageResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Level extends Model
 {
     use HasFactory;
 
-    protected $appends = ['level_units' ];
+    protected $appends = ['level_units', 'images'];
 
     protected $hidden = [
         'created_at',
@@ -22,12 +27,14 @@ class Level extends Model
     protected $visible = [
         'id',
         'name',
+        'level_units',
+        'activity',
+        'images',
     ];
 
     protected $fillable = [
         'name',
         'project_id',
-        'level_type',
     ];
 
     public function project()
@@ -55,16 +62,27 @@ class Level extends Model
         return $this->hasManyThrough(
             trader::class,
             Unit::class,
-            'trader_id', // Foreign key on the incoming table...
-            'id', // Foreign key on the throwing table...
-            'id', // Local key on the this table...
-            'trader_id' // Local key on the incoming table..
+            'trader_id', // Foreign key on the relation table...(unit.trader_id)
+            'id', // Local key on the this table...(trader.id)
+            'id', // Local key on the incoming table..()
+            'trader_id', // Foreign key on the throwing table...(unit.trader_id)
         );
     }
 
+    /**
+     * get attributes
+     */
     public function getLevelUnitsAttribute()
     {
-        return Unit::where(['level_id'=>$this->id])->get();
+        return Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get();
+    }
+
+    /**
+     * get attributes
+     */
+    public function getImagesAttribute()
+    {
+        return LevelImageResource::collection($this->levelImages);
     }
 }
 

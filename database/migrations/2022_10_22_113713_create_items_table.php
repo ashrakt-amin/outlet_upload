@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('item_unit_id')->nullable();
             $table->integer('unit_parts_count')->nullable();
-            $table->unsignedBigInteger('trader_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();
             $table->boolean('available')->nullable();
             $table->boolean('approved')->default(0);
             $table->string('item_code')->unique();

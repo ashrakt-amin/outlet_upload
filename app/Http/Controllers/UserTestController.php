@@ -3,23 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Trader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\TraderResource;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-        $user = $this->create($request->all());
-        $this->guard()->login($user);
-        return response()->json([
-            'user' => $user,
-            'message' => 'registration successful'
-        ], 200);
+        $validator = Validator::make($request->all(), [
+            'phone'            => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            'email'            => 'unique:traders,email',
+            'password'         => 'required:traders,email',
+            'f_name'           => 'required',
+        ], [
+            'email.unique'     => 'البريد الالكتروني مسجل من قبل',
+            'phone.unique'     => 'الهاتف مسجل من قبل',
+            'phone.required'   => 'الهاتف مطلوب',
+            'phone.regex'      => 'يرجى التاكد ان الهاتف صحيحا',
+            'f_name.required'  => 'الاسم الاول مطلوب',
+            'password.required'=> 'الرقم السري مطلوب',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        if ($request->input('password') !== $request->input('password_confirmation')) {
+            return response()->json([
+                'message' => 'الرقم السري غير مطابق',
+            ], 422);
+        } else {
+            $user = new Trader();
+            $user->fill($request->input());
+            if ($request->has('img')) {
+                if ($request->file('img') != null) {
+                    $img = $request->file('img');
+                    $user->img = $this->setImage($img, 'traders', 450, 450);
+                }
+            }
+
+            $user->password = bcrypt($request->password);
+            $user->code = randomCode();
+            if ($user->save()) {
+                $success['data']      =  new TraderResource($user);
+                return $this->sendResponse($success, 'تم التسجيل بنجاح.');
+            }
+        }
     }
     /**
      * Get a validator for an incoming registration request.

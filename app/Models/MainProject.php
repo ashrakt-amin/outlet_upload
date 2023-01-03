@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EskanCompany extends Model
+class MainProject extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    protected $appends = [];
-    protected $hidden = ['created_at', 'updated_at'];
-    protected $visible = [];
+    protected $appends  = [];
+    protected $fillable = ['name'];
+    protected $hidden   = ['created_at', 'updated_at'];
+    protected $visible  = [];
 
     public function projects()
     {

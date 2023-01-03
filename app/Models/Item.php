@@ -10,43 +10,10 @@ class Item extends Model
 {
     use HasFactory, TraitsAuthGuardTrait;
 
-    protected $appends = [
-        'wishlist',
-        'client_rate',
-        'all_rates',
-        'client_views',
-        'all_views',
-        'item_trader',
-        'item_colors',
-        'item_sizes',
-        'item_images',
-        'item_category',
-        'item_unit',
-        'item_stocks'
-    ];
-    protected $hidden = [
-        'type_id',
-        'item_unit_id',
-        'season_id',
-        'volume_id',
-        'manufactory_id', // 'الشركة المنتجة'
-        'agent_id', // 'الشركة الوكيلة'
-        'company_id', // 'الشركة الموزعة'
-        'importer_id',
-        'offer_id',
-        'colors',
-        'sizes',
-        'created_at',
-        'updated_at'
-    ];
-    protected $visible = [];
     protected $fillable  = [
         'name',
-        'buy_price',
-        'buy_discount',
-        'sale_price',
         'category_id',
-        'trader_id',
+        'unit_id',
         'item_unit_id',
         'item_code',
         'unit_parts_count',
@@ -56,18 +23,45 @@ class Item extends Model
         'manufactory_id', // 'الشركة المنتجة'
         'agent_id', // 'الشركة الوكيلة'
         'company_id', // 'الشركة الموزعة'
-        'import', // ->boolean
         'importer_id',
         ];
+
+    protected $appends = [
+        'wishlist',
+        'client_rate',
+        'all_rates',
+        'client_views',
+        'all_views',
+        'item_colors',
+        'item_sizes',
+        'item_images',
+        'item_category',
+        'item_unit',
+        'item_stocks'
+    ];
+
+    protected $hidden = [
+        'type_id',
+        'item_unit_id',
+        'manufactory_id', // 'الشركة المنتجة'
+        'agent_id', // 'الشركة الوكيلة'
+        'company_id', // 'الشركة الموزعة'
+        'importer_id',
+        'colors',
+        'sizes',
+        'created_at',
+        'updated_at'
+    ];
+    protected $visible = [];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function trader()
+    public function unit()
     {
-        return $this->belongsTo(Trader::class);
+        return $this->belongsTo(Unit::class);
     }
 
     public function manufactory()
@@ -117,11 +111,6 @@ class Item extends Model
 
 
     // GETTER/SETTER
-
-    public function getItemTraderAttribute()
-    {
-        return $this->trader;
-    }
 
     public function getWishlistAttribute()
     {

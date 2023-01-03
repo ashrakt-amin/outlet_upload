@@ -17,7 +17,7 @@ class Trader extends Authenticatable implements MustVerifyEmail
 
     const IMAGE_PATH = 'traders';
     protected $appends = ['path', 'trader_items'];
-    protected $visible = [ 'f_name', 'l_name', 'img', 'phone'];
+    protected $visible = [ 'f_name', 'l_name', 'path', 'phone'];
     protected $fillable = [
         'f_name',
         'l_name',
