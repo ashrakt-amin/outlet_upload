@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('category_unit', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('trader_id')->default(0);
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('trader_id')->default(0);
             $table->timestamps();
         });
     }

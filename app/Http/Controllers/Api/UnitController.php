@@ -161,7 +161,7 @@ class UnitController extends Controller
     {
         $categories = $request->category_id;
         foreach ($categories as $key => $value) {
-            $pivot = DB::table('category_unit')->where(['category_id'=>$value['id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
+            $pivot = DB::table('category_unit')->where(['category_id'=>$value['category_id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
             if ($pivot == null) {
                 $category = Category::find($value['id']);
                 $category->categories()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
