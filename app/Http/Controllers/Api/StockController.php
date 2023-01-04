@@ -53,11 +53,7 @@ class StockController extends Controller
         } else {
             $stock = new Stock();
             $stock->fill($request->input());
-            if ($request->buy_discount > 0) {
-                $stock->buy_price = $request->sale_price - ($request->sale_price * $request->buy_discount / 100);
-            } else {
-                $stock->buy_price = $request->buy_price;
-            }
+            
             $stock->stock_code = $item->item_code
             .$request->color_id
             .$request->size_id

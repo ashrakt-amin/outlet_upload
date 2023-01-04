@@ -17,13 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id');
             $table->bigInteger('stock');
-            $table->decimal('sale_price', 16, 2);
             $table->unsignedBigInteger('unit_id');
-            $table->decimal('buy_price', 16, 2)->nullable();
-            $table->decimal('buy_discount', 4, 2)->nullable();
             $table->boolean('available')->nullable()->default(1);
             $table->boolean('approved')->default(0);
             $table->string('stock_code')->unique();
+            $table->bigInteger('over_price')->nullable();
             $table->bigInteger('starting_stock')->nullable();
             $table->bigInteger('min_quantity')->nullable();
             $table->bigInteger('barcode')->nullable();
