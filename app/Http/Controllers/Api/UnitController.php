@@ -61,6 +61,14 @@ class UnitController extends Controller
                         $image->save();
                     }
                 }
+                $categories = $request->category_id;
+                foreach ($categories as $key => $value) {
+                    $pivot = DB::table('category_unit')->where(['category_id'=>$value['category_id'], 'unit_id'=>$unit->id, 'trader_id'=>$unit->trader_id])->first();
+                    if ($pivot == null) {
+                        $category = Category::find($value['id']);
+                        $category->categories()->attach(['trader_id'=>$unit->trader_id], ['unit_id'=>$unit->id]);
+                    }
+                }
                 return response()->json([
                     "success" => true,
                     "message" => "تم تسجيل وحدة جديدة",
