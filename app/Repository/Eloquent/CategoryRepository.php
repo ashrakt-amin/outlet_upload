@@ -17,17 +17,4 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
    {
        parent::__construct($model);
    }
-
-   /**
-    * Auth checking.
-    *
-    */
-    public function checkAuth()
-    {
-        // $authorizationHeader = \request()->header('Authorization');
-        // if(request()->bearerToken() != null) {
-        //     return $this->middleware('auth:sanctum');
-        // };
-    }
-
 }

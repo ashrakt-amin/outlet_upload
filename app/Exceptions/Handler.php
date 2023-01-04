@@ -11,7 +11,9 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Handler extends ExceptionHandler
 {
@@ -95,6 +97,7 @@ class Handler extends ExceptionHandler
                 $exception instanceof ThrottleRequestsException => $this->sendError($exception->getMessage(), [],  429),
                 $exception instanceof ModelNotFoundException ||
                 $exception instanceof NotFoundHttpException  => $this->sendError($exception->getMessage(), [],  404),
+                $exception instanceof MethodNotAllowedHttpException => $this->sendError($exception->getMessage(), [],  405),
                 $exception instanceof ValidationException =>  $this->invalidJson($request, $exception),
                 default => $this->sendError($exception->getMessage(), [],  500)
             };

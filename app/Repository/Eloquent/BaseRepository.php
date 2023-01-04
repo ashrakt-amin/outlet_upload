@@ -54,7 +54,8 @@ class BaseRepository implements EloquentRepositoryInterface
     * @param id $attributes
     * @return Model
     */
-    public function edit($id, array $attributes) {
+    public function edit($id, array $attributes)
+    {
         $data = $this->model->findOrFail($id);
         $data->update($attributes);
         return $data;

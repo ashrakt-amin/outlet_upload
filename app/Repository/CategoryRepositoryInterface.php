@@ -8,7 +8,7 @@ interface CategoryRepositoryInterface
 {
 //    public function all(): Collection;
 
-   public function checkAuth();
+//    public function checkAuth();
 
 //    public function delete($id);
 

@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,6 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 */
 interface EloquentRepositoryInterface
 {
+    /**
+     * @return Collection
+     */
+     public function all(): Collection;
+
    /**
     * @param array $attributes
     * @return Model
@@ -21,4 +27,16 @@ interface EloquentRepositoryInterface
     * @return Model
     */
    public function find($id): ?Model;
+
+   /**
+    * @param id $attributes
+    * @return Model
+    */
+    public function edit($id, array $attributes);
+
+    /**
+    * @param $id
+    * @return response
+    */
+    public function delete($id): ?Model;
 }
