@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Models\User;
 use App\Models\Client;
-use App\Models\Trader;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;

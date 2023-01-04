@@ -188,7 +188,7 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
 
-        
+
         /*
          * Application Service Providers...
          */
@@ -198,6 +198,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * My Service Providers...
+         */
+        App\Providers\RepositoryServiceProvider::class,
     ],
 
     /*

@@ -5,20 +5,21 @@ use App\Models\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
-use App\Models\SubCategory;
+use App\Repository\CategoryRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
 class CategoryController extends Controller
 {
-    public function __construct ()
+    use TraitResponseTrait;
+    private $categoryRepository;
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $authorizationHeader = \request()->header('Authorization');
+        $this->categoryRepository = $categoryRepository;
         if(request()->bearerToken() != null) {
-            $this->middleware('auth:sanctum');
+            return $this->middleware('auth:sanctum');
         };
-        // if(isset($authorizationHeader)) {
-        //     $this->middleware('auth:sanctum');
-        // };
     }
 
     /**
@@ -28,11 +29,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $categories = Category::where('category_id', '<', 1)->get();
-        return response()->json([
-                'data' => CategoryResource::collection($categories)
-        ], 200);
+        return $this->sendResponse(CategoryResource::collection($this->categoryRepository->all()), "", 200);
     }
 
     /**
@@ -41,27 +38,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->fill($request->input());
-        if ($category->category_id == null)  {
-            $category->category_id = 0;
-        }
-        $category->save();
-        // $category = Category::create($request->all());
-        if ($category) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل تصنيفا جديدا",
-                "data" => new CategoryResource($category)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل التصنيف",
-            ], 422);
-        }
+        $category = $this->categoryRepository->create($request->validated());
+        return $this->sendResponse(new CategoryResource($category), "تم تسجيل تصنيفا جديدا", 201);
     }
 
     /**
@@ -72,9 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return response()->json([
-            'data' => new CategoryResource($category),
-        ], 200);
+        return $this->sendResponse(new CategoryResource($category), "", 200);
     }
 
     /**
@@ -84,24 +62,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $category->fill($request->input());
-        if ($category->category_id == null)  {
-            $category->category_id = 0;
-        }
-        if ($category->update()) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل التصنيف",
-                "data" => new CategoryResource($category)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل التصنيف",
-            ], 422);
-        }
+        $category = $this->categoryRepository->edit($category->id, $request->validated());
+        return $this->sendResponse(new CategoryResource($category), "تم تعديل التصنيف");
     }
 
     /**
@@ -112,23 +76,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if ($category->subCategories->count() == 0 ) {
-            if ($category->delete()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم حذف التصنيف",
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل حذف التصنيف",
-                ], 422);
-            }
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "لا يمكن حذف قسما يحتوي على اقسام فرعية",
-            ], 422);
+        if ($category->items->count() == 0 ) {
+            if ($this->categoryRepository->delete($category->id)) return $this->sendResponse(new CategoryResource($category), "تم حذف التصنيف");
         }
+        return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", [], 405);
     }
 }
