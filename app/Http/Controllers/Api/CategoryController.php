@@ -76,7 +76,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if ($category->items->count() == 0 ) {
+        if (!$category->items->exists()) {
             if ($this->categoryRepository->delete($category->id)) return $this->sendResponse(new CategoryResource($category), "تم حذف التصنيف");
         }
         return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", [], 405);
