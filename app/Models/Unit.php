@@ -11,7 +11,7 @@ class Unit extends Model
     use HasFactory;
 
     protected $appends = [
-        'unit_activities',
+        'unit_categories',
         'unit_level',
         'unit_statu',
         'unit_trader',
@@ -83,18 +83,18 @@ class Unit extends Model
         return $this->belongsTo(Site::class);
     }
 
-    public function activities()
+    public function categories()
     {
-        return $this->belongsToMany(Activity::class, 'activity_trader');
+        return $this->belongsToMany(Category::class, 'category_unit');
     }
 
     /**
      * @GETTER & SETTER
      */
 
-    public function getUnitActivitiesAttribute()
+    public function getUnitCategoriesAttribute()
     {
-        return $this->activities ? $this->activities : false;
+        return $this->categories ? $this->categories : false;
     }
 
     public function getUnitLevelAttribute()

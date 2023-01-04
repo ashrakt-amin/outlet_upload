@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('activity_trader', function (Blueprint $table) {
+        Schema::create('category_unit', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('trader_id');
-            $table->unsignedBigInteger('activity_id');
+            $table->unsignedBigInteger('trader_id')->default(0);
+            $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('unit_id');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_trader');
+        Schema::dropIfExists('category_unit');
     }
 };

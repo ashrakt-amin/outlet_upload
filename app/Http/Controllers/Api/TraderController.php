@@ -99,7 +99,7 @@ class TraderController extends Controller
      */
     public function show(Trader $trader)
     {
-        $trader = Trader::where(['id'=>$trader->id])->with(['units' ,'items'])->first();
+        $trader = Trader::where(['id'=>$trader->id])->with(['units'])->first();
         return response()->json([
             "data"=> new TraderResource($trader),
         ], 200);
@@ -114,7 +114,7 @@ class TraderController extends Controller
     public function trader()
     {
         $user = $this->getTokenId('trader');
-        $trader = Trader::where(['id'=>$user])->with(['items'])->first();
+        $trader = Trader::where(['id'=>$user])->with(['units'])->first();
         if ($trader) {
             return response()->json([
                 'data' => new TraderResource($trader),

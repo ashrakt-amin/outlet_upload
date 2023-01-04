@@ -35,7 +35,7 @@ class UnitResource extends JsonResource
             'site'         => new SiteResource($this->site),
             'trader'       => new TraderResource($trader),
             'items'        => ItemResource::collection($this->unit_items),
-            'activities'   => ActivityResource::collection($this->unit_activities),
+            'categories'   => CategoryResource::collection($this->unit_categories),
         ];
     }
 }

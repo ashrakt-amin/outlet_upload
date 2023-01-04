@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\Unit;
 
+use App\Models\Unit;
 use App\Models\Statu;
-use App\Models\Activity;
+use App\Models\Category;
 use App\Models\UnitImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -157,17 +157,17 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function activities(Request $request)
+    public function categories(Request $request)
     {
-        $activities = $request->activity_id;
-        foreach ($activities as $key => $value) {
-            $pivot = DB::table('activity_trader')->where(['activity_id'=>$value['id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
+        $categories = $request->category_id;
+        foreach ($categories as $key => $value) {
+            $pivot = DB::table('category_unit')->where(['category_id'=>$value['id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
             if ($pivot == null) {
-                $activity = Activity::find($value['id']);
-                $activity->traders()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
+                $category = Category::find($value['id']);
+                $category->categories()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
             }
         }
-        $unit = DB::table('activity_trader')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
+        $unit = DB::table('category_unit')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
         if ( $unit > 0 ) {
             return response()->json([
                 "success" => true,
@@ -181,7 +181,7 @@ class UnitController extends Controller
             ], 422);
         }
         // update pivot table
-        Activity::find($value['activity_id'])->traders()->updateExistingPivot($request->trader_id, ['unit_id'=>$value['unit_id']]);
+        Category::find($value['id'])->units()->updateExistingPivot($request->unit_id, ['trader_id'=>$value['trader_id']]);
     }
 
     /**

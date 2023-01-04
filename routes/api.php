@@ -243,7 +243,7 @@ Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/latest',              'latest')->name('units.latest');
         Route::put('/status/{unit}',       'status')->name('units.status');
-        Route::post('/activities', 'activities')->name('units.activities');
+        Route::post('/categories', 'categories')->name('units.categories');
         Route::put('/finance/{unit}',    'finance')->name('units.finance');
         Route::put('/deposit/{unit}',    'deposit')->name('units.deposit');
         Route::put('/rents/{unit}',          'rents')->name('units.rents');
