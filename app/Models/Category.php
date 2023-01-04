@@ -9,10 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'parent_id'];
     protected $appends = ['parent_category', 'category_sub_categories', 'category_items'];
     protected $hidden = [];
-    protected $visible = ['id', 'name'];
+    protected $visible = ['id', 'name', 'parent_id',];
 
     public function items()
     {
@@ -26,19 +26,19 @@ class Category extends Model
 
     public function getParentCategoryAttribute()
     {
-        $parentCategory = Category::where(['id'=>$this->category_id])->first();
+        $parentCategory = Category::where(['id'=>$this->parent_id])->first();
         return $parentCategory;
     }
 
     public function getCategorySubCategoriesAttribute()
     {
-        $subCategories = Category::where(['category_id'=>$this->id])->get();
+        $subCategories = Category::where(['parent_id'=>$this->id])->get();
         return $subCategories;
     }
 
     public function getCategoryItemsAttribute()
     {
-        // return Item::where(['category_id'=>$this->id])->get();
+        // return Item::where(['parent_id'=>$this->id])->get();
         return $this->items ? $this->items :false;
     }
 }
