@@ -23,6 +23,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     */
     public function all(): Collection
     {
-        return $this->model->where(['parent_id', '<', '1'])->get();
+        return $this->model->where('parent_id', '<', '1')->get();
     }
 }
