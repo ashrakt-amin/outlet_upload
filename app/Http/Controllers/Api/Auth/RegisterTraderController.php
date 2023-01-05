@@ -25,7 +25,7 @@ class RegisterTraderController extends Controller
     {
         $user = new Trader();
         $user->fill($request->input());
-        
+
         if ($request->has('img')) {
             if ($request->file('img') != null) {
                 $img = $request->file('img');
@@ -34,7 +34,7 @@ class RegisterTraderController extends Controller
         }
 
         $user->password = bcrypt($request->password);
-        $user->code = randomCode();
+        $user->code = uniqueRandomCode('traders');
         if ($user->save()) {
             $success['data']      =  new TraderResource($user);
             return $this->sendResponse($success, 'تم التسجيل بنجاح.');

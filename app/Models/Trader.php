@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Http\Traits\ImageProccessingTrait as TraitsImageProccessingTrait;
 
 
 class Trader extends Authenticatable implements MustVerifyEmail
 {
 
-    use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait;
+    use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait, TraitsImageProccessingTrait;
 
     const IMAGE_PATH = 'traders';
     protected $appends = ['path'];
@@ -93,4 +95,17 @@ class Trader extends Authenticatable implements MustVerifyEmail
     {
         return asset('storage/images/traders') . '/' . $this->img;
     }
+
+     /**
+     * Double Attribute.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    // protected function Img(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => asset('storage/images/traders') . '/' . $this->img,
+    //         set: fn ($value) => $this->setImage($value, 'traders', 450, 450),
+    //     );
+    // }
 }

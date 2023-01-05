@@ -48,7 +48,7 @@ class UserController extends Controller
             }
 
             $user->password = bcrypt($request->password);
-            $user->code = randomCode();
+            $user->code = uniqueRandomCode('users');
             if ($user->save()) {
                 $success['data']      =  new TraderResource($user);
                 return $this->sendResponse($success, 'تم التسجيل بنجاح.');

@@ -43,7 +43,6 @@ class Category extends Model
 
     public function getCategoryItemsAttribute()
     {
-        // return Item::where(['parent_id'=>$this->id])->get();
         return $this->items ? $this->items :false;
     }
 }
