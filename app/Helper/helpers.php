@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\DB;
     if (! function_exists('randomCode')) {
         function randomCode()
         {
-        // Available alpha caracters
+        // Available alpha characters
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         // generate a pin based on 1 * 3 digits + a 3 random characters
@@ -49,13 +49,13 @@ use Illuminate\Support\Facades\DB;
     }
 
     /**
-     * create random $any characters
+     * if randomCode exists
      */
-    if (! function_exists('existingRandomCode')) {
-        function existingRandomCode($model)
+    if (! function_exists('uniqueRandomCode')) {
+        function uniqueRandomCode($tableName)
         {
             $code = randomCode();
-            $row  = DB::table($model)->where(['code'=>$code])->first();
+            $row  = DB::table($tableName)->where(['code'=>$code])->first();
             if ($row == null) {
                 return $code;
             } else {

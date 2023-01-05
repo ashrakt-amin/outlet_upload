@@ -12,9 +12,7 @@ class Stock extends Model
     protected $fillable  = [
         'item_id',
         'unit_id',
-        'buy_price',
-        'buy_discount',
-        'sale_price',
+        'over_price',
         'available',
         'color_id',
         'size_id',

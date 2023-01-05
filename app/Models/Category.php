@@ -19,6 +19,11 @@ class Category extends Model
         return $this->hasMany(Item::class);
     }
 
+    public function units()
+    {
+        return $this->belongsToMany(Unit::class, 'category_unit');
+    }
+
     public function groups()
     {
         return $this->hasManyThrow(Group::class, SubCategory::class);
@@ -38,7 +43,6 @@ class Category extends Model
 
     public function getCategoryItemsAttribute()
     {
-        // return Item::where(['parent_id'=>$this->id])->get();
         return $this->items ? $this->items :false;
     }
 }

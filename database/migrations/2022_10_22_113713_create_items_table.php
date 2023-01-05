@@ -17,13 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('category_id');
+            $table->decimal('sale_price', 16, 2);
+            $table->decimal('buy_price', 16, 2)->nullable();
+            $table->decimal('buy_discount', 4, 2)->nullable();
             $table->unsignedBigInteger('item_unit_id')->nullable();
             $table->integer('unit_parts_count')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->boolean('available')->nullable();
             $table->boolean('approved')->default(0);
             $table->string('item_code')->unique();
-            $table->decimal('discount', 4, 2)->nullable()->default(0);
+            $table->decimal('discount', 4, 2)->default(0);
             $table->text('description');
             $table->unsignedBigInteger('manufactory_id') ->nullable();
             $table->unsignedBigInteger('agent_id')       ->nullable();

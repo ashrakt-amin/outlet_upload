@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\Unit;
 
+use App\Models\Unit;
 use App\Models\Statu;
-use App\Models\Activity;
+use App\Models\Category;
 use App\Models\UnitImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,26 +52,22 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $unit = Unit::create($request->all());
-            if ($unit) {
-                if ($request->has('img')) {
-                    foreach ($request->file('img') as $img) {
-                        $image = new UnitImage();
-                        $image->unit_id = $unit->id;
-                        $image->img = $this->setImage($img, 'units', 450, 450);
-                        $image->save();
-                    }
-                }
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تسجيل وحدة جديدة",
-                    "data" => new UnitResource($unit)
-                ], 200);
-            } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل الوحدة",
-            ], 422);
+        $unit->categories()->attach($request->category_id, ['trader_id' => $unit->trader_id]);
+
+        if ($request->has('img')) {
+            foreach ($request->file('img') as $img) {
+                $image = new UnitImage();
+                $image->unit_id = $unit->id;
+                $image->img = $this->setImage($img, 'units', 450, 450);
+                $image->save();
+            }
         }
+
+        return response()->json([
+            "success" => true,
+            "message" => "تم تسجيل وحدة جديدة",
+            "data" => new UnitResource($unit)
+        ], 200);
     }
 
     /**
@@ -99,18 +95,14 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {
-        if ($unit->update($request->all())) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل الوحدة",
-                "data" => new UnitResource($unit)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل الوحدة",
-            ], 422);
-        }
+        $unit->update($request->all());
+        $unit->categories()->sync($request->category_id);
+
+        return response()->json([
+            "success" => true,
+            "message" => "تم تعديل الوحدة",
+            "data" => new UnitResource($unit)
+        ], 200);
     }
 
     /**
@@ -157,17 +149,17 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function activities(Request $request)
+    public function categories(Request $request)
     {
-        $activities = $request->activity_id;
-        foreach ($activities as $key => $value) {
-            $pivot = DB::table('activity_trader')->where(['activity_id'=>$value['id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
+        $categories = $request->category_id;
+        foreach ($categories as $key => $value) {
+            $pivot = DB::table('category_unit')->where(['category_id'=>$value['category_id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
             if ($pivot == null) {
-                $activity = Activity::find($value['id']);
-                $activity->traders()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
+                $category = Category::find($value['id']);
+                $category->categories()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
             }
         }
-        $unit = DB::table('activity_trader')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
+        $unit = DB::table('category_unit')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
         if ( $unit > 0 ) {
             return response()->json([
                 "success" => true,
@@ -181,7 +173,7 @@ class UnitController extends Controller
             ], 422);
         }
         // update pivot table
-        Activity::find($value['activity_id'])->traders()->updateExistingPivot($request->trader_id, ['unit_id'=>$value['unit_id']]);
+        Category::find($value['id'])->units()->updateExistingPivot($request->unit_id, ['trader_id'=>$value['trader_id']]);
     }
 
     /**

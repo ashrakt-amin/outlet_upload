@@ -17,4 +17,12 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
    {
        parent::__construct($model);
    }
+
+   /**
+    * @return Collection
+    */
+    public function all(): Collection
+    {
+        return $this->model->where('parent_id', '<', '1')->get();
+    }
 }

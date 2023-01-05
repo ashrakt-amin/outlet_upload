@@ -18,7 +18,6 @@ class TraderResource extends JsonResource
     {
         $units         = $this->whenLoaded('units');
         $levels        = $this->whenLoaded('levels');
-        $items         = $this->whenLoaded('items');
         // $orderDetails  = $this->whenLoaded('orderDetails');
         return [
             'id'           => $this->id,

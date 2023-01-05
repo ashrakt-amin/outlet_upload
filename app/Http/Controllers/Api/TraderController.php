@@ -1,31 +1,30 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use Carbon\Carbon;
 
 use App\Models\Trader;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
+use App\Http\Requests\TraderRequest;
 use App\Http\Resources\TraderResource;
+use App\Repository\TraderRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class TraderController extends Controller
 {
+    use TraitResponseTrait;
     use TraitsAuthGuardTrait;
     use TraitImageProccessingTrait;
 
-    public function __construct ()
+    private $traderRepository;
+    public function __construct(TraderRepositoryInterface $traderRepository)
     {
-        $authorizationHeader = \request()->header('Authorization');
+        $this->traderRepository = $traderRepository;
         if(request()->bearerToken() != null) {
-            $this->middleware('auth:sanctum');
+            return $this->middleware('auth:sanctum');
         };
-        // if(isset($authorizationHeader)) {
-        //     $this->middleware('auth:sanctum');
-        // };
     }
 
     /**
@@ -35,10 +34,7 @@ class TraderController extends Controller
      */
     public function index()
     {
-        $traders = Trader::orderBy('f_name', 'ASC')->get();
-        return response()->json([
-            "data" => TraderResource::collection($traders)
-        ], 200);
+        return $this->sendResponse(TraderResource::collection($this->traderRepository->all()), "", 200);
     }
 
     /**
@@ -47,46 +43,30 @@ class TraderController extends Controller
      * @param  \Illuminate\Http\TraderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TraderRequest $request)
     {
-        if ($request) {
-            $request->validate([
-                'phone' => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/',
-            ], [
-                'phone.required' => 'الهاتف مسجل من قبل',
-                'phone.unique' => 'الهاتف مسجل من قبل',
-                'phone.regex' => 'صيغة الهاتف غير صحيحة',
-            ]);
-            $emailExist = Trader::where(['email'=>$request->email])->first();
-            if (!empty($emailExist->email)) {
-                return response()->json([
-                'email'     => 'البريد الالكتروني مسجل من قبل',
-                ]);
-            }
-            $trader = new Trader();
-            $trader->fill($request->input());
-            if ($request->has('img')) {
-                $img = $request->file('img');
-                $trader->img = $this->setImage($img, 'traders', 450, 450);
-            }
-            $trader->code = randomCode();
+        $data = $request->validated();
+        $trader = $this->traderRepository->create($data);
+        return $this->sendResponse(new TraderResource($trader), "تم تسجيل تصنيفا جديدا", 201);
 
-            if ($trader->save()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تسجيل تاجرا جديدا",
-                    "data" => ["code"=>$trader->code],
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل تسجيل التاجر",
-                ], 422);
-            }
+        $trader = new Trader();
+        $trader->fill($request->input());
+        if ($request->has('img')) {
+            $img = $request->file('img');
+            $trader->img = $this->setImage($request->file('img'), 'traders', 450, 450);
+        }
+        $trader->code = uniqueRandomCode('traders');
+
+        if ($trader->save()) {
+            return response()->json([
+                "success" => true,
+                "message" => "تم تسجيل تاجرا جديدا",
+                "data" => ["code"=>$trader->code],
+            ], 200);
         } else {
             return response()->json([
                 "success" => false,
-                "message" => "ليست لديك صلاحية الاضافة",
+                "message" => "فشل تسجيل التاجر",
             ], 422);
         }
     }
@@ -99,10 +79,7 @@ class TraderController extends Controller
      */
     public function show(Trader $trader)
     {
-        $trader = Trader::where(['id'=>$trader->id])->with(['units'])->first();
-        return response()->json([
-            "data"=> new TraderResource($trader),
-        ], 200);
+        return $this->sendResponse(new TraderResource($this->traderRepository->find($trader->id)), "", 200);
     }
 
     /**
@@ -113,24 +90,21 @@ class TraderController extends Controller
      */
     public function trader()
     {
-        $user = $this->getTokenId('trader');
-        $trader = Trader::where(['id'=>$user])->with(['units'])->first();
-        if ($trader) {
-            return response()->json([
-                'data' => new TraderResource($trader),
-            ]);
-        }
+        return $this->sendResponse(new TraderResource($this->traderRepository->trader()), "", 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\TraderRequest  $request
      * @param  \App\Models\Trader  $trader
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trader $trader)
+    public function update(TraderRequest $request, Trader $trader)
     {
+        $trader = $this->traderRepository->edit($trader->id, $request->validated());
+        return $this->sendResponse(new TraderResource($trader), "تم تعديل التاجر");
+
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             return DB::transaction(function() use($trader, $request){
                 $age = $trader->age;
@@ -174,17 +148,9 @@ class TraderController extends Controller
      */
     public function destroy(Trader $trader)
     {
-        if ($trader->units->count() == 0) {
-            $trader->delete();
-            return response()->json([
-                "success" => true,
-                "message" => "تم حذف التاجر",
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "التاجر لديه وحدات ولا يمكن حذفه",
-            ], 422);
+        if (!$trader->units->exists()) {
+            $this->traderRepository->delete($trader->id);
+             return $this->sendResponse("", "تم حذف التصنيف");
         }
     }
 }
