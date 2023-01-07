@@ -23,6 +23,19 @@ class MainProjectController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function offers()
+    {
+        $mainProjects = MainProject::with('projects')->get();
+        return response()->json([
+            "data" => MainProjectResource::collection($mainProjects)
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

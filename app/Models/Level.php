@@ -30,6 +30,7 @@ class Level extends Model
         'level_units',
         'activity',
         'images',
+        'units',
     ];
 
     protected $fillable = [

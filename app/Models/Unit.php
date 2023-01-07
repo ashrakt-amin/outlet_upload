@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\UnitImageResource;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Unit extends Model
@@ -22,13 +24,15 @@ class Unit extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
-        'laravel_through_key',
+        // 'laravel_through_key',
         'pivot',
     ];
 
     protected $visible = [
         'id',
         'name',
+        'mainCategories',
+        'items',
         'images',
     ];
 
@@ -121,4 +125,16 @@ class Unit extends Model
     {
         return UnitImageResource::collection($this->unitImages);
     }
+
+    /**
+    * Double Attribute.
+    *
+    * @return \Illuminate\Database\Eloquent\Casts\Attribute
+    */
+   protected function mainCategories(): Attribute
+   {
+       return Attribute::make(
+           get: fn ($value) => Category::where('parent_id', '<', 1)->get(),
+       );
+   }
 }

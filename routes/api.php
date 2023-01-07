@@ -283,10 +283,11 @@ Route::resource('units', UnitController::class)->except('create', 'edit');
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
-        Route::get('/',             'index')->name('items.index');
-        Route::get('/latest',      'latest')->name('items.latest');
-        Route::get('/{item}',        'show')->name('items.show');
-        Route::get('/random',      'random')->name('items.random');
+        Route::get('/',                    'index')->name('items.index');
+        Route::get('/latest',             'latest')->name('items.latest');
+        Route::get('/{item}',               'show')->name('items.show');
+        Route::get('/random',             'random')->name('items.random');
+        Route::get('/streetOffers/{id}', 'streetOffers')->name('items.streetOffers');
     });
 });
 //______________________________________________________________________________________________________________________

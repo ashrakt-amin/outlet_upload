@@ -37,7 +37,7 @@ class Item extends Model
         'all_views',
         'item_colors',
         'item_sizes',
-        'item_images',
+        // 'item_images',
         'item_category',
         'item_unit',
         'item_stocks'
