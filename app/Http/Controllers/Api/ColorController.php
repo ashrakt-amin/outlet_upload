@@ -1,15 +1,25 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Models\Color;
-use Illuminate\Http\Request;
+use App\Http\Requests\ColorRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ColorResource;
-use App\Http\Resources\ColorCollection;
+use App\Repository\ColorRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
 class ColorController extends Controller
 {
+    use TraitResponseTrait;
+    private $colorRepository;
+    public function __construct(ColorRepositoryInterface $colorRepository)
+    {
+        $this->colorRepository = $colorRepository;
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,97 +27,56 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $colors = Color::all();
-        return response()->json([
-            'data' => new ColorCollection($colors)
-        ], 200);
+        return $this->sendResponse(ColorResource::collection($this->colorRepository->all()), "", 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ColorRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ColorRequest $request)
     {
-        $color = Color::create($request->all());
-        if ($color) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل لونا جديدا",
-                "data" => new ColorResource($color)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل لونا جديدا",
-            ], 422);
-        }
+        $color = $this->colorRepository->create($request->validated());
+        return $this->sendResponse(new ColorResource($color), "تم تسجيل لونا جديدا", 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Color  $color
+     * @param  \App\Models\  $color
      * @return \Illuminate\Http\Response
      */
     public function show(Color $color)
     {
-        return response()->json([
-            "success" => true,
-            "data" => new ColorResource($color)
-        ], 200);
+        return $this->sendResponse(new ColorResource($color), "", 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Color  $color
+     * @param  \Illuminate\Http\ColorRequest  $request
+     * @param  \App\Models\  $color
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Color $color)
+    public function update(ColorRequest $request, Color $color)
     {
-        if ($color->update($request->all())) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل اللون ",
-                "data" => new ColorResource($color)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل اللون ",
-            ], 422);
-        }
+        $color = $this->colorRepository->edit($color->id, $request->validated());
+        return $this->sendResponse(new ColorResource($color), "تم تعديل اللون");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Color  $color
+     * @param  \App\Models\  $color
      * @return \Illuminate\Http\Response
      */
     public function destroy(Color $color)
     {
-        if ($color->colorSizeStocks->count() == 0) {
-            if ($color->delete()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم حذف اللون ",
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل حذف اللون ",
-                ], 422);
-            }
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف لونا داخل منتجات",
-            ], 422);
+        if (!count($color->stocks)) {
+            if ($this->colorRepository->delete($color->id)) return $this->sendResponse("", "تم حذف اللون");
         }
+        return $this->sendError("لا يمكن حذف لونا له رصيد", [], 405);
     }
 }
