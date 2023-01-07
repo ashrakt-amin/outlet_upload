@@ -12,6 +12,7 @@ use App\Http\Resources\NdProjectResource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use App\Models\Category;
 
 class ProjectController extends Controller
 {
@@ -48,7 +49,35 @@ class ProjectController extends Controller
     {
         $projects = Project::where(['main_project_id' => 2])->paginate();
         return response()->json([
-            "data" => NdProjectResource::collection($projects)
+            "data" => ProjectResource::collection($projects)
+        ], 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function mallsOffers()
+    {
+        $projects = Project::select(
+                            "projects.name",
+                            "levels.name",
+                            "units.name",
+                            "category_unit.category_id",
+                            "categories.name",
+                        )
+                        ->join("levels", "levels.project_id", "=", "projects.id")
+                        ->join("units", "units.level_id", "=", "levels.id")
+                        ->join("category_unit", "category_unit.unit_id", "=", "units.id")
+                        ->join("categories", "categories.id", "=", "category_unit.category_id")
+                        ->where('main_project_id', '=', 1)
+                        ->get()
+                        ->toArray();
+
+        // ($projects);
+        return response()->json([
+            "data" => ($projects)
         ], 200);
     }
 

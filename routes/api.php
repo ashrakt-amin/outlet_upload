@@ -225,8 +225,11 @@ Route::resource('mainProjects', MainProjectController::class)->except('create', 
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::controller(ProjectController::class)->group(function () {
-    Route::get('/streetsOffers',         'streetsOffers')->name('mainProjects.streetsOffers');
+Route::prefix("projects")->group(function(){
+    Route::controller(ProjectController::class)->group(function () {
+        Route::get('/streetsOffers', 'streetsOffers')->name('mainProjects.streetsOffers');
+        Route::get('/mallsOffers',   'mallsOffers')->name('mainProjects.mallsOffers');
+    });
 });
 Route::resource('projects', ProjectController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
