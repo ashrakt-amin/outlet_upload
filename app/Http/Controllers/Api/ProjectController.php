@@ -65,12 +65,14 @@ class ProjectController extends Controller
                             "levels.name",
                             "units.name",
                             "category_unit.category_id",
+                            "categories.id",
                             "categories.name",
                         )
                         ->join("levels", "levels.project_id", "=", "projects.id")
                         ->join("units", "units.level_id", "=", "levels.id")
                         ->join("category_unit", "category_unit.unit_id", "=", "units.id")
                         ->join("categories", "categories.id", "=", "category_unit.category_id")
+                        ->where('categories.parent_id', '<', 1)
                         ->where('main_project_id', '=', 1)
                         ->get()
                         ->toArray();
