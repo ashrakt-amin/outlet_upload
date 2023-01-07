@@ -225,6 +225,9 @@ Route::resource('mainProjects', MainProjectController::class)->except('create', 
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
+Route::controller(ProjectController::class)->group(function () {
+    Route::get('/streetsOffers',         'streetsOffers')->name('mainProjects.streetsOffers');
+});
 Route::resource('projects', ProjectController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 

@@ -40,6 +40,19 @@ class ProjectController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function streetsOffers()
+    {
+        $projects = Project::where(['main_project_id' => 2])->paginate();
+        return response()->json([
+            "data" => NdProjectResource::collection($projects)
+        ], 200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
