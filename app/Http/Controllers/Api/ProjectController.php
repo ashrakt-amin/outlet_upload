@@ -61,12 +61,8 @@ class ProjectController extends Controller
     public function mallsOffers()
     {
         $projects = Project::select(
-                            "projects.name",
-                            "levels.name",
-                            "units.name",
-                            "category_unit.category_id",
                             "categories.id",
-                            "categories.name",
+                            "categories.name"
                         )
                         ->join("levels", "levels.project_id", "=", "projects.id")
                         ->join("units", "units.level_id", "=", "levels.id")
@@ -74,7 +70,7 @@ class ProjectController extends Controller
                         ->join("categories", "categories.id", "=", "category_unit.category_id")
                         ->where('categories.parent_id', '<', 1)
                         ->where('main_project_id', '=', 1)
-                        ->get()
+                        ->distinct('id')->get()
                         ->toArray();
 
         // ($projects);
