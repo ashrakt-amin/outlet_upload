@@ -78,25 +78,25 @@ class ItemController extends Controller
         $items = Project::where(['id' => $id])
             ->with(['units' => function($query){
                 $query->with(['items' => function($query){
-                    $query->where('discount' ,'=', null);
-                    }])->get();
+                    $query->where('discount' , '>', 0);
+                    }]);
             }])
             ->get();
 
-            $items = Project::select(
-                "items.id",
-                "items.name",
-                "stocks.stock"
-            )
-            ->where(['main_project_id' => 1])
-            ->where(['projects.id' => $id])
-            ->join("levels", ["levels.project_id" => "projects.id"])
-            ->join("units", ["units.level_id" => "levels.id"])
-            ->join("items", ["items.unit_id" => "units.id"])
-            ->join("stocks", ["stocks.item_id" => "items.id"])
-            ->where('items.discount' ,'>', 0)
-            ->distinct('id')->get()
-            ->toArray();
+            // $items = Project::select(
+            //     "items.id",
+            //     "items.name",
+            //     "stocks.stock"
+            // )
+            // ->where(['main_project_id' => 1])
+            // ->where(['projects.id' => $id])
+            // ->join("levels", ["levels.project_id" => "projects.id"])
+            // ->join("units", ["units.level_id" => "levels.id"])
+            // ->join("items", ["items.unit_id" => "units.id"])
+            // ->join("stocks", ["stocks.item_id" => "items.id"])
+            // ->where('items.discount' ,'>', 0)
+            // ->distinct('id')->get()
+            // ->toArray();
 
         return response()->json([
             "data" => ($items),
