@@ -88,12 +88,13 @@ class ItemController extends Controller
                 "items.name",
                 "stocks.stock"
             )
-            ->where(['main_project_id' => $id])
+            ->where(['main_project_id' => 1])
+            ->where(['projects.id' => $id])
             ->join("levels", ["levels.project_id" => "projects.id"])
             ->join("units", ["units.level_id" => "levels.id"])
             ->join("items", ["items.unit_id" => "units.id"])
             ->join("stocks", ["stocks.item_id" => "items.id"])
-            ->where('items.discount' ,'>', '0')
+            ->where('items.discount' ,'>', 0)
             ->distinct('id')->get()
             ->toArray();
 
