@@ -1,4 +1,7 @@
 <?php
 namespace App\Repository;
 
-interface CategoryRepositoryInterface { }
+interface CategoryRepositoryInterface
+{
+    public function categoriesOfProject($project_id);
+}

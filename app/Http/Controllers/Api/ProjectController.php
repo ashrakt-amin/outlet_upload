@@ -54,33 +54,6 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function mallsOffers()
-    {
-        $categories = Category::select(
-        "categories.*",
-        // "levels.id as level_id",
-        // "projects.name as project_name",
-        // "projects.id as project_id",
-        // "mainProjects.id as main_project_id"
-        )
-        ->join("levels", ["levels.project_id" => "project_id"])
-        ->join("projects", ["project_id" => "projects.id"])
-        ->where(["projects.main_project_id" => 1])
-        ->where("categories.parent_id", '<', 1)
-        ->distinct('categories.id')->get()
-        ->toArray();
-        ;
-        
-        return response()->json([
-            "data" => ($categories)
-        ], 200);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

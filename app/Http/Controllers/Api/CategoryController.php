@@ -69,6 +69,16 @@ class CategoryController extends Controller
     }
 
     /**
+     * Get categories of project.
+     *
+     * @return Collection
+     */
+    public function categoriesOfProject($project_id)
+    {
+        return $this->sendResponse(CategoryResource::collection($this->categoryRepository->categoriesOfProject($project_id)), "", 200);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Category  $category
