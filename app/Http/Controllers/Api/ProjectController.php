@@ -61,36 +61,20 @@ class ProjectController extends Controller
     public function mallsOffers()
     {
         $categories = Category::select(
-            "categories.*",
-            "levels.id as level_id",
-            "projects.name as project_name",
-            "projects.id as project_id",
-            // "mainProjects.id as main_project_id"
+        "categories.*",
+        // "levels.id as level_id",
+        // "projects.name as project_name",
+        // "projects.id as project_id",
+        // "mainProjects.id as main_project_id"
         )
         ->join("levels", ["levels.project_id" => "project_id"])
         ->join("projects", ["project_id" => "projects.id"])
-        ->where(["projects.id" => 1])
+        ->where(["projects.main_project_id" => 1])
+        ->where("categories.parent_id", '<', 1)
         ->distinct('categories.id')->get()
         ->toArray();
         ;
-
-
-
-        // $projects = Project::select(
-        //     "projects.id",
-        //     "projects.name",
-        //     "categories.id as category_id",
-        //     "categories.name as category_name",
-        //         )
-        //         ->join("levels", "levels.project_id", "=", "projects.id")
-        //         ->join("units", "units.level_id", "=", "levels.id")
-        //         ->join("category_unit", "category_unit.unit_id", "=", "units.id")
-        //         ->join("categories", "category_id", "=", "category_unit.category_id")
-        //         ->where('categories.parent_id', '<', 1)
-        //         ->where('main_project_id', '=', 1)
-        //         ->distinct('id')->get()
-        //         ->toArray();
-
+        
         return response()->json([
             "data" => ($categories)
         ], 200);
