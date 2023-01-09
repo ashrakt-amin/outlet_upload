@@ -62,7 +62,20 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::with(['unit'])->inRandomOrder()->limit(5)->get();
+        $items = Item::with(['unit'])->inRandomOrder()->limit(10)->get();
+        return response()->json([
+            "data" => ItemResource::collection($items),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function offers()
+    {
+        $items = item::where('discount', '>', 0)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);
@@ -80,7 +93,7 @@ class ItemController extends Controller
                 $query->with(['items' => function($query){
                     $query->where('discount' , '>', 0);
                     }]);
-            }])
+                }])
             ->get();
 
             // $items = Project::select(
