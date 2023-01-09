@@ -137,4 +137,16 @@ class Unit extends Model
            get: fn ($value) => Category::where('parent_id', '<', 1)->get(),
        );
    }
+
+    /**
+    * Double Attribute.
+    *
+    * @return \Illuminate\Database\Eloquent\Casts\Attribute
+    */
+   protected function itemOffers(): Attribute
+   {
+       return Attribute::make(
+           get: fn ($value) => item::where(['unit_id'=> $this->id])->where('discount', '>', 0)->get(),
+       );
+   }
 }

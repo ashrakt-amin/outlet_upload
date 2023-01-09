@@ -248,6 +248,7 @@ Route::resource('levels', LevelController::class)->except('create', 'edit');
 Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/latest',              'latest')->name('units.latest');
+        Route::get('/unitOffers/{unit}', 'unitOffers')->name('items.unitOffers');
         Route::put('/status/{unit}',       'status')->name('units.status');
         Route::post('/categories', 'categories')->name('units.categories');
         Route::put('/finance/{unit}',    'finance')->name('units.finance');

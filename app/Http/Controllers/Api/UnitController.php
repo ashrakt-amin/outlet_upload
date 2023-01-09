@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UnitResource;
+use App\Http\Resources\SubResources\UnitResource as SubUnitResource;
 use App\Http\Resources\StatuResource;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -24,7 +25,6 @@ class UnitController extends Controller
     public function index()
     {
         $units = Unit::all();
-        // return new Collection($projects);
         return response()->json([
             "data" => UnitResource::collection($units)
         ]);
@@ -78,11 +78,24 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        $unit = Unit::where(['id'=>$unit->id])->with(['trader'])->first();
+        $unit = Unit::where(['id'=>$unit->id])->with(['items'])->first();
         $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
         return response()->json([
             "data"       => new UnitResource($unit),
             "next_Statu" => $next_Statu ? new StatuResource($next_Statu) : false,
+        ], 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function unitOffers(Unit $unit)
+    {
+        return response()->json([
+            "data" => new SubUnitResource($unit),
         ], 200);
     }
 
