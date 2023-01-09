@@ -32,12 +32,12 @@ class Stock extends Model
         ];
 
     protected $appends = [
-        'stock_item',
-        'stock_trader',
-        'stock_color',
-        'stock_size',
-        'stock_volume',
-        'stock_season',
+        // 'stock_item',
+        // 'stock_trader',
+        // 'stock_color',
+        // 'stock_size',
+        // 'stock_volume',
+        // 'stock_season',
         ];
 
         protected $hidden = [

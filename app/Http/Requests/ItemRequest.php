@@ -63,6 +63,7 @@ class ItemRequest extends FormRequest
             'item_unit_id.required'     => 'مطلوب',
             'unit_parts_count.required' => 'مطلوب',
             'sale_price.required'       => 'مطلوب',
+            'description.required'       => 'مطلوب',
             'item_code.required'        => 'موجود من قبل',
         ];
     }

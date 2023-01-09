@@ -12,6 +12,7 @@ use App\Http\Resources\NdProjectResource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use App\Models\Category;
 
 class ProjectController extends Controller
 {
@@ -27,16 +28,29 @@ class ProjectController extends Controller
         $mainProjects = MainProject::paginate();
         if (count($mainProjects) < 1 ) {
             $mainProject = new MainProject();
-            $mainProject->name = "مولات";
+            $mainProject->name = "مناطق";
             $mainProject->save();
             $mainProject = new MainProject();
-            $mainProject->name = "مناطق";
+            $mainProject->name = "مولات";
             $mainProject->save();
         }
         $projects = Project::paginate();
         return response()->json([
             "data" => NdProjectResource::collection($projects)
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function streetsOffers()
+    {
+        $projects = Project::where(['main_project_id' => 2])->paginate();
+        return response()->json([
+            "data" => ProjectResource::collection($projects)
+        ], 200);
     }
 
     /**

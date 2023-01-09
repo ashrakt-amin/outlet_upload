@@ -225,6 +225,11 @@ Route::resource('mainProjects', MainProjectController::class)->except('create', 
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
+Route::prefix("projects")->group(function(){
+    Route::controller(ProjectController::class)->group(function () {
+        Route::get('/streetsOffers', 'streetsOffers')->name('mainProjects.streetsOffers');
+    });
+});
 Route::resource('projects', ProjectController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
@@ -242,6 +247,7 @@ Route::resource('levels', LevelController::class)->except('create', 'edit');
 Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/latest',              'latest')->name('units.latest');
+        Route::get('/unitOffers/{unit}', 'unitOffers')->name('items.unitOffers');
         Route::put('/status/{unit}',       'status')->name('units.status');
         Route::post('/categories', 'categories')->name('units.categories');
         Route::put('/finance/{unit}',    'finance')->name('units.finance');
@@ -275,12 +281,14 @@ Route::resource('units', UnitController::class)->except('create', 'edit');
     // });
 
 //-----------------------------------------------------------------------------------------------------------
-Route::prefix("items")->group(function(){
-    Route::controller(ItemController::class)->group(function () {
-        Route::get('/',             'index')->name('items.index');
-        Route::get('/latest',      'latest')->name('items.latest');
-        Route::get('/{item}',        'show')->name('items.show');
-        Route::get('/random',      'random')->name('items.random');
+Route::controller(ItemController::class)->group(function () {
+    Route::get('items/offers',             'offers')->name('items.offers');
+    Route::prefix("items")->group(function(){
+        Route::get('/',                    'index')->name('items.index');
+        Route::get('/{item}',               'show')->name('items.show');
+        Route::get('/latest',             'latest')->name('items.latest');
+        Route::get('/random',             'random')->name('items.random');
+        Route::get('/streetOffers/{id}', 'streetOffers')->name('items.streetOffers');
     });
 });
 //______________________________________________________________________________________________________________________
@@ -306,6 +314,10 @@ Route::resource('activities', ActivityController::class)->except('create', 'edit
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
+
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/categories_of_projects/{project_id}', 'categoriesOfProject');
+});
 Route::resource('categories', CategoryController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 

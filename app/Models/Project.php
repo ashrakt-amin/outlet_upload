@@ -23,6 +23,7 @@ class Project extends Model
         'id',
         'name',
         'levels',
+        'units',
     ];
 
 
