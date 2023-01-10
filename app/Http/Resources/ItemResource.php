@@ -21,7 +21,7 @@ class ItemResource extends JsonResource
             'id'               => $this->id,
             'name'             => $this->name,
             'unit_name'        => $this->unit->name,
-            'unit_images'      => new UnitImageResource($this->unit->unitImages()->first()),
+            'first_unit_image' => new UnitImageResource($this->unit->unitImages()->first()),
             'itemUnit'         => $this->item_unit,
             'sale_price'       => $this->sale_price,
             'buy_price'        => $this->buy_price,
