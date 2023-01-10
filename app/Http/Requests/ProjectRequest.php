@@ -26,7 +26,6 @@ class ProjectRequest extends FormRequest
         return [
             'name' => 'required',
             'main_project_id' => 'required',
-            'img' => 'required'
         ];
     }
 

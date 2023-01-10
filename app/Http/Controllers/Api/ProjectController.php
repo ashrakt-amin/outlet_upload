@@ -64,7 +64,7 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $project = $this->projectRepository->create($request->validated());
-        return $this->sendResponse(new ProjectResource($project), "تم تسجيل لونا جديدا", 201);
+        return $this->sendResponse(new ProjectResource($project), "تم تسجيل مشروعا جديدا", 201);
     }
 
     /**
@@ -88,7 +88,7 @@ class ProjectController extends Controller
     public function update(ProjectRequest $request, Project $project)
     {
         $project = $this->projectRepository->edit($project->id, $request->validated());
-        return $this->sendResponse(new ProjectResource($project), "تم تعديل اللون");
+        return $this->sendResponse(new ProjectResource($project), "تم تعديل المشروع");
     }
 
     /**
@@ -99,9 +99,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if (!count($project->stocks)) {
-            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف اللون");
+        if (!count($project->levels)) {
+            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف المشروع");
         }
-        return $this->sendError("لا يمكن حذف لونا له رصيد", [], 405);
+        return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
     }
 }
