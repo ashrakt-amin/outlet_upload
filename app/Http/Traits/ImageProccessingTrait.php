@@ -60,6 +60,25 @@ Trait ImageProccessingTrait
         return $image->hashName();
     }
 
+
+    /**
+     * Set Images
+     */
+    public function setImages($images, $path, $column, $width = null, $height = null)
+    {
+        $imagesName = [];
+        foreach($images as $image){
+            Image::make($image)
+            ->resize($width, $height, function($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $image->store($this->path . '/' . $path, 'public');
+             array_push($imagesName, [ $column => $image->hashName()]);
+        }
+        return $imagesName;
+    }
+
     /**
      * update image width and height
      */

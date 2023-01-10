@@ -4,5 +4,5 @@ namespace App\Helper;
 
 class Helper
 {
-
+    
 }
