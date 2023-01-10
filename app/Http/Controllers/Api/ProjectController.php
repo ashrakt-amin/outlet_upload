@@ -75,7 +75,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return $this->sendResponse(new NdProjectResource($project), "", 200);
+        return $this->sendResponse(new NdProjectResource($this->projectRepository->find($project->id)),  "", 200);
     }
 
     /**
