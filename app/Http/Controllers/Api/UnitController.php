@@ -78,7 +78,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        $unit = Unit::where(['id'=>$unit->id])->with(['items'])->first();
+        $unit = Unit::where(['id'=>$unit->id])->with(['items', 'trader'])->first();
         $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
         return response()->json([
             "data"       => new UnitResource($unit),
