@@ -15,6 +15,7 @@ use App\Repository\ProjectRepositoryInterface;
 use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use App\Models\Category;
 
 class ProjectController extends Controller
 {
@@ -39,6 +40,19 @@ class ProjectController extends Controller
     public function index()
     {
         return $this->sendResponse(ProjectResource::collection($this->projectRepository->all()), "", 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function streetsOffers()
+    {
+        $projects = Project::where(['main_project_id' => 2])->paginate();
+        return response()->json([
+            "data" => ProjectResource::collection($projects)
+        ], 200);
     }
 
     /**

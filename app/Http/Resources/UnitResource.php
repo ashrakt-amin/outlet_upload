@@ -2,9 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Activity;
-use App\Models\Trader;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UnitResource extends JsonResource
@@ -36,6 +33,7 @@ class UnitResource extends JsonResource
             'trader'       => new TraderResource($trader),
             'items'        => ItemResource::collection($this->unit_items),
             'categories'   => CategoryResource::collection($this->unit_categories),
+            'mainCategories'   => ($this->mainCategories),
         ];
     }
 }

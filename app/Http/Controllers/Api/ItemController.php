@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Item;
 use App\Models\View;
+use App\Models\Project;
 use App\Models\ItemImage;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ItemRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use Illuminate\Support\Facades\File;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
@@ -61,9 +62,57 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::with(['unit'])->inRandomOrder()->limit(5)->get();
+        $items = Item::with(['unit'])->inRandomOrder()->limit(10)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function offers()
+    {
+        $items = item::where('discount', '>', 0)->get();
+        return response()->json([
+            "data" => ItemResource::collection($items),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function streetOffers($id)
+    {
+        $items = Project::where(['id' => $id])
+            ->with(['units' => function($query){
+                $query->with(['items' => function($query){
+                    $query->where('discount' , '>', 0);
+                    }]);
+                }])
+            ->get();
+
+            // $items = Project::select(
+            //     "items.id",
+            //     "items.name",
+            //     "stocks.stock"
+            // )
+            // ->where(['main_project_id' => 1])
+            // ->where(['projects.id' => $id])
+            // ->join("levels", ["levels.project_id" => "projects.id"])
+            // ->join("units", ["units.level_id" => "levels.id"])
+            // ->join("items", ["items.unit_id" => "units.id"])
+            // ->join("stocks", ["stocks.item_id" => "items.id"])
+            // ->where('items.discount' ,'>', 0)
+            // ->distinct('id')->get()
+            // ->toArray();
+
+        return response()->json([
+            "data" => ($items),
         ]);
     }
 
