@@ -20,6 +20,8 @@ class ItemResource extends JsonResource
         return [
             'id'               => $this->id,
             'name'             => $this->name,
+            'unit_name'        => $this->unit->name,
+            'unit_images'      => UnitResource::collection($this->unit->unitImages),
             'itemUnit'         => $this->item_unit,
             'sale_price'       => $this->sale_price,
             'buy_price'        => $this->buy_price,

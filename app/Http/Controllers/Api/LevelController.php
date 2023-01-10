@@ -23,7 +23,7 @@ class LevelController extends Controller
     public function index()
     {
         $levels = Level::with(['units', 'traders'])->paginate();
-        if (count($levels) > 0) {
+        if (count($levels)) {
             foreach ($levels as $level) {
                 if ($level->project->main_project_id == 1) {
                     $data[] = new LevelResource($level);
