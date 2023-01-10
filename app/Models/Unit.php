@@ -87,6 +87,11 @@ class Unit extends Model
         return $this->belongsTo(Site::class);
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'category_unit');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_unit');

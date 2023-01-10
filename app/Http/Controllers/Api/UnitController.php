@@ -52,7 +52,7 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $unit = Unit::create($request->all());
-        $unit->categories()->attach($request->category_id, ['project_id'=> $unit->level->project_id], ['trader_id' => $unit->trader_id]);
+        $unit->categories()->attach($request->category_id, ['project_id'=> $unit->level->project_id]);
 
         if ($request->has('img')) {
             foreach ($request->file('img') as $img) {
