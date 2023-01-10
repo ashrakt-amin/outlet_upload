@@ -9,13 +9,13 @@ class Color extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['name'];
     protected $appends = [];
-    protected $hidden = ['pivot',  'created_at',  'updated_at'];
+    protected $hidden = ['pivot', 'created_at', 'updated_at'];
     protected $visible = [];
 
-    public function colorSizeStocks()
+    public function stocks()
     {
-        return $this->hasMany(ColorSizeStock::class);
+        return $this->hasMany(Stock::class);
     }
 }

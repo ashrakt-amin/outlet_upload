@@ -45,8 +45,7 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     */
     public function find($id): ?Trader
     {
-        $trader = $this->model->where(['id'=>$id])->with(['units'])->first();
-        return $trader;
+        return $this->model->where(['id'=>$id])->with(['units'])->first();
     }
 
     /**

@@ -9,8 +9,7 @@ class Size extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        ];
+    protected $appends = [];
 
     protected $hidden = [
         'pivot',
@@ -18,13 +17,12 @@ class Size extends Model
         'updated_at'
     ];
 
-    protected $visible = [
-    ];
+    protected $visible = [];
 
     protected $guarded = [];
 
-    public function colorSizeStocks()
+    public function stocks()
     {
-        return $this->hasMany(ColorSizeStock::class);
+        return $this->hasMany(Stock::class);
     }
 }

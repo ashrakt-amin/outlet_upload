@@ -8,16 +8,30 @@ use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\NdProjectResource;
+use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
-use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Http\Resources\NdProjectResource;
+use App\Repository\ProjectRepositoryInterface;
+use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 use App\Models\Category;
 
 class ProjectController extends Controller
 {
-    use TraitsAuthGuardTrait;
+    use TraitAuthGuardTrait;
     use TraitImageProccessingTrait;
+
+    use TraitResponseTrait;
+    private $projectRepository;
+    public function __construct(ProjectRepositoryInterface $projectRepository)
+    {
+        $this->projectRepository = $projectRepository;
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,19 +39,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $mainProjects = MainProject::paginate();
-        if (count($mainProjects) < 1 ) {
-            $mainProject = new MainProject();
-            $mainProject->name = "مناطق";
-            $mainProject->save();
-            $mainProject = new MainProject();
-            $mainProject->name = "مولات";
-            $mainProject->save();
-        }
-        $projects = Project::paginate();
-        return response()->json([
-            "data" => NdProjectResource::collection($projects)
-        ]);
+        return $this->sendResponse(ProjectResource::collection($this->projectRepository->all()), "", 200);
     }
 
     /**
@@ -56,103 +58,50 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        $validate = $request->validate([
-                        'name' => [
-                            'required',
-                            Rule::unique('projects', 'name')
-                            ->ignore(request('Project'), 'id')
-                        ],
-                    ]);
-        if ($validate) {
-            if ($project = Project::create($request->all())) {
-                if ($request->has('img')) {
-                    foreach ($request->file('img') as $img) {
-                        $image = new ProjectImage();
-                        $image->project_id = $project->id;
-                        $image->img = $this->setImage($img, 'projects', 450, 450);
-                        $image->save();
-                    }
-                }
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم تسجيل مشروعا جديدا",
-                    "data" => new ProjectResource($project),
-                ], 200);
-            }
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل المشروع",
-            ], 422);
-        }
+        $project = $this->projectRepository->create($request->validated());
+        return $this->sendResponse(new ProjectResource($project), "تم تسجيل لونا جديدا", 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\  $project
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
     {
-        $project = Project::where(['id'=>$project->id])->with(['levels', 'projectImages'])->first();
-        return response()->json([
-            "data"=> new NdProjectResource($project),
-        ], 200);
+        return $this->sendResponse(new NdProjectResource($project), "", 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Project  $project
+     * @param  \Illuminate\Http\ProjectRequest  $request
+     * @param  \App\Models\  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        $request->validate([
-            'name'             => 'required',
-            'main_project_id' => 'required',
-        ]);
-        if ($project->update($request->all())) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل المشروع",
-                "data" => new ProjectResource($project),
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل المشروع",
-            ], 422);
-        }
+        $project = $this->projectRepository->edit($project->id, $request->validated());
+        return $this->sendResponse(new ProjectResource($project), "تم تعديل اللون");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\  $project
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)
     {
-
-        if ($project->levels->count() == 0) {
-            $project->delete();
-            return response()->json([
-                "success" => true,
-                "message" => "تم حذف المشروع",
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "المشروع به وحدات ولا يمكن الحذف",
-            ], 422);
+        if (!count($project->stocks)) {
+            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف اللون");
         }
+        return $this->sendError("لا يمكن حذف لونا له رصيد", [], 405);
     }
 }

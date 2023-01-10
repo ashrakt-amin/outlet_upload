@@ -3,6 +3,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
     /**
     * Write code on Method
@@ -62,6 +63,24 @@ use Illuminate\Support\Facades\DB;
                 return randomCode();
             }
         }
+    }
+
+    /**
+    * if randomCode exists
+    * @param array $attributes
+    *
+    * @return Model
+    */
+    if (! function_exists('createImage')) {
+        // function createImage(array $attributes): Model
+        // {
+        //     foreach ($attributes['img'] as $img) {
+        //     $image = new ProjectImage();
+        //     $image->project_id = $request->project_id;
+        //     $image->img = $this->setImage($img, 'projects', 450, 450);
+        //     $image->save();
+        // }
+        // }
     }
 
 
