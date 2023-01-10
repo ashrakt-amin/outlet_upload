@@ -1,15 +1,25 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Models\Size;
-use Illuminate\Http\Request;
+use App\Http\Requests\SizeRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SizeResource;
-use App\Http\Resources\SizeCollection;
+use App\Repository\SizeRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
 class SizeController extends Controller
 {
+    use TraitResponseTrait;
+    private $sizeRepository;
+    public function __construct(SizeRepositoryInterface $sizeRepository)
+    {
+        $this->sizeRepository = $sizeRepository;
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,98 +27,56 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $sizes = Size::all();
-        return response()->json([
-            'data' => new SizeCollection($sizes)
-        ], 200);
+        return $this->sendResponse(SizeResource::collection($this->sizeRepository->all()), "", 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\SizeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SizeRequest $request)
     {
-        $size = Size::create($request->all());
-        if ($size) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل مقاسا جديدا",
-                "data" => new SizeResource($size)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل مقاسا جديدا",
-            ], 422);
-        }
+        $size = $this->sizeRepository->create($request->validated());
+        return $this->sendResponse(new SizeResource($size), "تم تسجيل حجما جديدا", 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Size  $size
+     * @param  \App\Models\  $size
      * @return \Illuminate\Http\Response
      */
     public function show(Size $size)
     {
-        return response()->json([
-            "success" => true,
-            "data" => new SizeResource($size)
-        ], 200);
+        return $this->sendResponse(new SizeResource($size), "", 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Size  $size
+     * @param  \Illuminate\Http\SizeRequest  $request
+     * @param  \App\Models\  $size
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Size $size)
+    public function update(SizeRequest $request, Size $size)
     {
-        if ($size->update($request->all())) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل المقاس",
-                "data" => new SizeResource($size)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل المقاس",
-            ], 422);
-        }
+        $size = $this->sizeRepository->edit($size->id, $request->validated());
+        return $this->sendResponse(new SizeResource($size), "تم تعديل الحجم");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Size  $size
+     * @param  \App\Models\  $size
      * @return \Illuminate\Http\Response
      */
     public function destroy(Size $size)
     {
-        if ($size->colorSizeStocks->count() == 0) {
-            if ($size->delete()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم حذف المقاس",
-                    "data" => new SizeResource($size)
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل حذف المقاس",
-                ], 422);
-            }
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف نوعا داخل منتجات",
-            ], 422);
+        if (!count($size->stocks)) {
+            if ($this->sizeRepository->delete($size->id)) return $this->sendResponse("", "تم حذف الحجم");
         }
+        return $this->sendError("لا يمكن حذف حجما له رصيد", [], 405);
     }
 }

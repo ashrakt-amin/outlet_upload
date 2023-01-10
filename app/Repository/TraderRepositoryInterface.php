@@ -4,10 +4,10 @@ use App\Models\Trader;
 
 interface TraderRepositoryInterface {
 
-//    /**
-//     * @param array $attributes
-//     * @return Trader
-//     */
+   /**
+    * @param array $attributes
+    * @return Trader
+    */
    public function create(array $attributes): Trader;
 
    /**
@@ -15,7 +15,6 @@ interface TraderRepositoryInterface {
     * @return Trader
     */
     public function find($id): ?Trader;
-
 
     /**
      * Display the trader for him resource..
