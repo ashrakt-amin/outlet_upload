@@ -88,13 +88,13 @@ class ItemController extends Controller
      */
     public function offerItemsOfProject($project_id, $category_id)
     {
-        return Item::whereHas('category', function($q) use($project_id, $category_id) {
+        return ItemResource::collection(Item::whereHas('category', function($q) use($project_id, $category_id) {
             $q->whereHas('projects', function($q) use($project_id) {
                 $q->where('project_id', $project_id);
             })
             ->where('category_id', $category_id)
             ->where('discount', '>', 0);
-        })->get();
+        })->get());
     }
 
     /**
