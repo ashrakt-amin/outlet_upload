@@ -8,7 +8,7 @@ use App\Repository\ColorRepositoryInterface;
 class ColorRepository extends BaseRepository implements ColorRepositoryInterface
 {
    /**
-    * CategoryRepository constructor.
+    * ColorRepository constructor.
     *
     * @param Color $model
     */

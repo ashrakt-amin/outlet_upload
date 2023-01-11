@@ -3,12 +3,24 @@
 namespace App\Http\Controllers\Api;
 use App\Models\MainProject;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MainProjectRequest;
 use App\Http\Resources\MainProjectResource;
+use App\Repository\MainProjectRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
 class MainProjectController extends Controller
 {
+    use TraitResponseTrait;
+    private $mainProjectRepository;
+    public function __construct(MainProjectRepositoryInterface $mainProjectRepository)
+    {
+        $this->mainProjectRepository = $mainProjectRepository;
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +28,7 @@ class MainProjectController extends Controller
      */
     public function index()
     {
-        $mainProjects = MainProject::all();
-        return response()->json([
-            "data" => MainProjectResource::collection($mainProjects)
-        ]);
+        return $this->sendResponse(mainProjectResource::collection($this->mainProjectRepository->all()), "", 200);
     }
 
     /**
@@ -38,88 +47,50 @@ class MainProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\MainProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MainProjectRequest $request)
     {
-        $mainProject = MainProject::create($request->all());
-        if ($mainProject) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل مبنا جديدا",
-                "data" => new MainProjectResource($mainProject)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل المبنى",
-            ], 422);
-        }
+        $mainProject = $this->mainProjectRepository->create($request->validated());
+        return $this->sendResponse(new mainProjectResource($mainProject), "تم تسجيل مبنا جديدا", 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MainProject  $mainProject
+     * @param  \App\Models\  $mainProject
      * @return \Illuminate\Http\Response
      */
     public function show(MainProject $mainProject)
     {
-        $mainProject = MainProject::where(['id'=>$mainProject->id])->with(['projects'])->first();
-        return response()->json([
-        "data"=> new MainProjectResource($mainProject),
-        ], 200);
+        return $this->sendResponse(new mainProjectResource($mainProject), "", 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MainProject  $mainProject
+     * @param  \Illuminate\Http\MainProjectRequest  $request
+     * @param  \App\Models\  $mainProject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,MainProject $mainProject)
+    public function update(MainProjectRequest $request, MainProject $mainProject)
     {
-        if ($mainProject->update($request->all())) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تعديل المبنى",
-                "data" => new MainProjectResource($mainProject)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل المبنى",
-            ], 422);
-        }
+        $mainProject = $this->mainProjectRepository->edit($mainProject->id, $request->validated());
+        return $this->sendResponse(new mainProjectResource($mainProject), "تم تعديل المبنى");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MainProject  $mainProject
+     * @param  \App\Models\  $mainProject
      * @return \Illuminate\Http\Response
      */
     public function destroy(MainProject $mainProject)
     {
-        if ($mainProject->levels->count() == 0) {
-            if ($mainProject->delete()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم حذف المبنى ",
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل حذف المبنى",
-                ], 422);
-            }
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف مبنا به ادوار",
-            ], 422);
+        if (!count($mainProject->projects)) {
+            if ($this->mainProjectRepository->delete($mainProject->id)) return $this->sendResponse("", "تم حذف المبنى");
         }
+        return $this->sendError("لا يمكن حذف نوع لديه مشاريع", [], 405);
     }
 }

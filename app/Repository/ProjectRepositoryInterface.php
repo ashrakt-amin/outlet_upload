@@ -15,5 +15,4 @@ interface ProjectRepositoryInterface {
     * @return Project
     */
     public function create(array $attributes): Project;
-
  }
