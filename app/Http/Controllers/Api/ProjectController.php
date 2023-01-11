@@ -3,10 +3,6 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Project;
 
-use App\Models\MainProject;
-use App\Models\ProjectImage;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
@@ -15,7 +11,6 @@ use App\Repository\ProjectRepositoryInterface;
 use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
-use App\Models\Category;
 
 class ProjectController extends Controller
 {
@@ -49,10 +44,7 @@ class ProjectController extends Controller
      */
     public function streetsOffers()
     {
-        $projects = Project::where(['main_project_id' => 2])->paginate();
-        return response()->json([
-            "data" => ProjectResource::collection($projects)
-        ], 200);
+        return $this->sendResponse(ProjectResource::collection($this->projectRepository->all()), "", 200);
     }
 
     /**
