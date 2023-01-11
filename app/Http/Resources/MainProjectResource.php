@@ -18,7 +18,7 @@ class MainProjectResource extends JsonResource
             'id'       => $this->id,
             'name'     => $this->name,
             'projectsOfProject' => $this->projectsOfProject,
-            'projects' => NdProjectResource::collection($projects),
+            'projects' => NdProjectResource::collection($this->projects),
             'levels'   => LevelResource::collection($levels),
             'units'    => UnitResource::collection($units),
         ];
