@@ -8,7 +8,7 @@ use App\Repository\SizeRepositoryInterface;
 class SizeRepository extends BaseRepository implements SizeRepositoryInterface
 {
    /**
-    * CategoryRepository constructor.
+    * SizeRepository constructor.
     *
     * @param Size $model
     */

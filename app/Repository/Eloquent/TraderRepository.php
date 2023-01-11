@@ -15,7 +15,7 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     use TraitImageProccessingTrait;
 
    /**
-    * CategoryRepository constructor.
+    * TraderRepository constructor.
     *
     * @param Trader $model
     */
