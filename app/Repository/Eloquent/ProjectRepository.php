@@ -12,7 +12,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
 {
     use TraitImageProccessingTrait;
    /**
-    * CategoryRepository constructor.
+    * ProjectRepository constructor.
     *
     * @param Project $model
     */
