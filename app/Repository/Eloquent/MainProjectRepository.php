@@ -3,6 +3,7 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\MainProject;
+use Illuminate\Support\Collection;
 use App\Repository\MainProjectRepositoryInterface;
 
 class MainProjectRepository extends BaseRepository implements MainProjectRepositoryInterface
@@ -16,4 +17,12 @@ class MainProjectRepository extends BaseRepository implements MainProjectReposit
    {
        parent::__construct($model);
    }
+
+   /**
+    * @return Collection
+    */
+    public function all(): Collection
+    {
+        return $this->model->with(['projects'])->get();
+    }
 }

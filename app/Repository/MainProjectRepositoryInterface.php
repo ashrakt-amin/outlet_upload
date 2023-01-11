@@ -1,4 +1,8 @@
 <?php
 namespace App\Repository;
 
-interface MainProjectRepositoryInterface { }
+use Illuminate\Support\Collection;
+interface MainProjectRepositoryInterface {
+
+    public function all(): Collection;
+}
