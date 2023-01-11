@@ -29,6 +29,15 @@ class Category extends Model
         return $this->hasManyThrow(Group::class, SubCategory::class);
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'category_project');
+    }
+
+    /**
+     * getter
+     */
+
     public function getParentCategoryAttribute()
     {
         $parentCategory = Category::where(['id'=>$this->parent_id])->first();

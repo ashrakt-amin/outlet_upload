@@ -64,6 +64,15 @@ class Project extends Model
         return $this->hasManyThrough(Trader::class, Unit::class);
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_project');
+    }
+
+    /**
+     * getters
+     */
+
     public function getProjectLevelsAttribute()
     {
         return $this->levels;

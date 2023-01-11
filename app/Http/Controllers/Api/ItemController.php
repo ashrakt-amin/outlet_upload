@@ -82,6 +82,23 @@ class ItemController extends Controller
     }
 
     /**
+     * Get items of a project.
+     *
+     * @return Collection
+     */
+    public function offerItemsOfProject($project_id, $category_id)
+    {
+        return ItemResource::collection(Item::whereHas('category', function($q) use($project_id, $category_id) {
+            $q->whereHas('projects', function($q) use($project_id) {
+                $q->where('project_id', $project_id);
+            })
+            ->where('category_id', $category_id)
+            ->where('discount', '>', 0)
+            ->distinct('id');
+        })->get());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

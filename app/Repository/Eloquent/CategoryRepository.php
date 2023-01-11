@@ -27,7 +27,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return $this->model->where('parent_id', '<', '1')->get();
     }
 
-
     /**
      * Get categories of a project.
      *

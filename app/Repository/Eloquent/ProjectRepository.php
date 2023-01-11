@@ -56,6 +56,6 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     */
     public function find($id): ?project
     {
-        return Project::where(['id'=>$id])->with(['levels', 'projectImages'])->first();
+        return Project::where(['id'=>$id])->with(['levels', 'projectImages', 'mainProject', 'categories'])->first();
     }
 }

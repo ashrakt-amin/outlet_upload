@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UnitResource;
-use App\Http\Resources\SubResources\UnitResource as SubUnitResource;
+use App\Http\Resources\SubResources\UnitItemOffersResource as SubUnitResource;
 use App\Http\Resources\StatuResource;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -52,7 +52,8 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $unit = Unit::create($request->all());
-        $unit->categories()->attach($request->category_id, ['trader_id' => $unit->trader_id]);
+        $unit->categories()->attach($request->category_id, ['trader_id'=> $unit->trader_id]);
+        $unit->level->project->categories()->attach($request->category_id, ['project_id'=> $unit->level->project_id]);
 
         if ($request->has('img')) {
             foreach ($request->file('img') as $img) {
@@ -78,7 +79,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        $unit = Unit::where(['id'=>$unit->id])->with(['items'])->first();
+        $unit = Unit::where(['id'=>$unit->id])->with(['items', 'trader'])->first();
         $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
         return response()->json([
             "data"       => new UnitResource($unit),

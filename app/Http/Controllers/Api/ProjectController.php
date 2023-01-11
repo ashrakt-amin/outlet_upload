@@ -3,10 +3,6 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Project;
 
-use App\Models\MainProject;
-use App\Models\ProjectImage;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
@@ -15,7 +11,6 @@ use App\Repository\ProjectRepositoryInterface;
 use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
-use App\Models\Category;
 
 class ProjectController extends Controller
 {
@@ -49,10 +44,7 @@ class ProjectController extends Controller
      */
     public function streetsOffers()
     {
-        $projects = Project::where(['main_project_id' => 2])->paginate();
-        return response()->json([
-            "data" => ProjectResource::collection($projects)
-        ], 200);
+        return $this->sendResponse(ProjectResource::collection($this->projectRepository->all()), "", 200);
     }
 
     /**
@@ -64,7 +56,7 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $project = $this->projectRepository->create($request->validated());
-        return $this->sendResponse(new ProjectResource($project), "تم تسجيل لونا جديدا", 201);
+        return $this->sendResponse(new ProjectResource($project), "تم تسجيل مشروعا جديدا", 201);
     }
 
     /**
@@ -75,7 +67,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return $this->sendResponse(new NdProjectResource($project), "", 200);
+        return $this->sendResponse(new NdProjectResource($this->projectRepository->find($project->id)),  "", 200);
     }
 
     /**
@@ -88,7 +80,7 @@ class ProjectController extends Controller
     public function update(ProjectRequest $request, Project $project)
     {
         $project = $this->projectRepository->edit($project->id, $request->validated());
-        return $this->sendResponse(new ProjectResource($project), "تم تعديل اللون");
+        return $this->sendResponse(new ProjectResource($project), "تم تعديل المشروع");
     }
 
     /**
@@ -99,9 +91,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if (!count($project->stocks)) {
-            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف اللون");
+        if (!count($project->levels)) {
+            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف المشروع");
         }
-        return $this->sendError("لا يمكن حذف لونا له رصيد", [], 405);
+        return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
     }
 }

@@ -282,13 +282,14 @@ Route::resource('units', UnitController::class)->except('create', 'edit');
 
 //-----------------------------------------------------------------------------------------------------------
 Route::controller(ItemController::class)->group(function () {
-    Route::get('items/offers',             'offers')->name('items.offers');
+    Route::get('items/offers',             'offers');
     Route::prefix("items")->group(function(){
-        Route::get('/',                    'index')->name('items.index');
-        Route::get('/{item}',               'show')->name('items.show');
-        Route::get('/latest',             'latest')->name('items.latest');
-        Route::get('/random',             'random')->name('items.random');
-        Route::get('/streetOffers/{id}', 'streetOffers')->name('items.streetOffers');
+        Route::get('/',                    'index');
+        Route::get('/{item}',               'show');
+        Route::get('/latest',             'latest');
+        Route::get('/random',             'random');
+        Route::get('/streetOffers/{id}', 'streetOffers');
+        Route::get('/offer_items_of_project/{project_id}/{category_id}', 'offerItemsOfProject');
     });
 });
 //______________________________________________________________________________________________________________________
