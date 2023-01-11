@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Resources\CategoryResource;
 use App\Http\Resources\UnitImageResource;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -96,11 +95,6 @@ class Unit extends Model
      * @GETTER & SETTER
      */
 
-    public function getUnitCategoriesAttribute()
-    {
-        return $this->categories ? $this->categories : false;
-    }
-
     public function getUnitLevelAttribute()
     {
         return $this->level;
@@ -127,19 +121,7 @@ class Unit extends Model
     }
 
     /**
-    * Double Attribute.
-    *
-    * @return \Illuminate\Database\Eloquent\Casts\Attribute
-    */
-   protected function mainCategories(): Attribute
-   {
-       return Attribute::make(
-           get: fn ($value) => Category::where('parent_id', '<', 1)->get(),
-       );
-   }
-
-    /**
-    * Double Attribute.
+    * Item Offers Attribute.
     *
     * @return \Illuminate\Database\Eloquent\Casts\Attribute
     */
@@ -147,6 +129,18 @@ class Unit extends Model
    {
        return Attribute::make(
            get: fn ($value) => item::where(['unit_id'=> $this->id])->where('discount', '>', 0)->get(),
+       );
+   }
+
+    /**
+    * Item Offers Attribute.
+    *
+    * @return \Illuminate\Database\Eloquent\Casts\Attribute
+    */
+   protected function unitCategories(): Attribute
+   {
+       return Attribute::make(
+           get: fn ($value) => $this->categories,
        );
    }
 }
