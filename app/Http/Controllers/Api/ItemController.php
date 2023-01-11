@@ -93,7 +93,8 @@ class ItemController extends Controller
                 $q->where('project_id', $project_id);
             })
             ->where('category_id', $category_id)
-            ->where('discount', '>', 0);
+            ->where('discount', '>', 0)
+            ->distinct('id');
         })->get());
     }
 

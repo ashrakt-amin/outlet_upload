@@ -14,16 +14,12 @@ class MainProjectResource extends JsonResource
      */
     public function toArray($request)
     {
-        $projects = $this->whenLoaded('projects');
-        $levels   = $this->whenLoaded('levels');
-        $units    = $this->whenLoaded('units');
-
         return [
             'id'       => $this->id,
             'name'     => $this->name,
-            'projects' => NdProjectResource::collection($projects),
-            'levels'   => LevelResource::collection($levels),
-            'units'    => UnitResource::collection($units),
+            'projects' => NdProjectResource::collection($this->whenLoaded('projects')),
+            'levels'   => LevelResource::collection($this->whenLoaded('levels')),
+            'units'    => UnitResource::collection($this->whenLoaded('units')),
         ];
     }
 }
