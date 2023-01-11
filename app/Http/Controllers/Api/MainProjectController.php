@@ -64,7 +64,7 @@ class MainProjectController extends Controller
      */
     public function show(MainProject $mainProject)
     {
-        return $this->sendResponse(new mainProjectResource($mainProject), "", 200);
+        return $this->sendResponse(new mainProjectResource($this->mainProjectRepository->find($mainProject->id)), "", 200);
     }
 
     /**

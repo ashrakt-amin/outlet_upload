@@ -6,6 +6,9 @@ use Illuminate\Support\Collection;
 
 interface MainProjectRepositoryInterface {
 
+   /**
+    * @return Collection
+    */
     public function all(): Collection;
 
     /**
