@@ -30,7 +30,7 @@ class Unit extends Model
     protected $visible = [
         'id',
         'name',
-        'mainCategories',
+        'unit_categories',
         'items',
         'images',
     ];
