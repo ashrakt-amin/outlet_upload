@@ -8,15 +8,17 @@ use App\Repository\Eloquent\SizeRepository;
 use App\Repository\SizeRepositoryInterface;
 use App\Repository\ColorRepositoryInterface;
 use App\Repository\Eloquent\ColorRepository;
+use App\Repository\Eloquent\LevelRepository;
+use App\Repository\LevelRepositoryInterface;
 use App\Repository\Eloquent\TraderRepository;
 use App\Repository\TraderRepositoryInterface;
+use App\Repository\Eloquent\ProjectRepository;
+use App\Repository\ProjectRepositoryInterface;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\Eloquent\CategoryRepository;
-use App\Repository\Eloquent\MainProjectRepository;
-use App\Repository\Eloquent\ProjectRepository;
 use App\Repository\EloquentRepositoryInterface;
+use App\Repository\Eloquent\MainProjectRepository;
 use App\Repository\MainProjectRepositoryInterface;
-use App\Repository\ProjectRepositoryInterface;
 
 /**
 * Class RepositoryServiceProvider
@@ -38,6 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(SizeRepositoryInterface::class, SizeRepository::class);
        $this->app->bind(ProjectRepositoryInterface::class, ProjectRepository::class);
        $this->app->bind(MainProjectRepositoryInterface::class, MainProjectRepository::class);
+       $this->app->bind(LevelRepositoryInterface::class, LevelRepository::class);
    }
 
     /**
