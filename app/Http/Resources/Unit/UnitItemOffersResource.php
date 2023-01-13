@@ -18,7 +18,7 @@ class UnitItemOffersResource extends JsonResource
             'id'         => $this->id,
             'name'       => $this->name,
             'items'      => $this->itemOffers,
-            'categories' => $this->unitCategories,
+            'unit_categories' => $this->unitCategories,
         ];
     }
 }
