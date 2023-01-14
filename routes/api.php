@@ -297,7 +297,7 @@ Route::controller(ItemController::class)->group(function () {
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("itemImages")->group(function(){
     Route::controller(ItemImageController::class)->group(function () {
-        Route::post('/store2',             'store2');
+        Route::post('/store2', 'store2');
     });
 });
 //______________________________________________________________________________________________________________________
