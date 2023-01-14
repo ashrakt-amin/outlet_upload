@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Repository\Eloquent;
-use App\Models\Project;
 
+use App\Models\Project;
 use App\Models\MainProject;
 use Illuminate\Support\Collection;
 use App\Repository\ProjectRepositoryInterface;
@@ -41,9 +41,9 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     /**
     * @param array $attributes
     *
-    * @return project
+    * @return Project
     */
-    public function create(array $attributes): project
+    public function create(array $attributes): Project
     {
         $project = $this->model->create($attributes);
         $project->projectImages()->createMany($this->setImages($attributes['img'], 'projects', 'img',450, 450));
@@ -52,9 +52,9 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
 
     /**
     * @param $id
-    * @return project
+    * @return Project
     */
-    public function find($id): ?project
+    public function find($id): ?Project
     {
 
         return $this->model->with(['levels', 'projectImages', 'categories'])->find($id);

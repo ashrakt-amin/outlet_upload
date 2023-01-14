@@ -17,8 +17,8 @@ class ProjectController extends Controller
 {
     use TraitAuthGuardTrait;
     use TraitImageProccessingTrait;
-
     use TraitResponseTrait;
+
     private $projectRepository;
     public function __construct(ProjectRepositoryInterface $projectRepository)
     {
@@ -91,8 +91,7 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        $project = $this->projectRepository->edit($project->id, $request->validated());
-        return $this->sendResponse(new ProjectResource($project), "تم تعديل المشروع");
+        return $this->sendResponse(new ProjectResource($this->projectRepository->edit($project->id, $request->validated())), "تم تعديل المشروع");
     }
 
     /**
