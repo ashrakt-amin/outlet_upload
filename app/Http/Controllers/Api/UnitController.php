@@ -24,7 +24,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::all();
+        $units = Unit::inRandomOrder()->limit(10)->get();
         return response()->json([
             "data" => UnitResource::collection($units)
         ]);

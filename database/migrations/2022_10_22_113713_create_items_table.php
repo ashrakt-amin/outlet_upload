@@ -23,11 +23,11 @@ return new class extends Migration
             $table->unsignedBigInteger('item_unit_id')->nullable();
             $table->integer('unit_parts_count')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->unsignedBigInteger('level_id')->nullable();
-            $table->unsignedBigInteger('project_id')->nullable();
+            // $table->unsignedBigInteger('level_id')->nullable();
+            // $table->unsignedBigInteger('project_id')->nullable();
             $table->boolean('available')->nullable();
             $table->boolean('approved')->default(0);
-            $table->boolean('flash_sales')->default(0);
+            // $table->boolean('flash_sales')->default(0);
             $table->string('item_code')->unique();
             $table->decimal('discount', 4, 2)->default(0);
             $table->text('description');

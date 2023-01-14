@@ -19,8 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('level_id');
             $table->unsignedBigInteger('trader_id')->default('0');
             $table->unsignedBigInteger('site_id')    ->nullable();
-            $table->enum('status', ['خالية', 'تعاقد'])->default('خالية');
-            $table->unsignedBigInteger('package_id') ->nullable();
+            $table->unsignedBigInteger('statu_id')    ->nullable();
+            // $table->enum('status', ['خالية', 'تعاقد'])->default('خالية');
+            // $table->unsignedBigInteger('package_id') ->nullable();
             $table->unsignedBigInteger('finance_id') ->nullable();
             $table->decimal('space', 8, 2)           ->nullable();
             $table->decimal('price_m', 8, 2)         ->nullable();
