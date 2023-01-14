@@ -15,4 +15,10 @@ interface ProjectRepositoryInterface {
     * @return Project
     */
     public function create(array $attributes): Project;
+
+    /**
+    * @param $id
+    * @return project
+    */
+    public function find($id): ?project;
  }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources\SubResources;
+namespace App\Http\Resources\Unit;
 
+use App\Http\Resources\UnitImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UnitItemOffersResource extends JsonResource
+class UnitWithoutItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +16,9 @@ class UnitItemOffersResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'items'      => $this->itemOffers,
+            'id' => $this->id,
+            'name'  => $this->name,
+            'images' => UnitImageResource::collection($this->unitImages),
             'unit_categories' => $this->unitCategories,
         ];
     }

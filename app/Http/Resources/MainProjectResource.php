@@ -21,9 +21,10 @@ class MainProjectResource extends JsonResource
         return [
             'id'       => $this->id,
             'name'     => $this->name,
-            'projects' => NdProjectResource::collection($projects),
-            'levels'   => LevelResource::collection($levels),
-            'units'    => UnitResource::collection($units),
+            'projectsOfProject' => $this->projectsOfProject,
+            'projects' => NdProjectResource::collection($this->whenLoaded('projects')),
+            'levels'   => LevelResource::collection($this->whenLoaded('levels')),
+            'units'    => UnitResource::collection($this->whenLoaded('units')),
         ];
     }
 }

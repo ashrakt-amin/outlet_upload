@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\NdProjectResource;
+use App\Http\Resources\Project\ProjectWithOutLevelsResource;
 use App\Repository\ProjectRepositoryInterface;
 use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
@@ -68,6 +69,17 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         return $this->sendResponse(new NdProjectResource($this->projectRepository->find($project->id)),  "", 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function ProjectWithOutLevels(Project $project)
+    {
+        return $this->sendResponse(new ProjectWithOutLevelsResource($this->projectRepository->find($project->id)),  "", 200);
     }
 
     /**
