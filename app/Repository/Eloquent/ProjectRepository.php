@@ -56,6 +56,8 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     */
     public function find($id): ?project
     {
-        return Project::with(['levels', 'projectImages', 'categories'])->find($id);
+
+        return $this->model->with(['levels', 'projectImages', 'categories'])->find($id);
+
     }
 }

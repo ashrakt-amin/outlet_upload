@@ -34,9 +34,12 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::with(['unit'])->get();
+        $items = Item::with(['unit'])->where(function($q) use($request){
+            !$request->has('name') ?: $q->where('name', 'LIKE', "%{$request->name}%");
+        })->get();
+
         return response()->json([
                 'data' => ItemResource::collection($items)
         ], 200);

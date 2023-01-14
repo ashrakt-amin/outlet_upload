@@ -21,7 +21,7 @@ class ProjectResource extends JsonResource
         return [
             'id'           => $this->id,
             'name'         => $this->name,
-            'mainProject' => new MainProjectResource($mainProject),
+            'mainProject'  => new MainProjectResource($mainProject),
             'levels'       => LevelResource::collection($levels),
             'units'        => UnitResource::collection($units),
             'images'       => ProjectImageResource::collection($this->projectImages),
