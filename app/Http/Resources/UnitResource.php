@@ -14,8 +14,6 @@ class UnitResource extends JsonResource
      */
     public function toArray($request)
     {
-        $level  = $this->whenLoaded('level');
-        $trader = $this->whenLoaded('trader');
         return [
             'id'           => $this->id,
             'name'         => $this->name,
@@ -27,10 +25,12 @@ class UnitResource extends JsonResource
             'rents_count'  => $this->rents_count,
             'description'  => $this->description,
             'images'       => UnitImageResource::collection($this->unitImages),
-            'level'        => new LevelResource($level),
+            'level'        => new LevelResource($this->whenLoaded('level')),
+            'level_id'     => $this->level_id,
+            'project_id'   => $this->level->project_id,
             'statu'        => new StatuResource($this->unit_statu),
             'site'         => new SiteResource($this->site),
-            'trader'       => new TraderResource($trader),
+            'trader'       => new TraderResource($this->whenLoaded('trader')),
             'items'        => ItemResource::collection($this->unit_items),
             'unit_categories'   => $this->unitCategories,
         ];
