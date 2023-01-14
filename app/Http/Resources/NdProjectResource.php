@@ -19,15 +19,10 @@ class NdProjectResource extends JsonResource
      */
     public function toArray($request)
     {
-        $mainProject = $this->whenLoaded('mainProject');
-        $levels      = $this->whenLoaded('levels');
-        $units       = $this->whenLoaded('units');
-        $categories  = $this->whenLoaded('categories');
-
         return [
             'id'          => $this->id,
             'name'        => $this->name,
-            'mainProject' => new MainProjectResource($mainProject),
+            'mainProject' => new MainProjectResource($this->whenLoaded('mainProject')),
             'levels'      => $this->levels,
             'categories'  => CategoryResource::collection($this->categories()->distinct()->limit(6)->get()),
             'images'      => ProjectImageResource::collection($this->projectImages),
