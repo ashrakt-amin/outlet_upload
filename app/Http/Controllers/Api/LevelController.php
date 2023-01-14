@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Level;
 use App\Models\LevelImage;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LevelRequest;
 use App\Http\Resources\LevelResource;
+use App\Repository\LevelRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -14,6 +16,16 @@ class LevelController extends Controller
 {
     use TraitsAuthGuardTrait;
     use TraitImageProccessingTrait;
+    use TraitResponseTrait;
+
+    private $levelRepository;
+    public function __construct(LevelRepositoryInterface $levelRepository)
+    {
+        $this->levelRepository = $levelRepository;
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
 
     /**
      * Display a listing of the resource.
@@ -22,67 +34,19 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = Level::with(['units', 'traders'])->paginate();
-        if (count($levels)) {
-            foreach ($levels as $level) {
-                if ($level->project->main_project_id == 1) {
-                    $data[] = new LevelResource($level);
-                }
-            }
-            return response()->json([
-                "data" => $data
-            ]);
-        }
-        return response()->json([
-            "data" => LevelResource::collection($levels),
-        ]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function latest()
-    {
-        $levels = Level::latest()->take(10)->get();
-        return response()->json([
-            "data" => LevelResource::collection($levels),
-        ]);
+        return $this->sendResponse(LevelResource::collection($this->levelRepository->all()), "", 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\LevelRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LevelRequest $request)
     {
-        if ($level = Level::create([
-            'name' => $request->name,
-            'project_id' => $request->project_id,
-            'zone_id' => $request->zone_id
-            ])) {
-            if ($request->has('img')) {
-                foreach ($request->file('img') as $img) {
-                    $image = new LevelImage();
-                    $image->level_id = $level->id;
-                    $image->img = $this->setImage($img, 'levels', 450, 450);
-                    $image->save();
-                }
-            }
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل طابقا جديدا",
-                "data" => new LevelResource($level)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل الطابق",
-            ], 422);
-        }
+        $level = $this->levelRepository->create($request->validated());
+        return $this->sendResponse(new LevelResource($level), "تم تسجيل طابقا جديدا", 201);
     }
 
     /**
@@ -93,10 +57,7 @@ class LevelController extends Controller
      */
     public function show(Level $level)
     {
-        $level = $level->load(['units', 'project']);
-        return response()->json([
-            "data"=> new LevelResource($level),
-        ], 200);
+        return $this->sendResponse(new LevelResource($this->levelRepository->find($level->id)), "", 200);
     }
 
     /**
@@ -120,26 +81,9 @@ class LevelController extends Controller
      * @param  \App\Models\Level  $level
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Level $level)
+    public function update(LevelRequest $request, Level $level)
     {
-        $request->validate([
-            'name'        => 'required',
-            'project_id' => [
-                'required'
-            ]
-        ]);
-        if ($level->update($request->all())) {
-        return response()->json([
-            "success" => true,
-            "message" => "تم تعديل الطابق",
-            "data" => $level
-        ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تعديل الطابق",
-            ], 422);
-        }
+        return $this->sendResponse(new LevelResource($this->levelRepository->edit($level->id, $request->validated())), "تم تعديل المشروع");
     }
 
     /**
@@ -150,24 +94,10 @@ class LevelController extends Controller
      */
     public function destroy(Level $level)
     {
-        if ($level->units->count() == 0) {
-            if ($level->delete()) {
-                return response()->json([
-                    "success" => true,
-                    "message" => "تم حذف الطابق",
-                    "data" => $level
-                ], 200);
-            } else {
-                return response()->json([
-                    "success" => false,
-                    "message" => "فشل حذف الطابق ",
-                ], 422);
-            }
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "الطابق به وحدات ولا يمكن حذف الطابق",
-            ], 422);
+        if (!count($level->units)) {
+            $this->levelRepository->delete($level->id);
+            return $this->sendResponse("", "تم حذف المشروع",);
         }
+        return $this->sendError("لا يمكن حذف مكانا له أفرع", [], 405);
     }
 }

@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Activity;
-use Illuminate\Support\Facades\DB;
-use App\Http\Resources\UnitResource;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Resources\ActivityResource;
 use App\Http\Resources\LevelImageResource;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Level extends Model
@@ -28,7 +25,6 @@ class Level extends Model
         'id',
         'name',
         'level_units',
-        'activity',
         'images',
         'units',
     ];
@@ -71,12 +67,23 @@ class Level extends Model
     }
 
     /**
+    * Level Units Attribute.
+    *
+    * @return Attribute
+    */
+    protected function levelUnits(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get(),
+        );
+    }
+    /**
      * get attributes
      */
-    public function getLevelUnitsAttribute()
-    {
-        return Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get();
-    }
+    // public function getLevelUnitsAttribute()
+    // {
+    //     return Unit::where(['level_id'=>$this->id])->inRandomOrder()->limit(10)->get();
+    // }
 
     /**
      * get attributes
