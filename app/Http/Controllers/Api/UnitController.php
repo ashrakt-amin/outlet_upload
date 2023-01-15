@@ -24,7 +24,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::inRandomOrder()->limit(10)->get();
+        $units = Unit::inRandomOrder()->limit(6)->get();
         return response()->json([
             "data" => UnitResource::collection($units)
         ]);
@@ -79,11 +79,11 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        $unit = Unit::where(['id'=>$unit->id])->with(['items', 'trader'])->first();
-        $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
+        $unit = $unit->load(['items', 'trader']);
+        // $next_Statu = Statu::where('id', '>', $unit->statu_id)->first();
         return response()->json([
             "data"       => new UnitResource($unit),
-            "next_Statu" => $next_Statu ? new StatuResource($next_Statu) : false,
+            // "next_Statu" => $next_Statu ? new StatuResource($next_Statu) : false,
         ], 200);
     }
 
@@ -165,29 +165,12 @@ class UnitController extends Controller
      */
     public function categories(Request $request)
     {
-        $categories = $request->category_id;
-        foreach ($categories as $key => $value) {
-            $pivot = DB::table('category_unit')->where(['category_id'=>$value['category_id'], 'unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->first();
-            if ($pivot == null) {
-                $category = Category::find($value['id']);
-                $category->categories()->attach(['trader_id'=>$request->trader_id], ['unit_id'=>$request->unit_id]);
-            }
-        }
-        $unit = DB::table('category_unit')->where(['unit_id'=>$request->unit_id, 'trader_id'=>$request->trader_id])->count();
-        if ( $unit > 0 ) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم اضافة انشطة الوحدة",
-                "data" => new UnitResource($unit)
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل اضافة انشطة الوحدة",
-            ], 422);
-        }
+        $unit = Unit::find($request->id);
+        $unit->categories()->attach($request->category_id, ['trader_id'=> $unit->trader_id]);
+        $unit->level->project->categories()->attach($request->category_id, ['project_id'=> $unit->level->project_id]);
+
         // update pivot table
-        Category::find($value['id'])->units()->updateExistingPivot($request->unit_id, ['trader_id'=>$value['trader_id']]);
+        Category::find($request->category_id)->units()->updateExistingPivot($request->unit_id, ['trader_id'=>$request['trader_id']]);
     }
 
     /**

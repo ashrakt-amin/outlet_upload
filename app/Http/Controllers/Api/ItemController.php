@@ -65,7 +65,7 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::with(['unit'])->inRandomOrder()->limit(10)->get();
+        $items = Item::with(['unit'])->inRandomOrder()->limit(4)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);
@@ -116,21 +116,6 @@ class ItemController extends Controller
                 }])
             ->get();
 
-            // $items = Project::select(
-            //     "items.id",
-            //     "items.name",
-            //     "stocks.stock"
-            // )
-            // ->where(['main_project_id' => 1])
-            // ->where(['projects.id' => $id])
-            // ->join("levels", ["levels.project_id" => "projects.id"])
-            // ->join("units", ["units.level_id" => "levels.id"])
-            // ->join("items", ["items.unit_id" => "units.id"])
-            // ->join("stocks", ["stocks.item_id" => "items.id"])
-            // ->where('items.discount' ,'>', 0)
-            // ->distinct('id')->get()
-            // ->toArray();
-
         return response()->json([
             "data" => ($items),
         ]);
@@ -144,6 +129,7 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
+        dd('a');
         $itemExist = Item::where(['item_code'=>$request->item_code])->first();
         if ($itemExist) {
             return response()->json([
@@ -190,7 +176,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $item = Item::where(['id'=>$item->id])->with(['stocks', 'unit'])->first();
+        $item = $item->load(['stocks', 'unit']);
         $user = $item->getTokenName('user');
         $trader = $item->getTokenName('trader');
         if (!$user && !$trader) {

@@ -32,7 +32,7 @@ class UnitResource extends JsonResource
             'site'         => new SiteResource($this->site),
             'trader'       => new TraderResource($this->whenLoaded('trader')),
             'items'        => ItemResource::collection($this->unit_items),
-            'unit_categories'   => $this->unitCategories,
+            'categories'   => $this->unitCategories,
         ];
     }
 }
