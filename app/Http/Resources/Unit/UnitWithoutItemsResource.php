@@ -19,7 +19,7 @@ class UnitWithoutItemsResource extends JsonResource
             'id' => $this->id,
             'name'  => $this->name,
             'images' => UnitImageResource::collection($this->unitImages),
-            'unit_categories' => $this->unitCategories,
+            'categories' => $this->unitCategories,
         ];
     }
 }
