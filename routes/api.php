@@ -282,15 +282,15 @@ Route::resource('units', UnitController::class)->except('create', 'edit');
     // });
 
 //-----------------------------------------------------------------------------------------------------------
-Route::controller(ItemController::class)->group(function () {
-    Route::get('items/offers',             'offers');
-    Route::prefix("items")->group(function(){
-        Route::get('/',                    'index');
-        Route::get('/{item}',               'show');
+Route::prefix("items")->group(function(){
+    Route::controller(ItemController::class)->group(function () {
         Route::get('/latest',             'latest');
         Route::get('/random',             'random');
+        Route::get('/offers',             'offers');
         Route::get('/streetOffers/{id}', 'streetOffers');
         Route::get('/offer_items_of_project/{project_id}/{category_id}', 'offerItemsOfProject');
+        Route::get('/',                    'index');
+        Route::get('/{item}',               'show');
     });
 });
 //______________________________________________________________________________________________________________________
