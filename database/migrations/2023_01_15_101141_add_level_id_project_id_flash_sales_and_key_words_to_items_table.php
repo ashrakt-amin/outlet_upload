@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->unsignedBigInteger('level_id')->nullable();
-            $table->unsignedBigInteger('project_id')->nullable();
+            $table->unsignedBigInteger('level_id');
+            $table->unsignedBigInteger('project_id');
             $table->boolean('flash_sales')->default(0);
+            $table->text('key_words');
         });
     }
 
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->dropColumn('level_id');
             $table->dropColumn('project_id');
             $table->dropColumn('flash_sales');
+            $table->dropColumn('key_words');
         });
     }
 };
