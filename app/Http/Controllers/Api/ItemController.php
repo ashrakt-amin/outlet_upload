@@ -102,6 +102,16 @@ class ItemController extends Controller
     }
 
     /**
+     * Get items of a project.
+     *
+     * @return Collection
+     */
+    public function offerItemsOfCategoriesOfProject($project_id, $category_id)
+    {
+        return ItemResource::collection(Item::where(['project_id' => $project_id, 'category_id' => $category_id])->where('discount', '>', 0)->paginate());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

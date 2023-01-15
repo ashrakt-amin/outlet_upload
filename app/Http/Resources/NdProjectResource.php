@@ -24,7 +24,7 @@ class NdProjectResource extends JsonResource
             'name'        => $this->name,
             'mainProject' => new MainProjectResource($this->whenLoaded('mainProject')),
             'levels'      => $this->levels,
-            'categories'  => CategoryResource::collection($this->categories()->distinct()->limit(6)->get()),
+            'categories'  => CategoryResource::collection($this->categories()->distinct()->get()),
             'images'      => ProjectImageResource::collection($this->projectImages),
         ];
     }
