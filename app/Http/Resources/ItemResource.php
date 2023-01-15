@@ -14,9 +14,6 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        $stocks = $this->whenLoaded('stocks');
-        $unit   = $this->whenLoaded('unit');
-        $trader = $this->whenLoaded('trader');
         return [
             'id'               => $this->id,
             'name'             => $this->name,
@@ -34,7 +31,7 @@ class ItemResource extends JsonResource
             'approved'         => $this->approved == 1 ? true : false,
             'description'      => $this->description ? $this->description : false,
             'discount'         => $this->discount ? (float)$this->discount : false,
-            'unit'             => ($unit),
+            'unit'             => ($this->whenLoaded('unit')),
             'level_id'         => ($this->level_id),
             'project_id'       => ($this->project_id),
             'key_words'        => ($this->key_words),
@@ -49,7 +46,7 @@ class ItemResource extends JsonResource
             'colors'           => $this->item_colors,
             'sizes'            => $this->item_sizes,
             'volume'           => new VolumeResource($this->wieght),
-            'stocks'           => StockResource::collection($stocks),
+            'stocks'           => StockResource::collection($this->whenLoaded('stocks')),
             'company'          => $this->company ? new CompanyResource($this->company) : false,
             'importer'         => $this->importer ? new ImporterResource($this->importer) : false,
             'manufactory'      => $this->manufactory ? new ManufactoryResource($this->manufactory) : false,
