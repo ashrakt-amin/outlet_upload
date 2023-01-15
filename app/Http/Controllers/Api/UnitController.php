@@ -10,13 +10,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UnitResource;
-use App\Http\Resources\SubResources\UnitItemOffersResource as SubUnitResource;
 use App\Http\Resources\StatuResource;
+use App\Repository\UnitRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use App\Http\Resources\SubResources\UnitItemOffersResource as SubUnitResource;
 
 class UnitController extends Controller
 {
+    use TraitResponseTrait;
+    use TraitsAuthGuardTrait;
     use TraitImageProccessingTrait;
+
+    private $unitRepository;
+    public function __construct(UnitRepositoryInterface $unitRepository)
+    {
+        $this->unitRepository = $unitRepository;
+
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +40,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::inRandomOrder()->limit(6)->get();
-        return response()->json([
-            "data" => UnitResource::collection($units)
-        ]);
+        return $this->sendResponse(UnitResource::collection($this->unitRepository->all()), "", 200);
     }
 
     /**
