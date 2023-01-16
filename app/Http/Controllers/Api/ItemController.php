@@ -37,7 +37,7 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $items = Item::with(['unit'])->where(function($q) use($request){
-            !$request->has('name') ?: $q->where('name', 'LIKE', "%{$request->name}%");
+            !$request->has('key_words') ?: $q->where('key_words', 'LIKE', "%{$request->key_words}%");
         })->get();
 
         return response()->json([
