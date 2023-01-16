@@ -5,7 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\SizeRepository;
+use App\Repository\Eloquent\UnitRepository;
 use App\Repository\SizeRepositoryInterface;
+use App\Repository\UnitRepositoryInterface;
 use App\Repository\ColorRepositoryInterface;
 use App\Repository\Eloquent\ColorRepository;
 use App\Repository\Eloquent\LevelRepository;
@@ -41,6 +43,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(ProjectRepositoryInterface::class, ProjectRepository::class);
        $this->app->bind(MainProjectRepositoryInterface::class, MainProjectRepository::class);
        $this->app->bind(LevelRepositoryInterface::class, LevelRepository::class);
+       $this->app->bind(UnitRepositoryInterface::class, UnitRepository::class);
    }
 
     /**

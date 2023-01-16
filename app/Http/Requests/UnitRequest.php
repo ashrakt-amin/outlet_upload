@@ -14,9 +14,24 @@ class UnitRequest extends FormRequest
         return [
             // 'initial_page' => 'required_with:end_page|integer|min:1|digits_between: 1,5',
             // 'end_page' => 'required_with:initial_page|integer|greater_than_field:initial_page|digits_between:1,5',
-            'name'      => 'required',
-            'level_id'  => 'required|integer',
-            'trader_id' => 'required|integer',
+            'name'        => 'required',
+            'level_id'    => 'required|integer',
+            'trader_id'   => 'required|integer',
+            'category_id' => 'required|integer',
+            'img'         => 'required',
+            'site_id'     => 'nullable|integer',
+            'status'      => 'nullable',
+            'package_id'  => 'nullable|integer',
+            'finance_id'  => 'nullable|integer',
+            'space'       => 'nullable|integer',
+            'price_m'     => 'nullable|integer',
+            'unit_value'  => 'nullable|integer',
+            'rents_count' => 'nullable|integer',
+            'rent_value'  => 'nullable|integer',
+            'discount'    => 'nullable|integer',
+            'description' => 'required',
+            'created_date' => 'nullable|integer',
+            'canceled_date' => 'nullable|integer',
         ];
     }
 
@@ -26,7 +41,23 @@ class UnitRequest extends FormRequest
     private function updateRequest()
     {
         return [
-            'name' => 'nullable',
+            'name'        => 'required',
+            'level_id'    => 'required|integer',
+            'trader_id'   => 'required|integer',
+            'category_id' => 'required|integer',
+            'site_id'     => 'nullable|integer',
+            'status'      => 'nullable',
+            'package_id'  => 'nullable|integer',
+            'finance_id'  => 'nullable|integer',
+            'space'       => 'nullable|integer',
+            'price_m'     => 'nullable|integer',
+            'unit_value'  => 'nullable|integer',
+            'rents_count' => 'nullable|integer',
+            'rent_value'  => 'nullable|integer',
+            'discount'    => 'nullable|integer',
+            'description' => 'required',
+            'created_date' => 'nullable|integer',
+            'canceled_date' => 'nullable|integer',
         ];
     }
 
@@ -59,7 +90,7 @@ class UnitRequest extends FormRequest
             'name.required'      => 'الاسم مطلوب',
             'level_id.required'  => 'الطابق مطلوب',
             'trader_id.required' => 'التاجر مطلوب',
-            'trader_id.integer'  => 'ارقام فقط',
+            'description.required' => 'الوصف مطلوب',
         ];
     }
 }

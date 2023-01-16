@@ -143,4 +143,28 @@ class Unit extends Model
            get: fn ($value) => $this->categories,
        );
    }
+
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
+   protected function unitValue(): Attribute
+   {
+        return Attribute::make(
+            set: fn ($value, $attributes) => $attributes['unit_value'] = $attributes['price_m'] * $attributes[ 'space'],
+        );
+   }
+
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
+   protected function rentValue(): Attribute
+   {
+        return Attribute::make(
+            set: fn ($value, $attributes) => $attributes['rent_value'] = $attributes['price_m'] * $attributes[ 'space'] / 36 ,
+        );
+   }
 }
