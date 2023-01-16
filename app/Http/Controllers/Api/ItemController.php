@@ -139,7 +139,6 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        dd('a');
         $itemExist = Item::where(['item_code'=>$request->item_code])->first();
         if ($itemExist) {
             return response()->json([
