@@ -16,27 +16,26 @@ interface UnitRepositoryInterface
      */
      public function all(): Collection;
 
-//    /**
-//     * @param array $attributes
-//     * @return Model
-//     */
-//    public function create(array $attributes): Model;
+    /**
+     * @return Collection
+     */
+     public function latest(): Collection;
 
-//    /**
-//     * @param $id
-//     * @return Model
-//     */
-//    public function find($id): ?Model;
+   /**
+    * @param array $attributes
+    * @return Unit
+    */
+   public function create(array $attributes): Unit;
 
-//    /**
-//     * @param id $attributes
-//     * @return Model
-//     */
-//     public function edit($id, array $attributes);
+   /**
+    * @param $id
+    * @return Unit
+    */
+   public function find($id): ?Unit;
 
-//     /**
-//     * @param $id
-//     * @return response
-//     */
-//     public function delete($id): ?Model;
+   /**
+    * @param id $attributes
+    * @return Unit
+    */
+    public function edit($id, array $attributes);
 }
