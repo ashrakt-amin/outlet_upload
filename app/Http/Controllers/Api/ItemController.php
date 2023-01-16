@@ -65,12 +65,6 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::all();
-        foreach ($items as $item) {
-            $item->level_id   = $item->unit->level->id;
-            $item->project_id = $item->unit->level->project_id;
-            $item->update();
-        }
         $items = Item::with(['unit'])->inRandomOrder()->limit(4)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
