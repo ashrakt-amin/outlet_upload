@@ -108,8 +108,6 @@ class UnitController extends Controller
     {
         $unit = $this->unitRepository->edit($unit->id, $request->all());
         return $this->sendResponse(new UnitResource($unit), "تم تعديل ال,حدة", 200);
-        // update pivot table
-        Category::find($request->category_id)->units()->updateExistingPivot($request->unit_id, ['trader_id'=>$request['trader_id']]);
     }
 
     /**
