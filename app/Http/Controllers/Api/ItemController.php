@@ -65,7 +65,7 @@ class ItemController extends Controller
      */
     public function random()
     {
-        $items = Item::with(['unit'])->inRandomOrder()->limit(4)->get();
+        $items = Item::with(['unit'])->inRandomOrder()->limit(6)->get();
         return response()->json([
             "data" => ItemResource::collection($items),
         ]);
@@ -139,14 +139,6 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        $itemExist = Item::where(['item_code'=>$request->item_code])->first();
-        if ($itemExist) {
-            return response()->json([
-                "success" => true,
-                "message" => "موجود من قبل",
-                "data" => $itemExist->name
-            ], 200);
-        }
         $item = new Item();
         $item->fill($request->input());
         if ($request->buy_discount > 0) {
