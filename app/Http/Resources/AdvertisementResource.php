@@ -15,15 +15,13 @@ class AdvertisementResource extends JsonResource
      */
     public function toArray($request)
     {
-        $trader = $this->whenLoaded('trader');
-        $expiry_date =  $this->renew > 0 ? $this->renew * 30 : 30;
-        $diff_day = Carbon::now()->diffInDays($this->advertisement_expire, false);
         return [
-            'id' => $this->id,
-            'img' => $this->path,
-            'trader' => new TraderResource($trader),
-            'link' => $this->link,
-            "daysRemainig" => $diff_day,
+            'id'      => $this->id,
+            'img'     => $this->path,
+            'unit'    => new UnitResource($this->whenLoaded('unit')),
+            'project' => new ProjectResource($this->whenLoaded('project')),
+            'link'    => $this->link,
+            "daysRemainig" => Carbon::now()->diffInDays($this->advertisement_expire, false),
         ];
     }
 }

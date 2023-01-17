@@ -15,9 +15,14 @@ class Advertisement extends Model
     protected $hidden = ['created_at', 'updated_at'];
     protected $visible = [];
 
-    public function trader()
+    public function unit()
     {
-        return $this->belongsTo(Trader::class);
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
     }
 
     public function getPathAttribute()

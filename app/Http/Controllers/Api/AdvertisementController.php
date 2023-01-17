@@ -13,6 +13,7 @@ use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 class AdvertisementController extends Controller
 {
     use TraitImageProccessingTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +32,28 @@ class AdvertisementController extends Controller
                 $advertisement->delete();
             }
         }
-        $advertisements = Advertisement::with(['trader'])->get();
-        $advertisements = Advertisement::where('advertisement_expire' , '>', date('Y-m-d'))->with(['trader'])->get();
+        $advertisements = Advertisement::where(['grade' => 1])->with(['unit', 'project'])->get();
+        // $advertisements = Advertisement::where('advertisement_expire' , '>', date('Y-m-d'))->with(['unit', 'project'])->get();
+        return response()->json([ "data" => AdvertisementResource::collection($advertisements) ]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function advertisementsOfProject($project_id)
+    {
+        foreach (Advertisement::all() as $advertisement) {
+            $contruct_expire = Carbon::parse($advertisement->advertisement_expire)->diffForHumans();
+            $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
+            if ($advertisement->advertisement_expire == date('Y-m-d') && $advertisement->renew > 0) {
+                $advertisement->renew = $advertisement->renew - 1;
+                $advertisement->update();
+            } elseif ($contruct_expire == "1 week ago") {
+                $advertisement->delete();
+            }
+        }
+        $advertisements = Advertisement::where(['project_id' => $project_id])->get();
         return response()->json([
             "data" => AdvertisementResource::collection($advertisements)
         ]);
