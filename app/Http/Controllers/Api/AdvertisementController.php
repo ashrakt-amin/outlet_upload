@@ -32,10 +32,22 @@ class AdvertisementController extends Controller
                 $advertisement->delete();
             }
         }
-        $advertisements = Advertisement::where(['grade' => 1])->with(['unit', 'project'])->get();
+        $advertisements = Advertisement::with(['unit', 'project'])->paginate(1);
         // $advertisements = Advertisement::where('advertisement_expire' , '>', date('Y-m-d'))->with(['unit', 'project'])->get();
         return response()->json([ "data" => AdvertisementResource::collection($advertisements) ]);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grade()
+    {
+        $advertisements = Advertisement::where(['grade' => 1])->with(['unit', 'project'])->paginate(1);
+        return response()->json([ "data" => AdvertisementResource::collection($advertisements) ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

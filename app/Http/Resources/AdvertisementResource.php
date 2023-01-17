@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Unit\UnitOfAdvertisementResource;
 
 class AdvertisementResource extends JsonResource
 {
@@ -18,7 +19,7 @@ class AdvertisementResource extends JsonResource
         return [
             'id'      => $this->id,
             'img'     => $this->path,
-            'unit'    => new UnitResource($this->whenLoaded('unit')),
+            'unit'    => new UnitOfAdvertisementResource($this->whenLoaded('unit')),
             'project' => new ProjectResource($this->whenLoaded('project')),
             'link'    => $this->link,
             "daysRemainig" => Carbon::now()->diffInDays($this->advertisement_expire, false),
