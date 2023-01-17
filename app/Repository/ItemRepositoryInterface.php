@@ -14,7 +14,7 @@ interface ItemRepositoryInterface
     /**
      * @return Collection
      */
-     public function search(array $attributes): Item;
+     public function search(array $attributes);
 
     /**
      * @return Collection
@@ -25,6 +25,16 @@ interface ItemRepositoryInterface
      * @return Collection
      */
     public function random(): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function streetOffers($project_id): Collection;
 
    /**
     * @param array $attributes
