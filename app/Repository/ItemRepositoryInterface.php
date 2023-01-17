@@ -34,7 +34,7 @@ interface ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function streetOffers($project_id): Collection;
+    public function itemWhereDiscount($columnName ,$columnvalue): Collection;
 
    /**
     * @param array $attributes

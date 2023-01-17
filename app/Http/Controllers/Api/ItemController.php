@@ -164,6 +164,16 @@ class ItemController extends Controller
      */
     public function streetOffers($project_id)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->streetOffers($project_id)), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscount('project_id', $project_id)), "", 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function flashSales()
+    {
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscount('flash_sales', true)), "", 200);
     }
 }

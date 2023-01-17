@@ -59,9 +59,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function streetOffers($project_id): Collection
+    public function itemWhereDiscount($columnName ,$columnvalue): Collection
     {
-        return $this->model->where(['project_id' => $project_id])->where('discount', '>', 0)->get();
+        return $this->model->where([$columnName => $columnvalue])->where('discount', '>', 0)->get();
     }
 
     /**
