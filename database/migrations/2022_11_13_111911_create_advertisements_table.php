@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('img');
             $table->string('link');
-            $table->unsignedBigInteger('trader_id');
+            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('project_id');
             $table->tinyInteger('renew')->default(1);
             $table->tinyInteger('grade')->default(1);
             $table->date('advertisement_expire');

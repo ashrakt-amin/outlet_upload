@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Advertisement;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
