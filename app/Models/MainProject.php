@@ -19,21 +19,4 @@ class MainProject extends Model
     {
         return $this->hasMany(Project::class);
     }
-
-    /**
-     * Attributes
-     */
-
-     /**
-     * Double Attribute.
-     *
-     * @return Attribute
-     */
-    protected function projectsOfProject(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $this->projects,
-            set: fn ($value) => $value,
-        );
-    }
 }
