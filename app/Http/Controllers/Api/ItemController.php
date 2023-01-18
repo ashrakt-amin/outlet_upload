@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Item;
-use App\Models\View;
-use App\Models\Project;
-use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Item\ItemFlashSalesResource;
 use App\Http\Resources\ItemResource;
-use Illuminate\Support\Facades\File;
 use App\Repository\ItemRepositoryInterface;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
@@ -37,29 +34,9 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($attributes)
+    public function index(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->all($attributes)), "", 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function latest()
-    {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest()), "", 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function random()
-    {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->random()), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->search($request->all())), "", 200);
     }
 
     /**
@@ -86,17 +63,6 @@ class ItemController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function itemOffers(Item $item)
-    {
-        return $this->sendResponse(new ItemResource($this->itemRepository->find($item->id)), "", 200);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -109,6 +75,53 @@ class ItemController extends Controller
             $item = $this->itemRepository->edit($item->id, $request->validated());
             return $this->sendResponse(new ItemResource($item), "تم تعديل ال,حدة", 200);
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Item  $item
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Item $item)
+    {
+        if (count($item->stocks)) {
+            $this->deleteImages($item->itemImages()->pluck('img')->toArray(), 'items');
+            $item->itemImages()->delete($item->id);
+            if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج");
+        }
+        return $this->sendError("لا يمكن حذف منتجا له رصيد", [], 405);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function latest()
+    {
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest()), "", 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function random()
+    {
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->random()), "", 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Item  $item
+     * @return \Illuminate\Http\Response
+     */
+    public function itemOffers(Item $item)
+    {
+        return $this->sendResponse(new ItemResource($this->itemRepository->find($item->id)), "", 200);
     }
 
     /**
@@ -125,56 +138,14 @@ class ItemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Item $item)
-    {
-        if (!count($item->items)) {
-            if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف الوحدة");
-        }
-        return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
-    }
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function offers()
-    {
-        $items = item::where('discount', '>', 0)->get();
-        return response()->json([
-            "data" => ItemResource::collection($items),
-        ]);
-    }
-
-    /**
      * Get items of a project.
      *
      * @return Collection
      */
     public function offerItemsOfProject($project_id, $category_id)
     {
-        return ItemResource::collection(Item::whereHas('category', function($q) use($project_id, $category_id) {
-            $q->whereHas('projects', function($q) use($project_id) {
-                $q->where('project_id', $project_id);
-            })
-            ->where('category_id', $category_id)
-            ->where('discount', '>', 0)
-            ->distinct('id');
-        })->get());
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->offerItemsOfCategoriesOfProject($project_id, $category_id)), "", 200);
+
     }
 
     /**
@@ -184,7 +155,7 @@ class ItemController extends Controller
      */
     public function offerItemsOfCategoriesOfProject($project_id, $category_id)
     {
-        return ItemResource::collection(Item::where(['project_id' => $project_id, 'category_id' => $category_id])->where('discount', '>', 0)->paginate());
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->offerItemsOfCategoriesOfProject($project_id, $category_id)), "", 200);
     }
 
     /**
@@ -192,81 +163,18 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function streetOffers($id)
+    public function streetOffers($project_id)
     {
-        $items = Project::where(['id' => $id])
-            ->with(['units' => function($query){
-                $query->with(['items' => function($query){
-                    $query->where('discount' , '>', 0);
-                    }]);
-                }])
-            ->get();
-
-        return response()->json([
-            "data" => ($items),
-        ]);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function approved(Request $request, Item $item)
-    {
-            $item->approved = $request->approved;
-        if ($item->update()) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم التصريح للمنتج",
-                "data" => ($item),
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل التصريح للمنتج ",
-            ], 422);
-        }
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscount('project_id', $project_id)), "", 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Display a listing of the resource.
      *
-     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Item $item)
-    // {
-    //     if ($item->stocks->count() == 0) {
-    //         $itemImages = ItemImage::where(['item_id'=>$item->id])->get();
-    //         if ($item->delete()) {
-    //             foreach ($itemImages as $itemImage) {
-    //                 $image_path = "assets/images/uploads/items/".$itemImage->img;  // Value is not URL but directory file path
-    //                 if(File::exists($image_path)) {
-    //                     File::delete($image_path);
-    //                     $itemImage->delete();
-    //                 }
-    //             }
-    //             if (count($item->itemImages) < 1) {
-    //                 return response()->json([
-    //                     "success" => true,
-    //                     "message" => "تم حذف المنتج",
-    //                 ], 200);
-    //             };
-    //         } else {
-    //             return response()->json([
-    //                 "success" => false,
-    //                 "message" => "فشل حذف المنتج ",
-    //             ], 422);
-    //         }
-    //     } else {
-    //         return response()->json([
-    //             "success" => false,
-    //             "message" => "لا يمكن حذف منتجا تم اضافته للمخزن",
-    //         ], 422);
-    //     }
-    // }
+    public function flashSales()
+    {
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemWhereDiscount('flash_sales', true)), "", 200);
+    }
 }

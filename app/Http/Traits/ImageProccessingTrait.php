@@ -156,4 +156,14 @@ Trait ImageProccessingTrait
         return Storage::disk('public')->delete($this->path . '/' . $location . '/' . $filename);
     }
 
+    /**
+     * Delete images
+     */
+    public function deleteImages($images, $location)
+    {
+        foreach ($images as $image) {
+            $this->deleteImage($location, $image);
+        }
+    }
+
 }

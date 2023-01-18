@@ -25,11 +25,11 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
    /**
     * @return Collection
     */
-    public function search(array $attributes): Item
+    public function search(array $attributes)
     {
         return $this->model->with(['unit'])->where(function($q) use($attributes){
-            !$attributes['key_words'] ?: $q->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
-        })->paginate();
+            !array_key_exists('key_words', $attributes) ?: $q->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
+        })->get();
     }
 
     /**
@@ -46,6 +46,22 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     public function random(): Collection
     {
         return $this->model->with(['unit'])->inRandomOrder()->limit(6)->get();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection
+    {
+        return $this->model->where(['project_id' => $project_id, 'category_id' => $category_id])->where('discount', '>', 0)->get();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function itemWhereDiscount($columnName ,$columnvalue): Collection
+    {
+        return $this->model->where([$columnName => $columnvalue])->where('discount', '>', 0)->get();
     }
 
     /**
@@ -91,8 +107,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     */
     public function edit($id, array $attributes)
     {
-        $data = $this->model->findOrFail($id);
-        $data->update($attributes);
-        return $data;
+        $item = $this->model->findOrFail($id);
+        $item->update($attributes);
+        return $item;
     }
 }

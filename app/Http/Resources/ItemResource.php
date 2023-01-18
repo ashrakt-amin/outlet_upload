@@ -35,7 +35,7 @@ class ItemResource extends JsonResource
             'level_id'         => ($this->level_id),
             'project_id'       => ($this->project_id),
             'key_words'        => ($this->key_words),
-            'flash_sales'      => ($this->flash_sales),
+            'flash_sales'      => $this->flash_sales == 1 ? true : false,
             'trader'           => new TraderResource($this->unit?->trader),
             'clientViews'      => $this->client_views,
             'views'            => $this->all_views,
