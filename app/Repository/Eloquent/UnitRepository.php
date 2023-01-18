@@ -66,8 +66,8 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     {
         $data = $this->model->findOrFail($id);
         $data->update($attributes);
-        $data->categories()->sync($attributes['category_id']);
-        $data->level->project->categories()->sync($attributes['category_id']);
+        // $data->categories()->sync($attributes['category_id']);
+        // $data->level->project->categories()->sync($attributes['category_id']);
         return $data;
     }
 }

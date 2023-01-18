@@ -44,7 +44,6 @@ class UnitRequest extends FormRequest
             'name'        => 'required',
             'level_id'    => 'required|integer',
             'trader_id'   => 'required|integer',
-            'category_id' => 'required|integer',
             'site_id'     => 'nullable|integer',
             'status'      => 'nullable',
             'package_id'  => 'nullable|integer',
