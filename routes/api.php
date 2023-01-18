@@ -219,6 +219,7 @@ Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit'
 Route::prefix("mainProjects")->group(function(){
     Route::controller(MainProjectController::class)->group(function () {
         Route::get('/offers',         'offers')->name('mainProjects.offers');
+        Route::get('/main_project_with_projects_with_units/{mainProject}', 'mainProjectWithProjectsWithUnits');
     });
 });
 Route::resource('mainProjects', MainProjectController::class)->except('create', 'edit');
@@ -250,7 +251,7 @@ Route::prefix("units")->group(function(){
         Route::get('/latest',              'latest')->name('units.latest');
         Route::get('/unitOffers/{unit}', 'unitOffers')->name('items.unitOffers');
         Route::put('/status/{unit}',       'status')->name('units.status');
-        Route::post('/categories', 'categories')->name('units.categories');
+        Route::put('/categories/{unit}', 'categories');
         Route::put('/finance/{unit}',    'finance')->name('units.finance');
         Route::put('/deposit/{unit}',    'deposit')->name('units.deposit');
         Route::put('/rents/{unit}',          'rents')->name('units.rents');
@@ -350,6 +351,10 @@ Route::resource('importers', ImporterController::class)->except('create', 'edit'
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
+Route::controller(AdvertisementController::class)->group(function () {
+    Route::get('advertisements/advertisements_of_project/{project_id}', 'advertisementsOfProject');
+    Route::get('advertisements/grade', 'grade');
+});
 Route::resource('advertisements', AdvertisementController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 

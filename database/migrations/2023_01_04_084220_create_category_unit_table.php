@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('trader_id');
+            $table->unsignedBigInteger('project_id');
             $table->timestamps();
         });
     }
