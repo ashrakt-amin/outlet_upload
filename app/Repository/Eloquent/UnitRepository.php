@@ -43,7 +43,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     public function create(array $attributes): Unit
     {
         $unit = $this->model->create($attributes);
-        $unit->categories()->attach($attributes['category_id'], ['trader_id'=> $unit->trader_id]);
+        $unit->categories()->attach($attributes['category_id'], ['project_id'=> $unit->level->project_id]);
         $unit->level->project->categories()->attach($attributes['category_id'], ['project_id'=> $unit->level->project_id]);
         $unit->unitImages()->createMany($this->setImages($attributes['img'], 'units', 'img',450, 450));
         return $unit;
@@ -64,10 +64,10 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     */
     public function edit($id, array $attributes)
     {
-        $data = $this->model->findOrFail($id);
-        $data->update($attributes);
-        $data->categories()->sync($attributes['category_id']);
-        $data->level->project->categories()->sync($attributes['category_id']);
-        return $data;
+        $unit = $this->model->findOrFail($id);
+        $unit->update($attributes);
+        $unit->categories()->syncWithPivotValues($attributes['category_id'], ['project_id' => $unit->level->project_id]);
+        // $unit->level->project->categories()->sync($attributes['category_id']);
+        return $unit;
     }
 }
