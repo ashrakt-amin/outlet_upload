@@ -78,7 +78,10 @@ class UnitRequest extends FormRequest
      */
     public function rules()
     {
-        return request()->method() == 'PUT' ? $this->updateRequest() : $this->storeRequest();
+        return request()->method() == 'PUT' ? $this->updateRequest() : $this->storeRequest();<<<<<<< unit/repositoryDesignPattern
+48
+ 
+
     }
 
     /**

@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources\Project;
 
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\Unit\UnitWithoutItemsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Unit\UnitWithoutItemsResource;
 
-class ProjectWithOutLevelsResource extends JsonResource
+class ProjectWithUintsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,8 +18,7 @@ class ProjectWithOutLevelsResource extends JsonResource
         return[
             'id'         => $this->id,
             'name'       => $this->name,
-            'categories' => CategoryResource::collection($this->categories()->distinct()->get()),
-            'units'      => UnitWithoutItemsResource::collection($this->units)
+            'units'      => UnitWithoutItemsResource::collection($this->units()->distinct()->limit(10)->get())
         ];
     }
 }

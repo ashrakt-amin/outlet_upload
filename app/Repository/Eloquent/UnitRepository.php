@@ -67,7 +67,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
         $unit = $this->model->findOrFail($id);
         $unit->update($attributes);
         $unit->categories()->syncWithPivotValues($attributes['category_id'], ['project_id' => $unit->level->project_id]);
-        // $unit->level->project->categories()->sync($attributes['category_id']);
         return $unit;
+
     }
 }

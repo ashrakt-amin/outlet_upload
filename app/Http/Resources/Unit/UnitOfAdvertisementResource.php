@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Project;
+namespace App\Http\Resources\Unit;
 
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\Unit\UnitWithoutItemsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProjectWithOutLevelsResource extends JsonResource
+class UnitOfAdvertisementResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +14,9 @@ class ProjectWithOutLevelsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             'id'         => $this->id,
             'name'       => $this->name,
-            'categories' => CategoryResource::collection($this->categories()->distinct()->get()),
-            'units'      => UnitWithoutItemsResource::collection($this->units)
         ];
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
 class Item extends Model
 {
@@ -106,6 +107,11 @@ class Item extends Model
         return $this->hasMany(ItemImage::class);
     }
 
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
     public function itemUnit()
     {
         return $this->belongsTo(ItemUnit::class);
@@ -175,9 +181,15 @@ class Item extends Model
         return $this->itemUnit;
     }
 
-    // public function getItemImagesAttribute()
-    // {
-    //     $itemImages = ItemImage::where(['item_id'=>$this->id])->get();
-    //     return   $itemImages ? $itemImages : false;
-    // }
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
+    protected function keyWords(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $value . ' ' .Category::find($this->attributes['category_id'])->name,
+        );
+    }
 }

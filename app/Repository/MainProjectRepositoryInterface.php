@@ -11,9 +11,9 @@ interface MainProjectRepositoryInterface {
     */
     public function all(): Collection;
 
-    /**
-    * @param $id
-    * @return MainProject
-    */
-    public function find($id): ?MainProject;
+    // /**
+    // * @param $id
+    // * @return MainProject
+    // */
+    // public function find($id): ?MainProject;
 }

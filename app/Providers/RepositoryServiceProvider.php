@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Repository\Eloquent\BaseRepository;
+use App\Repository\Eloquent\ItemRepository;
 use App\Repository\Eloquent\SizeRepository;
 use App\Repository\Eloquent\UnitRepository;
+use App\Repository\ItemRepositoryInterface;
 use App\Repository\SizeRepositoryInterface;
 use App\Repository\UnitRepositoryInterface;
 use App\Repository\ColorRepositoryInterface;
@@ -44,7 +46,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(MainProjectRepositoryInterface::class, MainProjectRepository::class);
        $this->app->bind(LevelRepositoryInterface::class, LevelRepository::class);
        $this->app->bind(UnitRepositoryInterface::class, UnitRepository::class);
-   }
+       $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);   }
 
     /**
      * Bootstrap services.

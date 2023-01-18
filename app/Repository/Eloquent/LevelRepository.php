@@ -3,7 +3,6 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Level;
-use Illuminate\Support\Collection;
 use App\Repository\LevelRepositoryInterface;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
