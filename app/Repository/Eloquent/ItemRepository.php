@@ -28,7 +28,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     public function search(array $attributes)
     {
         return $this->model->with(['unit'])->where(function($q) use($attributes){
-            !$attributes['key_words'] ?: $q->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
+            !array_key_exists('key_words', $attributes) ?: $q->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
         })->get();
     }
 
@@ -107,8 +107,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     */
     public function edit($id, array $attributes)
     {
-        $data = $this->model->findOrFail($id);
-        $data->update($attributes);
-        return $data;
+        $item = $this->model->findOrFail($id);
+        $item->update($attributes);
+        return $item;
     }
 }

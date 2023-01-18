@@ -162,9 +162,8 @@ Trait ImageProccessingTrait
     public function deleteImages($images, $location)
     {
         foreach ($images as $image) {
-            $this->deleteImage($location, $image->img);
+            $this->deleteImage($location, $image);
         }
-        return $image;
     }
 
 }
