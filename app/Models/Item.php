@@ -107,6 +107,11 @@ class Item extends Model
         return $this->hasMany(ItemImage::class);
     }
 
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
     public function itemUnit()
     {
         return $this->belongsTo(ItemUnit::class);
