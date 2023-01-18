@@ -6,6 +6,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Item\ItemFlashSalesResource;
 use App\Http\Resources\ItemResource;
 use App\Repository\ItemRepositoryInterface;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
@@ -174,6 +175,6 @@ class ItemController extends Controller
      */
     public function flashSales()
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscount('flash_sales', true)), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemWhereDiscount('flash_sales', true)), "", 200);
     }
 }
