@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Unit;
 
+use App\Http\Resources\Category\CategoriesOnlyMainResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\UnitImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,10 +18,11 @@ class UnitWithoutItemsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name'  => $this->name,
-            'images' => UnitImageResource::collection($this->unitImages),
-            'categories' => $this->unitCategories,
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'firstImage'  => new UnitImageResource($this->unitImages()->first()),
+            'secondImage' => new UnitImageResource($this->unitImages()->skip(1)->first()),
+            'categories'  => CategoriesOnlyMainResource::collection($this->categories()->where(['parent_id' => 0])->get()),
         ];
     }
 }

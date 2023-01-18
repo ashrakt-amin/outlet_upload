@@ -5,6 +5,7 @@ use App\Models\MainProject;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MainProjectRequest;
+use App\Http\Resources\MainProject\MainProjectWithProjectsWithUnitsResource;
 use App\Http\Resources\MainProjectResource;
 use App\Repository\MainProjectRepositoryInterface;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
@@ -65,6 +66,17 @@ class MainProjectController extends Controller
     public function show(MainProject $mainProject)
     {
         return $this->sendResponse(new mainProjectResource($this->mainProjectRepository->find($mainProject->id)), "", 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\  $mainProject
+     * @return \Illuminate\Http\Response
+     */
+    public function mainProjectWithProjectsWithUnits(MainProject $mainProject)
+    {
+        return $this->sendResponse(new MainProjectWithProjectsWithUnitsResource($this->mainProjectRepository->find($mainProject->id)), "", 200);
     }
 
     /**

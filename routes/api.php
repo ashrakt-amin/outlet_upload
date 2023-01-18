@@ -219,6 +219,7 @@ Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit'
 Route::prefix("mainProjects")->group(function(){
     Route::controller(MainProjectController::class)->group(function () {
         Route::get('/offers',         'offers')->name('mainProjects.offers');
+        Route::get('/main_project_with_projects_with_units/{mainProject}', 'mainProjectWithProjectsWithUnits');
     });
 });
 Route::resource('mainProjects', MainProjectController::class)->except('create', 'edit');
