@@ -30,7 +30,11 @@ class UnitResource extends JsonResource
             'project_id'   => $this->level->project_id,
             'statu'        => new StatuResource($this->unit_statu),
             'site'         => new SiteResource($this->site),
-            'trader'       => new TraderResource($this->whenLoaded('trader')),
+            'trader'       => [
+                'id' => $this->trader->id,
+                'name' => $this->trader->f_name. ' '. $this->trader->l_name,
+                'phone' => $this->trader->phone
+            ],
             'items'        => ItemResource::collection($this->unit_items),
             'categories'   => $this->unitCategories,
         ];
