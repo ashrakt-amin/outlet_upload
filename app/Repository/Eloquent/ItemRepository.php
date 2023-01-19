@@ -65,13 +65,14 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function itemsWhereDiscountForAllConditions(array $attributes): Collection
     {
+        $categories = Category::where(['parent_id' =>  $attributes['category_id']])->pluck('id')->all();
         return $this->model->where(function($q) use($attributes){
             !array_key_exists('columnName', $attributes) || $attributes['columnValue'] == 0  ?: $q
             ->where([$attributes['columnName'] => $attributes['columnValue']]);
             })
-            ->where(function($q) use($attributes){
+            ->where(function($q) use($attributes, $categories){
                 !array_key_exists('category_id', $attributes)|| $attributes['category_id'] == 0   ?: $q
-                ->where(['category_id' => $attributes['category_id']]);
+                ->whereIn('category_id', $categories);
         })->where('discount', '>', 0)->get();
     }
 
