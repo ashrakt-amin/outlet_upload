@@ -44,7 +44,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     {
         $unit = $this->model->create($attributes);
         $unit->categories()->attach($attributes['category_id'], ['project_id'=> $unit->level->project_id]);
-        $unit->level->project->categories()->attach($attributes['category_id'], ['project_id'=> $unit->level->project_id]);
         $unit->unitImages()->createMany($this->setImages($attributes['img'], 'units', 'img',450, 450));
         return $unit;
     }
