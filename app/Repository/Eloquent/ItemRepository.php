@@ -70,7 +70,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             ->where([$attributes['columnName'] => $attributes['columnValue']]);
             })
             ->where(function($q) use($attributes){
-                !array_key_exists('category_id', $attributes) ?: $q
+                !array_key_exists('category_id', $attributes)|| $attributes['category_id'] == 0   ?: $q
                 ->where(['category_id' => $attributes['category_id']]);
         })->where('discount', '>', 0)->get();
     }
