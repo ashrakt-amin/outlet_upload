@@ -4,6 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Models\Item;
 use App\Models\View;
+use App\Models\Category;
 use Illuminate\Support\Collection;
 use App\Repository\ItemRepositoryInterface;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
@@ -53,7 +54,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection
     {
-        return $this->model->where(['project_id' => $project_id, 'parent_id' => $category_id])->where('discount', '>', 0)->get();
+        $categories = Category::where(['parent_id' => $category_id])->pluck('id')->all();
+        $items = $this->model->where(['project_id' => $project_id])->whereIn('category_id', $categories)->where('discount', '>', 0)->get();
+        return $items;
     }
 
     /**
