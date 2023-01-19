@@ -134,7 +134,7 @@ class ItemController extends Controller
     public function itemsWhereDiscountForAllConditions(Request $request)
     {
         // dd($request->all());
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscountForAllConditions($request->all())), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemsWhereDiscountForAllConditions($request->all())), "", 200);
     }
 
     /**
@@ -178,6 +178,6 @@ class ItemController extends Controller
      */
     public function flashSales()
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemWhereDiscount('flash_sales', true)), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->offerItemsOfCategoriesOfProject('flash_sales', true)), "", 200);
     }
 }
