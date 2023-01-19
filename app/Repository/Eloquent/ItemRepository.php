@@ -126,4 +126,15 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         $item->update($attributes);
         return $item;
     }
+
+   /**
+    * @param id $attributes
+    * @return Item
+    */
+    public function toggleUpdate($id)
+    {
+        $item = $this->model->find($id);
+        $item->update(['flash_sales' => !$item->flash_sales]);
+        return $item;
+    }
 }

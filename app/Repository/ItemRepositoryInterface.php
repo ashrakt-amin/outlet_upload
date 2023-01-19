@@ -34,7 +34,7 @@ interface ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function itemWhereDiscountForAllConditions(array $attributes): Collection;
+    public function itemsWhereDiscountForAllConditions(array $attributes): Collection;
 
    /**
     * @param array $attributes
@@ -53,4 +53,10 @@ interface ItemRepositoryInterface
     * @return Item
     */
     public function edit($id, array $attributes);
+
+   /**
+    * @param id $attributes
+    * @return Item
+    */
+    public function toggleUpdate($id);
 }

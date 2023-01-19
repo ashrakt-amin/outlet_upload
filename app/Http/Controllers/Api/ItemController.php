@@ -164,12 +164,12 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function toggleFlashSales(Request $request, Item $item)
+    public function toggleFlashSales(Item $item)
     {
-        // if ($this->getTokenId('user')) {
-            $item = $this->itemRepository->edit($item->id, $request->all());
-            return $this->sendResponse(new ItemResource($item), "تم تعديل الوحدة", 200);
-        // }
+        $item = $this->itemRepository->toggleUpdate($item->id);
+        return $this->sendResponse($item->flash_sales,
+        $item->flash_sales == true ? "تم الاضافة للعروص السريعة" : "تم الازالة من العروص السريعة",
+        200);
     }
     /**
      * Display a listing of the resource.
