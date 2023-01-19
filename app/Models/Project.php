@@ -66,7 +66,7 @@ class Project extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_project');
+        return $this->belongsToMany(Category::class, 'category_unit');
     }
 
     /**

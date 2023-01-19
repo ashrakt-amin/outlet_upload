@@ -16,16 +16,16 @@ class ItemFlashSalesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'sale_price' => $this->sale_price,
-            'discount'   => (float)$this->discount,
-            'flash_sales'      => $this->flash_sales == 1 ? true : false,
-            'unit'       => [
-                    'id'   => $this->unit->id,
-                    'name' => $this->unit->name,
-                    'first_unit_image' => new UnitImageResource($this->unit?->unitImages()->first()),
-                ]
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'sale_price'  => $this->sale_price,
+            'discount'    => (float)$this->discount,
+            'flash_sales' => $this->flash_sales == 1 ? true : false,
+            'unit'        => [
+                        'id'   => $this->unit->id,
+                        'name' => $this->unit->name,
+                        'first_unit_image' => new UnitImageResource($this->unit?->unitImages()->first()),
+                    ]
         ];
     }
 }
