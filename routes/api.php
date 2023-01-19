@@ -287,10 +287,10 @@ Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
         Route::get('/latest',             'latest');
         Route::get('/random',             'random');
-        Route::get('/offers',             'offers');
-        Route::get('/flash_sales',    'flashSales');
+        Route::get('/offer_items_for_all_conditions', 'itemWhereDiscountForAllConditions');
+        Route::put('/update_without_validate/{item}',    'toggleFlashSales');
+        Route::get('/flash_sales',    'toggleFlashSales');
         Route::get('/streetOffers/{id}', 'streetOffers');
-        Route::get('/offer_items_of_project/{project_id}/{category_id}', 'offerItemsOfProject');
         Route::get('/offer_items_of_categories_of_project/{project_id}/{category_id}', 'offerItemsOfCategoriesOfProject');
         Route::get('/',                    'index');
         Route::get('/{item}',               'show');

@@ -3,6 +3,7 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Item;
+use App\Models\Unit;
 use App\Models\View;
 use App\Models\Category;
 use Illuminate\Support\Collection;
@@ -62,9 +63,12 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function itemWhereDiscount($columnName ,$columnvalue): Collection
+    public function itemWhereDiscountForAllConditions(array $attributes): Collection
     {
-        return $this->model->where([$columnName => $columnvalue])->where('discount', '>', 0)->get();
+        // dd($attributes);
+        return $this->model->where(function($q) use($attributes){
+            !array_key_exists('columnName', $attributes)  ?: $q->where([$attributes['columnName'] => $attributes['columnValue']]);
+        })->where('discount', '>', 0)->get();
     }
 
     /**
@@ -78,6 +82,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         } else {
             $attributes['buy_price'] = $attributes['buy_price'];
         }
+        $attributes['level_id']   = Unit::find($attributes['unit_id'])->level_id;
+        $attributes['project_id'] = Unit::find($attributes['unit_id'])->level->project_id;
         $item = $this->model->create($attributes);
         $item->itemImages()->createMany($this->setImages($attributes['img'], 'items', 'img',450, 450));
         return $item;
@@ -111,6 +117,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     public function edit($id, array $attributes)
     {
         $item = $this->model->findOrFail($id);
+        $attributes['level_id']   = $item->unit->level_id;
+        $attributes['project_id'] = $item->unit->level->project_id;
         $item->update($attributes);
         return $item;
     }

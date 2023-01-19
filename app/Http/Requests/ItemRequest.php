@@ -14,10 +14,16 @@ class ItemRequest extends FormRequest
         return [
             'name'             => 'required',
             'category_id'      => 'required',
+            'img'              => 'required',
+            'unit_id'          => 'required',
+            'sale_price'       => 'required',
+            'description'      => 'required',
+            'discount'         => 'nullable',
             'item_unit_id'     => 'nullable',
             'unit_parts_count' => 'nullable',
-            'sale_price'       => 'nullable',
-            'description'      => 'required',
+            'buy_discount'     => 'nullable',
+            'buy_price'        => 'nullable',
+            'key_words'        => 'nullable',
             'item_code'        => 'unique:items,item_code',
         ];
     }
@@ -28,7 +34,16 @@ class ItemRequest extends FormRequest
     private function updateRequest()
     {
         return [
-            'name' => 'nullable',
+            'name'             => 'required',
+            'unit_id'          => 'required',
+            'sale_price'       => 'required',
+            'description'      => 'required',
+            'discount'         => 'nullable',
+            'item_unit_id'     => 'nullable',
+            'unit_parts_count' => 'nullable',
+            'buy_discount'     => 'nullable',
+            'buy_price'        => 'nullable',
+            'key_words'        => 'nullable',
         ];
     }
 

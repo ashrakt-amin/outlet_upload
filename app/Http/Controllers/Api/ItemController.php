@@ -42,7 +42,7 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ItemRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ItemRequest $request)
@@ -65,7 +65,7 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ItemRequest  $request
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
@@ -114,17 +114,6 @@ class ItemController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function itemOffers(Item $item)
-    {
-        return $this->sendResponse(new ItemResource($this->itemRepository->find($item->id)), "", 200);
-    }
-
-    /**
      * store the activities of the item.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -142,10 +131,10 @@ class ItemController extends Controller
      *
      * @return Collection
      */
-    public function offerItemsOfProject($project_id, $category_id)
+    public function itemWhereDiscountForAllConditions(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->offerItemsOfCategoriesOfProject($project_id, $category_id)), "", 200);
-
+        // dd($request->all());
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscountForAllConditions($request->all())), "", 200);
     }
 
     /**
@@ -168,6 +157,20 @@ class ItemController extends Controller
         return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscount('project_id', $project_id)), "", 200);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Item  $item
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleFlashSales(Request $request, Item $item)
+    {
+        // if ($this->getTokenId('user')) {
+            $item = $this->itemRepository->edit($item->id, $request->all());
+            return $this->sendResponse(new ItemResource($item), "تم تعديل الوحدة", 200);
+        // }
+    }
     /**
      * Display a listing of the resource.
      *
