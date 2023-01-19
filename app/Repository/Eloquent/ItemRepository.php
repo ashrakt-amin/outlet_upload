@@ -53,7 +53,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection
     {
-        return $this->model->where(['project_id' => $project_id, 'category_id' => $category_id])->where('discount', '>', 0)->get();
+        return $this->model->where(['project_id' => $project_id, 'parent_id' => $category_id])->where('discount', '>', 0)->get();
     }
 
     /**
