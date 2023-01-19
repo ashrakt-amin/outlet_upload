@@ -131,7 +131,7 @@ class ItemController extends Controller
      *
      * @return Collection
      */
-    public function itemWhereDiscountForAllConditions(Request $request)
+    public function itemsWhereDiscountForAllConditions(Request $request)
     {
         // dd($request->all());
         return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscountForAllConditions($request->all())), "", 200);

@@ -287,7 +287,7 @@ Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
         Route::get('/latest',             'latest');
         Route::get('/random',             'random');
-        Route::get('/offer_items_for_all_conditions', 'itemWhereDiscountForAllConditions');
+        Route::get('/items_where_discount_for_all_conditions', 'itemsWhereDiscountForAllConditions');
         Route::put('/update_without_validate/{item}',    'toggleFlashSales');
         Route::get('/flash_sales',    'toggleFlashSales');
         Route::get('/streetOffers/{id}', 'streetOffers');

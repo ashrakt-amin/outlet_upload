@@ -63,7 +63,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function itemWhereDiscountForAllConditions(array $attributes): Collection
+    public function itemsWhereDiscountForAllConditions(array $attributes): Collection
     {
         return $this->model->where(function($q) use($attributes){
             !array_key_exists('columnName', $attributes) || $attributes['columnValue'] == 0  ?: $q
