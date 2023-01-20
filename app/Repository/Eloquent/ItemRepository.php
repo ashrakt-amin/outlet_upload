@@ -90,10 +90,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function create(array $attributes): Item
     {
-        if ($attributes['buy_discount'] > 0) {
+        if (array_key_exists('buy_discount', $attributes) && $attributes['buy_discount'] > 0) {
             $attributes['buy_discount'] = $attributes['sale_price'] - ($attributes['sale_price'] * $attributes['buy_discount'] / 100);
-        } else {
-            $attributes['buy_price'] = $attributes['buy_price'];
         }
         $attributes['level_id']   = Unit::find($attributes['unit_id'])->level_id;
         $attributes['project_id'] = Unit::find($attributes['unit_id'])->level->project_id;

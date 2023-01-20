@@ -287,7 +287,7 @@ Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
         Route::get('/latest',             'latest');
         Route::get('/random',             'random');
-        Route::get('/items_where_discount_for_all_conditions', 'itemsWhereDiscountForAllConditions');
+        Route::get('/items_for_all_conditions', 'itemsForAllConditions');
         Route::get('/toggle_flash_sales/{item}',    'toggleFlashSales');
         Route::get('/flash_sales',    'flashSales');
         Route::get('/streetOffers/{id}', 'streetOffers');
