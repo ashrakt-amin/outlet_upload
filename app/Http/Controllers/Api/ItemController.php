@@ -131,10 +131,10 @@ class ItemController extends Controller
      *
      * @return Collection
      */
-    public function itemsWhereDiscountForAllConditions(Request $request)
+    public function itemsForAllConditions(Request $request)
     {
         // dd($request->all());
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemsWhereDiscountForAllConditions($request->all())), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemsForAllConditions($request->all())), "", 200);
     }
 
     /**
@@ -154,7 +154,7 @@ class ItemController extends Controller
      */
     public function streetOffers($project_id)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemWhereDiscount('project_id', $project_id)), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->offerItemsOfCategoriesOfProject('project_id', $project_id)), "", 200);
     }
 
     /**
@@ -168,7 +168,7 @@ class ItemController extends Controller
     {
         $item = $this->itemRepository->toggleUpdate($item->id);
         return $this->sendResponse($item->flash_sales,
-        $item->flash_sales == true ? "تم الاضافة للعروص السريعة" : "تم الازالة من العروص السريعة",
+        $item->flash_sales == true ? "الاضافة للعروص السريعة" : "الازالة من العروص السريعة",
         200);
     }
     /**
@@ -176,8 +176,8 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function flashSales()
+    public function flashSales(Request $request)
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->offerItemsOfCategoriesOfProject('flash_sales', true)), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsWhereDiscountForAllConditions($request->all())), "", 200);
     }
 }

@@ -34,7 +34,7 @@ interface ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function itemsWhereDiscountForAllConditions(array $attributes): Collection;
+    public function itemsForAllConditions(array $attributes): Collection;
 
    /**
     * @param array $attributes
