@@ -36,7 +36,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->search($request->all()))->paginate(3), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->search($request->all()))->paginate(3), "", 200);
     }
 
     /**
@@ -48,7 +48,7 @@ class ItemController extends Controller
     public function store(ItemRequest $request)
     {
         $item = $this->itemRepository->create($request->validated());
-        return $this->sendResponse(new ItemResource($item), "تم تسجيل ,منتجا جديدا", 200);
+        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تسجيل ,منتجا جديدا", 200);
     }
 
     /**
@@ -73,7 +73,7 @@ class ItemController extends Controller
     {
         if ($this->getTokenId('user')) {
             $item = $this->itemRepository->edit($item->id, $request->validated());
-            return $this->sendResponse(new ItemResource($item), "تم تعديل ال,حدة", 200);
+            return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل ال,حدة", 200);
         }
     }
 
@@ -123,7 +123,7 @@ class ItemController extends Controller
     public function categories(Request $request, Item $item)
     {
         $item = $this->itemRepository->edit($item->id, $request->all());
-        return $this->sendResponse(new ItemResource($item), "تم تعديل ال,حدة", 200);
+        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل ال,حدة", 200);
     }
 
     /**
@@ -133,7 +133,7 @@ class ItemController extends Controller
      */
     public function itemsForAllConditions(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(2), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(2), "", 200);
     }
 
     /**
@@ -148,7 +148,7 @@ class ItemController extends Controller
         $item = $this->itemRepository->toggleUpdate($item->id);
         return $this->sendResponse($item->flash_sales,
         $item->flash_sales == true ? "الازالة من العروص السريعة" : "الاضافة للعروص السريعة" ,
-        200);
+        201);
     }
     /**
      * Display a listing of the resource.
