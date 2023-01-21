@@ -17,6 +17,7 @@ class UnitResource extends JsonResource
         return [
             'id'           => $this->id,
             'name'         => $this->name,
+            'famous'      => $this->famous == 0 ? false : true,
             'space'        => $this->space,
             'price_m'      => $this->price_m,
             'unit_value'   => $this->unit_value,
