@@ -85,6 +85,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
      */
     public function famous(): Collection
     {
-        return $this->model->load(['items', 'trader'])->get();
+        return $this->model->load(['items', 'trader'])->where(['famous' => true])->get();
     }
 }
