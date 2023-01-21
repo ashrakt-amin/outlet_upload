@@ -22,27 +22,6 @@ use App\Http\Controllers\Api\Auth\RegisterTraderController;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect('/api/projects');
-// });
-
-// Route::get('/', (function() {
-//     return auth()->user()
-//         ? app()->make(\App\Http\Controllers\HomeController::class)->index()
-//         : app()->make(\App\Http\Controllers\BlogController::class)->index();
-// }));
-
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::get('items/', (function() {
-//         return auth()->user()
-//             ? app()->make(\App\Http\Controllers\ItemController::class)->index()
-//             : app()->make(\App\Http\Controllers\ItemController::class)->random();
-//     }));
-// // });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 ########################################################################################################################
 Route::get('/phpinfo', function() {
     return phpinfo();
@@ -258,26 +237,6 @@ Route::prefix("units")->group(function(){
 Route::resource('units', UnitController::class)->except('create', 'edit');
 
 //______________________________________________________________________________________________________________________
-// $middleware = [];
-// // $authorizationHeader = \request()->header('Authorization');
-// if (\request()->header('Authorization'))
-//    $middleware = array_merge($middleware, ['auth:sanctum']);
-// Route::group(['prefix' => 'v1', 'namespace' => 'Api', 'middleware' => $middleware], function () {
-//     Route::get('/items', (function() {
-//         return auth()->user()
-//             ? app()->make(ItemController::class)->index()
-//             : app()->make(ItemController::class)->random();
-//     }));
-// });
-    // Route::prefix("items")->group(function(){
-    //     Route::controller(ItemController::class)->group(function () {
-    //         Route::get('/',             'index')->name('items.index');
-    //         Route::get('/latest',      'latest')->name('items.latest');
-    //         Route::get('/{item}',        'show')->name('items.show');
-    //         Route::post('/{item}', 'updateItem')->name('items.updateItem');
-    //         Route::get('/random',      'random')->name('items.random');
-    //     });
-    // });
 
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("items")->group(function(){
