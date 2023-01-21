@@ -34,7 +34,7 @@ class AdvertisementController extends Controller
         }
         $advertisements = Advertisement::with(['unit', 'project'])->paginate(1);
         // $advertisements = Advertisement::where('advertisement_expire' , '>', date('Y-m-d'))->with(['unit', 'project'])->get();
-        return response()->json([ "data" => AdvertisementResource::collection($advertisements) ]);
+        return response()->json([ "data" => ($advertisements) ]);
     }
 
     /**
