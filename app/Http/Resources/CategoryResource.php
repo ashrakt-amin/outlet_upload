@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Item\ItemFlashSalesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -19,7 +20,7 @@ class CategoryResource extends JsonResource
             'name'           => $this->name,
             'subCategories'  => CategoryResource::collection($this->category_sub_categories),
             'parentCategory' => $this->parent_category,
-            'items'          => ItemResource::collection($this->whenLoaded('items')),
+            'items'          => ItemFlashSalesResource::collection($this->items),
         ];
     }
 }

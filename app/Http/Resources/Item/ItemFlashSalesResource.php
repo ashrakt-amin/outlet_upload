@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Item;
 
+use App\Http\Resources\ItemImageResource;
 use App\Http\Resources\UnitImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,10 +22,12 @@ class ItemFlashSalesResource extends JsonResource
             'sale_price'  => $this->sale_price,
             'discount'    => (float)$this->discount,
             'flash_sales' => $this->flash_sales == 1 ? true : false,
+            'first_item_image' => new ItemImageResource($this?->itemImages()->first()),
             'unit'        => [
                         'id'   => $this->unit->id,
                         'name' => $this->unit->name,
-                        'first_unit_image' => new UnitImageResource($this->unit?->unitImages()->first()),
+                        'first_unit_image'  => new UnitImageResource($this->unit?->unitImages()->first()),
+                        'second_unit_image' => new UnitImageResource($this->unit?->unitImages()->skip(1)->first()),
                     ]
         ];
     }
