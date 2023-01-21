@@ -19,8 +19,14 @@ class AdvertisementResource extends JsonResource
         return [
             'id'      => $this->id,
             'img'     => $this->path,
-            'unit'    => new UnitOfAdvertisementResource($this->whenLoaded('unit')),
-            'project' => new ProjectResource($this->whenLoaded('project')),
+            'unit'    => [
+                    'id' => $this->id,
+                    'name' => $this->name
+                ],
+            'trader'  => [
+                    'id' => $this->id,
+                    'name' => $this->name
+                ],
             'link'    => $this->link,
             "daysRemainig" => Carbon::now()->diffInDays($this->advertisement_expire, false),
         ];
