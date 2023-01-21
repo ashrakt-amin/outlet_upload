@@ -9,6 +9,7 @@ use App\Http\Requests\UnitRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UnitResource;
 use App\Repository\UnitRepositoryInterface;
+use App\Http\Resources\Unit\UnitWithoutItemsResource;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
@@ -74,14 +75,28 @@ class UnitController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function unitOffers(Unit $unit)
+    public function toggleUnitFamous(Unit $unit)
     {
-        return $this->sendResponse(new SubUnitResource($this->unitRepository->find($unit->id)), "", 200);
+        $unit = $this->unitRepository->toggleUpdate($unit->id);
+        return $this->sendResponse($unit->famous,
+        $unit->famous == true ? "الازالة من أشهر المحلات" : "الاضافة لأشهر المحلات" ,
+        201);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function famous()
+    {
+        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->famous()), "", 200);
     }
 
     /**

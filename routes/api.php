@@ -249,13 +249,10 @@ Route::resource('levels', LevelController::class)->except('create', 'edit');
 Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/latest',              'latest')->name('units.latest');
+        Route::get('/toggle_unit_famous/{unit}', 'toggleUnitFamous');
+        Route::get('/famous',  'famous');
         Route::get('/unitOffers/{unit}', 'unitOffers')->name('items.unitOffers');
-        Route::put('/status/{unit}',       'status')->name('units.status');
         Route::put('/categories/{unit}', 'categories');
-        Route::put('/finance/{unit}',    'finance')->name('units.finance');
-        Route::put('/deposit/{unit}',    'deposit')->name('units.deposit');
-        Route::put('/rents/{unit}',          'rents')->name('units.rents');
-        Route::put('/discount/{unit}', 'discount')->name('units.discount');
     });
 });
 Route::resource('units', UnitController::class)->except('create', 'edit');

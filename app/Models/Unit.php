@@ -50,6 +50,7 @@ class Unit extends Model
         'rents_count',
         'discount',
         'description',
+        'famous',
     ];
 
     public function items()

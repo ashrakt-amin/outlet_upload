@@ -44,7 +44,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     {
         $unit = $this->model->create($attributes);
         $unit->categories()->attach($attributes['category_id'], ['project_id'=> $unit->level->project_id]);
-        $unit->unitImages()->createMany($this->setImages($attributes['img'], 'units', 'img',450, 450));
+        $unit->unitImages()->createMany($this->setImages($attributes['img'], 'units', 'img', 450, 450));
         return $unit;
     }
 
@@ -67,5 +67,24 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
         $unit->update($attributes);
         $unit->categories()->syncWithPivotValues($attributes['category_id'], ['project_id' => $unit->level->project_id]);
         return $unit;
+    }
+
+    /**
+     * @param id $attributes
+     * @return Unit
+     */
+    public function toggleUpdate($id)
+    {
+        $unit = $this->model->find($id);
+        $unit->update(['famous' => !$unit->famous]);
+        return $unit;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function famous(): Collection
+    {
+        return $this->model->load(['items', 'trader'])->get();
     }
 }

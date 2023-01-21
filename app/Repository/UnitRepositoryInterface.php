@@ -38,4 +38,15 @@ interface UnitRepositoryInterface
     * @return Unit
     */
     public function edit($id, array $attributes);
+
+    /**
+     * @param id $attributes
+     * @return Unit
+     */
+    public function toggleUpdate($id);
+
+    /**
+     * @return Collection
+     */
+    public function famous(): Collection;
 }
