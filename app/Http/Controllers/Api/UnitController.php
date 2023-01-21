@@ -72,6 +72,17 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
+        return $this->sendResponse(new UnitResource($this->unitRepository->find($unit->id)), "", 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function showOnline(Unit $unit)
+    {
         return $this->sendResponse(new UnitShowResource($this->unitRepository->find($unit->id)), "", 200);
     }
 
