@@ -9,6 +9,7 @@ use App\Http\Requests\UnitRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UnitResource;
 use App\Repository\UnitRepositoryInterface;
+use App\Http\Resources\Unit\UnitShowResource;
 use App\Http\Resources\Unit\UnitWithoutItemsResource;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
@@ -38,7 +39,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return $this->sendResponse(UnitResource::collection($this->unitRepository->all()), "", 200);
+        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->all()), "", 200);
     }
 
     /**
@@ -48,7 +49,7 @@ class UnitController extends Controller
      */
     public function latest()
     {
-        return $this->sendResponse(UnitResource::collection($this->unitRepository->latest()), "", 200);
+        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->latest()), "", 200);
     }
 
     /**
@@ -60,7 +61,7 @@ class UnitController extends Controller
     public function store(UnitRequest $request)
     {
         $unit = $this->unitRepository->create($request->validated());
-        return $this->sendResponse(new UnitResource($unit), "تم تسجيل ,حدة جديدا", 200);
+        return $this->sendResponse(new UnitShowResource($unit), "تم تسجيل ,حدة جديدا", 200);
     }
 
     /**
@@ -71,7 +72,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        return $this->sendResponse(new UnitResource($this->unitRepository->find($unit->id)), "", 200);
+        return $this->sendResponse(new UnitShowResource($this->unitRepository->find($unit->id)), "", 200);
     }
 
     /**
