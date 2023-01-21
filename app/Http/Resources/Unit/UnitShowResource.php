@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Unit;
 
 use App\Http\Resources\ItemResource;
+use App\Http\Resources\ItemImageResource;
 use App\Http\Resources\UnitImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,7 +28,14 @@ class UnitShowResource extends JsonResource
                         'name' => $this->trader->f_name. ' '. $this->trader->l_name,
                         'phone' => $this->trader->phone
                     ],
-            'items'       => ItemResource::collection($this->unit_items),
+            'items'       => [
+                    'id'          => $this->id,
+                    'name'        => $this->name,
+                    'sale_price'  => $this->sale_price,
+                    'discount'    => (float)$this->discount,
+                    'flash_sales' => $this->flash_sales == 1 ? true : false,
+                    'first_item_image' => new ItemImageResource($this?->itemImages()->first())
+                ],
             'categories'  => $this->unitCategories,
         ];
     }
