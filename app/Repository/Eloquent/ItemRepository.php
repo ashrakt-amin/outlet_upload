@@ -60,10 +60,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         return $items;
     }
 
-    /**
-     * @return Collection
-     */
-    public function itemsForAllConditions(array $attributes): Collection
+
+    public function itemsForAllConditions(array $attributes)
     {
         return $this->model->where(function($q) use($attributes){
             !array_key_exists('columnName', $attributes) || $attributes['columnValue'] == 0  ?: $q
@@ -85,7 +83,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             // })
             // ->where(function($q) use($attributes){
             //     $attributes['columnName'] = 'flash_sales' ? $q->orderBy('id', 'DESC') : '' ;
-            })->get();
+            })->inRandomOrder()->paginate();
     }
 
     /**

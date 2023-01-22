@@ -31,10 +31,8 @@ interface ItemRepositoryInterface
      */
     public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection;
 
-    /**
-     * @return Collection
-     */
-    public function itemsForAllConditions(array $attributes): Collection;
+
+    public function itemsForAllConditions(array $attributes);
 
    /**
     * @param array $attributes
