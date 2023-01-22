@@ -25,7 +25,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     */
     public function all(): Collection
     {
-        return $this->model->inRandomOrder()->limit(6)->get();
+        return $this->model->all();
     }
 
     /**
@@ -85,6 +85,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
      */
     public function famous(): Collection
     {
-        return $this->model->load(['items', 'trader'])->where(['famous' => true])->get();
+        return $this->model->load(['items', 'trader'])->where(['famous' => true])->inRandomOrder()->limit(4)->get();
     }
 }

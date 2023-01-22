@@ -14,7 +14,6 @@ use App\Http\Resources\Unit\UnitWithoutItemsResource;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
-use App\Http\Resources\SubResources\UnitItemOffersResource as SubUnitResource;
 
 class UnitController extends Controller
 {
@@ -121,7 +120,7 @@ class UnitController extends Controller
     public function update(UnitRequest $request, Unit $unit)
     {
         $unit = $this->unitRepository->edit($unit->id, $request->validated());
-        return $this->sendResponse(new UnitResource($unit), "تم تعديل ال,حدة", 200);
+        return $this->sendResponse(new UnitResource($unit), "تم تعديل الوحدة", 200);
     }
 
     /**

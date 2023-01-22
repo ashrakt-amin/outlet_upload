@@ -39,7 +39,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function latest(): Collection
     {
-        return $this->model->with(['unit'])->latest()->take(10)->get();
+        return $this->model->with(['unit'])->latest()->take(4)->get();
     }
 
     /**
@@ -47,7 +47,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function random(): Collection
     {
-        return $this->model->with(['unit'])->inRandomOrder()->limit(6)->get();
+        return $this->model->with(['unit'])->inRandomOrder()->limit(4)->get();
     }
 
     /**
@@ -94,7 +94,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         $attributes['level_id']   = Unit::find($attributes['unit_id'])->level_id;
         $attributes['project_id'] = Unit::find($attributes['unit_id'])->level->project_id;
         $item = $this->model->create($attributes);
-        $item->itemImages()->createMany($this->setImages($attributes['img'], 'items', 'img',450, 450));
+        $item->itemImages()->createMany($this->setImages($attributes['img'], 'items', 'img', 450, 450));
         return $item;
     }
 

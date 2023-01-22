@@ -36,7 +36,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->search($request->all()))->paginate(3), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->search($request->all()))->paginate(12), "", 200);
     }
 
     /**
@@ -100,7 +100,7 @@ class ItemController extends Controller
      */
     public function latest()
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest())->paginate(3), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest())->paginate(4), "", 200);
     }
 
     /**
@@ -110,7 +110,7 @@ class ItemController extends Controller
      */
     public function random()
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->random())->paginate(3), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->random()), "", 200);
     }
 
     /**
@@ -133,7 +133,7 @@ class ItemController extends Controller
      */
     public function itemsForAllConditions(Request $request)
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(2), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(4), "", 200);
     }
 
     /**
@@ -157,6 +157,6 @@ class ItemController extends Controller
      */
     public function flashSales(Request $request)
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(3), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(4), "", 200);
     }
 }

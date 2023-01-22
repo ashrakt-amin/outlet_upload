@@ -4,7 +4,7 @@ namespace App\Http\Resources\Unit;
 
 use App\Http\Resources\UnitImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Item\ItemWithoutRelationsResource;
+use App\Http\Resources\Item\ItemFlashSalesResource;
 
 class UnitShowResource extends JsonResource
 {
@@ -27,7 +27,7 @@ class UnitShowResource extends JsonResource
                         'name' => $this->trader->f_name. ' '. $this->trader->l_name,
                         'phone' => $this->trader->phone
                     ],
-            'items'       => ItemWithoutRelationsResource::collection($this->unit_items),
+            'items'       => ItemFlashSalesResource::collection($this->unit_items),
             'categories'  => $this->unitCategories,
         ];
     }
