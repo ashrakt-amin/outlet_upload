@@ -83,8 +83,13 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     /**
      * @return Collection
      */
-    public function famous(): Collection
+    public function famous($random): Collection
     {
-        return $this->model->load(['items', 'trader'])->where(['famous' => true])->inRandomOrder()->limit(6)->get();
+        // return $this->model->load(['items', 'trader'])->where(function($q) use($random){
+        //     $random != 'random' ?: $q->inRandomOrder(6)->limit(6)->get();
+        //     })->where(['famous' => false])->get();
+        return $random == 'random' ?
+            $this->model->load(['items', 'trader'])->where(['famous' => false])->inRandomOrder()->limit(6)->get()
+        : $this->model->load(['items', 'trader'])->where(['famous' => false])->get();
     }
 }

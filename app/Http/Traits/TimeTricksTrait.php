@@ -28,7 +28,8 @@ Trait TimeTricksTrait {
         $endOfMonth          = $time->endOfMonth();
         $average             = $time->average($endOfMonth);
         $addMonth            = $time->addMonth();
-        $addHours            = $time->addHours(12);
+        $addHours            = $time->addHours(24); // 11:59:59
+        $addHours            = $time->subHours(24); // 23:59:59
         $subYears            = $time->subYears(2);
         $subWeekDays         = $time->subWeekDays(4);
         $diffInHours         = $time->diffInHours($time);

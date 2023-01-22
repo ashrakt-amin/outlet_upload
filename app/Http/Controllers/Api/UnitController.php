@@ -105,9 +105,9 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function famous()
+    public function famous($random)
     {
-        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->famous()), "", 200);
+        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->famous($random)), "", 200);
     }
 
     /**
