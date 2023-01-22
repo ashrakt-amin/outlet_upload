@@ -3,8 +3,9 @@
 namespace App\Http\Resources\Project;
 
 use App\Http\Resources\CategoryResource;
-use App\Http\Resources\Unit\UnitWithoutItemsResource;
+use App\Http\Resources\ProjectImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Unit\UnitWithoutItemsResource;
 
 class ProjectWithOutLevelsResource extends JsonResource
 {
@@ -20,7 +21,8 @@ class ProjectWithOutLevelsResource extends JsonResource
             'id'         => $this->id,
             'name'       => $this->name,
             'categories' => CategoryResource::collection($this->categories()->distinct()->get()),
-            'units'      => UnitWithoutItemsResource::collection($this->units)
+            'units'      => UnitWithoutItemsResource::collection($this->units),
+            'images'     => ProjectImageResource::collection($this->projectImages),
         ];
     }
 }
