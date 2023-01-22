@@ -48,5 +48,5 @@ interface UnitRepositoryInterface
     /**
      * @return Collection
      */
-    public function famous($random): Collection;
+    public function famous(array $attributes): Collection;
 }
