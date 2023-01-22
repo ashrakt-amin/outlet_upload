@@ -157,6 +157,6 @@ class ItemController extends Controller
      */
     public function flashSales(Request $request)
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all()))->paginate(4), "", 200);
+        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all())), "", 200);
     }
 }
