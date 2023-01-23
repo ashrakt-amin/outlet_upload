@@ -24,11 +24,11 @@ class ItemFlashSalesResource extends JsonResource
             'flash_sales' => $this->flash_sales == 1 ? true : false,
             'first_item_image' => new ItemImageResource($this?->itemImages()->first()),
             'unit'        => [
-                        'id'   => $this->unit->id,
-                        'name' => $this->unit->name,
+                        'id'   => $this->unit?->id,
+                        'name' => $this->unit?->name,
                         'first_unit_image'  => new UnitImageResource($this->unit?->unitImages()->first()),
                         'second_unit_image' => new UnitImageResource($this->unit?->unitImages()->skip(1)->first()),
-                    ]
+            ],
         ];
     }
 }

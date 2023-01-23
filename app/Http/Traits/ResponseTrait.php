@@ -3,23 +3,43 @@ namespace App\Http\Traits;
 
 Trait ResponseTrait
 {
-        /**
+    /**
      * success response method.
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendResponse($result, $message, $code = 200)
+    public function sendResponse($result, $message, $code = 200, $additional = [])
     {
     	$response = [
             'success' => true,
-            'data'    => $result,
             'message' => $message,
-        ];
+            'data'    => $result,
+        ] + $additional;
 
 
         return response()->json($response, $code);
     }
 
+    /**
+     * success response method.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function paginateResponse($data, $collection, $message = "", $code = 200)
+    {
+        $meta = [
+            'meta' => [
+                'total' => $collection->total(),
+                'from' => $collection->firstItem(),
+                'to' => $collection->lastItem(),
+                'count' => $collection->count(),
+                'per_page' => $collection->perPage(),
+                'current_page' => $collection->currentPage(),
+                'last_page' => $collection->lastPage()
+            ],
+        ];
+        return $this->sendResponse($data, $message, $code, $meta);
+    }
 
     /**
      * return error response.
