@@ -27,7 +27,9 @@ class LevelRepository extends BaseRepository implements LevelRepositoryInterface
    public function create(array $attributes): Level
    {
        $level = $this->model->create($attributes);
-       $level->levelImages()->createMany($this->setImages($attributes['img'], 'levels', 'img',450, 450));
+       !array_key_exists('img', $attributes) ?
+        $level->levelImages()->createMany($this->setImages($attributes['img'], 'levels', 'img',450, 450))
+        : '';
        return $level;
    }
 

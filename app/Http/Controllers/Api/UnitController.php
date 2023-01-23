@@ -107,7 +107,8 @@ class UnitController extends Controller
      */
     public function famous(Request $request)
     {
-        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->famous($request->all())), "", 200);
+        $units = $this->unitRepository->famous($request->all());
+        return $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units,"أشهر المحلات", 200);
     }
 
     /**
