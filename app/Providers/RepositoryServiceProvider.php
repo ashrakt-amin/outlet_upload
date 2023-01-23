@@ -23,6 +23,8 @@ use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\EloquentRepositoryInterface;
 use App\Repository\Eloquent\MainProjectRepository;
 use App\Repository\MainProjectRepositoryInterface;
+use App\Repository\AdvertisementRepositoryInterface;
+use App\Repository\Eloquent\AdvertisementRepository;
 
 /**
 * Class RepositoryServiceProvider
@@ -46,7 +48,9 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(MainProjectRepositoryInterface::class, MainProjectRepository::class);
        $this->app->bind(LevelRepositoryInterface::class, LevelRepository::class);
        $this->app->bind(UnitRepositoryInterface::class, UnitRepository::class);
-       $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);   }
+       $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);
+       $this->app->bind(AdvertisementRepositoryInterface::class, AdvertisementRepository::class);
+    }
 
     /**
      * Bootstrap services.

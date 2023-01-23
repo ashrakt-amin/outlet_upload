@@ -20,21 +20,21 @@ class AdvertisementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $advertisements = Advertisement::all();
-        foreach ($advertisements as $advertisement) {
-            $contruct_expire = Carbon::parse($advertisement->advertisement_expire)->diffForHumans();
-            $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
-            if ($advertisement->advertisement_expire == date('Y-m-d') && $advertisement->renew > 0) {
-                $advertisement->renew = $advertisement->renew - 1;
-                $advertisement->update();
-            } elseif ($contruct_expire == "1 week ago") {
-                $advertisement->delete();
-            }
-        }
-        $advertisements = Advertisement::with(['unit', 'project'])->paginate(1);
+    { 
+        // $advertisements = Advertisement::all();
+        // foreach ($advertisements as $advertisement) {
+        //     $contruct_expire = Carbon::parse($advertisement->advertisement_expire)->diffForHumans();
+        //     $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
+        //     if ($advertisement->advertisement_expire == date('Y-m-d') && $advertisement->renew > 0) {
+        //         $advertisement->renew = $advertisement->renew - 1;
+        //         $advertisement->update();
+        //     } elseif ($contruct_expire == "1 week ago") {
+        //         $advertisement->delete();
+        //     }
+        // }
+        $advertisements = Advertisement::with(['unit', 'project'])->get();
         // $advertisements = Advertisement::where('advertisement_expire' , '>', date('Y-m-d'))->with(['unit', 'project'])->get();
-        return response()->json([ "data" => AdvertisementResource::collection($advertisements)->paginate(1) ]);
+        return response()->json([ "data" => ($advertisements) ]);
     }
 
     /**
