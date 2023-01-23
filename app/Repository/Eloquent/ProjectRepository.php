@@ -29,10 +29,10 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
         $mainProjects = MainProject::paginate();
         if (!count($mainProjects)) {
             $mainProject = new MainProject();
-            $mainProject->name = "مولات";
+            $mainProject->name = "مناطق";
             $mainProject->save();
             $mainProject = new MainProject();
-            $mainProject->name = "مناطق";
+            $mainProject->name = "مولات";
             $mainProject->save();
         }
         return $this->model->all();
