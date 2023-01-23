@@ -23,7 +23,6 @@ return new class extends Migration
             $table->boolean('famous')                ->default(0);
             $table->boolean('offers')                ->default(0);
             $table->boolean('online')                ->default(0);
-            $table->tinyInteger('discount')          ->default(0);
             $table->text('description')              ->nullable();
             $table->timestamps();
         });
