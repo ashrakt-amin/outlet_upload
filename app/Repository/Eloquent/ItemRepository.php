@@ -80,10 +80,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             ->where(function($q) use($attributes){
                 !array_key_exists('discount', $attributes) ?: $q
                 ->where('discount', '>', 0);
-            // })
-            // ->where(function($q) use($attributes){
-            //     $attributes['columnName'] = 'flash_sales' ? $q->orderBy('id', 'DESC') : '' ;
-            })->inRandomOrder()->paginate();
+            })->paginate(4);
     }
 
     /**
