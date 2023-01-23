@@ -8,12 +8,12 @@ Trait ResponseTrait
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendResponse($result, $message, $code = 200, $additional = [])
+    public function sendResponse($data, $message, $code = 200, $additional = [])
     {
     	$response = [
             'success' => true,
             'message' => $message,
-            'data'    => $result,
+            'data'    => $data,
         ] + $additional;
 
 
@@ -27,17 +27,24 @@ Trait ResponseTrait
      */
     public function paginateResponse($data, $collection, $message = "", $code = 200)
     {
-        $meta = [
-            'meta' => [
-                'total' => $collection->total(),
-                'from' => $collection->firstItem(),
-                'to' => $collection->lastItem(),
-                'count' => $collection->count(),
-                'per_page' => $collection->perPage(),
-                'current_page' => $collection->currentPage(),
-                'last_page' => $collection->lastPage()
-            ],
-        ];
+
+        $meta = $collection->toArray();
+
+        //------------- handle pagination by Kssab  ---------------------//
+        // $meta = [
+        //     'meta' => [
+        //         'total' => $collection->total(),
+        //         'from' => $collection->firstItem(),
+        //         'to' => $collection->lastItem(),
+        //         'count' => $collection->count(),
+        //         'per_page' => $collection->perPage(),
+        //         'total_pages' => $collection->lastPage(),
+        //         'current_page' => $collection->currentPage(),
+        //         'next_page' => $collection->currentPage() + 1,
+        //         'previous_page' => $collection->currentPage() - 1,
+        //         'n_url' => $collection->nextPageUrl(),
+        //     ],
+        // ];
         return $this->sendResponse($data, $message, $code, $meta);
     }
 
