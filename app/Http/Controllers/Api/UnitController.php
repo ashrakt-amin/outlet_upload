@@ -108,7 +108,10 @@ class UnitController extends Controller
     public function famous(Request $request)
     {
         $units = $this->unitRepository->famous($request->all());
-        return $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units, "أشهر المحلات", 200);
+        return array_key_exists('paginate', $request->all()) ?
+            $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units, "paginate units; Youssof", 200)
+            :
+            $this->sendResponse(UnitWithoutItemsResource::collection($units), "random units; Youssof", 200);
     }
 
     /**

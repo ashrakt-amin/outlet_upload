@@ -85,6 +85,9 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
      */
     public function famous(array $attributes)
     {
-        return $this->model->load(['items', 'trader'])->where(['famous' => true])->paginate(6);
+        return array_key_exists('paginate', $attributes) ?
+            $this->model->load(['items', 'trader'])->where(['famous' => true])->paginate(6)
+            :
+            $this->model->load(['items', 'trader'])->where(['famous' => true])->inRandomOrder()->limit(6)->get();
     }
 }
