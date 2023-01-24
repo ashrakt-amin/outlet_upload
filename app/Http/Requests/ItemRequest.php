@@ -24,7 +24,7 @@ class ItemRequest extends FormRequest
             'buy_discount'     => 'nullable',
             'buy_price'        => 'nullable',
             'key_words'        => 'nullable',
-            'item_code'        => 'unique:items,item_code',
+            'item_code'        => 'required|unique:items,item_code',
         ];
     }
 
@@ -76,10 +76,11 @@ class ItemRequest extends FormRequest
             'name.required'             => 'يجب ادخال اسم',
             'category_id.required'      => 'التصنيف مطلوب',
             'item_unit_id.required'     => 'مطلوب',
-            'unit_parts_count.required' => 'مطلوب',
+            'img.required'              => 'الصور مطلوبة',
             'sale_price.required'       => 'مطلوب',
-            'description.required'       => 'مطلوب',
-            'item_code.required'        => 'موجود من قبل',
+            'description.required'      => 'مطلوب',
+            'item_code.unique'          => 'موجود من قبل',
+            'item_code.required'        => 'يرجى ادخال كود للمنتج',
         ];
     }
 }
