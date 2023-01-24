@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Item\ItemFlashSalesResource;
 
 class UnitResource extends JsonResource
 {
@@ -17,26 +18,27 @@ class UnitResource extends JsonResource
         return [
             'id'           => $this->id,
             'name'         => $this->name,
-            'famous'      => $this->famous == 0 ? false : true,
-            'space'        => (float)$this->space,
-            'price_m'      => (float)$this->price_m,
-            'unit_value'   => (float)$this->unit_value,
-            'deposit'      => $this->deposit,
-            'discount'     => (float)$this->discount,
-            'rents_count'  => (float)$this->rents_count,
+            'famous'       => $this->famous == 0 ? false : true,
             'description'  => $this->description,
             'images'       => UnitImageResource::collection($this->unitImages),
-            'level'        => new LevelResource($this->whenLoaded('level')),
-            'level_id'     => $this->level_id,
-            'project_id'   => $this->level->project_id,
-            'statu'        => new StatuResource($this->unit_statu),
-            'site'         => new SiteResource($this->site),
+
+            'level'        => [
+                    'id'   => $this->level_id,
+                    'name' => $this->level->name,
+                ],
+
+            'project'      => [
+                    'id'   => $this->level->project_id,
+                    'name' => $this->level->project->name
+                ],
+
             'trader'       => [
-                'id' => $this->trader->id,
-                'name' => $this->trader->f_name. ' '. $this->trader->l_name,
-                'phone' => $this->trader->phone
-            ],
-            'items'        => ItemResource::collection($this->unit_items),
+                    'id' => $this->trader->id,
+                    'name' => $this->trader->f_name. ' '. $this->trader->l_name,
+                    'phone' => $this->trader->phone
+                ],
+
+            'items'        => ItemFlashSalesResource::collection($this->unit_items)->paginate(9),
             'categories'   => $this->unitCategories,
         ];
     }
