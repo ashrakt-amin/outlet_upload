@@ -79,9 +79,9 @@ class UnitRequest extends FormRequest
             'name.required'      => 'الاسم مطلوب',
             'level_id.required'  => 'الطابق مطلوب',
             'trader_id.required' => 'التاجر مطلوب',
-            'description.required' => 'الوصف مطلوب',
             'description'        => 'وصف الوحدة مطلوب',
-            'descrimgiption'        => ' الصور مطلوبة',
+            'descrimgiption'     => ' الصور مطلوبة',
+            'description.required' => 'الوصف مطلوب',
         ];
     }
 }
