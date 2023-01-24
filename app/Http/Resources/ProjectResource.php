@@ -25,7 +25,6 @@ class ProjectResource extends JsonResource
             'levels'       => LevelResource::collection($levels),
             'units'        => UnitResource::collection($units),
             'images'       => ProjectImageResource::collection($this->projectImages),
-            // 'malls' => LevelResource::collection($this->project_levels),
         ];
     }
 }

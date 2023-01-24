@@ -21,7 +21,7 @@ class ProjectWithOutLevelsResource extends JsonResource
             'id'         => $this->id,
             'name'       => $this->name,
             'categories' => CategoryResource::collection($this->categories()->distinct()->get()),
-            'units'      => UnitWithoutItemsResource::collection($this->units),
+            'units'      => UnitWithoutItemsResource::collection($this->units)->paginate(9),
             'images'     => ProjectImageResource::collection($this->projectImages),
         ];
     }
