@@ -15,7 +15,9 @@ class UnitRequest extends FormRequest
             // 'initial_page' => 'required_with:end_page|integer|min:1|digits_between: 1,5',
             // 'end_page' => 'required_with:initial_page|integer|greater_than_field:initial_page|digits_between:1,5',
             'name'        => 'required',
+            'level_id'    => 'required|integer',
             'trader_id'   => 'required|integer',
+            'img'         => 'required',
             'category_id' => 'required',
             'package_id'  => 'nullable|integer',
             'famous'      => 'nullable',
@@ -34,6 +36,7 @@ class UnitRequest extends FormRequest
     {
         return [
             'name'        => 'required',
+            'level_id'    => 'required|integer',
             'trader_id'   => 'required|integer',
             'category_id' => 'required',
             'package_id'  => 'nullable|integer',
@@ -74,6 +77,7 @@ class UnitRequest extends FormRequest
         return [
             'name.required'      => 'الاسم مطلوب',
             'level_id.required'  => 'الطابق مطلوب',
+            'img.required'       => 'الصور مطلوب',
             'trader_id.required' => 'التاجر مطلوب',
             'description'        => 'وصف الوحدة مطلوب',
             'descrimgiption'     => ' الصور مطلوبة',
