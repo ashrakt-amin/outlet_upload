@@ -191,16 +191,6 @@ class AdvertisementController extends Controller
      */
     public function destroy(Advertisement $advertisement)
     {
-        if ($advertisement->delete()) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم حذف الاعلان",
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل حذف الاعلان",
-            ], 422);
-        }
+        if ($this->advertisementRepository->delete($advertisement->id)) return $this->sendResponse("", "تم حذف الاعلان");
     }
 }
