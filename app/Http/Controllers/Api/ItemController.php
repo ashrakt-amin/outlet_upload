@@ -123,7 +123,7 @@ class ItemController extends Controller
     public function categories(Request $request, Item $item)
     {
         $item = $this->itemRepository->edit($item->id, $request->all());
-        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل ال,حدة", 200);
+        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل الوحدة", 200);
     }
 
     /**
@@ -134,7 +134,10 @@ class ItemController extends Controller
     public function itemsForAllConditions(Request $request)
     {
         $items = $this->itemRepository->itemsForAllConditions($request->all());
-        return $this->paginateResponse(ItemFlashSalesResource::collection($items), $items, "جميع المنتجات", 200);
+        return !array_key_exists('paginate', $request->all()) ?
+            $this->sendResponse(ItemFlashSalesResource::collection($items), "تم تعديل ال,حدة", 200)
+            :
+            $this->paginateResponse(ItemFlashSalesResource::collection($items), $items, "جميع المنتجات", 200);
     }
 
     /**
@@ -148,7 +151,7 @@ class ItemController extends Controller
     {
         $item = $this->itemRepository->toggleUpdate($item->id);
         return $this->sendResponse($item->flash_sales,
-        $item->flash_sales == true ? "الازالة من العروص السريعة" : "الاضافة للعروص السريعة" ,
+        $item->flash_sales == true ? "الازالة من العروض السريعة" : "الاضافة للعروض السريعة" ,
         201);
     }
     /**

@@ -21,7 +21,7 @@ class ItemFlashSalesResource extends JsonResource
             'name'        => $this->name,
             'sale_price'  => $this->sale_price,
             'discount'    => (float)$this->discount,
-            'flash_sales' => $this->flash_sales == 1 ? true : false,
+            'flash_sales' => $this->flash_sales == 1 ? "الازالة من العروض السريعة" : "الاضافة للعروض السريعة",
             'first_item_image' => new ItemImageResource($this?->itemImages()->first()),
             'unit'        => [
                         'id'   => $this->unit?->id,
