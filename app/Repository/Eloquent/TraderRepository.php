@@ -54,8 +54,7 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     */
     public function edit($id, array $attributes)
     {
-        $trader = $this->model;
-        // dd($trader);
+        $trader = $this->model->findOrFail($attributes['id']);
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             return DB::transaction(function() use($trader, $attributes){
                 $trader = $this->model->findOrFail($trader->id);

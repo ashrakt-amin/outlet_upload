@@ -15,7 +15,7 @@ class LevelRequest extends FormRequest
             'name'       => 'required',
             'project_id' => 'required',
             'zone_id'    => 'nullable',
-            'img'        => 'required',
+            'img'        => 'nullable',
         ];
     }
 
