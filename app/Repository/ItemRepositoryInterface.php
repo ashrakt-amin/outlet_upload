@@ -31,8 +31,25 @@ interface ItemRepositoryInterface
      */
     public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection;
 
-
+    /**
+     * Method for all items conditions
+     */
     public function itemsForAllConditions(array $attributes);
+
+    /**
+     * Method for all items conditions to random
+     */
+    public function itemsForAllConditionsRandom(array $attributes);
+
+    /**
+     * Method for all items conditions to paginate
+     */
+    public function itemsForAllConditionsPaginate(array $attributes);
+
+    /**
+     * Method for all items conditions to contoller
+     */
+    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection, $data);
 
    /**
     * @param array $attributes

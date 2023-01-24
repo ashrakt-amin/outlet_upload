@@ -8,10 +8,12 @@ use App\Models\View;
 use App\Models\Category;
 use Illuminate\Support\Collection;
 use App\Repository\ItemRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemRepository extends BaseRepository implements ItemRepositoryInterface
 {
+    use TraitResponseTrait;
     use TraitImageProccessingTrait;
 
    /**
@@ -60,7 +62,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         return $items;
     }
 
-
+    /**
+     * Method for all items conditions
+     */
     public function itemsForAllConditions(array $attributes)
     {
         return $this->model->where(function($q) use($attributes){
@@ -80,7 +84,34 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             ->where(function($q) use($attributes){
                 !array_key_exists('discount', $attributes) ?: $q
                 ->where('discount', '>', 0);
-            })->paginate(4);
+            });
+    }
+
+    /**
+     * Method for all items conditions to random
+     */
+    public function itemsForAllConditionsRandom(array $attributes)
+    {
+        return $this->itemsForAllConditions($attributes)->inRandomOrder()->limit(4)->get();
+    }
+
+    /**
+     * Method for all items conditions to paginate
+     */
+    public function itemsForAllConditionsPaginate(array $attributes)
+    {
+        return $this->itemsForAllConditions($attributes)->paginate(4);
+    }
+
+    /**
+     * Method for all items conditions to contoller
+     */
+    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection, $data)
+    {
+        return !array_key_exists('paginate', $attributes) ?
+        $this->sendResponse($resourceCollection , "Random items; Youssof", 200)
+        :
+        $this->paginateResponse($resourceCollection, $data, "paginate items; Youssof", 200);
     }
 
     /**

@@ -133,11 +133,11 @@ class ItemController extends Controller
      */
     public function itemsForAllConditions(Request $request)
     {
-        $items = $this->itemRepository->itemsForAllConditions($request->all());
+        $items = $this->itemRepository->itemsForAllConditionsPaginate($request->all());
         return !array_key_exists('paginate', $request->all()) ?
-            $this->sendResponse(ItemFlashSalesResource::collection($items), "تم تعديل ال,حدة", 200)
+            $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditionsRandom($request->all())), "Random items; Youssof", 200)
             :
-            $this->paginateResponse(ItemFlashSalesResource::collection($items), $items, "جميع المنتجات", 200);
+            $this->paginateResponse(ItemFlashSalesResource::collection($items), $items, "paginate items; Youssof", 200);
     }
 
     /**
