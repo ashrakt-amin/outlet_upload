@@ -22,12 +22,14 @@ class UnitShowResource extends JsonResource
             'famous'      => $this->famous == 0 ? false : true,
             'description' => $this->description,
             'images'      => UnitImageResource::collection($this->unitImages),
-            'trader'      => [
-                        'id' => $this->trader->id,
-                        'name' => $this->trader->f_name. ' '. $this->trader->l_name,
-                        'phone' => $this->trader->phone
-                    ],
-            'items'       => ItemFlashSalesResource::collection($this->unit_items),
+
+            'trader'       => [
+                    'id' => $this->trader->id,
+                    'name' => $this->trader->f_name. ' '. $this->trader->l_name,
+                    'phone' => $this->trader->phone
+                ],
+
+            'items'        => ItemFlashSalesResource::collection($this->unit_items)->paginate(9),
             'categories'  => $this->unitCategories,
         ];
     }
