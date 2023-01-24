@@ -53,32 +53,9 @@ class AdvertisementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function grade()
+    public function advertisementsWhereColumnName(Request $request)
     {
-        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->grade()), "اعلانات الرئيسية", 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function advertisementsOfProject($project_id)
-    {
-        foreach (Advertisement::all() as $advertisement) {
-            $contruct_expire = Carbon::parse($advertisement->advertisement_expire)->diffForHumans();
-            $diff_day = Carbon::now()->diffInDays($advertisement->advertisement_expire, false);
-            if ($advertisement->advertisement_expire == date('Y-m-d') && $advertisement->renew > 0) {
-                $advertisement->renew = $advertisement->renew - 1;
-                $advertisement->update();
-            } elseif ($contruct_expire == "1 week ago") {
-                $advertisement->delete();
-            }
-        }
-        $advertisements = Advertisement::where(['project_id' => $project_id])->get();
-        return response()->json([
-            "data" => AdvertisementResource::collection($advertisements)
-        ]);
+        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereColumnName($request->all())), "اعلانات الرئيسية", 200);
     }
 
     /**

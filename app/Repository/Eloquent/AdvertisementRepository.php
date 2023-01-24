@@ -38,8 +38,11 @@ class AdvertisementRepository extends BaseRepository implements AdvertisementRep
     /**
      * @return Collection
      */
-    public function grade(): Collection
+    public function advertisementsWhereColumnName(array $attributes)
     {
-        return $this->model->where(['grade' => 1])->with(['unit', 'project'])->get();
+        return $this->model->where(function($q) use($attributes){
+            !array_key_exists('columnName', $attributes) || $attributes['columnValue'] == 0  ?: $q
+            ->where([$attributes['columnName'] => $attributes['columnValue']]);
+        })->get();
     }
 }

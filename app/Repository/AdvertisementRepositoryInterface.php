@@ -13,5 +13,5 @@ interface AdvertisementRepositoryInterface
     /**
      * @return Collection
      */
-    public function grade(): Collection;
+    public function advertisementsWhereColumnName(array $attributes);
 }
