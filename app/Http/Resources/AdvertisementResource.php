@@ -25,7 +25,7 @@ class AdvertisementResource extends JsonResource
                 ],
             'trader'  => [
                     'id'   => $this->unit->trader_id,
-                    'name' => $this->unit->trader->name
+                    'name' => $this->unit->trader->f_name . ' ' . $this->unit->trader->l_name
                 ],
             'link'    => $this->link,
             "daysRemainig" => Carbon::now()->diffInDays($this->advertisement_expire, false),
