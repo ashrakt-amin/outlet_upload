@@ -9,4 +9,9 @@ interface AdvertisementRepositoryInterface
      * @return Collection
      */
      public function all(): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function grade(): Collection;
 }

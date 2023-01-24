@@ -8,11 +8,22 @@ use App\Models\Advertisement;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
+use App\Repository\AdvertisementRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class AdvertisementController extends Controller
 {
     use TraitImageProccessingTrait;
+    use TraitResponseTrait;
+    private $advertisementRepository;
+    public function __construct(AdvertisementRepositoryInterface $advertisementRepository)
+    {
+        $this->advertisementRepository = $advertisementRepository;
+        if(request()->bearerToken() != null) {
+            return $this->middleware('auth:sanctum');
+        };
+    }
 
     /**
      * Display a listing of the resource.
@@ -20,7 +31,7 @@ class AdvertisementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {
         // $advertisements = Advertisement::all();
         // foreach ($advertisements as $advertisement) {
         //     $contruct_expire = Carbon::parse($advertisement->advertisement_expire)->diffForHumans();
@@ -44,8 +55,7 @@ class AdvertisementController extends Controller
      */
     public function grade()
     {
-        $advertisements = Advertisement::where(['grade' => 1])->with(['unit', 'project'])->paginate(1);
-        return response()->json([ "data" => AdvertisementResource::collection($advertisements) ]);
+        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->grade()), "اعلانات الرئيسية", 200);
     }
 
     /**

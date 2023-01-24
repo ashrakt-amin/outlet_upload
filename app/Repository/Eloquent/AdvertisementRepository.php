@@ -34,4 +34,12 @@ class AdvertisementRepository extends BaseRepository implements AdvertisementRep
             }
         }
     }
+
+    /**
+     * @return Collection
+     */
+    public function grade(): Collection
+    {
+        return $this->model->where(['grade' => 1])->with(['unit', 'project'])->get();
+    }
 }
