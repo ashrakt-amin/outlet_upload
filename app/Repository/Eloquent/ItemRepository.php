@@ -16,6 +16,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     use TraitResponseTrait;
     use TraitImageProccessingTrait;
 
+    /**
+     * Resource Class
+     */
     protected $resourceCollection;
 
    /**
@@ -64,6 +67,10 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         return $this->model->where(function($q) use($attributes){
             !array_key_exists('columnName', $attributes) || $attributes['columnValue'] == 0  ?: $q
             ->where([$attributes['columnName'] => $attributes['columnValue']]);
+            })
+            ->where(function($q) use($attributes){
+                !array_key_exists('booleanName', $attributes)   ?: $q
+                ->where($attributes['booleanName'], $attributes['booleanValue']);
             })
             ->where(function($q) use($attributes){
                 !array_key_exists('category_id', $attributes) || $attributes['category_id'] == 0   ?: $q
