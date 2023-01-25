@@ -83,6 +83,12 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
                 ->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
             })
             ->where(function($q) use($attributes){
+                !array_key_exists('unitBooleanColumn', $attributes) ?: $q
+                ->whereHas('unit', function($q) use($attributes){
+                    $q->where($attributes['unitBooleanColumn'], true);
+                });
+            })
+            ->where(function($q) use($attributes){
                 !array_key_exists('discount', $attributes) ?: $q
                 ->where('discount', '>', 0);
             });
