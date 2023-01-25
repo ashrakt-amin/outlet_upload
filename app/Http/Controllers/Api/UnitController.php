@@ -95,7 +95,7 @@ class UnitController extends Controller
     public function toggleUpdate($id, $booleanName)
     {
         $unit = $this->unitRepository->toggleUpdate($id, $booleanName);
-        return $this->sendResponse($unit[$booleanName], $booleanName, 201);
+        return $this->sendResponse($unit[$booleanName], $booleanName. ' ' .$unit[$booleanName] , 201);
     }
 
     /**
