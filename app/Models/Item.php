@@ -190,7 +190,7 @@ class Item extends Model
     protected function keyWords(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => $value . ' ' . Category::find($this->attributes['category_id'])->name . ' ' . Level::find($this->attributes['level_id'])->name,
+            set: fn ($value) => $value . ' ' . Category::find($this->attributes['category_id'])->name . ' ' . Level::find(Unit::find($this->attributes['unit_id'])->level_id)->name,
         );
     }
 }
