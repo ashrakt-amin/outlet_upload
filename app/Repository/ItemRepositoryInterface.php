@@ -19,13 +19,8 @@ interface ItemRepositoryInterface
     /**
      * @return Collection
      */
-     public function latest(): Collection;
-
-    /**
-     * @return Collection
-     */
-    public function random(): Collection;
-
+     public function latest(array $attributes);
+     
     /**
      * @return Collection
      */
@@ -49,7 +44,7 @@ interface ItemRepositoryInterface
     /**
      * Method for all items conditions to contoller
      */
-    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection, $data);
+    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection);
 
    /**
     * @param array $attributes

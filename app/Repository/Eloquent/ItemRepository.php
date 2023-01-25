@@ -16,6 +16,8 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     use TraitResponseTrait;
     use TraitImageProccessingTrait;
 
+    protected $resourceCollection;
+
    /**
     * ItemRepository constructor.
     *
@@ -39,17 +41,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function latest(): Collection
+    public function latest(array $attributes)
     {
-        return $this->model->with(['unit'])->latest()->take(4)->get();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function random(): Collection
-    {
-        return $this->model->with(['unit'])->inRandomOrder()->limit(4)->get();
+        return $this->model->with(['unit'])->latest()->take($attributes['count'])->get();
     }
 
     /**
@@ -92,7 +86,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function itemsForAllConditionsRandom(array $attributes)
     {
-        return $this->itemsForAllConditions($attributes)->inRandomOrder()->limit(4)->get();
+        return $this->itemsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
     }
 
     /**
@@ -100,18 +94,19 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function itemsForAllConditionsPaginate(array $attributes)
     {
-        return $this->itemsForAllConditions($attributes)->paginate(4);
+        return $this->itemsForAllConditions($attributes)->paginate($attributes['count']);
     }
 
     /**
      * Method for all items conditions to contoller
      */
-    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection, $data)
+    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection)
     {
+        $this->resourceCollection = $resourceCollection;
         return !array_key_exists('paginate', $attributes) ?
-        $this->sendResponse($resourceCollection , "Random items; Youssof", 200)
-        :
-        $this->paginateResponse($resourceCollection, $data, "paginate items; Youssof", 200);
+            $this->sendResponse($this->resourceCollection::collection($this->itemsForAllConditionsPaginate($attributes)) , "Random items; Youssof", 200)
+            :
+            $this->paginateResponse($this->resourceCollection::collection($this->itemsForAllConditionsRandom($attributes)), $this->itemsForAllConditionsRandom($attributes), "paginate items; Youssof", 200);
     }
 
     /**

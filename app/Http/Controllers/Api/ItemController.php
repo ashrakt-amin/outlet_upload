@@ -98,19 +98,9 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function latest()
+    public function latest(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest())->paginate(4), "", 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function random()
-    {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->random()), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest($request->all()))->paginate(), "", 200);
     }
 
     /**
@@ -133,11 +123,7 @@ class ItemController extends Controller
      */
     public function itemsForAllConditions(Request $request)
     {
-        $items = $this->itemRepository->itemsForAllConditionsPaginate($request->all());
-        return !array_key_exists('paginate', $request->all()) ?
-            $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditionsRandom($request->all())), "Random items; Youssof", 200)
-            :
-            $this->paginateResponse(ItemFlashSalesResource::collection($items), $items, "paginate items; Youssof", 200);
+        return $this->itemRepository->itemsForAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
     }
 
     /**
