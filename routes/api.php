@@ -229,7 +229,7 @@ Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/latest',              'latest')->name('units.latest');
         Route::get('/show_online/{unit}', 'showOnline');
-        Route::get('/toggle_unit_famous/{unit}', 'toggleUnitFamous');
+        Route::get('/toggle_update/{id}/{booleanName}', 'toggleUpdate');
         Route::get('/toggle_unit_online/{unit}', 'toggleUnitOnline');
         Route::get('/toggle_unit_offers/{unit}', 'toggleUnitOffers');
         Route::get('/units_for_all_conditions',  'unitsForAllConditions');

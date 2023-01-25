@@ -43,7 +43,7 @@ interface UnitRepositoryInterface
      * @param id $attributes
      * @return Unit
      */
-    public function toggleUpdate($id, array $attributes);
+    public function toggleUpdate($id, $booleanName);
 
     /**
      * @return Collection
