@@ -231,7 +231,7 @@ Route::prefix("units")->group(function(){
         Route::get('/show_online/{unit}', 'showOnline');
         Route::get('/toggle_update/{id}/{booleanName}', 'toggleUpdate');
         Route::get('/units_for_all_conditions',  'unitsForAllConditions');
-        Route::get('/unitOffers/{unit}', 'unitOffers')->name('items.unitOffers');
+        Route::get('/unitOffers/{unit}', 'unitOffers');
         Route::put('/categories/{unit}', 'categories');
     });
 });
@@ -243,11 +243,9 @@ Route::resource('units', UnitController::class)->except('create', 'edit');
 Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
         Route::get('/latest',             'latest');
-        Route::get('/random',             'random');
         Route::get('/items_for_all_conditions', 'itemsForAllConditions');
         Route::get('/toggle_update/{id}/{booleanName}',    'toggleUpdate');
         Route::get('/flash_sales',    'flashSales');
-        Route::get('/streetOffers/{id}', 'streetOffers');
         Route::get('/offer_items_of_categories_of_project/{project_id}/{category_id}', 'offerItemsOfCategoriesOfProject');
         Route::get('/',                    'index');
         Route::get('/{item}',               'show');
