@@ -20,7 +20,7 @@ interface ItemRepositoryInterface
      * @return Collection
      */
      public function latest(array $attributes);
-     
+
     /**
      * @return Collection
      */
@@ -42,7 +42,7 @@ interface ItemRepositoryInterface
     public function itemsForAllConditionsPaginate(array $attributes);
 
     /**
-     * Method for all items conditions to contoller
+     * Method for all items conditions to return a random or paginated array
      */
     public function itemsForAllConditionsReturn(array $attributes, $resourceCollection);
 

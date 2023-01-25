@@ -105,7 +105,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     }
 
     /**
-     * Method for all items conditions to contoller
+     * Method for all items conditions to return a random or paginated array
      */
     public function itemsForAllConditionsReturn(array $attributes, $resourceCollection)
     {
