@@ -68,5 +68,5 @@ interface ItemRepositoryInterface
     * @param id $attributes
     * @return Item
     */
-    public function toggleUpdate($id);
+    public function toggleUpdate($id, $booleanName);
 }

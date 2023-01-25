@@ -167,10 +167,10 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     * @param id $attributes
     * @return Item
     */
-    public function toggleUpdate($id)
+    public function toggleUpdate($id, $booleanName)
     {
         $item = $this->model->find($id);
-        $item->update(['flash_sales' => !$item->flash_sales]);
+        $item->update([$booleanName => !$item[$booleanName]]);
         return $item;
     }
 }

@@ -133,12 +133,10 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function toggleFlashSales(Item $item)
+    public function toggleUpdate($id, $booleanName)
     {
-        $item = $this->itemRepository->toggleUpdate($item->id);
-        return $this->sendResponse($item->flash_sales,
-        $item->flash_sales == true ? "الازالة من العروض السريعة" : "الاضافة للعروض السريعة" ,
-        201);
+        $item = $this->itemRepository->toggleUpdate($id, $booleanName);
+        return $this->sendResponse($item[$booleanName], $booleanName. ' ' .$item[$booleanName] , 201);
     }
     /**
      * Display a listing of the resource.
