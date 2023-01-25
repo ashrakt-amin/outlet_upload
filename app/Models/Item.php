@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
+use App\Models\Level;
 
 class Item extends Model
 {
@@ -189,7 +190,11 @@ class Item extends Model
     protected function keyWords(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => $value . ' ' .Category::find($this->attributes['category_id'])->name,
+            set: fn ($value) => $value . ' ' .
+                Category::find($this->attributes['category_id'])->name . ' ' .
+                Unit::find($this->attributes['unit_id'])->name . ' ' .
+                Level::find(Unit::find($this->attributes['unit_id'])->level_id)->name . ' ' .
+                Project::find(Unit::find($this->attributes['unit_id'])->level->project_id)->name,
         );
     }
 }

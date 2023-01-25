@@ -38,19 +38,11 @@ class Unit extends Model
     protected $fillable = [
         'name',
         'level_id',
-        'site_id',
-        'statu_id',
         'trader_id',
-        'finance_id',
-        'space',
-        'price_m',
-        'unit_value',
-        'deposit',
-        'rent_value',
-        'rents_count',
-        'discount',
         'description',
         'famous',
+        'online',
+        'offers',
     ];
 
     public function items()
@@ -73,20 +65,6 @@ class Unit extends Model
         return $this->belongsTo(Trader::class);
     }
 
-    public function statu()
-    {
-        return $this->belongsTo(Statu::class)->withDefault(
-            [
-                'id' => 0,
-                'name'=> 'خالية'
-            ]);
-    }
-
-    public function site()
-    {
-        return $this->belongsTo(Site::class);
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_unit');
@@ -99,11 +77,6 @@ class Unit extends Model
     public function getUnitLevelAttribute()
     {
         return $this->level;
-    }
-
-    public function getUnitStatuAttribute()
-    {
-        return $this->statu;
     }
 
     public function getUnitTraderAttribute()
@@ -143,29 +116,5 @@ class Unit extends Model
        return Attribute::make(
            get: fn ($value) => $this->categories,
        );
-   }
-
-    /**
-    * Item Offers Attribute.
-    *
-    * @return Attribute
-    */
-   protected function unitValue(): Attribute
-   {
-        return Attribute::make(
-            set: fn ($value, $attributes) => $attributes['unit_value'] = $attributes['price_m'] * $attributes[ 'space'],
-        );
-   }
-
-    /**
-    * Item Offers Attribute.
-    *
-    * @return Attribute
-    */
-   protected function rentValue(): Attribute
-   {
-        return Attribute::make(
-            set: fn ($value, $attributes) => $attributes['rent_value'] = $attributes['price_m'] * $attributes[ 'space'] / 36 ,
-        );
    }
 }

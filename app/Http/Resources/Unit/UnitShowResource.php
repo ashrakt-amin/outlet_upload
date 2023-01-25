@@ -20,6 +20,8 @@ class UnitShowResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->name,
             'famous'      => $this->famous == 0 ? false : true,
+            'online'       => $this->online == 0 ? false : true,
+            'offers'       => $this->offers == 0 ? false : true,
             'description' => $this->description,
             'images'      => UnitImageResource::collection($this->unitImages),
 

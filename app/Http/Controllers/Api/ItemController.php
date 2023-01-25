@@ -98,19 +98,9 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function latest()
+    public function latest(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest())->paginate(4), "", 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function random()
-    {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->random()), "", 200);
+        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest($request->all()))->paginate(), "", 200);
     }
 
     /**
@@ -123,7 +113,7 @@ class ItemController extends Controller
     public function categories(Request $request, Item $item)
     {
         $item = $this->itemRepository->edit($item->id, $request->all());
-        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل ال,حدة", 200);
+        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل الوحدة", 200);
     }
 
     /**
@@ -133,8 +123,7 @@ class ItemController extends Controller
      */
     public function itemsForAllConditions(Request $request)
     {
-        $items = $this->itemRepository->itemsForAllConditions($request->all());
-        return $this->paginateResponse(ItemFlashSalesResource::collection($items), $items, "جميع المنتجات", 200);
+        return $this->itemRepository->itemsForAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
     }
 
     /**
@@ -144,12 +133,10 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function toggleFlashSales(Item $item)
+    public function toggleUpdate($id, $booleanName)
     {
-        $item = $this->itemRepository->toggleUpdate($item->id);
-        return $this->sendResponse($item->flash_sales,
-        $item->flash_sales == true ? "الازالة من العروص السريعة" : "الاضافة للعروص السريعة" ,
-        201);
+        $item = $this->itemRepository->toggleUpdate($id, $booleanName);
+        return $this->sendResponse($item[$booleanName], $booleanName. ' ' .$item[$booleanName] , 201);
     }
     /**
      * Display a listing of the resource.

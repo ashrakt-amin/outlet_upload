@@ -8,11 +8,18 @@ use App\Models\View;
 use App\Models\Category;
 use Illuminate\Support\Collection;
 use App\Repository\ItemRepositoryInterface;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ItemRepository extends BaseRepository implements ItemRepositoryInterface
 {
+    use TraitResponseTrait;
     use TraitImageProccessingTrait;
+
+    /**
+     * Resource Class
+     */
+    protected $resourceCollection;
 
    /**
     * ItemRepository constructor.
@@ -37,17 +44,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     /**
      * @return Collection
      */
-    public function latest(): Collection
+    public function latest(array $attributes)
     {
-        return $this->model->with(['unit'])->latest()->take(4)->get();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function random(): Collection
-    {
-        return $this->model->with(['unit'])->inRandomOrder()->limit(4)->get();
+        return $this->model->with(['unit'])->latest()->take($attributes['count'])->get();
     }
 
     /**
@@ -60,7 +59,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         return $items;
     }
 
-
+    /**
+     * Method for all items conditions
+     */
     public function itemsForAllConditions(array $attributes)
     {
         return $this->model->where(function($q) use($attributes){
@@ -68,9 +69,13 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             ->where([$attributes['columnName'] => $attributes['columnValue']]);
             })
             ->where(function($q) use($attributes){
+                !array_key_exists('booleanName', $attributes)   ?: $q
+                ->where([$attributes['booleanName'] => $attributes['booleanValue']]);
+            })
+            ->where(function($q) use($attributes){
                 !array_key_exists('category_id', $attributes) || $attributes['category_id'] == 0   ?: $q
                 ->whereHas('category', function($q) use($attributes) {
-                    $q->where('parent_id', $attributes['category_id']);
+                    $q->where(['parent_id' => $attributes['category_id']]);
                 });
             })
             ->where(function($q) use($attributes){
@@ -78,9 +83,43 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
                 ->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
             })
             ->where(function($q) use($attributes){
+                !array_key_exists('unitBooleanColumn', $attributes) ?: $q
+                ->whereHas('unit', function($q) use($attributes){
+                    $q->where([$attributes['unitBooleanColumn'] => true]);
+                });
+            })
+            ->where(function($q) use($attributes){
                 !array_key_exists('discount', $attributes) ?: $q
                 ->where('discount', '>', 0);
-            })->paginate(4);
+            });
+    }
+
+    /**
+     * Method for all items conditions to random
+     */
+    public function itemsForAllConditionsRandom(array $attributes)
+    {
+        return $this->itemsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
+    }
+
+    /**
+     * Method for all items conditions to paginate
+     */
+    public function itemsForAllConditionsPaginate(array $attributes)
+    {
+        return $this->itemsForAllConditions($attributes)->paginate($attributes['count']);
+    }
+
+    /**
+     * Method for all items conditions to return a random or paginated array
+     */
+    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection)
+    {
+        $this->resourceCollection = $resourceCollection;
+        return !array_key_exists('paginate', $attributes) ?
+            $this->sendResponse($this->resourceCollection::collection($this->itemsForAllConditionsRandom($attributes)) , "Random items; Youssof", 200)
+            :
+            $this->paginateResponse($this->resourceCollection::collection($this->itemsForAllConditionsPaginate($attributes)), $this->itemsForAllConditionsPaginate($attributes), "paginate items; Youssof", 200);
     }
 
     /**
@@ -134,10 +173,10 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     * @param id $attributes
     * @return Item
     */
-    public function toggleUpdate($id)
+    public function toggleUpdate($id, $booleanName)
     {
         $item = $this->model->find($id);
-        $item->update(['flash_sales' => !$item->flash_sales]);
+        $item->update([$booleanName => !$item[$booleanName]]);
         return $item;
     }
 }

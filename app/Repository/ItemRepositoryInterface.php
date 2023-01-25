@@ -19,20 +19,32 @@ interface ItemRepositoryInterface
     /**
      * @return Collection
      */
-     public function latest(): Collection;
-
-    /**
-     * @return Collection
-     */
-    public function random(): Collection;
+     public function latest(array $attributes);
 
     /**
      * @return Collection
      */
     public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection;
 
-
+    /**
+     * Method for all items conditions
+     */
     public function itemsForAllConditions(array $attributes);
+
+    /**
+     * Method for all items conditions to random
+     */
+    public function itemsForAllConditionsRandom(array $attributes);
+
+    /**
+     * Method for all items conditions to paginate
+     */
+    public function itemsForAllConditionsPaginate(array $attributes);
+
+    /**
+     * Method for all items conditions to return a random or paginated array
+     */
+    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection);
 
    /**
     * @param array $attributes
@@ -56,5 +68,5 @@ interface ItemRepositoryInterface
     * @param id $attributes
     * @return Item
     */
-    public function toggleUpdate($id);
+    public function toggleUpdate($id, $booleanName);
 }

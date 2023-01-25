@@ -92,12 +92,10 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function toggleUnitFamous(Unit $unit)
+    public function toggleUpdate($id, $booleanName)
     {
-        $unit = $this->unitRepository->toggleUpdate($unit->id);
-        return $this->sendResponse($unit->famous,
-        $unit->famous == true ? "الازالة من أشهر المحلات" : "الاضافة لأشهر المحلات" ,
-        201);
+        $unit = $this->unitRepository->toggleUpdate($id, $booleanName);
+        return $this->sendResponse($unit[$booleanName], $booleanName. ' ' .$unit[$booleanName] , 201);
     }
 
     /**
@@ -105,10 +103,9 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function famous(Request $request)
+    public function unitsForAllConditions(Request $request)
     {
-        $units = $this->unitRepository->famous($request->all());
-        return $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units, "أشهر المحلات", 200);
+        return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
     }
 
     /**
