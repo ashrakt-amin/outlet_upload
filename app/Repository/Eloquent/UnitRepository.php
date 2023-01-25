@@ -99,7 +99,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
             })
             ->where(function($q) use($attributes){
                 !array_key_exists('booleanName', $attributes)   ?: $q
-                ->where($attributes['booleanName'], $attributes['booleanValue']);
+                ->where([$attributes['booleanName'] => $attributes['booleanValue']]);
             })
             ->where(function($q) use($attributes){
                 !array_key_exists('name', $attributes) ?: $q

@@ -70,12 +70,12 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             })
             ->where(function($q) use($attributes){
                 !array_key_exists('booleanName', $attributes)   ?: $q
-                ->where($attributes['booleanName'], $attributes['booleanValue']);
+                ->where([$attributes['booleanName'] => $attributes['booleanValue']]);
             })
             ->where(function($q) use($attributes){
                 !array_key_exists('category_id', $attributes) || $attributes['category_id'] == 0   ?: $q
                 ->whereHas('category', function($q) use($attributes) {
-                    $q->where('parent_id', $attributes['category_id']);
+                    $q->where(['parent_id' => $attributes['category_id']]);
                 });
             })
             ->where(function($q) use($attributes){
@@ -85,7 +85,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
             ->where(function($q) use($attributes){
                 !array_key_exists('unitBooleanColumn', $attributes) ?: $q
                 ->whereHas('unit', function($q) use($attributes){
-                    $q->where($attributes['unitBooleanColumn'], true);
+                    $q->where([$attributes['unitBooleanColumn'] => true]);
                 });
             })
             ->where(function($q) use($attributes){
