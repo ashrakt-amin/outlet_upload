@@ -84,7 +84,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     public function toggleUpdate($id, $booleanName)
     {
         $unit = $this->model->find($id);
-        $unit->update([$booleanName => ! $unit[$booleanName]]);
+        $unit->update([$booleanName => !$unit[$booleanName]]);
         return $unit;
     }
 

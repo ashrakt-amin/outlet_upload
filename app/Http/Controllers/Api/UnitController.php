@@ -106,10 +106,6 @@ class UnitController extends Controller
     public function unitsForAllConditions(Request $request)
     {
         return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
-        // return array_key_exists('paginate', $request->all()) ?
-        //     $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units, "paginate units; Youssof", 200)
-        //     :
-        //     $this->sendResponse(UnitWithoutItemsResource::collection($units), "random units; Youssof", 200);
     }
 
     /**
