@@ -104,9 +104,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     {
         $this->resourceCollection = $resourceCollection;
         return !array_key_exists('paginate', $attributes) ?
-            $this->sendResponse($this->resourceCollection::collection($this->itemsForAllConditionsPaginate($attributes)) , "Random items; Youssof", 200)
+            $this->sendResponse($this->resourceCollection::collection($this->itemsForAllConditionsRandom($attributes)) , "Random items; Youssof", 200)
             :
-            $this->paginateResponse($this->resourceCollection::collection($this->itemsForAllConditionsRandom($attributes)), $this->itemsForAllConditionsRandom($attributes), "paginate items; Youssof", 200);
+            $this->paginateResponse($this->resourceCollection::collection($this->itemsForAllConditionsPaginate($attributes)), $this->itemsForAllConditionsPaginate($attributes), "paginate items; Youssof", 200);
     }
 
     /**
