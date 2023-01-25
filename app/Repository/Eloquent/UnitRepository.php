@@ -81,22 +81,11 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
      * @param id $attributes
      * @return Unit
      */
-    public function toggleUpdate($id)
+    public function toggleUpdate($id, array $attributes)
     {
         $unit = $this->model->find($id);
-        $unit->update(['famous' => !$unit->famous]);
+        $unit->update([$attributes['booleanName'] => !$attributes['booleanValue']]);
         return $unit;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function famous(array $attributes)
-    {
-        return array_key_exists('paginate', $attributes) ?
-            $this->model->load(['items', 'trader'])->where(['famous' => true])->paginate($attributes['count'])
-            :
-            $this->model->load(['items', 'trader'])->where(['famous' => true])->inRandomOrder()->limit($attributes['count'])->get();
     }
 
     /**
@@ -135,7 +124,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     }
 
     /**
-     * Method for all units conditions to contoller
+     * Method for all units conditions to return a random or paginated array
      */
     public function unitsForAllConditionsReturn(array $attributes, $resourceCollection)
     {

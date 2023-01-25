@@ -43,12 +43,7 @@ interface UnitRepositoryInterface
      * @param id $attributes
      * @return Unit
      */
-    public function toggleUpdate($id);
-
-    /**
-     * @return Collection
-     */
-    public function famous(array $attributes);
+    public function toggleUpdate($id, array $attributes);
 
     /**
      * @return Collection
@@ -66,7 +61,7 @@ interface UnitRepositoryInterface
     public function unitsForAllConditionsRandom(array $attributes);
 
     /**
-     * Method for all units conditions to paginate
+     * Method for all units conditions to return a random or paginated array
      */
     public function unitsForAllConditionsReturn(array $attributes, $resourceCollection);
 }

@@ -230,7 +230,9 @@ Route::prefix("units")->group(function(){
         Route::get('/latest',              'latest')->name('units.latest');
         Route::get('/show_online/{unit}', 'showOnline');
         Route::get('/toggle_unit_famous/{unit}', 'toggleUnitFamous');
-        Route::get('/units_for_all_conditions',  'unitsForAllConditionsReturn');
+        Route::get('/toggle_unit_online/{unit}', 'toggleUnitOnline');
+        Route::get('/toggle_unit_offers/{unit}', 'toggleUnitOffers');
+        Route::get('/units_for_all_conditions',  'unitsForAllConditions');
         Route::get('/unitOffers/{unit}', 'unitOffers')->name('items.unitOffers');
         Route::put('/categories/{unit}', 'categories');
     });

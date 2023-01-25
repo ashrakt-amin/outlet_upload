@@ -92,11 +92,47 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function toggleUnitFamous(Unit $unit)
+    public function toggleUnitFamous(Request $request, Unit $unit)
     {
-        $unit = $this->unitRepository->toggleUpdate($unit->id);
+        $request['booleanName'] = 'famous';
+        $request['booleanValue'] = $unit->famous;
+        $unit = $this->unitRepository->toggleUpdate($unit->id, $request->all());
         return $this->sendResponse($unit->famous,
         $unit->famous == true ? "الازالة من أشهر المحلات" : "الاضافة لأشهر المحلات" ,
+        201);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleUnitOnline(Request $request, Unit $unit)
+    {
+        $request['booleanName'] = 'online';
+        $request['booleanValue'] = $unit->online;
+        $unit = $this->unitRepository->toggleUpdate($unit->id, $request->all());
+        return $this->sendResponse($unit->online,
+        $unit->online == true ? "الازالة لمحلات الاونلاين" : "الاضافة لمحلات الاونلاين" ,
+        201);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Unit  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleUnitOffers(Request $request, Unit $unit)
+    {
+        $request['booleanName'] = 'offers';
+        $request['booleanValue'] = $unit->offers;
+        $unit = $this->unitRepository->toggleUpdate($unit->id, $request->all());
+        return $this->sendResponse($unit->offers,
+        $unit->offers == true ? "الازالة لمحلات لديها عروض" : "الاضافة لمحلات لديها عروض" ,
         201);
     }
 
@@ -105,7 +141,7 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function unitsForAllConditionsReturn(Request $request)
+    public function unitsForAllConditions(Request $request)
     {
         return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
         // return array_key_exists('paginate', $request->all()) ?
