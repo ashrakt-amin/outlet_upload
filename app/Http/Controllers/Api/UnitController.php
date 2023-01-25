@@ -105,13 +105,13 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function famous(Request $request)
+    public function unitsForAllConditionsReturn(Request $request)
     {
-        $units = $this->unitRepository->famous($request->all());
-        return array_key_exists('paginate', $request->all()) ?
-            $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units, "paginate units; Youssof", 200)
-            :
-            $this->sendResponse(UnitWithoutItemsResource::collection($units), "random units; Youssof", 200);
+        return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
+        // return array_key_exists('paginate', $request->all()) ?
+        //     $this->paginateResponse(UnitWithoutItemsResource::collection($units), $units, "paginate units; Youssof", 200)
+        //     :
+        //     $this->sendResponse(UnitWithoutItemsResource::collection($units), "random units; Youssof", 200);
     }
 
     /**
