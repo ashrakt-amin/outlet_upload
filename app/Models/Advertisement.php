@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,21 +41,6 @@ class Advertisement extends Model
     }
 
     /**
-    * advertisement Renew Attribute.
-    *
-    * @return Attribute
-    */
-    protected function renew(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) =>
-                $this->advertisementExpire() == date('Y-m-d') && $value > 0
-                ? $this->update([$value = $value - 1])
-                : $value,
-        );
-    }
-
-    /**
     * advertisement Expire Attribute.
     *
     * @return Attribute
@@ -63,8 +49,26 @@ class Advertisement extends Model
     {
         return Attribute::make(
             get: fn ($value) =>
-                $this->renew() && $this->renew == 0
-                ? $this->delete()
+            // dd($this->renew()),
+                // $this->renew() && $this->renew() == 0
+                // ? $this->delete()
+                // :
+                Carbon::parse($value)->diffForHumans(),
+        );
+    }
+
+    /**
+    * advertisement Renew Attribute.
+    *
+    * @return Attribute
+    */
+    protected function renew(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) =>
+            // ($this->advertisementExpire()),
+                $this->advertisementExpire > date('Y-m-d') && $value > 0
+                ? $this->update([$value = $value - 1])
                 : $value,
         );
     }

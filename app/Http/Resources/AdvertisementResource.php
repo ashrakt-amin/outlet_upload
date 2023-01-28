@@ -29,6 +29,8 @@ class AdvertisementResource extends JsonResource
                 ],
             'link'    => $this->link,
             "daysRemainig" => Carbon::now()->diffInDays($this->advertisement_expire, false),
+            "advertisementExpire" => $this->advertisementExpire,
+            "renew" => $this->renew,
         ];
     }
 }
