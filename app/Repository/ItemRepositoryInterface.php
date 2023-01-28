@@ -27,22 +27,62 @@ interface ItemRepositoryInterface
     public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection;
 
     /**
-     * Method for all items conditions
+     * Method for items conditions where column name
+     */
+    public function itemsWhereColumnName(array $attributes);
+
+    /**
+     * Method for items conditions where boolean name
+     */
+    public function itemsWhereBooleanName(array $attributes);
+
+    /**
+     * Method for items conditions where category id
+     */
+    public function itemsWhereCategoryId(array $attributes);
+
+    /**
+     * Method for items searching where key words
+     */
+    public function itemsSearchingWherekeyWords(array $attributes);
+
+    /**
+     * Method for items where unit boolean column
+     */
+    public function itemsWhereUnitBooleanColumn(array $attributes);
+
+    /**
+     * Method for items where discount
+     */
+    public function itemsWhereDiscount(array $attributes);
+
+    /**
+     * Method for items where discount
+     */
+    public function itemsLatest(array $attributes);
+
+    /**
+     * Method for all items conditions functional
      */
     public function itemsForAllConditions(array $attributes);
 
     /**
+     * Method for all items conditions to latest
+     */
+    public function itemsForAllConditionsLatest(array $attributes, $resourceCollection);
+
+    /**
      * Method for all items conditions to random
      */
-    public function itemsForAllConditionsRandom(array $attributes);
+    public function itemsForAllConditionsRandom(array $attributes, $resourceCollection);
 
     /**
      * Method for all items conditions to paginate
      */
-    public function itemsForAllConditionsPaginate(array $attributes);
+    public function itemsForAllConditionsPaginate(array $attributes, $resourceCollection);
 
     /**
-     * Method for all items conditions to return a random or paginated array
+     * Method for all items conditions to return a wich method filtered by attributes
      */
     public function itemsForAllConditionsReturn(array $attributes, $resourceCollection);
 
