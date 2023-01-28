@@ -41,23 +41,6 @@ class Advertisement extends Model
     }
 
     /**
-    * advertisement Expire Attribute.
-    *
-    * @return Attribute
-    */
-    protected function advertisementExpire(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) =>
-            // dd($this->renew()),
-                // $this->renew() && $this->renew() == 0
-                // ? $this->delete()
-                // :
-                Carbon::parse($value)->diffForHumans(),
-        );
-    }
-
-    /**
     * advertisement Renew Attribute.
     *
     * @return Attribute
@@ -65,11 +48,21 @@ class Advertisement extends Model
     protected function renew(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) =>
-            // ($this->advertisementExpire()),
-                $this->advertisementExpire > date('Y-m-d') && $value > 0
-                ? $this->update([$value = $value - 1])
-                : $value,
+            // set: fn ($value) => $value > 0 ? $value : $value = 1,
+            get: fn ($value) => $value
+        );
+    }
+
+    /**
+    * advertisement Expire Attribute.
+    *
+    * @return Attribute
+    */
+    protected function advertisementExpire(): Attribute
+    {
+        return Attribute::make(
+            // set: fn ($value, $attributes) => Carbon::parse(Carbon::now())->addDays($attributes['renew'] * 30),
+            get: fn ($value) => $value,
         );
     }
 }
