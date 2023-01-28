@@ -82,15 +82,26 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     }
 
     /**
+     * Method for items conditions where parent category id
+     */
+    public function itemsWhereCategoryParentId(array $attributes)
+    {
+        return function($q) use($attributes){
+                !array_key_exists('parent_id', $attributes) || $attributes['parent_id'] == 0   ?: $q
+                ->whereHas('category', function($q) use($attributes) {
+                    $q->where(['parent_id' => $attributes['parent_id']]);
+                });
+            };
+    }
+
+    /**
      * Method for items conditions where category id
      */
     public function itemsWhereCategoryId(array $attributes)
     {
         return function($q) use($attributes){
                 !array_key_exists('category_id', $attributes) || $attributes['category_id'] == 0   ?: $q
-                ->whereHas('category', function($q) use($attributes) {
-                    $q->where(['parent_id' => $attributes['category_id']]);
-                });
+                ->where(['category_id' => $attributes['category_id']]);
             };
     }
 
@@ -148,6 +159,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         return $this->model
             ->where($this->itemsWhereColumnName($attributes))
             ->where($this->itemsWhereBooleanName($attributes))
+            ->where($this->itemsWhereCategoryParentId($attributes))
             ->where($this->itemsWhereCategoryId($attributes))
             ->where($this->itemsSearchingWherekeyWords($attributes))
             ->where($this->itemsWhereUnitBooleanColumn($attributes))

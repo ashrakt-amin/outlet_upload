@@ -37,6 +37,11 @@ interface ItemRepositoryInterface
     public function itemsWhereBooleanName(array $attributes);
 
     /**
+     * Method for items conditions where parent category id
+     */
+    public function itemsWhereCategoryParentId(array $attributes);
+    
+    /**
      * Method for items conditions where category id
      */
     public function itemsWhereCategoryId(array $attributes);
