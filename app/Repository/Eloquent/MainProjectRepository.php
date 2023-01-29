@@ -25,13 +25,4 @@ class MainProjectRepository extends BaseRepository implements MainProjectReposit
     {
         return $this->model->with(['projects'])->get();
     }
-
-    // /**
-    // * @param $id
-    // * @return MainProject
-    // */
-    // public function find($id): ?MainProject
-    // {
-    //     return $this->model->where(['id'=>$id])->with(['projects'])->first();
-    // }
 }
