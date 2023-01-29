@@ -16,13 +16,17 @@ use App\Repository\Eloquent\LevelRepository;
 use App\Repository\LevelRepositoryInterface;
 use App\Repository\Eloquent\TraderRepository;
 use App\Repository\TraderRepositoryInterface;
+use App\Repository\Eloquent\PrivacyRepository;
 use App\Repository\Eloquent\ProjectRepository;
+use App\Repository\PrivacyRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\EloquentRepositoryInterface;
 use App\Repository\Eloquent\MainProjectRepository;
+use App\Repository\Eloquent\TermsAndConditionRepository;
 use App\Repository\MainProjectRepositoryInterface;
+use App\Repository\TermsAndConditionRepositoryInterface;
 
 /**
 * Class RepositoryServiceProvider
@@ -46,7 +50,10 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(MainProjectRepositoryInterface::class, MainProjectRepository::class);
        $this->app->bind(LevelRepositoryInterface::class, LevelRepository::class);
        $this->app->bind(UnitRepositoryInterface::class, UnitRepository::class);
-       $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);   }
+       $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);
+       $this->app->bind(PrivacyRepositoryInterface::class, PrivacyRepository::class);
+       $this->app->bind(TermsAndConditionRepositoryInterface::class, TermsAndConditionRepository::class);
+    }
 
     /**
      * Bootstrap services.
