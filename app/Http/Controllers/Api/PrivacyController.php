@@ -75,6 +75,6 @@ class PrivacyController extends Controller
      */
     public function destroy(Privacy $privacy)
     {
-        if ($this->privacyRepository->delete($privacy->id)) return $this->sendResponse("", "تم حذف نص الخصوصية", 204);
+        if ($this->privacyRepository->delete($privacy->id)) return $this->sendResponse("", "تم حذف نص الخصوصية", 200);
     }
 }

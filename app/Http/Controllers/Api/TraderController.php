@@ -129,7 +129,7 @@ class TraderController extends Controller
     {
         if (!$trader->units->exists()) {
             $this->traderRepository->delete($trader->id);
-             return $this->sendResponse("", "تم حذف التصنيف", 204);
+             return $this->sendResponse("", "تم حذف التصنيف", 200);
         }
     }
 }

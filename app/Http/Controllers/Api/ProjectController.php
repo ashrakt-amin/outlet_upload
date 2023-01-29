@@ -103,7 +103,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         if (!count($project->levels)) {
-            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف المشروع", 204);
+            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف المشروع", 200);
         }
         return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
     }

@@ -143,7 +143,7 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         if (!count($unit->items)) {
-            if ($this->unitRepository->delete($unit->id)) return $this->sendResponse("", "تم حذف الوحدة", 204);
+            if ($this->unitRepository->delete($unit->id)) return $this->sendResponse("", "تم حذف الوحدة", 200);
         }
         return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
     }

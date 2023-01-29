@@ -75,7 +75,7 @@ class ColorController extends Controller
     public function destroy(Color $color)
     {
         if (!count($color->stocks)) {
-            if ($this->colorRepository->delete($color->id)) return $this->sendResponse("", "تم حذف اللون", 204);
+            if ($this->colorRepository->delete($color->id)) return $this->sendResponse("", "تم حذف اللون", 200);
         }
         return $this->sendError("لا يمكن حذف لونا له رصيد", [], 405);
     }

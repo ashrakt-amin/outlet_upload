@@ -75,7 +75,7 @@ class SizeController extends Controller
     public function destroy(Size $size)
     {
         if (!count($size->stocks)) {
-            if ($this->sizeRepository->delete($size->id)) return $this->sendResponse("", "تم حذف الحجم", 204);
+            if ($this->sizeRepository->delete($size->id)) return $this->sendResponse("", "تم حذف الحجم", 200);
         }
         return $this->sendError("لا يمكن حذف حجما له رصيد", [], 405);
     }

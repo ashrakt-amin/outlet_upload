@@ -92,7 +92,7 @@ class ItemImageController extends Controller
             return response()->json([
                 "success" => true,
                 "message" => "تم حذف الصورة",
-            ], 204);
+            ], 200);
         });
 
 

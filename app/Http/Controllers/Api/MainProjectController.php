@@ -101,7 +101,7 @@ class MainProjectController extends Controller
     public function destroy(MainProject $mainProject)
     {
         if (!count($mainProject->projects)) {
-            if ($this->mainProjectRepository->delete($mainProject->id)) return $this->sendResponse("", "تم حذف المبنى", 204);
+            if ($this->mainProjectRepository->delete($mainProject->id)) return $this->sendResponse("", "تم حذف المبنى", 200);
         }
         return $this->sendError("لا يمكن حذف نوع لديه مشاريع", [], 405);
     }

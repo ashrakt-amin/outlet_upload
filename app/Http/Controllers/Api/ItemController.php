@@ -88,7 +88,7 @@ class ItemController extends Controller
         if (count($item->stocks)) {
             $this->deleteImages($item->itemImages()->pluck('img')->toArray(), 'items');
             $item->itemImages()->delete($item->id);
-            if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج", 204);
+            if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج", 200);
         }
         return $this->sendError("لا يمكن حذف منتجا له رصيد", [], 405);
     }
