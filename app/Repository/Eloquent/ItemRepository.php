@@ -31,34 +31,6 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
        parent::__construct($model);
    }
 
-   /**
-    * @return Collection
-    */
-    public function search(array $attributes)
-    {
-        return $this->model->with(['unit'])->where(function($q) use($attributes){
-            !array_key_exists('key_words', $attributes) ?: $q->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
-        })->get();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function latest(array $attributes)
-    {
-        return $this->model->with(['unit'])->latest()->take($attributes['count'])->get();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection
-    {
-        $categories = Category::where(['parent_id' => $category_id])->pluck('id')->all();
-        $items = $this->model->where(['project_id' => $project_id])->whereIn('category_id', $categories)->where('discount', '>', 0)->get();
-        return $items;
-    }
-
     /**
      * Method for items conditions where column name
      */

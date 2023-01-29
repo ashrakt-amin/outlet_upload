@@ -12,21 +12,6 @@ use App\Models\Item;
 interface ItemRepositoryInterface
 {
     /**
-     * @return Collection
-     */
-     public function search(array $attributes);
-
-    /**
-     * @return Collection
-     */
-     public function latest(array $attributes);
-
-    /**
-     * @return Collection
-     */
-    public function offerItemsOfCategoriesOfProject($project_id, $category_id): Collection;
-
-    /**
      * Method for items conditions where column name
      */
     public function itemsWhereColumnName(array $attributes);
@@ -40,7 +25,7 @@ interface ItemRepositoryInterface
      * Method for items conditions where parent category id
      */
     public function itemsWhereCategoryParentId(array $attributes);
-    
+
     /**
      * Method for items conditions where category id
      */

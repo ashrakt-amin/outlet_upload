@@ -36,7 +36,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->search($request->all()))->paginate(12), "", 200);
+        return $this->itemRepository->itemsForAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
     }
 
     /**
