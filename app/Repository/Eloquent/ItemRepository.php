@@ -147,8 +147,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         $this->resourceCollection = $resourceCollection;
 
         return
-            $this->sendResponse(
+            $this->paginateResponse(
                 $this->resourceCollection::collection($this->itemsForAllConditions($attributes)->latest()->paginate($attributes['count'])),
+                $this->itemsForAllConditions($attributes)->latest()->paginate($attributes['count']),
                 "Latest items; Youssof", 200);
     }
 

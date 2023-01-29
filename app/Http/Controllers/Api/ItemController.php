@@ -100,7 +100,7 @@ class ItemController extends Controller
      */
     public function latest(Request $request)
     {
-        return $this->sendResponse(ItemResource::collection($this->itemRepository->latest($request->all()))->paginate(), "", 200);
+        return $this->itemRepository->itemsForAllConditionsLatest($request->all(), ItemFlashSalesResource::class);
     }
 
     /**
