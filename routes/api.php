@@ -87,11 +87,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
-    Route::prefix("items")->group(function(){
-        Route::controller(ItemController::class)->group(function () {
-            Route::put('/approved/{item}',     'approved')->name('items.approved');
-        });
-    });
     Route::resource('items', ItemController::class)->except('index', 'show', 'create', 'edit');
     //______________________________________________________________________________________________________________________
 
@@ -243,10 +238,7 @@ Route::resource('units', UnitController::class)->except('create', 'edit');
 Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
         Route::get('/latest',             'latest');
-        Route::get('/items_for_all_conditions', 'itemsForAllConditions');
         Route::get('/toggle_update/{id}/{booleanName}',    'toggleUpdate');
-        Route::get('/flash_sales',    'flashSales');
-        Route::get('/offer_items_of_categories_of_project/{project_id}/{category_id}', 'offerItemsOfCategoriesOfProject');
         Route::get('/',                    'index');
         Route::get('/{item}',               'show');
     });

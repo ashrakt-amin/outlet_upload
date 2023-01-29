@@ -117,16 +117,6 @@ class ItemController extends Controller
     }
 
     /**
-     * Get items of a project.
-     *
-     * @return Collection
-     */
-    public function itemsForAllConditions(Request $request)
-    {
-        return $this->itemRepository->itemsForAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Models\Item  $item
@@ -136,14 +126,5 @@ class ItemController extends Controller
     {
         $item = $this->itemRepository->toggleUpdate($id, $booleanName);
         return $this->sendResponse($item[$booleanName], $booleanName. ' ' .$item[$booleanName] , 201);
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function flashSales(Request $request)
-    {
-        return $this->sendResponse(ItemFlashSalesResource::collection($this->itemRepository->itemsForAllConditions($request->all())), "", 200);
     }
 }
