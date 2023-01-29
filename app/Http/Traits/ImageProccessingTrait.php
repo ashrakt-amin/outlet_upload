@@ -68,13 +68,7 @@ Trait ImageProccessingTrait
     {
         $imagesName = [];
         foreach($images as $image){
-            Image::make($image)
-            ->resize($width, $height, function($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            $image->store($this->path . '/' . $path, 'public');
-             array_push($imagesName, [ $column => $image->hashName()]);
+            array_push($imagesName, [ $column => $this->setImage($image, $path, $width, $height)]);
         }
         return $imagesName;
     }
