@@ -23,12 +23,18 @@ class AdvertisementResource extends JsonResource
                     'id'   => $this->unit_id,
                     'name' => $this->unit->name
                 ],
+            'project'    => [
+                    'id'   => $this->project_id,
+                    'name' => $this->project->name
+                ],
             'trader'  => [
                     'id'   => $this->unit->trader_id,
                     'name' => $this->unit->trader->f_name . ' ' . $this->unit->trader->l_name
                 ],
             'link'    => $this->link,
             "daysRemainig" => Carbon::now()->diffInDays($this->advertisement_expire, false),
+            "advertisementExpire" => $this->advertisement_expire,
+            "renew" => $this->renew,
         ];
     }
 }

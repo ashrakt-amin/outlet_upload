@@ -31,12 +31,9 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     */
     public function create(array $attributes): Trader
     {
-        $img = $attributes['img'];
-        $code = uniqueRandomCode('traders');
-        return $this->model->create($attributes, [
-            'code' => $code,
-            'img'  => $this->setImage($img, 'traders', 450, 450)
-        ]);
+        $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
+        $attributes['code'] = uniqueRandomCode('traders');
+        return $this->model->create($attributes);
     }
 
     /**
@@ -59,18 +56,12 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
             return DB::transaction(function() use($trader, $attributes){
                 $trader = $this->model->findOrFail($trader->id);
                 $age = $trader->age;
-                $trader->fill($attributes);
                 if ($attributes['img']) {
                     $this->deleteImage(Trader::IMAGE_PATH, $trader->img);
-                    $img = $attributes['img'];
-                    $trader->img = $this->setImage($img, 'traders', 450, 450);
+                    $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
                 }
-                if ($attributes['age'] != null) {
-                    $trader->age = $attributes['age'];
-                } else {
-                    $trader->age = $age;
-                }
-                $trader->update();
+                if ($attributes['age'] == null) $attributes['age'] = $age;
+                $trader->update($attributes);
             });
         }
         return $trader;

@@ -27,6 +27,8 @@ use App\Repository\Eloquent\MainProjectRepository;
 use App\Repository\Eloquent\TermsAndConditionRepository;
 use App\Repository\MainProjectRepositoryInterface;
 use App\Repository\TermsAndConditionRepositoryInterface;
+use App\Repository\AdvertisementRepositoryInterface;
+use App\Repository\Eloquent\AdvertisementRepository;
 
 /**
 * Class RepositoryServiceProvider
@@ -53,6 +55,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);
        $this->app->bind(PrivacyRepositoryInterface::class, PrivacyRepository::class);
        $this->app->bind(TermsAndConditionRepositoryInterface::class, TermsAndConditionRepository::class);
+       $this->app->bind(AdvertisementRepositoryInterface::class, AdvertisementRepository::class);
     }
 
     /**

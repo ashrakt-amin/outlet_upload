@@ -29,7 +29,15 @@ class TraderRequest extends FormRequest
     private function updateRequest()
     {
         return [
-            'name' => 'nullable',
+            'f_name'      => 'required',
+            'l_name'      => 'required',
+            'code'        => 'nullable',
+            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            'img'         => 'nullable',
+            'email'       => 'nullable|unique:users,email',
+            'national_id' => 'nullable|unique:traders,national_id|regex:/^[0-9]{14}$/',
+            'password'    => 'required|min:8|confirmed',
+            'password_confirmation' => 'required|same:password',
         ];
     }
 

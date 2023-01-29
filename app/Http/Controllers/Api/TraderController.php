@@ -47,28 +47,7 @@ class TraderController extends Controller
     {
         $data = $request->validated();
         $trader = $this->traderRepository->create($data);
-        return $this->sendResponse(new TraderResource($trader), "تم تسجيل تصنيفا جديدا", 201);
-
-        $trader = new Trader();
-        $trader->fill($request->input());
-        if ($request->has('img')) {
-            $img = $request->file('img');
-            $trader->img = $this->setImage($request->file('img'), 'traders', 450, 450);
-        }
-        $trader->code = uniqueRandomCode('traders');
-
-        if ($trader->save()) {
-            return response()->json([
-                "success" => true,
-                "message" => "تم تسجيل تاجرا جديدا",
-                "data" => ["code"=>$trader->code],
-            ], 200);
-        } else {
-            return response()->json([
-                "success" => false,
-                "message" => "فشل تسجيل التاجر",
-            ], 422);
-        }
+        return $this->sendResponse(new TraderResource($trader), "تم تسجيل تاجرا جديدا", 201);
     }
 
     /**
