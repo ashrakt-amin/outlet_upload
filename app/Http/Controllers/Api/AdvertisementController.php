@@ -31,7 +31,7 @@ class AdvertisementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // $advertisements = Advertisement::all();
         // foreach ($advertisements as $advertisement) {
@@ -44,6 +44,7 @@ class AdvertisementController extends Controller
         //         $advertisement->delete();
         //     }
         // }
+        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereColumnName($request->all())), "اعلانات الرئيسية", 200);
         return AdvertisementResource::collection($this->advertisementRepository->all());
     }
 
