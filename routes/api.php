@@ -300,7 +300,7 @@ Route::resource('importers', ImporterController::class)->except('create', 'edit'
 //-----------------------------------------------------------------------------------------------------------
 Route::controller(AdvertisementController::class)->group(function () {
     Route::get('advertisements/advertisements_of_project/{project_id}', 'advertisementsOfProject');
-    Route::get('advertisements/advertisements_where_column_name', 'advertisementsWhereColumnName');
+    Route::get('advertisements/advertisements_where_condition', 'advertisementsWhereColumnName');
 });
 Route::resource('advertisements', AdvertisementController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
