@@ -96,7 +96,7 @@ class LevelController extends Controller
     {
         if (!count($level->units)) {
             $this->levelRepository->delete($level->id);
-            return $this->sendResponse("", "تم حذف المشروع",);
+            return $this->sendResponse("", "تم حذف المشروع", 204);
         }
         return $this->sendError("لا يمكن حذف مكانا له أفرع", [], 405);
     }

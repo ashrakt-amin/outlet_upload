@@ -82,7 +82,7 @@ class TraderController extends Controller
     public function update(TraderRequest $request, Trader $trader)
     {
         $trader = $this->traderRepository->edit($trader->id, $request->validated());
-        return $this->sendResponse(new TraderResource($trader), "تم تعديل التاجر");
+        return $this->sendResponse(new TraderResource($trader), "تم تعديل التاجر", 202);
 
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             return DB::transaction(function() use($trader, $request){
@@ -129,7 +129,7 @@ class TraderController extends Controller
     {
         if (!$trader->units->exists()) {
             $this->traderRepository->delete($trader->id);
-             return $this->sendResponse("", "تم حذف التصنيف");
+             return $this->sendResponse("", "تم حذف التصنيف", 204);
         }
     }
 }

@@ -86,7 +86,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if (!$category->items->exists()) {
-            if ($this->categoryRepository->delete($category->id)) return $this->sendResponse("", "تم حذف التصنيف");
+            if ($this->categoryRepository->delete($category->id)) return $this->sendResponse("", "تم حذف التصنيف", 204);
         }
         return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", [], 405);
     }

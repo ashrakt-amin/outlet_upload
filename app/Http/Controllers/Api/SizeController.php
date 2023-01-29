@@ -63,7 +63,7 @@ class SizeController extends Controller
     public function update(SizeRequest $request, Size $size)
     {
         $size = $this->sizeRepository->edit($size->id, $request->validated());
-        return $this->sendResponse(new SizeResource($size), "تم تعديل الحجم");
+        return $this->sendResponse(new SizeResource($size), "تم تعديل الحجم", 202);
     }
 
     /**
@@ -75,7 +75,7 @@ class SizeController extends Controller
     public function destroy(Size $size)
     {
         if (!count($size->stocks)) {
-            if ($this->sizeRepository->delete($size->id)) return $this->sendResponse("", "تم حذف الحجم");
+            if ($this->sizeRepository->delete($size->id)) return $this->sendResponse("", "تم حذف الحجم", 204);
         }
         return $this->sendError("لا يمكن حذف حجما له رصيد", [], 405);
     }

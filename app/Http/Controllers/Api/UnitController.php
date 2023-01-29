@@ -131,7 +131,7 @@ class UnitController extends Controller
     public function categories(Request $request, Unit $unit)
     {
         $unit = $this->unitRepository->edit($unit->id, $request->all());
-        return $this->sendResponse(new UnitResource($unit), "تم تعديل ال,حدة", 200);
+        return $this->sendResponse(new UnitResource($unit), "تم تعديل ال,حدة", 202);
     }
 
     /**
@@ -143,7 +143,7 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         if (!count($unit->items)) {
-            if ($this->unitRepository->delete($unit->id)) return $this->sendResponse("", "تم حذف الوحدة");
+            if ($this->unitRepository->delete($unit->id)) return $this->sendResponse("", "تم حذف الوحدة", 204);
         }
         return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
     }

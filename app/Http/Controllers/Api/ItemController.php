@@ -59,7 +59,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return $this->sendResponse(new ItemResource($this->itemRepository->find($item->id)), "", 200);
+        return $this->sendResponse(new ItemResource($this->itemRepository->find($item->id)), "عرض المنتج", 200);
     }
 
     /**
@@ -88,7 +88,7 @@ class ItemController extends Controller
         if (count($item->stocks)) {
             $this->deleteImages($item->itemImages()->pluck('img')->toArray(), 'items');
             $item->itemImages()->delete($item->id);
-            if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج");
+            if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج", 204);
         }
         return $this->sendError("لا يمكن حذف منتجا له رصيد", [], 405);
     }
@@ -113,7 +113,7 @@ class ItemController extends Controller
     public function categories(Request $request, Item $item)
     {
         $item = $this->itemRepository->edit($item->id, $request->all());
-        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل الوحدة", 200);
+        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل تصنيفات الوحدة", 202);
     }
 
     /**
@@ -125,6 +125,6 @@ class ItemController extends Controller
     public function toggleUpdate($id, $booleanName)
     {
         $item = $this->itemRepository->toggleUpdate($id, $booleanName);
-        return $this->sendResponse($item[$booleanName], $booleanName. ' ' .$item[$booleanName] , 201);
+        return $this->sendResponse($item[$booleanName], $booleanName. ' ' .$item[$booleanName] , 202);
     }
 }

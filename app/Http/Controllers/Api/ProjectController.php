@@ -91,7 +91,7 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        return $this->sendResponse(new ProjectResource($this->projectRepository->edit($project->id, $request->validated())), "تم تعديل المشروع");
+        return $this->sendResponse(new ProjectResource($this->projectRepository->edit($project->id, $request->validated())), "تم تعديل المشروع", 202);
     }
 
     /**
@@ -103,7 +103,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         if (!count($project->levels)) {
-            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف المشروع");
+            if ($this->projectRepository->delete($project->id)) return $this->sendResponse("", "تم حذف المشروع", 204);
         }
         return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
     }

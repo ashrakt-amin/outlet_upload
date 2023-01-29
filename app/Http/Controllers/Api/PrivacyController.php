@@ -64,7 +64,7 @@ class PrivacyController extends Controller
     public function update(PrivacyRequest $request, Privacy $privacy)
     {
         $privacy = $this->privacyRepository->edit($privacy->id, $request->validated());
-        return $this->sendResponse(new PrivacyResource($privacy), "تم تعديل نص الخصوصية");
+        return $this->sendResponse(new PrivacyResource($privacy), "تم تعديل نص الخصوصية", 202);
     }
 
     /**
@@ -75,6 +75,6 @@ class PrivacyController extends Controller
      */
     public function destroy(Privacy $privacy)
     {
-        if ($this->privacyRepository->delete($privacy->id)) return $this->sendResponse("", "تم حذف نص الخصوصية");
+        if ($this->privacyRepository->delete($privacy->id)) return $this->sendResponse("", "تم حذف نص الخصوصية", 204);
     }
 }
