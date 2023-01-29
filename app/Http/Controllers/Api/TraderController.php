@@ -40,7 +40,7 @@ class TraderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\TraderRequest  $request
+     * @param  \App\Http\Requests\TraderRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(TraderRequest $request)
@@ -75,7 +75,7 @@ class TraderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\TraderRequest  $request
+     * @param  \App\Http\Requests\TraderRequest  $request
      * @param  \App\Models\Trader  $trader
      * @return \Illuminate\Http\Response
      */

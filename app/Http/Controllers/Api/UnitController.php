@@ -54,7 +54,7 @@ class UnitController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(UnitRequest $request)
@@ -111,7 +111,7 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */

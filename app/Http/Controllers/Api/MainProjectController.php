@@ -48,7 +48,7 @@ class MainProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\MainProjectRequest  $request
+     * @param  \App\Http\Requests\MainProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(MainProjectRequest $request)
@@ -82,7 +82,7 @@ class MainProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\MainProjectRequest  $request
+     * @param  \App\Http\Requests\MainProjectRequest  $request
      * @param  \App\Models\  $mainProject
      * @return \Illuminate\Http\Response
      */

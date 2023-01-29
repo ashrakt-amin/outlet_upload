@@ -40,7 +40,7 @@ class LevelController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\LevelRequest  $request
+     * @param  \App\Http\Requests\LevelRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(LevelRequest $request)
@@ -77,7 +77,7 @@ class LevelController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Level  $level
      * @return \Illuminate\Http\Response
      */
