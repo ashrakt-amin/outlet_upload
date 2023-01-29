@@ -33,7 +33,7 @@ class ColorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\ColorRequest  $request
+     * @param  \App\Http\Requests\ColorRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ColorRequest $request)
@@ -56,7 +56,7 @@ class ColorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\ColorRequest  $request
+     * @param  \App\Http\Requests\ColorRequest  $request
      * @param  \App\Models\  $color
      * @return \Illuminate\Http\Response
      */

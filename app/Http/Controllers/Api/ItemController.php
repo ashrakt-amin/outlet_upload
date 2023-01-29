@@ -42,7 +42,7 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\ItemRequest  $request
+     * @param  \App\Http\Requests\ItemRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ItemRequest $request)
@@ -65,7 +65,7 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\ItemRequest  $request
+     * @param  \App\Http\Requests\ItemRequest  $request
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
@@ -129,7 +129,6 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
