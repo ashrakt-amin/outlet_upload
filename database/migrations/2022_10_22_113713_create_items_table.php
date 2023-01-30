@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('available')                 ->default(1);
             $table->boolean('approved')                  ->default(0);
             $table->boolean('flash_sales')               ->default(0);
+            $table->boolean('extra_piece')               ->default(0);
             $table->boolean('last_week')                 ->default(0);
             $table->date('last_week_expire')             ->nullable();
             $table->text('key_words');
