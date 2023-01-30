@@ -31,7 +31,7 @@ class WishlistRepository extends BaseRepository implements WishlistRepositoryInt
         $wishlist ? $wishlist->delete() : $wishlist = $this->model->create($attributes);
     } else {
         $wishlist = Wishlist::orderBy('id', 'DESC')->first();
-        if ($attributes['visitor_id'] == null ) {$attributes['visitor_id'] = $wishlist->id + 1;}
+        if ($attributes['visitor_id'] == null ) {$attributes['visitor_id'] = $wishlist ? $wishlist->id + 1 : 1;}
         // dd($attributes['visitor_id']);
         $wishlist = Wishlist::where(['visitor_id' => $attributes['visitor_id'], 'item_id' => $attributes['item_id']])->first();
         $wishlist ? $wishlist->delete() : $wishlist = $this->model->create($attributes);
