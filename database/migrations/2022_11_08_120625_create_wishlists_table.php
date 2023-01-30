@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('visitor_id');
             $table->timestamps();
         });
     }

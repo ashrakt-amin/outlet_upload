@@ -22,13 +22,15 @@ use App\Repository\PrivacyRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\Eloquent\CategoryRepository;
+use App\Repository\Eloquent\WishlistRepository;
 use App\Repository\EloquentRepositoryInterface;
+use App\Repository\WishlistRepositoryInterface;
 use App\Repository\Eloquent\MainProjectRepository;
-use App\Repository\Eloquent\TermsAndConditionRepository;
 use App\Repository\MainProjectRepositoryInterface;
-use App\Repository\TermsAndConditionRepositoryInterface;
 use App\Repository\AdvertisementRepositoryInterface;
 use App\Repository\Eloquent\AdvertisementRepository;
+use App\Repository\Eloquent\TermsAndConditionRepository;
+use App\Repository\TermsAndConditionRepositoryInterface;
 
 /**
 * Class RepositoryServiceProvider
@@ -56,6 +58,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(PrivacyRepositoryInterface::class, PrivacyRepository::class);
        $this->app->bind(TermsAndConditionRepositoryInterface::class, TermsAndConditionRepository::class);
        $this->app->bind(AdvertisementRepositoryInterface::class, AdvertisementRepository::class);
+       $this->app->bind(WishlistRepositoryInterface::class, WishlistRepository::class);
     }
 
     /**
