@@ -22,6 +22,7 @@ class Item extends Model
         'level_id',
         'project_id',
         'flash_sales',
+        'extra_piece',
         'key_words',
         'item_unit_id',
         'item_code',
