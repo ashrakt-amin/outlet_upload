@@ -21,6 +21,7 @@ class UnitWithoutItemsResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->name,
             'famous'      => $this->famous == 0 ? false : true,
+            'offers'       => $this->offers == 0 ? false : true,
             'firstImage'  => new UnitImageResource($this->unitImages()->first()),
             'secondImage' => new UnitImageResource($this->unitImages()->skip(1)->first()),
             'categories'  => CategoriesOnlyMainResource::collection($this->categories()->where(['parent_id' => 0])->get()),
