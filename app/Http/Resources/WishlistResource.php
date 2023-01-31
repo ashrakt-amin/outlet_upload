@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Item;
+use App\Http\Resources\Item\ItemFlashSalesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WishlistResource extends JsonResource
@@ -15,9 +15,6 @@ class WishlistResource extends JsonResource
      */
     public function toArray($request)
     {
-        $item     = $this->whenLoaded('item');
-        return [
-            'item'      => new ItemResource($item),
-        ];
+        return new ItemFlashSalesResource($this->item);
     }
 }
