@@ -50,11 +50,6 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function find($id): ?Item
     {
-        $items = $this->model->all();
-        foreach ($items as $item) {
-            $item['created_by'] = 1;
-            $item->update();
-        }
         $item = $this->model->load(['stocks', 'unit'])->find($id);
         $user = $this->getTokenName('user');
         $trader = $this->getTokenName('trader');
