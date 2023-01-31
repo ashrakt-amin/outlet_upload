@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('amount_discount')        ->nullable();
             $table->date('starting_date')             ->nullable();
             $table->date('expiring_date')             ->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

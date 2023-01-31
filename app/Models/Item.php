@@ -34,10 +34,12 @@ class Item extends Model
         'agent_id', // 'الشركة الوكيلة'
         'company_id', // 'الشركة الموزعة'
         'importer_id',
+        'created_by',
+        'updated_by',
         ];
 
     protected $appends = [
-        'wishlist',
+        // 'wishlist',
         'client_rate',
         'all_rates',
         'client_views',
@@ -124,13 +126,36 @@ class Item extends Model
         return $this->hasMany(Stock::class);
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
 
     // GETTER/SETTER
 
-    public function getWishlistAttribute()
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
+    protected function wishlist(): Attribute
     {
-        if (!auth()->guard()->check()) return false;
-        return Wishlist::where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false;
+        return Attribute::make(
+            // get: fn ($value, $attributes) =>
+            // auth()->guard()->check()
+            // ? (Wishlist::where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false)
+            // : (Wishlist::where(['item_id'=>$this->id, 'visitor_id'=>$attributes['visitor_id']])->exists() ? true : false),
+        );
     }
 
     public function getItemCategoryAttribute()
@@ -192,6 +217,7 @@ class Item extends Model
     {
         return Attribute::make(
             set: fn ($value) => $value . ' ' .
+                // Category::find($this->attributes['parent_id'])->name . ' ' .
                 Category::find($this->attributes['category_id'])->name . ' ' .
                 Unit::find($this->attributes['unit_id'])->name . ' ' .
                 Level::find(Unit::find($this->attributes['unit_id'])->level_id)->name . ' ' .

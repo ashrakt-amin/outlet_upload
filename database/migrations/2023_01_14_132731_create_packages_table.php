@@ -19,6 +19,8 @@ return new class extends Migration
             $table->tinyInteger('priority')->default(0);
             $table->decimal('subscription', 8, 2);
             $table->date('package_expire');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

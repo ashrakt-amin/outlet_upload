@@ -22,6 +22,8 @@ return new class extends Migration
             $table->decimal('item_price', 32);
             $table->decimal('discount', 16)->default(0);
             $table->unsignedBigInteger('order_statu_id');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('privacies', function (Blueprint $table) {
             $table->id();
             $table->text('text');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

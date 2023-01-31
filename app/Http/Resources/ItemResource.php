@@ -14,9 +14,16 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        $wishlist =
+        auth()->guard()->check()
+        ? ($this->wishlists()->where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false)
+        : ($this->wishlists()->where(['item_id'=>$this->id, 'visitor_id'=>$request['visitor_id']])->exists() ? true : false);
         return [
             'id'               => $this->id,
             'name'             => $this->name,
+            'created_by'       => $this->createdBy,
+            'updated_by'       => $this->updatedBy,
+            'wishlist'         => $wishlist,
             'unit_name'        => $this->unit?->name,
             'item_project'     => $this->unit?->level?->project,
             'first_unit_image' => new UnitImageResource($this->unit?->unitImages()->first()),
@@ -32,15 +39,14 @@ class ItemResource extends JsonResource
             'description'      => $this->description ? $this->description : false,
             'discount'         => $this->discount ? (float)$this->discount : false,
             'unit'             => ($this->whenLoaded('unit')),
-            'level_id'         => ($this->level_id),
-            'project_id'       => ($this->project_id),
-            'key_words'        => ($this->key_words),
+            'level_id'         => $this->level_id,
+            'project_id'       => $this->project_id,
+            'key_words'        => $this->key_words,
             'flash_sales'      => $this->flash_sales == 1 ? true : false,
             'extra_piece'      => $this->extra_piece == 1 ? true : false,
             'trader'           => new TraderResource($this->unit?->trader),
             'clientViews'      => $this->client_views,
             'views'            => $this->all_views,
-            'wishlist'         => $this->wishlist,
             'clientRate'       => $this->client_rate,
             'allRates'         => $this->all_rates,
             'category'         => $this->item_category,

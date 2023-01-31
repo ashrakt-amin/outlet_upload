@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('address');
             $table->decimal('total', 32);
             $table->unsignedBigInteger('order_statu_id');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

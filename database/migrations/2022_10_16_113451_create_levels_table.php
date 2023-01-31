@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('zone_id')->default(0);
+            $table->unsignedBigInteger('zone_id')   ->default(0);
             $table->unsignedBigInteger('project_id')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

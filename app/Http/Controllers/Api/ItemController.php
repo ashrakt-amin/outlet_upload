@@ -36,6 +36,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
         return $this->itemRepository->itemsForAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
     }
 

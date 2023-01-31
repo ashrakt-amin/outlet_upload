@@ -35,6 +35,8 @@ return new class extends Migration
             $table->decimal('stock_discount', 4, 2)->nullable()->default(0);
             $table->date('discount_start_date')->nullable();
             $table->date('discount_end_date')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }
