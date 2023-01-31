@@ -45,7 +45,8 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->sendResponse("", new ItemWishlistResource($this->wishlistRepository->toggleWishlist($request->all())->item), 201);
+        $wishlist = $this->wishlistRepository->toggleWishlist($request->all());
+        return $this->sendResponse((float)$wishlist->visitor_id, new ItemWishlistResource($wishlist->item), 201);
     }
 
     /**
