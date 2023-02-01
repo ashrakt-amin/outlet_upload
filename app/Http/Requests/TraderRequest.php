@@ -14,7 +14,8 @@ class TraderRequest extends FormRequest
         return [
             'f_name'      => 'required',
             'l_name'      => 'required',
-            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/' . ($this->id ? ",$this->id" : ''),
+            'age'         => 'nullable',
             'img'         => 'nullable',
             'email'       => 'nullable|unique:users,email',
             'national_id' => 'nullable|unique:traders,national_id|regex:/^[0-9]{14}$/',
@@ -32,12 +33,13 @@ class TraderRequest extends FormRequest
             'f_name'      => 'required',
             'l_name'      => 'required',
             'code'        => 'nullable',
-            'phone'       => 'required|unique:traders,phone|regex:/^(01)[0-9]{9}$/',
+            'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/' . ($this->id ? ",$this->id" : ''),
+            'age'         => 'nullable',
             'img'         => 'nullable',
             'email'       => 'nullable|unique:users,email',
             'national_id' => 'nullable|unique:traders,national_id|regex:/^[0-9]{14}$/',
-            'password'    => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|same:password',
+            // 'password'    => 'required|min:8|confirmed',
+            // 'password_confirmation' => 'required|same:password',
         ];
     }
 

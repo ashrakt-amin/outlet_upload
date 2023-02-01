@@ -24,5 +24,10 @@ interface TraderRepositoryInterface {
      */
     public function trader();
 
+   /**
+    * @param id $attributes
+    * @return Trader
+    */
+    public function edit($id, array $attributes);
 
  }

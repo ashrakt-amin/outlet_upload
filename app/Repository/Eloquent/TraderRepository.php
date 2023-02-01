@@ -3,7 +3,6 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Trader;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Repository\TraderRepositoryInterface;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
@@ -51,20 +50,18 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     */
     public function edit($id, array $attributes)
     {
-        $trader = $this->model->findOrFail($attributes['id']);
-        if ($this->getTokenId('user') || $this->getTokenId('trader')) {
-            return DB::transaction(function() use($trader, $attributes){
-                $trader = $this->model->findOrFail($trader->id);
-                $age = $trader->age;
-                if ($attributes['img']) {
+        // if ($this->getTokenId('user') || $this->getTokenId('trader')) {
+            return DB::transaction(function() use($id, $attributes){
+                $trader = $this->model->findOrFail($id);
+                if (array_key_exists('img', $attributes)) {
                     $this->deleteImage(Trader::IMAGE_PATH, $trader->img);
                     $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
                 }
-                if ($attributes['age'] == null) $attributes['age'] = $age;
+                if ($attributes['age'] == null) $attributes['age'] = $trader->age;
                 $trader->update($attributes);
+                return $trader;
             });
-        }
-        return $trader;
+        // }
     }
 
     /**
