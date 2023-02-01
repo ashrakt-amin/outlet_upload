@@ -36,7 +36,7 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
      */
     public function create(array $attributes): Item
     {
-        $attributes['created_by'] = ($this->getTokenId('user'));
+        $attributes['created_by'] = $this->getTokenId('user');
         $attributes['level_id']   = Unit::find($attributes['unit_id'])->level_id;
         $attributes['project_id'] = Unit::find($attributes['unit_id'])->level->project_id;
         $item = $this->model->create($attributes);

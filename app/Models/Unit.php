@@ -37,6 +37,7 @@ class Unit extends Model
 
     protected $fillable = [
         'name',
+        'project_id',
         'level_id',
         'trader_id',
         'description',

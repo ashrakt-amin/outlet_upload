@@ -182,7 +182,7 @@ Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit'
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("mainProjects")->group(function(){
     Route::controller(MainProjectController::class)->group(function () {
-        Route::get('/offers',         'offers')->name('mainProjects.offers');
+        Route::get('/offers',         'offers');
         Route::get('/main_project_with_projects_with_units/{mainProject}', 'mainProjectWithProjectsWithUnits');
     });
 });
@@ -212,11 +212,8 @@ Route::resource('levels', LevelController::class)->except('create', 'edit');
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
-        Route::get('/latest',              'latest')->name('units.latest');
         Route::get('/show_online/{unit}', 'showOnline');
         Route::get('/toggle_update/{id}/{booleanName}', 'toggleUpdate');
-        Route::get('/units_for_all_conditions',  'unitsForAllConditions');
-        Route::get('/unitOffers/{unit}', 'unitOffers');
         Route::put('/categories/{unit}', 'categories');
     });
 });

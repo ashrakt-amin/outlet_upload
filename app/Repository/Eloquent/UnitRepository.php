@@ -6,10 +6,13 @@ use App\Models\Unit;
 use Illuminate\Support\Collection;
 use App\Repository\UnitRepositoryInterface;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use App\Models\Level;
 
 class UnitRepository extends BaseRepository implements UnitRepositoryInterface
 {
+    use TraitsAuthGuardTrait;
     use TraitResponseTrait;
     use TraitImageProccessingTrait;
 
@@ -42,6 +45,8 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
      */
     public function create(array $attributes): Unit
     {
+        $attributes['project_id'] = Level::find($attributes['level_id'])->project_id;
+        $attributes['created_by'] = $this->getTokenId('user');
         $unit = $this->model->create($attributes);
         $unit->categories()->attach($attributes['category_id'], ['project_id'=> $unit->level->project_id]);
         $unit->unitImages()->createMany($this->setImages($attributes['img'], 'units', 'img', 450, 450));
@@ -64,6 +69,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     public function edit($id, array $attributes)
     {
         $unit = $this->model->findOrFail($id);
+        $attributes['updated_by'] = $this->getTokenId('user');
         $unit->update($attributes);
         $unit->categories()->syncWithPivotValues($attributes['category_id'], ['project_id' => $unit->level->project_id]);
         return $unit;
