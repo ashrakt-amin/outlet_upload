@@ -117,7 +117,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     /**
      * Method for units searching where key words
      */
-    public function unitsSearchingWherekeyWords(array $attributes)
+    public function unitsSearchingWhereName(array $attributes)
     {
         return function($q) use($attributes){
                 !array_key_exists('name', $attributes) ?: $q
@@ -147,7 +147,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
             ->where($this->unitsWhereColumnName($attributes))
             ->where($this->unitsWhereBooleanName($attributes))
             ->where($this->unitsWhereCategoryId($attributes))
-            ->where($this->unitsSearchingWherekeyWords($attributes))
+            ->where($this->unitsSearchingWhereName($attributes))
             ->where($this->unitsWhereUnitBooleanColumn($attributes));
     }
 
