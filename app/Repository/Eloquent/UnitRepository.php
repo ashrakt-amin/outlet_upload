@@ -102,19 +102,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     }
 
     /**
-     * Method for units conditions where parent category id
-     */
-    public function unitsWhereCategoryParentId(array $attributes)
-    {
-        return function($q) use($attributes){
-                !array_key_exists('parent_id', $attributes) || $attributes['parent_id'] == 0   ?: $q
-                ->whereHas('category', function($q) use($attributes) {
-                    $q->where(['parent_id' => $attributes['parent_id']]);
-                });
-            };
-    }
-
-    /**
      * Method for units conditions where category id
      */
     public function unitsWhereCategoryId(array $attributes)
@@ -123,19 +110,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
                 !array_key_exists('category_id', $attributes) || $attributes['category_id'] == 0   ?: $q
                 ->whereHas('categories', function($q) use($attributes) {
                     $q->where(['category_id' => $attributes['category_id']]);
-                });
-            };
-    }
-
-    /**
-     * Method for units conditions where category id
-     */
-    public function unitsWhereProjectId(array $attributes)
-    {
-        return function($q) use($attributes){
-                !array_key_exists('project_id', $attributes) || $attributes['project_id'] == 0   ?: $q
-                ->whereHas('level', function($q) use($attributes) {
-                    $q->where(['project_id' => $attributes['project_id']]);
                 });
             };
     }
@@ -172,7 +146,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
         return $this->model
             ->where($this->unitsWhereColumnName($attributes))
             ->where($this->unitsWhereBooleanName($attributes))
-            ->where($this->unitsWhereCategoryParentId($attributes))
             ->where($this->unitsWhereCategoryId($attributes))
             ->where($this->unitsSearchingWherekeyWords($attributes))
             ->where($this->unitsWhereUnitBooleanColumn($attributes));
@@ -202,7 +175,7 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
         return
             $this->sendResponse(
                 $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get()),
-                "Random items; Youssof", 200);
+                "Random units; Youssof", 200);
         return $this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
     }
 
@@ -214,10 +187,10 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
         $this->resourceCollection = $resourceCollection;
 
         return
-            $this->sendResponse(
-                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->paginate($attributes['count'])),
-                "Random items; Youssof", 200);
-        return $this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
+        $this->paginateResponse(
+            $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->paginate($attributes['count'])),
+            $this->unitsForAllConditions($attributes)->latest()->paginate($attributes['count']),
+                "Paginate units; Youssof", 200);
     }
 
     /**
