@@ -37,7 +37,7 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->sendResponse($this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class), "", 200);
+        return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
     }
 
     /**
@@ -125,15 +125,5 @@ class UnitController extends Controller
     {
         $unit = $this->unitRepository->toggleUpdate($id, $booleanName);
         return $this->sendResponse($unit[$booleanName], $booleanName. ' ' .$unit[$booleanName] , 201);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function unitsForAllConditions(Request $request)
-    {
-        return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
     }
 }

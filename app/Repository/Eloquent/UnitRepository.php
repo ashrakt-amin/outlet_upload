@@ -37,14 +37,6 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     }
 
     /**
-     * @return Collection
-     */
-    public function latest(): Collection
-    {
-        return $this->model->latest()->take(10)->get();
-    }
-
-    /**
      * @param array $attributes
      * @return Unit
      */
@@ -203,17 +195,29 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
     /**
      * Method for all units conditions to random
      */
-    public function unitsForAllConditionsRandom(array $attributes)
+    public function unitsForAllConditionsRandom(array $attributes, $resourceCollection)
     {
+        $this->resourceCollection = $resourceCollection;
+
+        return
+            $this->sendResponse(
+                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get()),
+                "Random items; Youssof", 200);
         return $this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
     }
 
     /**
      * Method for all units conditions to paginate
      */
-    public function unitsForAllConditionsPaginate(array $attributes)
+    public function unitsForAllConditionsPaginate(array $attributes, $resourceCollection)
     {
-        return $this->unitsForAllConditions($attributes)->paginate($attributes['count']);
+        $this->resourceCollection = $resourceCollection;
+
+        return
+            $this->sendResponse(
+                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->paginate($attributes['count'])),
+                "Random items; Youssof", 200);
+        return $this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
     }
 
     /**
@@ -229,9 +233,5 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
 
             : $this->unitsForAllConditionsRandom($attributes, $resourceCollection));
         $this->resourceCollection = $resourceCollection;
-        return !array_key_exists('paginate', $attributes) ?
-            $this->sendResponse($this->resourceCollection::collection($this->unitsForAllConditionsRandom($attributes)) , "Random units; Youssof", 200)
-            :
-            $this->paginateResponse($this->resourceCollection::collection($this->unitsForAllConditionsPaginate($attributes)), $this->unitsForAllConditionsPaginate($attributes), "paginate units; Youssof", 200);
     }
 }

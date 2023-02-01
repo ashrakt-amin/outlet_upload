@@ -16,11 +16,6 @@ interface UnitRepositoryInterface
      */
      public function all(): Collection;
 
-    /**
-     * @return Collection
-     */
-     public function latest(): Collection;
-
    /**
     * @param array $attributes
     * @return Unit
@@ -44,22 +39,7 @@ interface UnitRepositoryInterface
      * @return Unit
      */
     public function toggleUpdate($id, $booleanName);
-
-    /**
-     * @return Collection
-     */
-    public function unitsForAllConditions(array $attributes);
-
-    /**
-     * Method for all units conditions to paginate
-     */
-    public function unitsForAllConditionsPaginate(array $attributes);
-
-    /**
-     * Method for all units conditions to random
-     */
-    public function unitsForAllConditionsRandom(array $attributes);
-
+    
     /**
      * Method for all units conditions to return a random or paginated array
      */
