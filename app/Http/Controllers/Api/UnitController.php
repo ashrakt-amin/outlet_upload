@@ -37,18 +37,7 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
-        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->all()), "", 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function latest()
-    {
-        return $this->sendResponse(UnitWithoutItemsResource::collection($this->unitRepository->latest()), "", 200);
+        return $this->sendResponse($this->unitRepository->unitsForAllConditionsReturn($request->all(), UnitWithoutItemsResource::class), "", 200);
     }
 
     /**
