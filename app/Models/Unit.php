@@ -60,6 +60,11 @@ class Unit extends Model
         return $this->belongsTo(Level::class);
     }
 
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
     public function trader()
     {
         return $this->belongsTo(Trader::class);

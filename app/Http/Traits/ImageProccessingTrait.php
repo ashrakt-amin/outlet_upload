@@ -47,7 +47,7 @@ Trait ImageProccessingTrait
     }
 
     /**
-     * Set Image
+     * Set single Image
      */
     public function setImage($image, $path, $width = null, $height = null)
     {
@@ -62,7 +62,7 @@ Trait ImageProccessingTrait
 
 
     /**
-     * Set Images
+     * Set array of Images
      */
     public function setImages($images, $path, $column, $width = null, $height = null)
     {
@@ -88,7 +88,7 @@ Trait ImageProccessingTrait
             $constraint->aspectRatio();
         });
         $imgPath   = $ownerId.$name;
-        $img->save(public_path('../assets/images/uploads/'.$path).'/'.$imgPath);
+        $img->save(storage_path('app/public/' . $this->path . '/' . $path));
 
         return $imgPath;
     }

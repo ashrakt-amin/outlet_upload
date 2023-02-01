@@ -18,7 +18,7 @@ class ProjectWithUintsResource extends JsonResource
         return[
             'id'         => $this->id,
             'name'       => $this->name,
-            'units'      => UnitWithoutItemsResource::collection($this->units()->distinct()->limit(10)->get())
+            'units'      => UnitWithoutItemsResource::collection($this->units()->distinct()->inRandomOrder()->limit($request['count'])->get())
         ];
     }
 }
