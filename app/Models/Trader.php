@@ -98,6 +98,16 @@ class Trader extends Authenticatable implements MustVerifyEmail
         return asset('storage/images/traders') . '/' . $this->img;
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
      /**
      * Double Attribute.
      *

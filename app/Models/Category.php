@@ -38,6 +38,16 @@ class Category extends Model
         return $this->belongsToMany(Project::class, 'category_unit');
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
     /**
      * getter
      */

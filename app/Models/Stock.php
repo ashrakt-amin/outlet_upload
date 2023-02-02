@@ -33,14 +33,7 @@ class Stock extends Model
         'updated_by'
         ];
 
-    protected $appends = [
-        // 'stock_item',
-        // 'stock_trader',
-        // 'stock_color',
-        // 'stock_size',
-        // 'stock_volume',
-        // 'stock_season',
-        ];
+    protected $appends = [];
 
         protected $hidden = [
             'created_at',
@@ -90,37 +83,14 @@ class Stock extends Model
     {
         return $this->belongsTo(Volume::class);
     }
-/**
- * Getter && Setter
- */
-    // public function getStockItemAttribute()
-    // {
-    //     return $this->item;
-    // }
 
-    // public function getStockTraderAttribute()
-    // {
-    //     return $this->trader ? $this->trader  : false;
-    // }
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 
-    // public function getStockColorAttribute()
-    // {
-    //     return $this->color ? $this->color : false;
-    // }
-
-    // public function getStockSizeAttribute()
-    // {
-    //     return $this->size ? $this->size : false;
-    // }
-
-    // public function getStockVolumeAttribute()
-    // {
-    //     return $this->volume ? $this->volume : false;
-    // }
-
-    // public function getStockSeasonAttribute()
-    // {
-    //     return $this->season ? $this->season : false;
-    // }
-
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
 }

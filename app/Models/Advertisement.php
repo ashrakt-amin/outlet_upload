@@ -41,6 +41,20 @@ class Advertisement extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
+    /**
+     * @Getter & Setter Attribute
+     */
+
     public function getPathAttribute()
     {
         return asset('storage/images/advertisements') . '/' . $this->img;

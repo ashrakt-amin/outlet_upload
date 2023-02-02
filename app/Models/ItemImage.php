@@ -24,6 +24,20 @@ class ItemImage extends Model
         return $this->hasOne(Item::class);
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
+    /**
+     * @Getter & Setter Attribute
+     */
+
     public function getPathAttribute()
     {
         return asset('storage/images/items') . '/' . $this->img;

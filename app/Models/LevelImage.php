@@ -15,6 +15,20 @@ class LevelImage extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     /**
+     * Relationships
+     */
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
+    /**
      * @Getter & Setter Attribute
      */
 
