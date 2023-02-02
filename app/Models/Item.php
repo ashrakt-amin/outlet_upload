@@ -23,6 +23,8 @@ class Item extends Model
         'project_id',
         'flash_sales',
         'extra_piece',
+        'last_week',
+        'last_week_expire',
         'key_words',
         'item_unit_id',
         'item_code',
