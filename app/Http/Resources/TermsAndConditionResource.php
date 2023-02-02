@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TermsAndConditionResource extends JsonResource
@@ -17,8 +18,8 @@ class TermsAndConditionResource extends JsonResource
         return [
             'id'         => $this->id,
             'text'       => $this->text,
-            'created_by' => $this->createdBy,
-            'updated_by' => $this->updatedBy,
+            'created_by' => new UserFullNameResource($this->createdBy),
+            'updated_by' => new UserFullNameResource($this->updatedBy),
         ];
     }
 }

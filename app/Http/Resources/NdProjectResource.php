@@ -22,8 +22,8 @@ class NdProjectResource extends JsonResource
         return [
             'id'          => $this->id,
             'name'        => $this->name,
-            'created_by'  => $this->createdBy,
-            'updated_by'  => $this->updatedBy,
+            'created_by'  => new UserFullNameResource($this->createdBy),
+            'updated_by'  => new UserFullNameResource($this->updatedBy),
             'mainProject' => new MainProjectResource($this->whenLoaded('mainProject')),
             'levels'      => $this->levels,
             'categories'  => CategoryResource::collection($this->categories()->distinct()->get()),

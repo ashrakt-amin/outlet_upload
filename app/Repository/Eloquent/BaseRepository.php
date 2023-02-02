@@ -61,7 +61,6 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         $data = $this->model->findOrFail($id);
         $attributes['updated_by'] = $this->getTokenId('user');
-        // dd($attributes['updated_by']);
         $data->update($attributes);
         return $data;
     }

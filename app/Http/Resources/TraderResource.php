@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
-use App\Models\OrderDetail;
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TraderResource extends JsonResource
@@ -21,8 +21,8 @@ class TraderResource extends JsonResource
         // $orderDetails  = $this->whenLoaded('orderDetails');
         return [
             'id'         => $this->id,
-            'created_by' => $this->createdBy,
-            'updated_by' => $this->updatedBy,
+            'created_by' => new UserFullNameResource($this->createdBy),
+            'updated_by' => new UserFullNameResource($this->updatedBy),
             'f_name'     => $this->f_name,
             'l_name'     => $this->l_name,
             'img'        => $this->img ? $this->path : false,

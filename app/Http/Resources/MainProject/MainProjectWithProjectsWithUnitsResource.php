@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\MainProject;
 
+use App\Http\Resources\User\UserFullNameResource;
 use App\Http\Resources\Project\ProjectWithUintsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,8 +19,8 @@ class MainProjectWithProjectsWithUnitsResource extends JsonResource
         return[
             'id'         => $this->id,
             'name'       => $this->name,
-            'created_by' => $this->createdBy,
-            'updated_by' => $this->updatedBy,
+            'created_by' => new UserFullNameResource($this->createdBy),
+            'updated_by' => new UserFullNameResource($this->updatedBy),
             'projects'   => ProjectWithUintsResource::collection($this->projects()->distinct()->get()),
         ];
     }

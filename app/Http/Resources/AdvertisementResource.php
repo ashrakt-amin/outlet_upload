@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Unit\UnitOfAdvertisementResource;
 
@@ -19,8 +20,8 @@ class AdvertisementResource extends JsonResource
         return [
             'id'         => $this->id,
             'img'        => $this->path,
-            'created_by' => $this->createdBy,
-            'updated_by' => $this->updatedBy,
+            'created_by' => new UserFullNameResource($this->createdBy),
+            'updated_by' => new UserFullNameResource($this->updatedBy),
             'unit'    => [
                     'id'   => $this->unit_id,
                     'name' => $this->unit->name

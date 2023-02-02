@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Item;
 
+use App\Http\Resources\User\UserFullNameResource;
 use App\Http\Resources\ItemImageResource;
 use App\Http\Resources\UnitImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,8 +24,8 @@ class ItemFlashSalesResource extends JsonResource
         return [
             'id'          => $this->id,
             'name'        => $this->name,
-            'created_by'  => $this->createdBy,
-            'updated_by'  => $this->updatedBy,
+            'created_by'  => new UserFullNameResource($this->createdBy),
+            'updated_by'  => new UserFullNameResource($this->updatedBy),
             'sale_price'  => $this->sale_price,
             'discount'    => (float)$this->discount,
             'wishlist'    => $wishlist,

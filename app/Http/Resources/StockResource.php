@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StockResource extends JsonResource
@@ -17,8 +18,8 @@ class StockResource extends JsonResource
         $item   = $this->whenLoaded('item');
         return [
             'id'                  => $this->id,
-            'created_by'          => $this->createdBy,
-            'updated_by'          => $this->updatedBy,
+            'created_by'          => new UserFullNameResource($this->createdBy),
+            'updated_by'          => new UserFullNameResource($this->updatedBy),
             'item'                => new ItemResource($item),
             'starting_stock'      => $this->starting_stock,
             'min_quantity'        => $this->min_quantity,

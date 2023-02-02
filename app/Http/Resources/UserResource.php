@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UnitImageResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,11 @@ class UnitImageResource extends JsonResource
     {
         return [
             'id'         => $this->id,
-            'img'        => $this->path,
+            'f_name'     => $this->f_name,
+            'm_name'     => $this->m_name,
+            'l_name'     => $this->l_name,
+            'phone'      => $this->phone,
+            'email'      => $this->email,
             'created_by' => new UserFullNameResource($this->createdBy),
             'updated_by' => new UserFullNameResource($this->updatedBy),
         ];

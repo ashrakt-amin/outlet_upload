@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Unit;
 
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UnitOfAdvertisementResource extends JsonResource
@@ -17,8 +18,8 @@ class UnitOfAdvertisementResource extends JsonResource
         return [
             'id'         => $this->id,
             'name'       => $this->name,
-            'created_by' => $this->createdBy,
-            'updated_by' => $this->updatedBy,
+            'created_by' => new UserFullNameResource($this->createdBy),
+            'updated_by' => new UserFullNameResource($this->updatedBy),
         ];
     }
 }

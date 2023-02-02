@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource
@@ -21,8 +22,8 @@ class ItemResource extends JsonResource
         return [
             'id'               => $this->id,
             'name'             => $this->name,
-            'created_by'       => $this->createdBy,
-            'updated_by'       => $this->updatedBy,
+            'created_by'       => new UserFullNameResource($this->createdBy),
+            'updated_by'       => new UserFullNameResource($this->updatedBy),
             'wishlist'         => $wishlist,
             'unit_name'        => $this->unit?->name,
             'item_project'     => $this->unit?->level?->project,

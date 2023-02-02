@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Unit;
 
 use App\Http\Resources\UnitImageResource;
+use App\Http\Resources\User\UserFullNameResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Item\ItemFlashSalesResource;
 
@@ -19,8 +20,8 @@ class UnitShowResource extends JsonResource
         return [
             'id'          => $this->id,
             'name'        => $this->name,
-            'created_by'  => $this->createdBy,
-            'updated_by'  => $this->updatedBy,
+            'created_by'  => new UserFullNameResource($this->createdBy),
+            'updated_by'  => new UserFullNameResource($this->updatedBy),
             'famous'      => $this->famous == 0 ? false : true,
             'online'       => $this->online == 0 ? false : true,
             'offers'       => $this->offers == 0 ? false : true,
