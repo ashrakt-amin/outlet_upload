@@ -45,6 +45,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     */
     public function create(array $attributes): Project
     {
+        $attributes['created_by'] = $this->getTokenId('user');
         $project = $this->model->create($attributes);
         if (array_key_exists('img', $attributes)) $project->projectImages()->createMany($this->setImages($attributes['img'], 'projects', 'img', 450, 450));
         return $project;

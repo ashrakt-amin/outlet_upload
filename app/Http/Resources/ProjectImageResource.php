@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\User\UserFullNameResource;
 
 class ProjectImageResource extends JsonResource
 {
@@ -17,7 +18,7 @@ class ProjectImageResource extends JsonResource
         return [
             'id'         => $this->id,
             'img'        => $this->path,
-            'created_by' => new UserFullNameResource($this->createdBy),
+            'created_by' => new UserFullNameResource($this->creator),
             'updated_by' => new UserFullNameResource($this->updatedBy),
         ];
     }

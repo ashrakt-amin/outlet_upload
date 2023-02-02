@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Project;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\User\UserFullNameResource;
 
 class NdProjectResource extends JsonResource
 {
