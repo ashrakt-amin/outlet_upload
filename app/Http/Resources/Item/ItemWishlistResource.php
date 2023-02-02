@@ -14,9 +14,13 @@ class ItemWishlistResource extends JsonResource
      */
     public function toArray($request)
     {
+        // return
+        // auth()->guard()->check()
+        // ? ($this->wishlists()->where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false)
+        // : ($this->wishlists()->where(['item_id'=>$this->id, 'visitor_id'=>$request['visitor_id']])->exists() ? true : false);
         return
         auth()->guard()->check()
-        ? ($this->wishlists()->where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false)
-        : ($this->wishlists()->where(['item_id'=>$this->id, 'visitor_id'=>$request['visitor_id']])->exists() ? true : false);
+        ? $this->wishlists()->where(['client_id'=>$this->getTokenId('client')])->count()
+        : $this->wishlists()->where(['visitor_id'=>$request['visitor_id']])->count();
     }
 }
