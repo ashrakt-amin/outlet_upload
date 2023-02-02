@@ -17,6 +17,8 @@ class LevelImageResource extends JsonResource
         return [
             'id'  => $this->id,
             'img' => $this->path,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
         ];
     }
 }

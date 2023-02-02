@@ -44,6 +44,8 @@ class Unit extends Model
         'famous',
         'online',
         'offers',
+        'created_at',
+        'updated_at'
     ];
 
     public function items()

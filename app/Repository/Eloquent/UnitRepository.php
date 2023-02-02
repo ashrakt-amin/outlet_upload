@@ -12,8 +12,8 @@ use App\Models\Level;
 
 class UnitRepository extends BaseRepository implements UnitRepositoryInterface
 {
-    use TraitsAuthGuardTrait;
     use TraitResponseTrait;
+    use TraitsAuthGuardTrait;
     use TraitImageProccessingTrait;
 
     /**

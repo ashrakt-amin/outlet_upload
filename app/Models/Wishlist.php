@@ -11,7 +11,7 @@ class Wishlist extends Model
 {
     use HasFactory, TraitsAuthGuardTrait;
 
-    protected $guarded = [];
+    protected $fillable = ['item_id', 'client_id', 'visitor_id'];
 
     public function item()
     {

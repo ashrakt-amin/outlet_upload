@@ -20,6 +20,8 @@ class UnitWithoutItemsResource extends JsonResource
         return [
             'id'          => $this->id,
             'name'        => $this->name,
+            'created_by'  => $this->createdBy,
+            'updated_by'  => $this->updatedBy,
             'famous'      => $this->famous == 0 ? false : true,
             'offers'       => $this->offers == 0 ? false : true,
             'firstImage'  => new UnitImageResource($this->unitImages()->first()),

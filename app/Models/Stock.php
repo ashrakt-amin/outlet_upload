@@ -29,6 +29,8 @@ class Stock extends Model
         'discount_start_date',
         'discount_end_date',
         'stock',
+        'created_at',
+        'updated_at'
         ];
 
     protected $appends = [

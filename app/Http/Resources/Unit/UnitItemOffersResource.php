@@ -17,6 +17,8 @@ class UnitItemOffersResource extends JsonResource
         return [
             'id'         => $this->id,
             'name'       => $this->name,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
             'items'      => $this->itemOffers,
             'categories' => $this->unitCategories,
         ];

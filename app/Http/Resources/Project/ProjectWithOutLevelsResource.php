@@ -20,6 +20,8 @@ class ProjectWithOutLevelsResource extends JsonResource
         return[
             'id'         => $this->id,
             'name'       => $this->name,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
             'categories' => CategoryResource::collection($this->categories()->distinct()->get()),
             'units'      => UnitWithoutItemsResource::collection($this->units)->paginate(12),
             'images'     => ProjectImageResource::collection($this->projectImages),

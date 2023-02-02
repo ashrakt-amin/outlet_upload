@@ -2,12 +2,14 @@
 
 namespace App\Repository\Eloquent;
 
-use App\Repository\EloquentRepositoryInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Repository\EloquentRepositoryInterface;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
 class BaseRepository implements EloquentRepositoryInterface
 {
+    use TraitsAuthGuardTrait;
     /**
      * @var Model
      */
@@ -38,6 +40,7 @@ class BaseRepository implements EloquentRepositoryInterface
     */
     public function create(array $attributes): Model
     {
+        $attributes['created_by'] = $this->getTokenId('user');
         return $this->model->create($attributes);
     }
 
@@ -57,6 +60,7 @@ class BaseRepository implements EloquentRepositoryInterface
     public function edit($id, array $attributes)
     {
         $data = $this->model->findOrFail($id);
+        $attributes['updated_by'] = $this->getTokenId('user');
         $data->update($attributes);
         return $data;
     }

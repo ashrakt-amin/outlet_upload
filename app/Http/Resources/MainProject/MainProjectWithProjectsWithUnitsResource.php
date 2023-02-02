@@ -18,6 +18,8 @@ class MainProjectWithProjectsWithUnitsResource extends JsonResource
         return[
             'id'         => $this->id,
             'name'       => $this->name,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
             'projects'   => ProjectWithUintsResource::collection($this->projects()->distinct()->get()),
         ];
     }

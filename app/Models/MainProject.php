@@ -11,7 +11,7 @@ class MainProject extends Model
     use HasFactory;
 
     protected $appends  = [];
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'created_at', 'updated_at'];
     protected $hidden   = ['created_at', 'updated_at'];
     protected $visible  = [];
 

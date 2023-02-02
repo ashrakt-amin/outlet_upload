@@ -9,5 +9,5 @@ class Privacy extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['text'];
+    protected $fillable = ['text', 'created_at', 'updated_at'];
 }

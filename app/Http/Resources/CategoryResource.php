@@ -18,6 +18,8 @@ class CategoryResource extends JsonResource
         return [
             'id'             => $this->id,
             'name'           => $this->name,
+            'created_by'     => $this->createdBy,
+            'updated_by'     => $this->updatedBy,
             'subCategories'  => CategoryResource::collection($this->category_sub_categories),
             'parentCategory' => $this->parent_category,
             'items'          => ItemFlashSalesResource::collection($this->items),

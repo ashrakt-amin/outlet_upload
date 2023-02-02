@@ -18,6 +18,8 @@ class ProjectWithUintsResource extends JsonResource
         return[
             'id'         => $this->id,
             'name'       => $this->name,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
             'units'      => UnitWithoutItemsResource::collection($this->units()->distinct()->inRandomOrder()->limit($request['count'])->get())
         ];
     }

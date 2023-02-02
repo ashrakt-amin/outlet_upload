@@ -13,7 +13,7 @@ class ItemImage extends Model
     protected $appends = ['path'];
     protected $hidden = ['created_at', 'updated_at'];
     protected $visible = [];
-    protected $fillable = ['item_id', 'img'];
+    protected $fillable = ['item_id', 'img', 'created_at', 'updated_at'];
 
     public function item()
     {

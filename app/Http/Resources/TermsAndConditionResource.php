@@ -15,8 +15,10 @@ class TermsAndConditionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'              => $this->id,
-            'text'            => $this->text,
+            'id'         => $this->id,
+            'text'       => $this->text,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
         ];
     }
 }

@@ -17,6 +17,8 @@ class StockResource extends JsonResource
         $item   = $this->whenLoaded('item');
         return [
             'id'                  => $this->id,
+            'created_by'          => $this->createdBy,
+            'updated_by'          => $this->updatedBy,
             'item'                => new ItemResource($item),
             'starting_stock'      => $this->starting_stock,
             'min_quantity'        => $this->min_quantity,

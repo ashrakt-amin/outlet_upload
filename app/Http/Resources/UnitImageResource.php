@@ -15,8 +15,10 @@ class UnitImageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'  => $this->id,
-            'img' => $this->path,
+            'id'         => $this->id,
+            'img'        => $this->path,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
         ];
     }
 }

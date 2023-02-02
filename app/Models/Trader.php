@@ -30,6 +30,8 @@ class Trader extends Authenticatable implements MustVerifyEmail
         'email',
         'code',
         'password',
+        'created_at',
+        'updated_at'
     ];
 
     /**

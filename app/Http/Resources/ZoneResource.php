@@ -14,9 +14,10 @@ class ZoneResource extends JsonResource
      */
     public function toArray($request)
     {
-        $item     = $this->whenLoaded('item');
         return [
-            'name'      => $this->name,
+            'name'       => $this->name,
+            'created_by' => $this->createdBy,
+            'updated_by' => $this->updatedBy,
         ];
     }
 }

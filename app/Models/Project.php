@@ -30,6 +30,8 @@ class Project extends Model
     protected $fillable = [
         'name',
         'main_project_id',
+        'created_at',
+        'updated_at'
     ];
 
     public function mainProject()

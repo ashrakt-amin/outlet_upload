@@ -19,7 +19,7 @@ class Size extends Model
 
     protected $visible = [];
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'created_at', 'updated_at'];
 
     public function stocks()
     {
