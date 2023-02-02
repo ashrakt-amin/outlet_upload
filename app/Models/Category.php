@@ -9,10 +9,14 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'parent_id', 'created_at', 'updated_at'];
-    protected $appends = ['parent_category', 'category_sub_categories', 'category_items'];
-    protected $hidden = [];
-    protected $visible = ['id', 'name', 'parent_id',];
+    protected $fillable = ['name', 'parent_id', 'created_by', 'updated_by'];
+    protected $appends  = ['parent_category', 'category_sub_categories', 'category_items'];
+    protected $hidden   = [];
+    protected $visible  = ['id', 'name', 'parent_id',];
+
+    /**
+     * Relationships
+     */
 
     public function items()
     {

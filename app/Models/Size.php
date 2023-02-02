@@ -9,17 +9,14 @@ class Size extends Model
 {
     use HasFactory;
 
-    protected $appends = [];
+    protected $appends  = [];
+    protected $fillable = ['name', 'created_by', 'updated_by'];
+    protected $hidden   = ['pivot', 'created_at',  'updated_at'];
+    protected $visible  = [];
 
-    protected $hidden = [
-        'pivot',
-        'created_at',
-        'updated_at'
-    ];
-
-    protected $visible = [];
-
-    protected $fillable = ['name', 'created_at', 'updated_at'];
+    /**
+     * Relationships
+     */
 
     public function stocks()
     {

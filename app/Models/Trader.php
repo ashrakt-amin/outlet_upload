@@ -19,7 +19,6 @@ class Trader extends Authenticatable implements MustVerifyEmail
 
     const IMAGE_PATH = 'traders';
     protected $appends = ['path'];
-    protected $visible = [ 'f_name', 'l_name', 'path', 'phone'];
     protected $fillable = [
         'f_name',
         'l_name',
@@ -30,9 +29,10 @@ class Trader extends Authenticatable implements MustVerifyEmail
         'email',
         'code',
         'password',
-        'created_at',
-        'updated_at'
+        'created_by',
+        'updated_by'
     ];
+    protected $visible = [ 'f_name', 'l_name', 'path', 'phone'];
 
     /**
      * The attributes that should be hidden for serialization.

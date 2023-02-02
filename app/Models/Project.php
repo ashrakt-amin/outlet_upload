@@ -9,30 +9,14 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'project_levels',
-        ];
+    protected $appends  = ['project_levels'];
+    protected $fillable = ['name', 'main_project_id', 'created_by', 'updated_by'];
+    protected $hidden   = ['pivot', 'created_at', 'updated_at'];
+    protected $visible  = ['id', 'name', 'levels', 'units', ];
 
-    protected $hidden = [
-        'pivot',
-        'created_at',
-        'updated_at'
-    ];
-
-    protected $visible = [
-        'id',
-        'name',
-        'levels',
-        'units',
-    ];
-
-
-    protected $fillable = [
-        'name',
-        'main_project_id',
-        'created_at',
-        'updated_at'
-    ];
+    /**
+     * Relationships
+     */
 
     public function mainProject()
     {

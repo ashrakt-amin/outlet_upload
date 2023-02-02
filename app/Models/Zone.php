@@ -12,7 +12,7 @@ class Zone extends Model
     protected $appends = [];
     protected $hidden = ['created_at', 'updated_at'];
     protected $visible = [];
-    protected $fillable  = ['name', 'created_at', 'updated_at'];
+    protected $fillable  = ['name', 'created_by', 'updated_by'];
 
     public function levels()
     {

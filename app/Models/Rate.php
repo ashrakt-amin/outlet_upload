@@ -10,17 +10,14 @@ class Rate extends Model
 {
     use HasFactory, TraitsAuthGuardTrait;
 
-    protected $fillable = [
-        'item_id',
-        'client_id',
-        'rate_degree',
-    ];
+    protected $fillable = ['item_id', 'client_id', 'rate_degree'];
 
+    /**
+     * Scope
+     */
 
     public function scopeRateWhereAuth($query, $itemId)
     {
-
         return $query->where(['client_id' => $this->getTokenId('client'), 'item_id' => $itemId]);
-
     }
 }

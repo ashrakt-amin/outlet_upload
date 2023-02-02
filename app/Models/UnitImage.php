@@ -14,6 +14,10 @@ class UnitImage extends Model
     protected $guarded = [];
     protected $hidden = ['created_at', 'updated_at'];
 
+    /**
+     * @GETTER & SETTER
+     */
+
     public function getPathAttribute()
     {
         return asset('storage/images/units') . '/' . $this->img;

@@ -21,11 +21,15 @@ class Advertisement extends Model
         'renew',
         'grade',
         'advertisement_expire',
-        'created_at',
-        'updated_at'
+        'created_by',
+        'updated_by'
     ];
     protected $hidden = ['created_at', 'updated_at'];
     protected $visible = [];
+
+    /**
+     * Relationships
+     */
 
     public function unit()
     {

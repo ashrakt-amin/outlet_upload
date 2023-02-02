@@ -11,30 +11,14 @@ class Level extends Model
 {
     use HasFactory;
 
-    protected $appends = ['level_units', 'images'];
+    protected $appends  = ['level_units', 'images'];
+    protected $fillable = ['name', 'project_id', 'zone_id', 'created_by', 'updated_by'];
+    protected $hidden   = [ 'created_at', 'updated_at', 'project_id', 'laravel_through_key', 'pivot'];
+    protected $visible  = ['id', 'name', 'level_units', 'images', 'units'];
 
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-        'project_id',
-        'laravel_through_key',
-        'pivot',
-    ];
-
-    protected $visible = [
-        'id',
-        'name',
-        'level_units',
-        'images',
-        'units',
-    ];
-
-    protected $fillable = [
-        'name',
-        'project_id',
-        'created_at',
-        'updated_at'
-    ];
+    /**
+     * Relationships
+     */
 
     public function project()
     {

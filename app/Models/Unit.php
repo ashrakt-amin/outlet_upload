@@ -11,42 +11,14 @@ class Unit extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'unit_categories',
-        'unit_level',
-        'unit_statu',
-        'unit_trader',
-        'unit_items',
-        'images',
-    ];
+    protected $appends  = ['unit_categories', 'unit_level', 'unit_statu', 'unit_trader',  'unit_items', 'images'];
+    protected $fillable = ['name', 'project_id', 'level_id', 'trader_id', 'description', 'famous', 'online', 'offers', 'created_by', 'updated_by'];
+    protected $hidden   = ['created_at', 'updated_at', 'laravel_through_key', 'pivot'];
+    protected $visible  = [ 'id', 'name', 'unit_categories',  'items', 'images'];
 
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-        // 'laravel_through_key',
-        'pivot',
-    ];
-
-    protected $visible = [
-        'id',
-        'name',
-        'unit_categories',
-        'items',
-        'images',
-    ];
-
-    protected $fillable = [
-        'name',
-        'project_id',
-        'level_id',
-        'trader_id',
-        'description',
-        'famous',
-        'online',
-        'offers',
-        'created_at',
-        'updated_at'
-    ];
+    /**
+     * Relationships
+     */
 
     public function items()
     {

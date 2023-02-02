@@ -11,8 +11,12 @@ class LevelImage extends Model
 
     const IMAGE_PATH = 'levels';
     protected $appends = ['path'];
-    protected $fillable = ['img', 'level_id', 'created_at', 'updated_at'];
+    protected $fillable = ['img', 'level_id', 'created_by', 'updated_by'];
     protected $hidden = ['created_at', 'updated_at'];
+
+    /**
+     * @Getter & Setter Attribute
+     */
 
     public function getPathAttribute()
     {

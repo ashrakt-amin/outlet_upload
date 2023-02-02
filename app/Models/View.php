@@ -12,11 +12,11 @@ class View extends Model
 
     protected $fillable = ['item_id', 'client_id', 'view_count'];
 
-
+    /**
+     * @Scope
+     */
     public function scopeViewWhereAuth($query, $itemId)
     {
-
         return $query->where(['client_id' => $this->getTokenId('client'), 'item_id' => $itemId]);
-
     }
 }
