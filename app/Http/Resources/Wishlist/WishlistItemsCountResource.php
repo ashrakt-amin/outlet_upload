@@ -17,7 +17,6 @@ class WishlistItemsCountResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'visitor_id' => (float)$this->visitor_id,
             'count'      => $this->count(),
         ];
     }

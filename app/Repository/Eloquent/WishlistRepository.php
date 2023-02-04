@@ -30,12 +30,6 @@ class WishlistRepository extends BaseRepository implements WishlistRepositoryInt
                     ->where(['client_id' => $this->getTokenId('client')])->where(['visitor_id' => null]) : $q
                     ->where(['visitor_id' => $attributes['visitor_id']]);
                     })->get();
-        // if (request()->bearerToken()) {
-        //     $wishlists = $this->model->where(['client_id' => $this->getTokenId('client')])->where(['visitor_id' => $attributes['visitor_id']])->with(['item'])->count();
-        // } else {
-        //     $wishlists = $this->model->where(['visitor_id' => $attributes['visitor_id']])->with(['item'])->get();
-        // }
-        // return $wishlists;
     }
 
    /**
