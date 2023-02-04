@@ -20,11 +20,39 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
    }
 
    /**
+    * @param array $attributes
     * @return Collection
     */
-    public function all(): Collection
+    public function categoriesWhereHasNotParent(array $attributes)
     {
-        return $this->model->where('parent_id', '<', '1')->get();
+        return function($q) use($attributes){
+                !array_key_exists('parent', $attributes) ?: $q
+                ->where('parent_id', '<', '1');
+            };
+    }
+
+   /**
+    * @param array $attributes
+    * @return Collection
+    */
+    public function categoriesWhereColumnName(array $attributes)
+    {
+        return function($q) use($attributes){
+            !array_key_exists('columnName', $attributes) ?: $q
+            ->where([$attributes['columnName'] => $attributes['columnValue']]);
+        };
+    }
+
+   /**
+    * @param array $attributes
+    * @return Collection
+    */
+    public function categroiesForAllConditions(array $attributes)
+    {
+        return $this->model
+            ->where($this->categoriesWhereHasNotParent($attributes))
+            ->where($this->categoriesWhereColumnName($attributes))
+            ->paginate($attributes['count']);
     }
 
     /**
