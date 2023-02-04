@@ -34,7 +34,7 @@ class WishlistController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->sendResponse(WishlistResource::collection($this->wishlistRepository->index($request->all())), ['count'=>$this->wishlistRepository->index($request->all())->count()],  200);
+        return $this->sendResponse(WishlistResource::collection($this->wishlistRepository->index($request->all())), ['count'=>($this->wishlistRepository->index($request->all()))->count()],  200);
     }
 
     /**
@@ -46,7 +46,7 @@ class WishlistController extends Controller
     public function store(Request $request)
     {
         $wishlist = $this->wishlistRepository->toggleWishlist($request->all());
-        return $this->sendResponse($wishlist->count(), "", 201);
+        return $this->sendResponse(new WishlistItemsCountResource($wishlist), "", 201);
     }
 
     /**
