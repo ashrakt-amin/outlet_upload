@@ -18,7 +18,7 @@ class WishlistItemsCountResource extends JsonResource
     {
         return [
             'visitor_id' => (float)$this->visitor_id,
-            'count'      => $this->where(function($q) use($request){
+            'count'      => $this->where(function($q) {
                 request()->bearerToken() ? $q
                 ->where(['client_id' => $this->getTokenId('client')])->where(['visitor_id' => null]) : $q
                 ->where(['visitor_id' => $this->visitor_id]);

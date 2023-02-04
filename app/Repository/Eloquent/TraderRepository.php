@@ -32,6 +32,7 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     {
         if (array_key_exists('img', $attributes)) $this->setImage($attributes['img'], 'traders', 450, 450);
         $attributes['code'] = uniqueRandomCode('traders');
+        $attributes['created_by'] = $this->getTokenId('user');
         return $this->model->create($attributes);
     }
 
@@ -50,18 +51,19 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     */
     public function edit($id, array $attributes)
     {
-        // if ($this->getTokenId('user') || $this->getTokenId('trader')) {
+        $trader = $this->model->findOrFail($id);
+        if (array_key_exists('img', $attributes)) {
+            $this->deleteImage(Trader::IMAGE_PATH, $trader->img);
+            $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
+        }
+        if ($attributes['age'] == null) $attributes['age'] = $trader->age;
+        $attributes['updated_by'] = $this->getTokenId('user');
+        $trader->update($attributes);
+        return $trader;
+        if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             return DB::transaction(function() use($id, $attributes){
-                $trader = $this->model->findOrFail($id);
-                if (array_key_exists('img', $attributes)) {
-                    $this->deleteImage(Trader::IMAGE_PATH, $trader->img);
-                    $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
-                }
-                if ($attributes['age'] == null) $attributes['age'] = $trader->age;
-                $trader->update($attributes);
-                return $trader;
             });
-        // }
+        }
     }
 
     /**

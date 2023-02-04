@@ -72,8 +72,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(TraderController::class)->group(function () {
             Route::get('/trader', 'trader')->name('newTraders.trader');
         });
-        Route::resource('/', TraderController::class)->only('destroy', 'update', 'create', 'edit');
+        Route::resource('/', TraderController::class)->only('destroy', 'update', 'store', 'edit');
     });
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::resource('levels', LevelController::class)->only('store', 'update', 'destroy');
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::controller(UnitController::class)->group(function () {
+        Route::put('units/categories/{unit}', 'categories');
+    });
+    Route::resource('units', UnitController::class)->only('store', 'update');
     //______________________________________________________________________________________________________________________
 
     //-----------------------------------------------------------------------------------------------------------
@@ -206,7 +217,7 @@ Route::prefix("levels")->group(function(){
         Route::get('/client/{level}', 'client')->name('levels.client');
     });
 });
-Route::resource('levels', LevelController::class)->except('create', 'edit');
+Route::resource('levels', LevelController::class)->except('store', 'update', 'destroy', 'create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
@@ -217,7 +228,7 @@ Route::prefix("units")->group(function(){
         Route::put('/categories/{unit}', 'categories');
     });
 });
-Route::resource('units', UnitController::class)->except('create', 'edit');
+Route::resource('units', UnitController::class)->except('store', 'update', 'create', 'edit');
 
 //______________________________________________________________________________________________________________________
 
