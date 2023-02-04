@@ -30,8 +30,8 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         return $this->paginateResponse(CategoryResource::collection($this->categoryRepository->categroiesForAllConditions($request->all())),
-        $this->categoryRepository->categroiesForAllConditions($request->all()),
-        "", 200);
+            $this->categoryRepository->categroiesForAllConditions($request->all()),
+            "", 200);
     }
 
     /**
