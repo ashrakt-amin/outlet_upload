@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\WishlistResource;
 use App\Repository\WishlistRepositoryInterface;
-use App\Http\Resources\Item\ItemWishlistResource;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
+use App\Http\Resources\Wishlist\WishlistItemsCountResource;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -34,7 +34,7 @@ class WishlistController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->sendResponse(WishlistResource::collection($this->wishlistRepository->index($request->all())), "", 200);
+        return $this->sendResponse(WishlistResource::collection($this->wishlistRepository->index($request->all())), $this->wishlistRepository->index($request->all())->count(), 200);
     }
 
     /**
@@ -46,7 +46,7 @@ class WishlistController extends Controller
     public function store(Request $request)
     {
         $wishlist = $this->wishlistRepository->toggleWishlist($request->all());
-        return $this->sendResponse((float)$wishlist->visitor_id, new ItemWishlistResource($wishlist->item), 201);
+        return $this->sendResponse((float)$wishlist->visitor_id, new WishlistItemsCountResource($wishlist), 201);
     }
 
     /**

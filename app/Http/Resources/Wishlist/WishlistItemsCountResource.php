@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Item;
+namespace App\Http\Resources\Wishlist;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Item\ItemFlashSalesResource;
+use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
-class ItemWishlistResource extends JsonResource
+class WishlistItemsCountResource extends JsonResource
 {
+    use TraitsAuthGuardTrait;
     /**
      * Transform the resource into an array.
      *
@@ -18,9 +21,6 @@ class ItemWishlistResource extends JsonResource
         // auth()->guard()->check()
         // ? ($this->wishlists()->where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false)
         // : ($this->wishlists()->where(['item_id'=>$this->id, 'visitor_id'=>$request['visitor_id']])->exists() ? true : false);
-        return
-        auth()->guard()->check()
-        ? $this->wishlists()->where(['client_id'=>$this->getTokenId('client')])->count()
-        : $this->wishlists()->where(['visitor_id'=>$request['visitor_id']])->count();
+        return $this->count();
     }
 }
