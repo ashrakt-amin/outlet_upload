@@ -44,18 +44,7 @@ class AdvertisementController extends Controller
         //         $advertisement->delete();
         //     }
         // }
-        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereColumnName($request->all())), "اعلانات الرئيسية", 200);
-        return AdvertisementResource::collection($this->advertisementRepository->all());
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function advertisementsWhereColumnName(Request $request)
-    {
-        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereColumnName($request->all())), "اعلانات الرئيسية", 200);
+        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereallConditions($request->all())), "اعلانات الرئيسية", 200);
     }
 
     /**

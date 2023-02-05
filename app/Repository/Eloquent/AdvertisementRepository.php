@@ -40,14 +40,24 @@ class AdvertisementRepository extends BaseRepository implements AdvertisementRep
     // }
 
     /**
-     * @return Collection
+     * Method for advertisements where column name
      */
     public function advertisementsWhereColumnName(array $attributes)
     {
-        return $this->model->where(function($q) use($attributes){
+        return function($q) use($attributes){
             !array_key_exists('columnName', $attributes) || $attributes['columnValue'] == 0  ?: $q
             ->where([$attributes['columnName'] => $attributes['columnValue']]);
-        })->get();
+        };
+    }
+
+    /**
+     *  Method for advertisements where all conditions
+     */
+    public function advertisementsWhereallConditions(array $attributes)
+    {
+        return $this->model
+            ->where($this->advertisementsWhereColumnName($attributes))
+            ->get();
     }
 
     /**

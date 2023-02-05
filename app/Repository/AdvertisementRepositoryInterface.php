@@ -12,9 +12,14 @@ interface AdvertisementRepositoryInterface
     //  public function all(): Collection;
 
     /**
-     * @return Collection
+     * Method for advertisements where column name
      */
     public function advertisementsWhereColumnName(array $attributes);
+
+    /**
+     *  Method for advertisements where all conditions
+     */
+    public function advertisementsWhereallConditions(array $attributes);
 
     /**
     * @param array $attributes

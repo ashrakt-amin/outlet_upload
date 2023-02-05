@@ -91,6 +91,6 @@ class CategoryController extends Controller
         if (!$category->items->exists()) {
             if ($this->categoryRepository->delete($category->id)) return $this->sendResponse("", "تم حذف التصنيف", 200);
         }
-        return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", [], 405);
+        return $this->sendError("لا يمكن حذف قسما يحتوي على اقسام فرعية", [], 200);
     }
 }
