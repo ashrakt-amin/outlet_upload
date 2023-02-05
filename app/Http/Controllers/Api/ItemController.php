@@ -90,17 +90,7 @@ class ItemController extends Controller
             $item->itemImages()->delete($item->id);
             if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج", 200);
         }
-        return $this->sendError("لا يمكن حذف منتجا له رصيد", [], 405);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function latest(Request $request)
-    {
-        return $this->itemRepository->itemsForAllConditionsLatest($request->all(), ItemFlashSalesResource::class);
+        return $this->sendError("لا يمكن حذف منتجا له رصيد", [], 200);
     }
 
     /**

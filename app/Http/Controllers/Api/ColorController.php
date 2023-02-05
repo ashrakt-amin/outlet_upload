@@ -77,6 +77,6 @@ class ColorController extends Controller
         if (!count($color->stocks)) {
             if ($this->colorRepository->delete($color->id)) return $this->sendResponse("", "تم حذف اللون", 200);
         }
-        return $this->sendError("لا يمكن حذف لونا له رصيد", [], 405);
+        return $this->sendError("لا يمكن حذف لونا له رصيد", [], 200);
     }
 }

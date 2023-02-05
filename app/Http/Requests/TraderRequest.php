@@ -20,7 +20,7 @@ class TraderRequest extends FormRequest
             'email'       => 'nullable|unique:users,email',
             'national_id' => 'nullable|unique:traders,national_id|regex:/^[0-9]{14}$/',
             'password'    => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|same:password',
+            'password_confirmation' => 'required',
         ];
     }
 

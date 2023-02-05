@@ -98,6 +98,6 @@ class LevelController extends Controller
             $this->levelRepository->delete($level->id);
             return $this->sendResponse("", "تم حذف المشروع", 200);
         }
-        return $this->sendError("لا يمكن حذف مكانا له أفرع", [], 405);
+        return $this->sendError("لا يمكن حذف مكانا له أفرع", [], 200);
     }
 }

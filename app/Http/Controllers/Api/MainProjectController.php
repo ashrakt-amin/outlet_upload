@@ -103,6 +103,6 @@ class MainProjectController extends Controller
         if (!count($mainProject->projects)) {
             if ($this->mainProjectRepository->delete($mainProject->id)) return $this->sendResponse("", "تم حذف المبنى", 200);
         }
-        return $this->sendError("لا يمكن حذف نوع لديه مشاريع", [], 405);
+        return $this->sendError("لا يمكن حذف نوع لديه مشاريع", [], 200);
     }
 }

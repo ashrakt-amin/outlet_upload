@@ -87,7 +87,7 @@ class UnitController extends Controller
         if (!count($unit->items)) {
             if ($this->unitRepository->delete($unit->id)) return $this->sendResponse("", "تم حذف الوحدة", 200);
         }
-        return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 405);
+        return $this->sendError("لا يمكن حذف مشروعا له فروع", [], 200);
     }
 
     /**

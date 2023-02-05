@@ -36,10 +36,10 @@ class LoginUserController extends Controller
             $success['token']     =  $user->createToken('user')->plainTextToken;
             $success['tokenName'] =  "user";
             $success['name']      =  $user;
-            return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.');
+            return $this->sendResponse($success, 'تم تسجيل الدخول بنجاح.', 302);
         }
         else{
-            return $this->sendError('Unauthorised.', ['error'=>'بيانات غير صحيحة']);
+            return $this->sendError('Unauthorised.', ['error'=>'بيانات غير صحيحة'], 401);
         }
     }
 }
