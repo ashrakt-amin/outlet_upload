@@ -28,7 +28,7 @@ class AdvertisementRequest extends FormRequest
     private function updateRequest()
     {
         return [
-            'img'     => 'required',
+            'img'     => 'nullable',
             'link'    => 'nullable',
             'unit_id' => 'nullable|integer',
             'renew'   => 'nullable|integer',
@@ -64,8 +64,10 @@ class AdvertisementRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => 'يجب ادخال اسم',
-            'parent_id.integer' => 'رقم فقط',
+            'name.required'       => 'يجب ادخال اسم',
+            'img.required'        => 'يجب اختيار صورة',
+            'unit_id.required'    => 'يجب اختيار وحدة',
+            'project_id.required' => 'يجب اختيار مشروع',
         ];
     }
 }

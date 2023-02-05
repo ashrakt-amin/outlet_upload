@@ -4,7 +4,6 @@ namespace App\Repository\Eloquent;
 
 use Carbon\Carbon;
 use App\Models\Advertisement;
-use Illuminate\Support\Collection;
 use App\Repository\AdvertisementRepositoryInterface;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
@@ -78,13 +77,13 @@ class AdvertisementRepository extends BaseRepository implements AdvertisementRep
      */
      public function edit($id, array $attributes)
      {
-        $advertisement = $this->model->findOrFail($id);
+         $advertisement = $this->model->findOrFail($id);
         $oldExpiryDate   = $advertisement->advertisement_expire;
         $month           = $oldExpiryDate[5].$oldExpiryDate[6];
         $oldRenew        = $advertisement->renew;
-        $newRenew        = $attributes['renew'];
         // Expire of advertisement
-        if ($attributes['renew'] > 0 ) {
+        if (array_key_exists('renew', $attributes)) {
+            $newRenew        = $attributes['renew'];
             for ($i=0; $i < $newRenew; $i++) {
                 $month = $month + 1;
                 if ($month < 10) {
@@ -95,14 +94,16 @@ class AdvertisementRepository extends BaseRepository implements AdvertisementRep
                 }
                 $monthDays = Carbon::now()->month($month)->daysInMonth;
                 $attributes['advertisement_expire'] = Carbon::parse($advertisement->advertisement_expire)->addDays(($monthDays));
+                $advertisement->update($attributes);
             }
+            $attributes['renew'] = $newRenew + $oldRenew;
         }
-        if ($attributes['img']) {
+        $advertisement = $this->model->findOrFail($id);
+        if (array_key_exists('img', $attributes)) {
             $this->deleteImage(Advertisement::IMAGE_PATH, $advertisement->img);
             $attributes['img'] = $this->setImage($attributes['img'], 'advertisements', 450, 450);
         }
-        $attributes['renew'] = $newRenew + $oldRenew;
         $advertisement->update($attributes);
         return $advertisement;
-     }
+    }
 }
