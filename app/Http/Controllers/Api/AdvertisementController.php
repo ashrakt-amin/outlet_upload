@@ -98,7 +98,7 @@ class AdvertisementController extends Controller
      */
     public function grade(Request $request)
     {
-        return AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereallConditions($request->all()));
+        return $this->sendResponse(AdvertisementResource::collection($this->advertisementRepository->advertisementsWhereallConditions($request->all())), "", 200);
     }
 
     /**
