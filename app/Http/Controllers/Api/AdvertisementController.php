@@ -96,6 +96,17 @@ class AdvertisementController extends Controller
      * @param  \App\Models\Advertisement  $advertisement
      * @return \Illuminate\Http\Response
      */
+    public function grade(Request $request)
+    {
+        return new AdvertisementResource($this->advertisementRepository->advertisementsWhereallConditions($request->all));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Advertisement  $advertisement
+     * @return \Illuminate\Http\Response
+     */
     public function show(Advertisement $advertisement)
     {
         return new AdvertisementResource($this->advertisementRepository->find($advertisement->id));
