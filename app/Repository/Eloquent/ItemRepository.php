@@ -131,8 +131,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
     public function itemsSearchingWherekeyWords(array $attributes)
     {
         return function($q) use($attributes){
-                !array_key_exists('key_words', $attributes) ?: $q
-                ->where('key_words', 'LIKE', "%{$attributes['key_words']}%");
+                !array_key_exists('key_words', $attributes) ?: (!is_numeric($attributes['key_words']) ? $q
+                ->where('key_words', 'LIKE', "%{$attributes['key_words']}%") : $q
+                ->whereBetween('sale_price', [($attributes['key_words'] - 25), ($attributes['key_words'] + 25)]));
             };
     }
 
