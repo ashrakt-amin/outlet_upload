@@ -7,9 +7,11 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ProjectImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Unit\UnitWithoutItemsResource;
+use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 
 class ProjectWithOutLevelsResource extends JsonResource
 {
+    use TraitResponseTrait;
     /**
      * Transform the resource into an array.
      *
@@ -24,7 +26,7 @@ class ProjectWithOutLevelsResource extends JsonResource
             'created_by' => new UserFullNameResource($this->createdBy),
             'updated_by' => new UserFullNameResource($this->updatedBy),
             'categories' => CategoryResource::collection($this->categories()->distinct()->get()),
-            'units'      => UnitWithoutItemsResource::collection($this->units)->paginate(12),
+            'units'      => UnitWithoutItemsResource::collection($this->units)->paginate($request->count ?: 24),
             'images'     => ProjectImageResource::collection($this->projectImages),
         ];
     }
