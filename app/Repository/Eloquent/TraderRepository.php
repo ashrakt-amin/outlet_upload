@@ -30,7 +30,7 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     */
     public function create(array $attributes): Trader
     {
-        if (array_key_exists('img', $attributes)) $this->setImage($attributes['img'], 'traders', 450, 450);
+        if (array_key_exists('img', $attributes)) $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
         $attributes['code'] = uniqueRandomCode('traders');
         $attributes['created_by'] = $this->getTokenId('user');
         return $this->model->create($attributes);
