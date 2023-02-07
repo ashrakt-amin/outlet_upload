@@ -104,7 +104,7 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
-        return new AdvertisementResource($this->advertisementRepository->find($advertisement->id));
+        return $this->sendResponse(new AdvertisementResource($this->advertisementRepository->find($advertisement->id)), "", 200);
     }
 
     /**
@@ -116,7 +116,7 @@ class AdvertisementController extends Controller
      */
     public function update(Request $request, Advertisement $advertisement)
     {
-        return new AdvertisementResource($this->advertisementRepository->edit($advertisement->id, $request->all()));
+        return $this->sendResponse(new AdvertisementResource($this->advertisementRepository->edit($advertisement->id, $request->all())), "تم التعديل", 200);
 
 
         // $current_expire = strtotime($advertisement->advertisement_expire);
