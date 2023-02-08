@@ -15,8 +15,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('start:lastWeekOffers')->wednesdays()->at('14:47');
-        $schedule->command('start:flash_sales')->dailyAt('14:47');
+        $schedule->command('start:lastWeekOffers')->thursdays()->at('14:47');
+        $schedule->command('start:flash_sales')->wednesdays()->at('15:59');
+        // $schedule->command('start:flash_sales')->dailyAt('3:03 PM');
+        // $schedule->command('start:flash_sales')->daily();
+        $schedule->command('start:flash_sales')->everyMinute();
     }
 
     /**

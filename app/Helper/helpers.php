@@ -3,7 +3,6 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 
     /**
     * Write code on Method
@@ -16,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
             return Carbon::createFromFormat('Y-m-d', $date)->format('m-d-Y');
         }
     }
-
     /**
      * Write code on Method
      *
