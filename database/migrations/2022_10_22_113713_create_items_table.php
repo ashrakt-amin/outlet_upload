@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('flash_sales')               ->default(0);
             $table->boolean('extra_piece')               ->default(0);
             $table->boolean('last_week')                 ->default(0);
-            $table->date('last_week_expire')             ->nullable();
+            $table->date('last_week_start')             ->nullable();
             $table->text('key_words');
             $table->string('item_code')                    ->unique();
             $table->decimal('discount', 4, 2)            ->default(0);
