@@ -12,7 +12,7 @@ class StartFlashSales extends Command
      *
      * @var string
      */
-    protected $signature = 'start:flashSales';
+    protected $signature = 'start:flash_sales';
 
     /**
      * The console command description.
@@ -28,9 +28,9 @@ class StartFlashSales extends Command
      */
     public function handle()
     {
-        $items = Item::where(['flashSales' => 1])->get();
+        $items = Item::where(['flash_sales' => 1])->get();
         foreach ($items as $item) {
-            $item->flashSales = 0;
+            $item->flash_sales = 0;
             $item->update();
         }
     }
