@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->command('start:lastWeekOffers')->tuesdays()->at('12:40 PM');
+        $schedule->command('start:flashSales')->daily()->at('10:30 AM');
     }
 
     /**

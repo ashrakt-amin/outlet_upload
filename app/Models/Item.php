@@ -24,7 +24,7 @@ class Item extends Model
         'flash_sales',
         'extra_piece',
         'last_week',
-        'last_week_expire',
+        'last_week_start',
         'key_words',
         'item_unit_id',
         'item_code',
@@ -219,7 +219,8 @@ class Item extends Model
     {
         return Attribute::make(
             set: fn ($value) => $value . ' ' .
-                // Category::find($this->attributes['parent_id'])->name . ' ' .
+                $this->attributes['name'] . ' ' .
+                $this->attributes['sale_price'] . ' ' .
                 Category::find($this->attributes['category_id'])->name . ' ' .
                 Unit::find($this->attributes['unit_id'])->name . ' ' .
                 Level::find(Unit::find($this->attributes['unit_id'])->level_id)->name . ' ' .

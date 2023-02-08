@@ -35,6 +35,16 @@ class CategoryController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allConditons(Request $request)
+    {
+        return $this->categoryRepository->forAllConditionsReturn($request->all(), CategoryResource::class);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\CategoryRequest  $request

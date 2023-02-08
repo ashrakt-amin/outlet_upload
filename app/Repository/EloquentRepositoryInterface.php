@@ -39,4 +39,16 @@ interface EloquentRepositoryInterface
     * @return response
     */
     public function delete($id): ?Model;
+
+    /**
+     * @param id $attributes
+     * @return Model
+     */
+     public function toggleUpdate($id, $booleanName);
+
+
+    /**
+     * Method for all data conditions to return a wich method filtered by attributes
+     */
+    public function forAllConditionsReturn(array $attributes, $resourceCollection);
 }

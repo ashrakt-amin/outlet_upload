@@ -6,9 +6,9 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Item\ItemFlashSalesResource;
 use App\Http\Resources\ItemResource;
 use App\Repository\ItemRepositoryInterface;
+use App\Http\Resources\Item\ItemFlashSalesResource;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
@@ -36,7 +36,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->itemRepository->itemsForAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
+        return $this->itemRepository->forAllConditionsReturn($request->all(), ItemFlashSalesResource::class);
     }
 
     /**

@@ -27,19 +27,19 @@ interface ItemRepositoryInterface
      */
      public function edit($id, array $attributes);
 
-    /**
-     * @param id $attributes
-     * @return Item
-     */
-     public function toggleUpdate($id, $booleanName);
+    // /**
+    //  * @param id $attributes
+    //  * @return Item
+    //  */
+    //  public function toggleUpdate($id, $booleanName);
 
-    /**
-     * Method for items where discount
-     */
-    public function itemsLatest(array $attributes);
-    
+    // /**
+    //  * Method for items where discount
+    //  */
+    // public function itemsLatest(array $attributes);
+
     /**
      * Method for all items conditions to return a wich method filtered by attributes
      */
-    public function itemsForAllConditionsReturn(array $attributes, $resourceCollection);
+    // public function forAllConditionsReturn(array $attributes, $resourceCollection);
 }

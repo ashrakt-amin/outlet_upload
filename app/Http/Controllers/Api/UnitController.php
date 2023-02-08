@@ -41,6 +41,17 @@ class UnitController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allConditons(Request $request)
+    {
+        return $this->unitRepository->forAllConditionsReturn($request->all(), UnitWithoutItemsResource::class);
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Request  $request

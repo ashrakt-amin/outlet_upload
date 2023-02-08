@@ -183,7 +183,7 @@ Route::resource('newTraders', TraderController::class)->only('index', 'show');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('traders', TraderController::class)->only('index', 'show', 'update', 'store');
+Route::resource('traders', TraderController::class)->only('index', 'show', 'update', 'store', 'destroy');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
@@ -194,6 +194,7 @@ Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit'
 Route::prefix("mainProjects")->group(function(){
     Route::controller(MainProjectController::class)->group(function () {
         Route::get('/offers',         'offers');
+        Route::get('/allConditons', 'allConditons');
         Route::get('/main_project_with_projects_with_units/{mainProject}', 'mainProjectWithProjectsWithUnits');
     });
 });
@@ -213,6 +214,7 @@ Route::resource('projects', ProjectController::class)->except('create', 'edit');
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("levels")->group(function(){
     Route::controller(LevelController::class)->group(function () {
+        Route::get('/allConditons', 'allConditons');
         Route::get('/latest',         'latest')->name('levels.latest');
         Route::get('/client/{level}', 'client')->name('levels.client');
     });
@@ -224,6 +226,7 @@ Route::resource('levels', LevelController::class)->except('store', 'update', 'de
 Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/show_online/{unit}', 'showOnline');
+        Route::get('/allConditons', 'allConditons');
         Route::get('/toggle_update/{id}/{booleanName}', 'toggleUpdate');
         Route::put('/categories/{unit}', 'categories');
     });
@@ -259,7 +262,8 @@ Route::resource('sites', SiteController::class)->except('create', 'edit');
 //-----------------------------------------------------------------------------------------------------------
 
 Route::controller(CategoryController::class)->group(function () {
-    Route::get('/categories_of_projects/{project_id}', 'categoriesOfProject');
+    Route::get('categories/categories_of_projects/{project_id}', 'categoriesOfProject');
+    Route::get('categories/allConditons', 'allConditons');
 });
 Route::resource('categories', CategoryController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________

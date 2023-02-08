@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Level;
 use App\Models\LevelImage;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\LevelRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\LevelResource;
 use App\Repository\LevelRepositoryInterface;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
@@ -36,6 +37,17 @@ class LevelController extends Controller
     {
         return $this->sendResponse(LevelResource::collection($this->levelRepository->all()), "", 200);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allConditons(Request $request)
+    {
+        return $this->levelRepository->forAllConditionsReturn($request->all(), LevelResource::class);
+    }
+
 
     /**
      * Store a newly created resource in storage.

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Api;
 use App\Models\Project;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\NdProjectResource;
-use App\Http\Resources\Project\ProjectWithOutLevelsResource;
 use App\Repository\ProjectRepositoryInterface;
-use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
 use App\Http\Traits\ResponseTrait as TraitResponseTrait;
+use App\Http\Traits\AuthGuardTrait as TraitAuthGuardTrait;
+use App\Http\Resources\Project\ProjectWithOutLevelsResource;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
 
 class ProjectController extends Controller
@@ -37,6 +38,17 @@ class ProjectController extends Controller
     {
         return $this->sendResponse(ProjectResource::collection($this->projectRepository->all()), "", 200);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allConditons(Request $request)
+    {
+        return $this->projectRepository->forAllConditionsReturn($request->all(), ProjectResource::class);
+    }
+
 
     /**
      * Display a listing of the resource.

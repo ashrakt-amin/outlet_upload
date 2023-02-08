@@ -116,7 +116,7 @@ class AdvertisementController extends Controller
      */
     public function update(Request $request, Advertisement $advertisement)
     {
-        return $this->sendResponse(new AdvertisementResource($this->advertisementRepository->edit($advertisement->id, $request->all())), "تم التعديل", 200);
+        return $this->sendResponse(new AdvertisementResource($this->advertisementRepository->edit($advertisement->id, $request->all())), "تم تعديل الاعلان", 200);
 
 
         // $current_expire = strtotime($advertisement->advertisement_expire);
