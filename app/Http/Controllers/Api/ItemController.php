@@ -117,4 +117,13 @@ class ItemController extends Controller
         $item = $this->itemRepository->toggleUpdate($id, $booleanName);
         return $this->sendResponse($item[$booleanName], $booleanName. ' ' .$item[$booleanName] , 202);
     }
+
+    /**
+     * @param id $attributes
+     * @return response
+     */
+    public function whatsAppClick($id, Request $request)
+    {
+        $item = $this->itemRepository->whatsAppClick($id, $request->all());
+    }
 }

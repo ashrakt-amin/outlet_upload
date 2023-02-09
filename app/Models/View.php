@@ -10,7 +10,7 @@ class View extends Model
 {
     use HasFactory, TraitsAuthGuardTrait;
 
-    protected $fillable = ['item_id', 'client_id', 'view_count', 'whats_app_count'];
+    protected $fillable = ['item_id', 'client_id', 'view_count', 'whats_app_click'];
 
     /**
      * @Scope

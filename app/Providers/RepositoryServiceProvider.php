@@ -3,13 +3,16 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\ItemRepository;
 use App\Repository\Eloquent\SizeRepository;
 use App\Repository\Eloquent\UnitRepository;
+use App\Repository\Eloquent\ViewRepository;
 use App\Repository\ItemRepositoryInterface;
 use App\Repository\SizeRepositoryInterface;
 use App\Repository\UnitRepositoryInterface;
+use App\Repository\ViewRepositoryInterface;
 use App\Repository\ColorRepositoryInterface;
 use App\Repository\Eloquent\ColorRepository;
 use App\Repository\Eloquent\LevelRepository;
@@ -59,6 +62,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(TermsAndConditionRepositoryInterface::class, TermsAndConditionRepository::class);
        $this->app->bind(AdvertisementRepositoryInterface::class, AdvertisementRepository::class);
        $this->app->bind(WishlistRepositoryInterface::class, WishlistRepository::class);
+       $this->app->bind(ViewRepositoryInterface::class, ViewRepository::class);
     }
 
     /**

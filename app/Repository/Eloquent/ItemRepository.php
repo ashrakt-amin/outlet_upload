@@ -54,9 +54,9 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         $user = $this->getTokenName('user');
         $trader = $this->getTokenName('trader');
         if (!$user && !$trader) {
-            $view = View::where(['item_id'=>$item->id, 'client_id'=>$item->getTokenId('client')])->first();
+            $view = View::where(['item_id'=>$id, 'client_id'=>$this->getTokenId('client')])->first();
             if (!$view) {
-                $item->views()->create(['client_id' => $item->getTokenId('client'), 'view_count' => 1, 'item_id' => $item->id ]);
+                $item->views()->create(['client_id' => $this->getTokenId('client'), 'view_count' => 1, 'item_id' => $id ]);
             } elseif ($view) {
                 $view->view_count = $view->view_count + 1;
                 $view->update();
@@ -78,5 +78,4 @@ class ItemRepository extends BaseRepository implements ItemRepositoryInterface
         $item->update($attributes);
         return $item;
     }
-
 }

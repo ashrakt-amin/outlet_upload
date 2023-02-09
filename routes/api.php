@@ -187,10 +187,6 @@ Route::resource('traders', TraderController::class)->only('index', 'show', 'upda
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('itemUnits', ItemUnitController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
 Route::prefix("mainProjects")->group(function(){
     Route::controller(MainProjectController::class)->group(function () {
         Route::get('/offers',         'offers');
@@ -238,6 +234,7 @@ Route::resource('units', UnitController::class)->except('store', 'update', 'crea
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
+        Route::get('/whats_app_click/{id}', 'whatsAppClick');
         Route::get('/latest',             'latest');
         Route::get('/toggle_update/{id}/{booleanName}',    'toggleUpdate');
         Route::get('/',                    'index');
@@ -256,10 +253,6 @@ Route::prefix("itemImages")->group(function(){
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('sites', SiteController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('categories/categories_of_projects/{project_id}', 'categoriesOfProject');
@@ -269,27 +262,17 @@ Route::resource('categories', CategoryController::class)->except('create', 'edit
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('colors', ColorController::class)->except('create', 'edit');
+// Route::resource('colors', ColorController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('sizes', SizeController::class)->except('create', 'edit');
+// Route::resource('sizes', SizeController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
-Route::resource('stocks', StockController::class)->except('create', 'edit');
+// Route::resource('stocks', StockController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('manufactories', ManufactoryController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('companies', CompanyController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('importers', ImporterController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
 
 //-----------------------------------------------------------------------------------------------------------
@@ -299,11 +282,6 @@ Route::controller(AdvertisementController::class)->group(function () {
 });
 Route::resource('advertisements', AdvertisementController::class)->except('index', 'create', 'edit');
 //______________________________________________________________________________________________________________________
-
-//-----------------------------------------------------------------------------------------------------------
-Route::resource('volumes', VolumeController::class)->except('create', 'edit');
-//______________________________________________________________________________________________________________________
-
 //-----------------------------------------------------------------------------------------------------------
 Route::resource('privacies', PrivacyController::class)->except('create', 'edit');
 //______________________________________________________________________________________________________________________
@@ -314,10 +292,19 @@ Route::resource('termsAndConditions', TermsAndConditionController::class)->excep
 
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("wishlists")->group(function(){
-    Route::resource('/', WishlistController::class)->only('index', 'store');
-        Route::controller(WishlistController::class)->group(function () {
-            Route::delete('/destroy',         'destroy')->name('wishlists.destroy');
-        });
+    Route::controller(WishlistController::class)->group(function () {
+        Route::delete('/destroy',         'destroy')->name('wishlists.destroy');
     });
+    Route::resource('/', WishlistController::class)->only('index', 'store');
+});
+//______________________________________________________________________________________________________________________
+
+//-----------------------------------------------------------------------------------------------------------
+Route::prefix("views")->group(function(){
+    Route::controller(ViewController::class)->group(function () {
+        Route::get('/whats_app_click/{id}', 'whatsAppClick')->name('wishlists.destroy');
+    });
+    Route::resource('/', ViewController::class)->except('create', 'edit');
+});
 //______________________________________________________________________________________________________________________
 

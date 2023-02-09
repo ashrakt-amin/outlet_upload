@@ -25,7 +25,7 @@ interface ItemRepositoryInterface
      * @param id $attributes
      * @return Item
      */
-     public function edit($id, array $attributes);
+    public function edit($id, array $attributes);
 
     // /**
     //  * @param id $attributes
