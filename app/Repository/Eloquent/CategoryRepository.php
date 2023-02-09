@@ -3,7 +3,6 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Category;
-use App\Models\Project;
 use Illuminate\Support\Collection;
 use App\Repository\CategoryRepositoryInterface;
 

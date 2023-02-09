@@ -85,7 +85,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        if (count($item->stocks)) {
+        if (!count($item->stocks)) {
             $this->deleteImages($item->itemImages()->pluck('img')->toArray(), 'items');
             $item->itemImages()->delete($item->id);
             if ($this->itemRepository->delete($item->id)) return $this->sendResponse("", "تم حذف المنتج", 200);

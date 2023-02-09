@@ -49,6 +49,7 @@ class ItemResource extends JsonResource
             'trader'           => new TraderResource($this->unit?->trader),
             'clientViews'      => $this->client_views,
             'views'            => $this->all_views,
+            'whats_app_click'  => $this->whatsAppClick,
             'clientRate'       => $this->client_rate,
             'allRates'         => $this->all_rates,
             'category'         => $this->item_category,

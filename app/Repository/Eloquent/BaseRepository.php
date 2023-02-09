@@ -158,6 +158,19 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Method for data where relation boolean column
+     */
+    public function whereRelationBooleanColumn(array $attributes)
+    {
+        return function($q) use($attributes){
+                !array_key_exists('relationBooleanColumn', $attributes) ?: $q
+                ->whereHas($attributes['relation'], function($q) use($attributes){
+                    $q->where([$attributes['RelationBooleanColumn'] => true]);
+                });
+            };
+    }
+
+    /**
      * Method for data where discount
      */
     public function whereDiscount(array $attributes)

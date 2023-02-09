@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('client_id')->nullable();
             $table->bigInteger('view_count');
-            $table->bigInteger('whats_app_click');
+            $table->bigInteger('whats_app_click')->nullable();
             $table->timestamps();
         });
     }

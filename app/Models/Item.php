@@ -215,6 +215,18 @@ class Item extends Model
     *
     * @return Attribute
     */
+    protected function whatsAppClick(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => View::where(['item_id'=>$this->id])->sum('whats_app_click'),
+        );
+    }
+
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
     protected function keyWords(): Attribute
     {
         return Attribute::make(
