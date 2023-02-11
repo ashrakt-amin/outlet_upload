@@ -51,7 +51,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return $this->model
             ->where($this->categoriesWhereHasNotParent($attributes))
             ->where($this->categoriesWhereColumnName($attributes))
-            ->paginate($attributes['count']);
+            ->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : "");
     }
 
     /**

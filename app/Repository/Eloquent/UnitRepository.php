@@ -166,8 +166,8 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
 
         return
             $this->paginateResponse(
-                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->latest()->paginate($attributes['count'])),
-                $this->unitsForAllConditions($attributes)->latest()->paginate($attributes['count']),
+                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->latest()->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : "")),
+                $this->unitsForAllConditions($attributes)->latest()->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : ""),
                 "Latest units; Youssof", 200);
     }
 
@@ -180,9 +180,9 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
 
         return
             $this->sendResponse(
-                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get()),
+                $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->inRandomOrder()->limit(array_key_exists('count', $attributes) ? $attributes['count'] : "")->get()),
                 "Random units; Youssof", 200);
-        return $this->unitsForAllConditions($attributes)->inRandomOrder()->limit($attributes['count'])->get();
+        return $this->unitsForAllConditions($attributes)->inRandomOrder()->limit(array_key_exists('count', $attributes) ? $attributes['count'] : "")->get();
     }
 
     /**
@@ -194,8 +194,8 @@ class UnitRepository extends BaseRepository implements UnitRepositoryInterface
 
         return
         $this->paginateResponse(
-            $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->paginate($attributes['count'])),
-            $this->unitsForAllConditions($attributes)->latest()->paginate($attributes['count']),
+            $this->resourceCollection::collection($this->unitsForAllConditions($attributes)->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : "")),
+            $this->unitsForAllConditions($attributes)->latest()->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : ""),
                 "Paginate units; Youssof", 200);
     }
 
