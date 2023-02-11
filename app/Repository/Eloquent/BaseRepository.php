@@ -93,11 +93,6 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function forceDelete($id)
     {
-        $data = $this->model->onlyTrashed()->findOrFail($id);
-        $data->forceDelete();
-        return $data;
-
-
         return $this->model->onlyTrashed()->find($id)->forceDelete();
     }
 
@@ -108,11 +103,6 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function forceDeleteAll()
     {
-        $data = $this->model->onlyTrashed();
-        $data->forceDelete();
-        return $data;
-
-
         return $this->model->onlyTrashed()->forceDelete();
     }
 
@@ -123,26 +113,16 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function restore($id)
     {
-        $data = $this->model->withTrashed()->findOrFail($id);
-        $data->restore();
-        return $data;
-
-
         return $this->model->withTrashed()->findOrFail($id)->restore();
     }
 
     /**
      * Write code on Method
      *
-    * @return Collection
+    * @return Model
      */
-    public function restoreAll(): Collection
+    public function restoreAll()
     {
-        $data = $this->model->onlyTrashed();
-        $data->restore();
-        return $data;
-
-
         return $this->model->onlyTrashed()->restore();
     }
 
