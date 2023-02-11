@@ -22,7 +22,7 @@ class ItemFlashSalesResource extends JsonResource
         ? ($this->wishlists()->where(['item_id'=>$this->id, 'client_id'=>$this->getTokenId('client')])->exists() ? true : false)
         : ($this->wishlists()->where(['item_id'=>$this->id, 'visitor_id'=>$request['visitor_id']])->exists() ? true : false);
         return [
-            'idd'             => $this->id,
+            'id'             => $this->id,
             'name'           => $this->name,
             'created_by'     => new UserFullNameResource($this->createdBy),
             'updated_by'     => new UserFullNameResource($this->updatedBy),
