@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Level;
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
-use App\Models\Level;
 
 class Item extends Model
 {
-    use HasFactory, TraitsAuthGuardTrait;
+    use HasFactory, TraitsAuthGuardTrait,
+    // SoftDeletes
+    ;
 
     protected $fillable  = [
         'name',
@@ -208,6 +211,30 @@ class Item extends Model
     {
         return ItemUnit::where(['id'=>$this->item_unit_id])->first();
         return $this->itemUnit;
+    }
+
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
+    protected function afterDiscountPrice(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->sale_price - ($this->sale_price * $this->discount / 100),
+        );
+    }
+
+    /**
+    * Item Offers Attribute.
+    *
+    * @return Attribute
+    */
+    protected function amountSaved(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->sale_price * $this->discount / 100,
+        );
     }
 
     /**
