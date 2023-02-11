@@ -41,6 +41,20 @@ interface EloquentRepositoryInterface
     public function delete($id): ?Model;
 
     /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function restore($id);
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function restoreAll();
+
+    /**
      * @param id $attributes
      * @return Model
      */

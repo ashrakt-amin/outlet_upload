@@ -87,6 +87,66 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Write code on Method
+    * @param $id
+    * @return response
+     */
+    public function forceDelete($id)
+    {
+        $data = $this->model->onlyTrashed()->findOrFail($id);
+        $data->forceDelete();
+        return $data;
+
+
+        return $this->model->onlyTrashed()->find($id)->forceDelete();
+    }
+
+    /**
+     * Write code on Method
+     *
+    * @return response
+     */
+    public function forceDeleteAll()
+    {
+        $data = $this->model->onlyTrashed();
+        $data->forceDelete();
+        return $data;
+
+
+        return $this->model->onlyTrashed()->forceDelete();
+    }
+
+    /**
+     * Write code on Method
+    * @param $id
+    * @return Model
+     */
+    public function restore($id)
+    {
+        $data = $this->model->withTrashed()->findOrFail($id);
+        $data->restore();
+        return $data;
+
+
+        return $this->model->withTrashed()->findOrFail($id)->restore();
+    }
+
+    /**
+     * Write code on Method
+     *
+    * @return Collection
+     */
+    public function restoreAll(): Collection
+    {
+        $data = $this->model->onlyTrashed();
+        $data->restore();
+        return $data;
+
+
+        return $this->model->onlyTrashed()->restore();
+    }
+
+    /**
      * Method for data conditions where column name
      */
     public function whereColumnName(array $attributes)
