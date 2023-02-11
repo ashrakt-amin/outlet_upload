@@ -200,7 +200,7 @@ Route::resource('mainProjects', MainProjectController::class)->except('create', 
 //-----------------------------------------------------------------------------------------------------------
 Route::prefix("projects")->group(function(){
     Route::controller(ProjectController::class)->group(function () {
-        Route::get('/streetsOffers', 'streetsOffers');
+        Route::get('/all_conditons', 'allConditons');
         Route::get('/restore/{id}', 'restore');
         Route::get('/restore_all', 'restoreAll');
         Route::delete('/force_delete/{id}', 'forceDelete');
