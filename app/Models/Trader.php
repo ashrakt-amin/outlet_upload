@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use App\Http\Traits\ImageProccessingTrait as TraitsImageProccessingTrait;
 class Trader extends Authenticatable implements MustVerifyEmail
 {
 
-    use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait, TraitsImageProccessingTrait;
+    use HasApiTokens, HasFactory, Notifiable, TraitsAuthGuardTrait, TraitsImageProccessingTrait, SoftDeletes;
 
     const IMAGE_PATH = 'traders';
     protected $appends = ['path'];

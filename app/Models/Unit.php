@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\UnitImageResource;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Unit extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $appends  = ['unit_categories', 'unit_level', 'unit_statu', 'unit_trader',  'unit_items', 'images'];
     protected $fillable = ['name', 'project_id', 'level_id', 'trader_id', 'description', 'famous', 'online', 'offers', 'created_by', 'updated_by'];

@@ -201,6 +201,10 @@ Route::resource('mainProjects', MainProjectController::class)->except('create', 
 Route::prefix("projects")->group(function(){
     Route::controller(ProjectController::class)->group(function () {
         Route::get('/streetsOffers', 'streetsOffers');
+        Route::get('/restore/{id}', 'restore');
+        Route::get('/restore_all', 'restoreAll');
+        Route::delete('/force_delete/{id}', 'forceDelete');
+        Route::delete('/force_delete_all', 'forceDeleteAll');
         Route::get('/project_with_out_levels/{project}', 'ProjectWithOutLevels');
     });
 });

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('level_id');
             $table->unsignedBigInteger('unit_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

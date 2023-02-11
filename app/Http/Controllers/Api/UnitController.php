@@ -102,6 +102,46 @@ class UnitController extends Controller
     }
 
     /**
+     * restore single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        return $this->sendResponse($this->unitRepository->restore($id), "", 200);
+    }
+
+    /**
+     * restore all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreAll()
+    {
+        return $this->sendResponse($this->unitRepository->restoreAll(), "", 200);
+    }
+
+    /**
+     * force delete single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete($id)
+    {
+        return $this->sendResponse($this->unitRepository->forceDelete($id), "", 200);
+    }
+
+    /**
+     * force delete all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDeleteAll()
+    {
+        return $this->sendResponse($this->unitRepository->forceDeleteAll(), "", 200);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Unit  $unit

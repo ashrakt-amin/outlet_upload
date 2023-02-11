@@ -2,9 +2,7 @@
 
 namespace App\Helper;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 

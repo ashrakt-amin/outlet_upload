@@ -76,4 +76,44 @@ class TermsAndConditionController extends Controller
     {
         if ($this->termsAndConditionRepository->delete($termsAndCondition->id)) return $this->sendResponse("", "تم حذف نص الشروط والاحكام");
     }
+
+    /**
+     * restore single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        return $this->sendResponse($this->termsAndConditionRepository->restore($id), "", 200);
+    }
+
+    /**
+     * restore all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreAll()
+    {
+        return $this->sendResponse($this->termsAndConditionRepository->restoreAll(), "", 200);
+    }
+
+    /**
+     * force delete single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete($id)
+    {
+        return $this->sendResponse($this->termsAndConditionRepository->forceDelete($id), "", 200);
+    }
+
+    /**
+     * force delete all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDeleteAll()
+    {
+        return $this->sendResponse($this->termsAndConditionRepository->forceDeleteAll(), "", 200);
+    }
 }

@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\LevelImageResource;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Level extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $appends  = ['level_units', 'images'];
     protected $fillable = ['name', 'project_id', 'zone_id', 'created_by', 'updated_by'];

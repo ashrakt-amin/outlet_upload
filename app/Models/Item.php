@@ -4,16 +4,14 @@ namespace App\Models;
 
 use App\Models\Level;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 
 class Item extends Model
 {
-    use HasFactory, TraitsAuthGuardTrait,
-    // SoftDeletes
-    ;
+    use HasFactory, TraitsAuthGuardTrait, SoftDeletes;
 
     protected $fillable  = [
         'name',

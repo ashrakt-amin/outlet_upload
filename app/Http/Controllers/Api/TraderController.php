@@ -132,4 +132,44 @@ class TraderController extends Controller
              return $this->sendResponse("", "تم حذف التصنيف", 200);
         }
     }
+
+    /**
+     * restore single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        return $this->sendResponse($this->traderRepository->restore($id), "", 200);
+    }
+
+    /**
+     * restore all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreAll()
+    {
+        return $this->sendResponse($this->traderRepository->restoreAll(), "", 200);
+    }
+
+    /**
+     * force delete single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete($id)
+    {
+        return $this->sendResponse($this->traderRepository->forceDelete($id), "", 200);
+    }
+
+    /**
+     * force delete all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDeleteAll()
+    {
+        return $this->sendResponse($this->traderRepository->forceDeleteAll(), "", 200);
+    }
 }

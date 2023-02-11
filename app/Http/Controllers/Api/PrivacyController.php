@@ -77,4 +77,44 @@ class PrivacyController extends Controller
     {
         if ($this->privacyRepository->delete($privacy->id)) return $this->sendResponse("", "تم حذف نص الخصوصية", 200);
     }
+
+    /**
+     * restore single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        return $this->sendResponse($this->privacyRepository->restore($id), "", 200);
+    }
+
+    /**
+     * restore all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreAll()
+    {
+        return $this->sendResponse($this->privacyRepository->restoreAll(), "", 200);
+    }
+
+    /**
+     * force delete single row
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete($id)
+    {
+        return $this->sendResponse($this->privacyRepository->forceDelete($id), "", 200);
+    }
+
+    /**
+     * force delete all rows
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDeleteAll()
+    {
+        return $this->sendResponse($this->privacyRepository->forceDeleteAll(), "", 200);
+    }
 }
