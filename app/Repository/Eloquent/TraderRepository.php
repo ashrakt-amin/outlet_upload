@@ -59,7 +59,6 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
             $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
         }
         if ($attributes['age'] == null) $attributes['age'] = $trader->age;
-        if ($attributes['phone'] == null) $attributes['phone'] = $trader->phone;
         $attributes['updated_by'] = $this->getTokenId('user');
 
         $trader->update($attributes);

@@ -82,8 +82,7 @@ class TraderController extends Controller
      */
     public function update(TraderRequest $request, Trader $trader)
     {
-        $trader = $this->traderRepository->edit($trader->id, $request->validated());
-        return $this->sendResponse(new TraderResource($trader), "تم تعديل التاجر", 202);
+        return $this->sendResponse(new TraderResource($this->traderRepository->edit($trader->id, $request->validated())), "تم تعديل التاجر", 202);
 
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             return DB::transaction(function() use($trader, $request){
@@ -99,24 +98,10 @@ class TraderController extends Controller
                 } else {
                     $trader->age = $age;
                 }
-                if ($trader->update()) {
-                    return response()->json([
-                        "success" => true,
-                        "message" => "تم تعديل التاجر",
-                        "data" => new TraderResource($trader),
-                    ], 200);
-                } else {
-                    return response()->json([
-                        "success" => false,
-                        "message" => "فشل تعديل التاجر",
-                    ], 422);
-                }
+                if ($trader->update()) return $this->sendResponse(new TraderResource($trader), "تم تعديل التاجر", 202);
             });
         } else {
-            return response()->json([
-                "success" => false,
-                "message" => "تسجيل الدخول ",
-            ], 422);
+            return $this->sendResponse("", "تسجيل الدخول ", 422);
         }
     }
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TraderRequest extends FormRequest
@@ -30,16 +31,19 @@ class TraderRequest extends FormRequest
     private function updateRequest()
     {
         return [
+
             'f_name'      => 'required',
             'l_name'      => 'required',
             'code'        => 'nullable',
-            'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/' . ($this->id ? ",$this->id" : ''),
+            // 'phone'       => 'unique:traders,phone|regex:/^(01)[0-9]{9}$/' . $this->trader ? $this->trader : '',
+            'phone' => [
+                'required', 'regex:/^(01)[0-9]{9}$/',
+                Rule::unique('traders', 'phone')->ignore($this->trader)
+            ],
             'age'         => 'nullable',
             'img'         => 'nullable',
             'email'       => 'nullable|unique:users,email',
             'national_id' => 'nullable|unique:traders,national_id|regex:/^[0-9]{14}$/',
-            // 'password'    => 'required|min:8|confirmed',
-            // 'password_confirmation' => 'required|same:password',
         ];
     }
 
