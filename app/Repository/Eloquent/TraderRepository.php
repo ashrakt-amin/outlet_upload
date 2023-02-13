@@ -33,6 +33,7 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
     {
         if (array_key_exists('img', $attributes)) $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
         $attributes['code'] = uniqueRandomCode('traders');
+        $attributes['password'] = bcrypt($attributes['password']);
         $attributes['created_by'] = $this->getTokenId('user');
         return $this->model->create($attributes);
     }
@@ -58,9 +59,9 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
             $attributes['img'] = $this->setImage($attributes['img'], 'traders', 450, 450);
         }
         if ($attributes['age'] == null) $attributes['age'] = $trader->age;
+        if ($attributes['phone'] == null) $attributes['phone'] = $trader->phone;
         $attributes['updated_by'] = $this->getTokenId('user');
 
-        $trader->password = bcrypt($attributes['password']);
         $trader->update($attributes);
         return $trader;
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {

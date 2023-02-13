@@ -125,7 +125,7 @@ class TraderController extends Controller
     */
     public function forgettingPassword(Request $request)
     {
-        return $this->sendResponse($this->traderRepository->forgettingPassword($request->all()), "", 200);
+        return $this->sendResponse($this->traderRepository->forgettingPassword($request->all()), "تم تعديل الباسورد", 200);
     }
 
     /**
