@@ -70,9 +70,17 @@ Route::middleware('auth:sanctum')->group(function () {
     //-----------------------------------------------------------------------------------------------------------
     Route::prefix("newTraders")->group(function(){
         Route::controller(TraderController::class)->group(function () {
-            Route::get('/trader', 'trader')->name('newTraders.trader');
+            Route::get('/trader', 'trader');
         });
         Route::resource('/', TraderController::class)->only('destroy', 'update', 'store', 'edit');
+    });
+    //______________________________________________________________________________________________________________________
+
+    //-----------------------------------------------------------------------------------------------------------
+    Route::prefix("traders")->group(function(){
+        Route::controller(TraderController::class)->group(function () {
+            Route::put('/forgetting_password', 'forgettingPassword');
+        });
     });
     //______________________________________________________________________________________________________________________
 

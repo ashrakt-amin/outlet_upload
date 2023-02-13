@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Trader;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TraderRequest;
@@ -117,6 +118,14 @@ class TraderController extends Controller
                 "message" => "تسجيل الدخول ",
             ], 422);
         }
+    }
+    /**
+    * @param $id
+    * @return Trader
+    */
+    public function forgettingPassword(Request $request)
+    {
+        return $this->sendResponse($this->traderRepository->forgettingPassword($request->all()), "", 200);
     }
 
     /**

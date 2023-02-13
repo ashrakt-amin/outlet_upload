@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Repository\TraderRepositoryInterface;
 use App\Http\Traits\AuthGuardTrait as TraitsAuthGuardTrait;
 use App\Http\Traits\ImageProccessingTrait as TraitImageProccessingTrait;
+use Illuminate\Support\Facades\Hash;
 
 class TraderRepository extends BaseRepository implements TraderRepositoryInterface
 {
@@ -58,12 +59,31 @@ class TraderRepository extends BaseRepository implements TraderRepositoryInterfa
         }
         if ($attributes['age'] == null) $attributes['age'] = $trader->age;
         $attributes['updated_by'] = $this->getTokenId('user');
+
+        $trader->password = bcrypt($attributes['password']);
         $trader->update($attributes);
         return $trader;
         if ($this->getTokenId('user') || $this->getTokenId('trader')) {
             return DB::transaction(function() use($id, $attributes){
             });
         }
+    }
+
+    /**
+    * @param $id
+    * @return Trader
+    */
+    public function forgettingPassword(array $attributes)
+    {
+        $trader = $this->model->where(['phone' => $attributes['phone'], 'code' => $attributes['code']])->first();
+        $attributes['updated_by'] = $this->getTokenId('user');
+        if ($attributes['password_confirmation'] != $attributes['password']) {
+            return 'الباسورد غير مطابق';
+        }
+        $attributes['password'] = bcrypt($attributes['password']);
+        // $attributes['password'] = Hash::make($attributes['password']);
+        $trader->update($attributes);
+        return $trader;
     }
 
     /**

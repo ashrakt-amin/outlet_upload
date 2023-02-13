@@ -29,5 +29,9 @@ interface TraderRepositoryInterface {
     * @return Trader
     */
     public function edit($id, array $attributes);
-
+    /**
+    * @param $id
+    * @return Trader
+    */
+    public function forgettingPassword(array $attributes);
  }
