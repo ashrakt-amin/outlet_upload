@@ -32,7 +32,7 @@ return new class extends Migration
             $table->boolean('last_week')                 ->default(0);
             $table->date('last_week_start')             ->nullable();
             $table->text('key_words');
-            $table->string('item_code')                    ->unique();
+            $table->string('item_code')                  ->nullable();
             $table->decimal('discount', 4, 2)            ->default(0);
             $table->text('description');
             $table->unsignedBigInteger('manufactory_id') ->nullable();

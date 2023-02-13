@@ -24,7 +24,8 @@ class ItemRequest extends FormRequest
             'buy_discount'     => 'nullable',
             'buy_price'        => 'nullable',
             'key_words'        => 'nullable',
-            'item_code'        => 'required|unique:items,item_code',
+            'item_code'        => 'nullable',
+            // 'item_code'        => 'required|unique:items,item_code',
         ];
     }
 
