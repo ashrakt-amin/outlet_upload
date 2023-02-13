@@ -233,6 +233,17 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * @return  items
+     */
+    public function archived(array $attributes)
+    {
+        return  function($q) use($attributes){
+        !array_key_exists('archived', $attributes)  ?: $q
+        ->onlyTrashed();
+    };
+    }
+
+    /**
      * Method for all data conditions functional
      */
     public function forAllConditions(array $attributes)
@@ -245,6 +256,7 @@ class BaseRepository implements EloquentRepositoryInterface
             ->where($this->searchingWherekeyWords($attributes))
             ->where($this->whereUnitBooleanColumn($attributes))
             ->where($this->whereDiscount($attributes))
+            // ->where($this->archived($attributes))
             ->where($this->theLatest($attributes));
     }
 
@@ -290,6 +302,20 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Method for all data conditions to paginate
+     */
+    public function allModelsArchived(array $attributes, $resourceCollection)
+    {
+        $this->resourceCollection = $resourceCollection;
+
+        return
+            $this->paginateResponse(
+                $this->resourceCollection::collection($this->model->onlyTrashed()->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : "")),
+                $this->model->onlyTrashed()->paginate(array_key_exists('count', $attributes) ? $attributes['count'] : ""),
+                "archived data; Youssof", 200);
+    }
+
+    /**
      * Method for all data conditions to return a wich method filtered by attributes
      */
     public function forAllConditionsReturn(array $attributes, $resourceCollection)
@@ -300,7 +326,9 @@ class BaseRepository implements EloquentRepositoryInterface
 
             : (array_key_exists('latest', $attributes) ? $this->forAllConditionsLatest($attributes, $resourceCollection)
 
-            : $this->forAllConditionsRandom($attributes, $resourceCollection));
+            : (array_key_exists('archived', $attributes) ? $this->allModelsArchived($attributes, $resourceCollection)
+
+            : $this->forAllConditionsRandom($attributes, $resourceCollection)));
     }
 
        /**

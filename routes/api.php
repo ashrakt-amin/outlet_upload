@@ -201,6 +201,7 @@ Route::resource('mainProjects', MainProjectController::class)->except('create', 
 Route::prefix("projects")->group(function(){
     Route::controller(ProjectController::class)->group(function () {
         Route::get('/all_conditons', 'allConditons');
+        Route::get('/archived', 'archived');
         Route::get('/restore/{id}', 'restore');
         Route::get('/restore_all', 'restoreAll');
         Route::delete('/force_delete/{id}', 'forceDelete');
@@ -227,6 +228,11 @@ Route::prefix("units")->group(function(){
     Route::controller(UnitController::class)->group(function () {
         Route::get('/show_online/{unit}', 'showOnline');
         Route::get('/allConditons', 'allConditons');
+        Route::get('/archived', 'archived');
+        Route::get('/restore/{id}', 'restore');
+        Route::get('/restore_all', 'restoreAll');
+        Route::delete('/force_delete/{id}', 'forceDelete');
+        Route::delete('/force_delete_all', 'forceDeleteAll');
         Route::get('/toggle_update/{id}/{booleanName}', 'toggleUpdate');
         Route::put('/categories/{unit}', 'categories');
     });
@@ -239,7 +245,10 @@ Route::resource('units', UnitController::class)->except('store', 'update', 'crea
 Route::prefix("items")->group(function(){
     Route::controller(ItemController::class)->group(function () {
         Route::get('/whats_app_click/{id}', 'whatsAppClick');
-        Route::get('/latest',             'latest');
+        Route::get('/restore/{id}', 'restore');
+        Route::get('/restore_all', 'restoreAll');
+        Route::delete('/force_delete/{id}', 'forceDelete');
+        Route::delete('/force_delete_all', 'forceDeleteAll');
         Route::get('/toggle_update/{id}/{booleanName}',    'toggleUpdate');
         Route::get('/',                    'index');
         Route::get('/{item}',               'show');

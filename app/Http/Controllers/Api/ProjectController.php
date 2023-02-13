@@ -44,6 +44,16 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function archived()
+    {
+        return $this->sendResponse(ProjectResource::collection($this->projectRepository->archived2()), "", 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function allConditons(Request $request)
     {
         return $this->projectRepository->forAllConditionsReturn($request->all(), ProjectResource::class);

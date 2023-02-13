@@ -40,6 +40,16 @@ class ItemController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function archived(Request $request)
+    {
+        return $this->itemRepository->archived($request->all(), ItemFlashSalesResource::class);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\ItemRequest  $request
@@ -131,19 +141,6 @@ class ItemController extends Controller
     public function forceDeleteAll()
     {
         return $this->sendResponse($this->itemRepository->forceDeleteAll(), "", 200);
-    }
-
-    /**
-     * store the activities of the item.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function categories(Request $request, Item $item)
-    {
-        $item = $this->itemRepository->edit($item->id, $request->all());
-        return $this->sendResponse(new ItemFlashSalesResource($item), "تم تعديل تصنيفات الوحدة", 202);
     }
 
     /**
